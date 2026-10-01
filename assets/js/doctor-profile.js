@@ -1,236 +1,257 @@
-document.addEventListener('DOMContentLoaded', initializeDoctorProfile);
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbwBlm1hceeXi7SWCu457cbauUsv5qx0tkdDB5mP_XO7GtloDiFg7fnuIW6VhylOacvvXg/exec';
 
-function initializeDoctorProfile() {
+document.addEventListener('DOMContentLoaded', function () {
+
   const form = document.getElementById('appointment-form');
+  const successState = document.getElementById('success-state');
+  const bookAnotherButton = document.getElementById('book-another-button');
+
   if (!form) {
     return;
   }
 
-  const dateInput = form.querySelector('[name="appointment_date"]');
-  if (dateInput) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    dateInput.min = today.toISOString().split('T')[0];
-  }
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-  form.addEventListener('submit', handleAppointmentSubmit);
+    clearErrors();
 
-  const resetButton = document.getElementById('book-another-button');
-  if (resetButton) {
-    resetButton.addEventListener('click', resetAppointmentForm);
-  }
-}
+    const doctorId = form.dataset.doctorId;
 
-function handleAppointmentSubmit(event) {
-  event.preventDefault();
+    const patientName =
+      document.getElementById('patient_name').value.trim();
 
-  const form = event.currentTarget;
-  const validation = validateAppointmentForm(form);
+    const patientPhone =
+      document.getElementById('patient_phone').value.trim();
 
-  if (!validation.valid) {
-    return;
-  }
+    const patientEmail =
+      document.getElementById('patient_email').value.trim();
 
-  const appointmentData = {
-    doctor_id: getDoctorId(form),
-    patient_name: form.elements.patient_name.value.trim(),
-    patient_phone: form.elements.patient_phone.value.trim(),
-    patient_email: form.elements.patient_email.value.trim(),
-    appointment_date: form.elements.appointment_date.value,
-    appointment_time: form.elements.appointment_time.value,
-    reason: form.elements.reason.value.trim()
-  };
+    const appointmentDate =
+      document.getElementById('appointment_date').value;
 
-  submitAppointment(appointmentData, form);
-}
+    const appointmentTime =
+      document.getElementById('appointment_time').value;
 
-function validateAppointmentForm(form) {
-  const fields = {
-    patient_name: form.elements.patient_name,
-    patient_phone: form.elements.patient_phone,
-    patient_email: form.elements.patient_email,
-    appointment_date: form.elements.appointment_date,
-    appointment_time: form.elements.appointment_time,
-    reason: form.elements.reason
-  };
+    const reason =
+      document.getElementById('reason').value.trim();
 
-  let isValid = true;
+    // -----------------------------
+    // Frontend validation
+    // -----------------------------
 
-  const nameValue = fields.patient_name.value.trim();
-  if (!nameValue) {
-    setFieldError(form, 'patient_name', 'Please enter your full name.');
-    isValid = false;
-  } else {
-    clearFieldError(form, 'patient_name');
-  }
+    let valid = true;
 
-  const phoneValue = fields.patient_phone.value.trim();
-  if (!phoneValue || !/^[0-9+()\-\s]{7,20}$/.test(phoneValue)) {
-    setFieldError(form, 'patient_phone', 'Please enter a valid mobile number.');
-    isValid = false;
-  } else {
-    clearFieldError(form, 'patient_phone');
-  }
-
-  const emailValue = fields.patient_email.value.trim();
-  if (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-    setFieldError(form, 'patient_email', 'Please enter a valid email address.');
-    isValid = false;
-  } else {
-    clearFieldError(form, 'patient_email');
-  }
-
-  const dateValue = fields.appointment_date.value;
-  if (!dateValue) {
-    setFieldError(form, 'appointment_date', 'Please select a preferred date.');
-    isValid = false;
-  } else {
-    const selectedDate = new Date(`${dateValue}T00:00:00`);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (selectedDate < today) {
-      setFieldError(form, 'appointment_date', 'Please choose a date in the future.');
-      isValid = false;
-    } else {
-      clearFieldError(form, 'appointment_date');
+    if (!patientName) {
+      showError('patient_name', 'Please enter your name.');
+      valid = false;
     }
-  }
 
-  if (!fields.appointment_time.value) {
-    setFieldError(form, 'appointment_time', 'Please select a preferred time.');
-    isValid = false;
-  } else {
-    clearFieldError(form, 'appointment_time');
-  }
+    if (!patientPhone) {
+      showError('patient_phone', 'Please enter your mobile number.');
+      valid = false;
+    }
 
-  return { valid: isValid, fields };
-}
+    if (!appointmentDate) {
+      showError('appointment_date', 'Please select a preferred date.');
+      valid = false;
+    }
 
-function getDoctorId(form) {
-  if (form && form.dataset.doctorId) {
-    return form.dataset.doctorId;
-  }
+    if (!appointmentTime) {
+      showError('appointment_time', 'Please select a preferred time.');
+      valid = false;
+    }
 
-  const pageDoctor = document.querySelector('[data-doctor-id]');
-  return pageDoctor ? pageDoctor.dataset.doctorId : 'DR001';
-}
+    if (!valid) {
+      return;
+    }
 
-function submitAppointment(appointmentData, form) {
-  const doctorName = document.querySelector('[data-doctor-name]')?.dataset.doctorName || 'Dr Thitta Mohanty';
-  const successState = document.getElementById('success-state');
-  const doctorField = document.getElementById('success-doctor-name');
-  const dateField = document.getElementById('success-date');
-  const timeField = document.getElementById('success-time');
+    const submitButton =
+      form.querySelector('button[type="submit"]');
 
-  if (doctorField) {
-    doctorField.textContent = doctorName;
-  }
+    const originalButtonText = submitButton.textContent;
 
-  if (dateField) {
-    dateField.textContent = formatDisplayDate(appointmentData.appointment_date);
-  }
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
 
-  if (timeField) {
-    timeField.textContent = formatDisplayTime(appointmentData.appointment_time);
-  }
+    try {
 
-  if (form) {
-    form.hidden = true;
-    form.setAttribute('aria-hidden', 'true');
-  }
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          action: 'createAppointment',
 
-  if (successState) {
-    successState.hidden = false;
-    successState.classList.add('is-visible');
-    successState.setAttribute('aria-live', 'polite');
-  }
+          doctor_id: doctorId,
 
-  return appointmentData;
-}
+          patient_name: patientName,
 
-function resetAppointmentForm() {
-  const form = document.getElementById('appointment-form');
-  if (!form) {
-    return;
-  }
+          patient_phone: patientPhone,
 
-  form.reset();
-  form.hidden = false;
-  form.setAttribute('aria-hidden', 'false');
+          patient_email: patientEmail,
 
-  const successState = document.getElementById('success-state');
-  if (successState) {
-    successState.hidden = true;
-    successState.classList.remove('is-visible');
-  }
+          appointment_date: appointmentDate,
 
-  form.querySelectorAll('.field-error').forEach((error) => {
-    error.textContent = '';
+          appointment_time: appointmentTime,
+
+          reason: reason
+        })
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(
+          result.message || 'Unable to submit appointment request.'
+        );
+      }
+
+      // -----------------------------
+      // Update success screen
+      // -----------------------------
+
+      document.getElementById('success-doctor-name').textContent =
+        'Dr Thitta Mohanty';
+
+      document.getElementById('success-date').textContent =
+        formatDate(appointmentDate);
+
+      document.getElementById('success-time').textContent =
+        formatTime(appointmentTime);
+
+      form.hidden = true;
+      successState.hidden = false;
+
+      successState.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+    } catch (error) {
+
+      console.error('Appointment submission error:', error);
+
+      alert(
+        error.message ||
+        'Something went wrong. Please try again.'
+      );
+
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
   });
 
-  form.querySelectorAll('.form-control').forEach((field) => {
-    field.setAttribute('aria-invalid', 'false');
-  });
 
-  const dateInput = form.querySelector('[name="appointment_date"]');
-  if (dateInput) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    dateInput.min = today.toISOString().split('T')[0];
+  // -----------------------------
+  // Book another appointment
+  // -----------------------------
+
+  if (bookAnotherButton) {
+
+    bookAnotherButton.addEventListener('click', function () {
+
+      form.reset();
+
+      clearErrors();
+
+      form.hidden = false;
+      successState.hidden = true;
+
+      const submitButton =
+        form.querySelector('button[type="submit"]');
+
+      submitButton.disabled = false;
+      submitButton.textContent = 'Book Appointment';
+
+      form.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
   }
-}
 
-function setFieldError(form, fieldName, message) {
-  const field = form.elements[fieldName];
-  const errorContainer = form.querySelector(`[data-error-for="${fieldName}"]`);
+});
+
+
+// ========================================
+// Validation helpers
+// ========================================
+
+function showError(fieldId, message) {
+
+  const field = document.getElementById(fieldId);
+
+  const error =
+    document.querySelector(
+      '[data-error-for="' + fieldId + '"]'
+    );
 
   if (field) {
     field.setAttribute('aria-invalid', 'true');
   }
 
-  if (errorContainer) {
-    errorContainer.textContent = message;
+  if (error) {
+    error.textContent = message;
   }
 }
 
-function clearFieldError(form, fieldName) {
-  const field = form.elements[fieldName];
-  const errorContainer = form.querySelector(`[data-error-for="${fieldName}"]`);
 
-  if (field) {
+function clearErrors() {
+
+  const errors =
+    document.querySelectorAll('.field-error');
+
+  errors.forEach(function (error) {
+    error.textContent = '';
+  });
+
+  const fields =
+    document.querySelectorAll(
+      '#appointment-form .form-control'
+    );
+
+  fields.forEach(function (field) {
     field.setAttribute('aria-invalid', 'false');
-  }
-
-  if (errorContainer) {
-    errorContainer.textContent = '';
-  }
+  });
 }
 
-function formatDisplayDate(value) {
-  if (!value) {
-    return '';
-  }
 
-  const date = new Date(`${value}T00:00:00`);
-  return date.toLocaleDateString('en-GB', {
+// ========================================
+// Date formatting
+// ========================================
+
+function formatDate(dateString) {
+
+  const date = new Date(dateString + 'T00:00:00');
+
+  return date.toLocaleDateString('en-IN', {
     day: '2-digit',
     month: 'long',
     year: 'numeric'
   });
 }
 
-function formatDisplayTime(value) {
-  if (!value) {
-    return '';
+
+// ========================================
+// Time formatting
+// ========================================
+
+function formatTime(timeString) {
+
+  const parts = timeString.split(':');
+
+  let hours = parseInt(parts[0], 10);
+  const minutes = parts[1];
+
+  const suffix = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+
+  if (hours === 0) {
+    hours = 12;
   }
 
-  const [hours, minutes] = value.split(':');
-  const time = new Date();
-  time.setHours(Number(hours), Number(minutes), 0, 0);
-
-  return time.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  return hours + ':' + minutes + ' ' + suffix;
 }
