@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard | Thomson Clinic</title>
+  <link rel="stylesheet" href="assets/css/doctor-dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="brand">Thomson Clinic</div>
+      <div class="subtitle">Doctor Dashboard</div>
+    </div>
+    <div class="doctor-area">
+      <div class="doctor-name" id="doctorName">Loading…</div>
+      <div class="doctor-speciality" id="doctorSpeciality"></div>
+      <button id="logoutButton" class="logout-button">Sign out</button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome">
+      <div>
+        <h1>Appointments</h1>
+        <p id="doctorMeta">Loading your appointments…</p>
+      </div>
+      <button id="refreshButton" class="refresh-button">Refresh</button>
+    </section>
+
+    <section class="stats" aria-label="Appointment summary">
+      <div class="stat-card">
+        <span class="stat-label">Total</span>
+        <strong id="totalCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Pending</span>
+        <strong id="pendingCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Confirmed</span>
+        <strong id="confirmedCount">0</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Completed</span>
+        <strong id="completedCount">0</strong>
+      </div>
+    </section>
+
+    <section id="message" class="message hidden"></section>
+
+    <section id="appointmentList" class="appointment-list">
+      <div class="empty-state">
+        <div class="empty-title">Loading appointments</div>
+        <div class="empty-text">Please wait.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/doctor-dashboard.js"></script>
+</body>
+</html>
