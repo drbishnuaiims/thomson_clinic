@@ -60,16 +60,27 @@
     #google-signin {
       display: flex;
       justify-content: center;
+      min-height: 44px;
     }
 
     .login-status {
       margin-top: 20px;
       color: #6e6e73;
       font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .login-status.error {
+      color: #c62828;
+    }
+
+    .login-status.success {
+      color: #16803c;
     }
 
   </style>
 
+  <!-- Google Identity Services -->
   <script
     src="https://accounts.google.com/gsi/client"
     async
@@ -77,6 +88,7 @@
   ></script>
 
 </head>
+
 
 <body>
 
@@ -109,20 +121,75 @@
 
   </main>
 
+
   <script>
+
+    // ========================================
+    // THOMSON CLINIC API
+    // ========================================
 
     const API_URL =
       'https://script.google.com/macros/s/AKfycbwBlm1hceeXi7SWCu457cbauUsv5qx0tkdDB5mP_XO7GtloDiFg7fnuIW6VhylOacvvXg/exec';
 
+
+    // ========================================
+    // GOOGLE OAUTH CLIENT ID
+    // ========================================
+
+    const GOOGLE_CLIENT_ID =
+      '531332755116-5lqbn38ja7dqvr9f41bep5hrerf85hne.apps.googleusercontent.com';
+
+
+    // ========================================
+    // SESSION STORAGE KEYS
+    // ========================================
+
+    const TOKEN_KEY =
+      'thomson_google_token';
+
+    const DOCTOR_KEY =
+      'thomson_doctor';
+
+
+    // ========================================
+    // HANDLE GOOGLE LOGIN
+    // ========================================
 
     function handleGoogleCredential(response) {
 
       const status =
         document.getElementById('login-status');
 
+
+      status.className =
+        'login-status';
+
       status.textContent =
         'Signing you in...';
 
+
+      // --------------------------------------
+      // Make sure Google returned a credential
+      // --------------------------------------
+
+      if (
+        !response ||
+        !response.credential
+      ) {
+
+        status.className =
+          'login-status error';
+
+        status.textContent =
+          'Google authentication did not return a credential.';
+
+        return;
+      }
+
+
+      // --------------------------------------
+      // Send Google ID token to Apps Script
+      // --------------------------------------
 
       fetch(API_URL, {
 
@@ -135,7 +202,8 @@
 
         body: JSON.stringify({
 
-          action: 'googleLogin',
+          action:
+            'googleLogin',
 
           credential:
             response.credential
@@ -144,65 +212,156 @@
 
       })
 
+
+      // --------------------------------------
+      // Parse API response
+      // --------------------------------------
+
       .then(function(response) {
+
+        if (!response.ok) {
+
+          throw new Error(
+            'Unable to connect to Thomson Clinic server.'
+          );
+        }
+
         return response.json();
+
       })
+
+
+      // --------------------------------------
+      // Process authentication response
+      // --------------------------------------
 
       .then(function(result) {
 
         if (!result.success) {
+
           throw new Error(
             result.message ||
             'Authentication failed.'
           );
         }
 
+
+        // ------------------------------------
+        // Store Google ID token
+        //
+        // IMPORTANT:
+        // Dashboard uses the same key.
+        // ------------------------------------
+
         sessionStorage.setItem(
-          'thomson_google_id_token',
+          TOKEN_KEY,
           response.credential
         );
 
+
+        // ------------------------------------
+        // Store authenticated doctor data
+        // ------------------------------------
+
         sessionStorage.setItem(
-          'thomson_doctor',
+          DOCTOR_KEY,
           JSON.stringify(result.data)
         );
 
-        status.textContent =
-          'Authentication successful.';
 
-        /*
-         * Dashboard will be created next.
-         */
-        window.location.href =
-          'doctor-dashboard.html';
+        // ------------------------------------
+        // Show success
+        // ------------------------------------
+
+        status.className =
+          'login-status success';
+
+        status.textContent =
+          'Authentication successful. Opening your dashboard...';
+
+
+        // ------------------------------------
+        // Redirect to doctor dashboard
+        // ------------------------------------
+
+        setTimeout(function() {
+
+          window.location.href =
+            'doctor-dashboard.html';
+
+        }, 300);
 
       })
 
+
+      // --------------------------------------
+      // Handle errors
+      // --------------------------------------
+
       .catch(function(error) {
 
-        console.error(error);
+        console.error(
+          'Thomson Clinic login error:',
+          error
+        );
+
+
+        status.className =
+          'login-status error';
 
         status.textContent =
           error.message ||
-          'Unable to sign in.';
+          'Unable to sign in. Please try again.';
 
       });
 
     }
 
 
-    window.onload = function() {
+    // ========================================
+    // INITIALIZE GOOGLE SIGN-IN
+    // ========================================
+
+    function initializeGoogleSignIn() {
+
+      if (
+        !window.google ||
+        !google.accounts ||
+        !google.accounts.id
+      ) {
+
+        document.getElementById(
+          'login-status'
+        ).textContent =
+          'Google Sign-In is still loading. Please wait...';
+
+        setTimeout(
+          initializeGoogleSignIn,
+          500
+        );
+
+        return;
+      }
+
+
+      // --------------------------------------
+      // Initialize Google Identity Services
+      // --------------------------------------
 
       google.accounts.id.initialize({
 
         client_id:
-          '531332755116-5lqbn38ja7dqvr9f41bep5hrerf85hne.apps.googleusercontent.com',
+          GOOGLE_CLIENT_ID,
 
         callback:
           handleGoogleCredential
 
       });
 
+
+      // --------------------------------------
+      // Render Google Sign-In button
+      // --------------------------------------
 
       google.accounts.id.renderButton(
 
@@ -211,16 +370,37 @@
         ),
 
         {
-          theme: 'outline',
-          size: 'large',
-          text: 'signin_with',
-          shape: 'rectangular',
-          width: 300
+
+          theme:
+            'outline',
+
+          size:
+            'large',
+
+          text:
+            'signin_with',
+
+          shape:
+            'rectangular',
+
+          width:
+            300
+
         }
 
       );
 
-    };
+    }
+
+
+    // ========================================
+    // PAGE LOAD
+    // ========================================
+
+    window.addEventListener(
+      'load',
+      initializeGoogleSignIn
+    );
 
   </script>
 
