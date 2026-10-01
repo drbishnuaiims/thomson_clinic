@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr Thitta Mohanty | Respiratory Medicine | Thomson Clinic</title>
+    <meta
+      name="description"
+      content="Meet Dr Thitta Mohanty, Consultant in Respiratory Medicine at Thomson Clinic. Learn about respiratory care and request an appointment."
+    />
+    <meta name="theme-color" content="#f5f9f7" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/appointment.css" />
+    <script src="../assets/js/config.js"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container">
+        <a href="../index.html" class="brand" aria-label="Return to Thomson Clinic home">
+          <span class="brand-mark">T</span>
+          <span>Thomson Clinic</span>
+        </a>
+
+        <nav class="page-nav" aria-label="Doctor profile navigation">
+          <a href="../index.html">Clinic home</a>
+          <a href="#about-heading">About</a>
+          <a href="#expertise-heading">Expertise</a>
+          <a class="profile-nav-cta" href="#appointment-heading">Request a visit <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="doctor-page">
+      <section class="doctor-hero">
+        <div class="container doctor-hero-inner">
+          <div class="doctor-intro">
+            <span class="profile-eyebrow"><span class="status-dot"></span> THOMSON CLINIC · SPECIALIST CARE</span>
+            <h1 class="doctor-name">Dr Thitta<br /><span>Mohanty</span></h1>
+            <p class="doctor-title">Consultant in Respiratory Medicine</p>
+            <p class="doctor-lead">Expertise in respiratory care, with time to listen, clear guidance, and a plan shaped around you.</p>
+            <div class="doctor-hero-actions"><a class="submit-btn" href="#appointment-heading">Request an appointment <span aria-hidden="true">→</span></a><a class="profile-text-link" href="#about-heading">Get to know your doctor <span aria-hidden="true">↓</span></a></div>
+            <div class="doctor-trust"><span aria-hidden="true">✓</span> Evidence-based care · Thoughtful follow-up</div>
+          </div>
+          <div class="doctor-portrait"><img class="doctor-photo" src="../assets/images/doctor-placeholder.svg" alt="Portrait illustration for Dr Thitta Mohanty" /><span class="portrait-caption"><b>DR</b><span>RESPIRATORY MEDICINE<br />CONSULTANT</span></span></div>
+        </div>
+      </section>
+
+      <section class="profile-facts" aria-label="Practice information"><div class="container profile-facts-inner"><div><span>01</span><strong>Respiratory Medicine</strong></div><div><span>02</span><strong>English & Hindi</strong></div><div><span>03</span><strong>By appointment</strong></div><div><span>04</span><strong>Thomson Clinic</strong></div></div></section>
+
+      <section class="profile-section">
+        <div class="container profile-shell">
+          <div class="profile-main">
+            <section class="content-card" aria-labelledby="about-heading"><span class="section-kicker">A PERSONAL APPROACH</span><h2 id="about-heading">Care starts with a conversation.</h2><p>Dr Thitta Mohanty is a respiratory medicine specialist focused on diagnosis, treatment, and long-term management of respiratory conditions. At Thomson Clinic, care begins by understanding what you are experiencing and what matters most to you.</p><p>Through evidence-based evaluation and clear patient guidance, Dr Mohanty helps patients understand their options and move forward with a thoughtful care plan.</p></section>
+
+            <section class="content-card" aria-labelledby="expertise-heading"><span class="section-kicker">AREAS OF CARE</span><h2 id="expertise-heading">Respiratory expertise, focused on you.</h2><div class="expertise-grid"><article><span>01</span><h3>Persistent cough</h3><p>Assessment of chronic cough and ongoing respiratory symptoms.</p></article><article><span>02</span><h3>Asthma care</h3><p>Support with asthma management and treatment planning.</p></article><article><span>03</span><h3>Respiratory infections</h3><p>Diagnosis, treatment, and considered follow-up care.</p></article><article><span>04</span><h3>Breathlessness</h3><p>Evaluation of breathlessness and clear next-step guidance.</p></article></div></section>
+
+            <section class="content-card consultation-card" aria-labelledby="consultation-heading"><span class="section-kicker">YOUR VISIT</span><h2 id="consultation-heading">A little more clarity before you arrive.</h2><p>Appointments are available at Thomson Clinic. Share your preferred date and time, and the care team can follow up to coordinate your visit.</p><div class="visit-details"><div><span class="visit-icon" aria-hidden="true">⌖</span><span><small>LOCATION</small><strong>Thomson Clinic</strong></span></div><div><span class="visit-icon" aria-hidden="true">◷</span><span><small>CONSULTATION</small><strong>In-person, by appointment</strong></span></div></div></section>
+          </div>
+
+          <aside class="profile-sidebar">
+            <section class="appointment-card" aria-labelledby="appointment-heading"><span class="section-kicker">TAKE THE NEXT STEP</span><h2 id="appointment-heading">Request a visit</h2><p>Tell us what works for you. We’ll be in touch to confirm the details.</p><form id="appointment-form" class="appointment-form" novalidate>
+              <div class="field"><label for="patient_name">Your name</label><input id="patient_name" name="patient_name" type="text" autocomplete="name" placeholder="Name" required /></div>
+              <div class="field"><label for="mobile">Mobile number</label><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" required /></div>
+              <div class="field"><label for="email">Email <span>(optional)</span></label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" /></div>
+              <div class="form-row"><div class="field"><label for="preferred_date">Preferred date</label><input id="preferred_date" name="preferred_date" type="date" required /></div><div class="field"><label for="preferred_time">Preferred time</label><input id="preferred_time" name="preferred_time" type="time" required /></div></div>
+              <div class="field"><label for="reason">What would you like help with? <span>(optional)</span></label><textarea id="reason" name="reason" placeholder="A brief note for the doctor"></textarea></div>
+              <input id="doctor_id" name="doctor_id" type="hidden" value="DR001" />
+              <p class="privacy-note"><span aria-hidden="true">⌑</span> Your details are used only to coordinate your appointment request.</p>
+              <div class="form-actions"><button class="submit-btn" type="submit">Send appointment request <span aria-hidden="true">→</span></button></div>
+            </form><div id="success-card" class="success-card" aria-live="polite"></div></section>
+            <div class="sidebar-note"><span aria-hidden="true">✳</span><p>Not sure where to start?<br /><strong>That’s what we’re here for.</strong></p></div>
+          </aside>
+        </div>
+      </section>
+      <section class="profile-cta"><div class="container"><div><span class="section-kicker">THOMSON CLINIC</span><h2>Care, with a little more clarity.</h2></div><a href="../index.html">Back to clinic home <span aria-hidden="true">↗</span></a></div></section>
+    </main>
+
+    <footer class="profile-footer"><div class="container"><a class="brand" href="../index.html"><span class="brand-mark">T</span><span>Thomson Clinic</span></a><span>Thoughtful care. Clear next steps.</span><a href="../admin/dashboard.html">Clinic portal</a><small>© Thomson Clinic</small></div></footer>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="../assets/js/appointment.js"></script>
+  </body>
+</html>

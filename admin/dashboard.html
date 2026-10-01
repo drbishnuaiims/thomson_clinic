@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Dashboard | Thomson Clinic</title>
+    <meta
+      name="description"
+      content="Doctor appointment dashboard for Thomson Clinic demo mode."
+    />
+    <meta name="theme-color" content="#f5f9f7" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+    <script src="../assets/js/config.js"></script>
+  </head>
+  <body>
+    <header class="dashboard-topbar">
+      <div class="container">
+        <a href="../index.html" class="brand" aria-label="Thomson Clinic home">
+          <span class="brand-mark">T</span>
+          <span>Thomson Clinic <small>CARE PORTAL</small></span>
+        </a>
+        <nav aria-label="Dashboard navigation">
+          <a href="../index.html">Clinic home</a>
+          <a href="../doctors/dr-thitta-mohanty.html">Doctor profile</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="dashboard-shell">
+      <div class="container">
+        <header class="dashboard-header">
+          <div class="doctor-heading">
+            <span class="dashboard-kicker">CLINIC OPERATIONS</span>
+            <h1>Appointments overview</h1>
+            <p>Respiratory Medicine</p>
+          </div>
+
+          <div class="header-actions">
+            <a class="secondary-btn" href="../doctors/dr-thitta-mohanty.html">Open profile</a>
+          </div>
+        </header>
+
+        <section class="summary-grid" aria-label="Appointment summary">
+          <article class="summary-card">
+            <div class="summary-label">
+              <span>Today's Appointments</span>
+            </div>
+            <div id="summary-today" class="summary-value">0</div>
+          </article>
+
+          <article class="summary-card new">
+            <div class="summary-label">
+              <span>New</span>
+            </div>
+            <div id="summary-new" class="summary-value">0</div>
+          </article>
+
+          <article class="summary-card confirmed">
+            <div class="summary-label">
+              <span>Confirmed</span>
+            </div>
+            <div id="summary-confirmed" class="summary-value">0</div>
+          </article>
+
+          <article class="summary-card completed">
+            <div class="summary-label">
+              <span>Completed</span>
+            </div>
+            <div id="summary-completed" class="summary-value">0</div>
+          </article>
+        </section>
+
+        <section class="appointment-board" aria-label="Appointment management board">
+          <aside class="list-panel" aria-label="Appointment list panel">
+            <div class="list-toolbar">
+              <label class="search-box" for="search-input">
+                <span aria-hidden="true">⌕</span>
+                <input id="search-input" type="search" placeholder="Search patient or ID" />
+              </label>
+            </div>
+
+            <div class="filter-row" aria-label="Appointment status filters">
+              <button type="button" class="filter-chip active" data-filter="ALL">All</button>
+              <button type="button" class="filter-chip" data-filter="NEW">New</button>
+              <button type="button" class="filter-chip" data-filter="CONFIRMED">Confirmed</button>
+              <button type="button" class="filter-chip" data-filter="RESCHEDULED">Rescheduled</button>
+              <button type="button" class="filter-chip" data-filter="CANCELLED">Cancelled</button>
+              <button type="button" class="filter-chip" data-filter="COMPLETED">Completed</button>
+            </div>
+
+            <ul id="appointment-list" class="appointment-list" aria-live="polite"></ul>
+          </aside>
+
+          <section class="detail-panel" id="appointment-detail" aria-live="polite"></section>
+        </section>
+      </div>
+    </main>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="../assets/js/dashboard.js"></script>
+  </body>
+</html>
