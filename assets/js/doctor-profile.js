@@ -112,10 +112,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // Update success screen
       // -----------------------------
 
-      document.getElementById('success-doctor-name').textContent =
-        'Dr Thitta Mohanty';
-        document.getElementById('success-appointment-id').textContent =
-  result.data.appointment_id;
+      const doctorName =
+        document.querySelector('[data-doctor-name]')?.dataset.doctorName || 'your doctor';
+
+      document.getElementById('success-doctor-name').textContent = doctorName;
+      document.getElementById('success-appointment-id').textContent =
+        result.data.appointment_id;
 
       document.getElementById('success-date').textContent =
         formatDate(appointmentDate);

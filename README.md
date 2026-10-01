@@ -6,6 +6,7 @@ This repository contains the first frontend pass for the Thomson Clinic public d
 
 - Minimal public homepage at `index.html`
 - Doctor profile page at `doctors/dr-thitta-mohanty.html`
+- Pediatric profile page at `doctors/dr-debasish-prusty.html`
 - Shared styling in `assets/css/main.css`
 - Doctor page styling in `assets/css/doctor-profile.css`
 - Frontend validation and demo submission logic in `assets/js/doctor-profile.js`
@@ -17,6 +18,13 @@ This repository contains the first frontend pass for the Thomson Clinic public d
 - No Node.js build step required
 - Intended for GitHub Pages deployment
 - Demo-only appointment submission with a clear structure for future backend integration
+
+## Doctor account setup
+
+The pediatric profile submits appointments with doctor ID `DR002`. Add a matching doctor record
+to the Google Apps Script backend, associate it with `drbishnuaiims@gmail.com`, and ensure its
+Google login allowlist accepts that account. The Apps Script source is managed outside this
+repository, so the static site cannot grant login access by itself.
 
 ## Local preview
 
