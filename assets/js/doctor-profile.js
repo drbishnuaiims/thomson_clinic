@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       document.getElementById('success-doctor-name').textContent =
         'Dr Thitta Mohanty';
+        document.getElementById('success-appointment-id').textContent =
+  result.data.appointment_id;
 
       document.getElementById('success-date').textContent =
         formatDate(appointmentDate);
@@ -121,13 +123,15 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('success-time').textContent =
         formatTime(appointmentTime);
 
-      form.hidden = true;
-      successState.hidden = false;
+      form.style.display = 'none';
 
-      successState.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+     successState.hidden = false;
+     successState.style.display = 'block';
+
+     successState.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+});
 
     } catch (error) {
 
@@ -156,8 +160,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       clearErrors();
 
-      form.hidden = false;
+      form.style.display = '';
       successState.hidden = true;
+      successState.style.display = 'none';
 
       const submitButton =
         form.querySelector('button[type="submit"]');
