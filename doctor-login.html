@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Doctor Login | Thomson Clinic</title>
+
+  <link
+    rel="stylesheet"
+    href="assets/css/main.css"
+  >
+
+  <style>
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #f5f5f7;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .login-brand {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 8px;
+    }
+
+    .login-title {
+      font-size: 22px;
+      margin: 0 0 8px;
+      color: #1d1d1f;
+    }
+
+    .login-description {
+      color: #6e6e73;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    #google-signin {
+      display: flex;
+      justify-content: center;
+    }
+
+    .login-status {
+      margin-top: 20px;
+      color: #6e6e73;
+      font-size: 14px;
+    }
+
+  </style>
+
+  <script
+    src="https://accounts.google.com/gsi/client"
+    async
+    defer
+  ></script>
+
+</head>
+
+<body>
+
+  <main class="login-page">
+
+    <section class="login-card">
+
+      <div class="login-brand">
+        Thomson Clinic
+      </div>
+
+      <h1 class="login-title">
+        Doctor Portal
+      </h1>
+
+      <p class="login-description">
+        Sign in with your authorized Google account
+        to access your appointment inbox.
+      </p>
+
+      <div id="google-signin"></div>
+
+      <div
+        id="login-status"
+        class="login-status"
+        aria-live="polite"
+      ></div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const API_URL =
+      'https://script.google.com/macros/s/AKfycbwBlm1hceeXi7SWCu457cbauUsv5qx0tkdDB5mP_XO7GtloDiFg7fnuIW6VhylOacvvXg/exec';
+
+
+    function handleGoogleCredential(response) {
+
+      const status =
+        document.getElementById('login-status');
+
+      status.textContent =
+        'Signing you in...';
+
+
+      fetch(API_URL, {
+
+        method: 'POST',
+
+        headers: {
+          'Content-Type':
+            'text/plain;charset=utf-8'
+        },
+
+        body: JSON.stringify({
+
+          action: 'googleLogin',
+
+          credential:
+            response.credential
+
+        })
+
+      })
+
+      .then(function(response) {
+        return response.json();
+      })
+
+      .then(function(result) {
+
+        if (!result.success) {
+          throw new Error(
+            result.message ||
+            'Authentication failed.'
+          );
+        }
+
+        sessionStorage.setItem(
+          'thomson_google_id_token',
+          response.credential
+        );
+
+        sessionStorage.setItem(
+          'thomson_doctor',
+          JSON.stringify(result.data)
+        );
+
+        status.textContent =
+          'Authentication successful.';
+
+        /*
+         * Dashboard will be created next.
+         */
+        window.location.href =
+          'doctor-dashboard.html';
+
+      })
+
+      .catch(function(error) {
+
+        console.error(error);
+
+        status.textContent =
+          error.message ||
+          'Unable to sign in.';
+
+      });
+
+    }
+
+
+    window.onload = function() {
+
+      google.accounts.id.initialize({
+
+        client_id:
+          '531332755116-5lqbn38ja7dqvr9f41bep5hrerf85hne.apps.googleusercontent.com',
+
+        callback:
+          handleGoogleCredential
+
+      });
+
+
+      google.accounts.id.renderButton(
+
+        document.getElementById(
+          'google-signin'
+        ),
+
+        {
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+          shape: 'rectangular',
+          width: 300
+        }
+
+      );
+
+    };
+
+  </script>
+
+</body>
+
+</html>
