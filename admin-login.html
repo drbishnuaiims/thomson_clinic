@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thomson Clinic — Master Admin</title>
+<link rel="stylesheet" href="assets/css/admin.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body class="admin-auth-page">
+<main class="auth-shell">
+  <section class="auth-card">
+    <div class="brand-mark">TC</div>
+    <div class="eyebrow">THOMSON CLINIC</div>
+    <h1>Master Admin</h1>
+    <p class="muted">Secure administration for doctors, users, appointments and audit records.</p>
+    <div id="google-signin" class="google-wrap"></div>
+    <div id="login-status" class="status" role="alert"></div>
+    <p class="security-note">Only Google accounts explicitly authorized as Master Admins by the Apps Script backend can access this panel.</p>
+    <a class="back-link" href="index.html">← Back to Thomson Clinic</a>
+  </section>
+</main>
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycbwBlm1hceeXi7SWCu457cbauUsv5qx0tkdDB5mP_XO7GtloDiFg7fnuIW6VhylOacvvXg/exec';
+const GOOGLE_CLIENT_ID='531332755116-5lqbn38ja7dqvr9f41bep5hrerf85hne.apps.googleusercontent.com';
+const TOKEN_KEY='thomson_google_token';
+const ADMIN_KEY='thomson_admin';
+function status(msg,error=false){const e=document.getElementById('login-status');e.textContent=msg;e.className='status '+(error?'error':'');}
+async function handleCredential(response){
+  if(!response?.credential){status('Google authentication did not return a credential.',true);return;}
+  status('Verifying Master Admin access…');
+  try{
+    const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'adminLogin',credential:response.credential})});
+    const result=await r.json();
+    if(!result.success) throw new Error(result.message||'Master Admin access denied.');
+    sessionStorage.setItem(TOKEN_KEY,response.credential);
+    sessionStorage.setItem(ADMIN_KEY,JSON.stringify(result.data||{}));
+    window.location.href='admin-dashboard.html';
+  }catch(e){status(e.message||'Unable to connect to Thomson Clinic server.',true);}
+}
+function init(){
+  if(!window.google?.accounts?.id){setTimeout(init,300);return;}
+  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredential});
+  google.accounts.id.renderButton(document.getElementById('google-signin'),{theme:'outline',size:'large',shape:'rectangular',width:320});
+}
+window.addEventListener('load',init);
+</script>
+</body>
+</html>
