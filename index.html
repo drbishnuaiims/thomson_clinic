@@ -1,88 +1,5376 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Thomson Clinic offers expert respiratory medicine and accessible appointments."
-    />
-    <title>Thomson Clinic</title>
-    <link rel="stylesheet" href="assets/css/main.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="index.html">Thomson Clinic</a>
-        <nav class="site-nav" aria-label="Main navigation">
-          <a href="index.html">Home</a>
-          <a href="#doctors">Doctors</a>
-        </nav>
-      </div>
-    </header>
 
-    <main class="container page-intro">
-      <section class="home-hero" aria-labelledby="home-title">
-        <p class="eyebrow">Trusted care</p>
-        <h1 id="home-title">Specialist respiratory medicine support.</h1>
-        <p class="lead">
-          Thomson Clinic brings together thoughtful clinical care and a calm, easy booking
-          experience for patients seeking specialist consultations.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="doctors/dr-thitta-mohanty.html#appointment"
-            >Book an appointment</a
-          >
-          <a class="button button-secondary" href="doctors/dr-thitta-mohanty.html"
-            >View doctor profile</a
-          >
-        </div>
-      </section>
+<head>
 
-      <section id="doctors" class="home-doctor-card" aria-labelledby="featured-doctor">
-        <div class="home-card-image">
-          <img
-            src="assets/images/doctor-portrait.svg"
-            alt="Portrait illustration of Dr Thitta Mohanty"
-          />
-        </div>
-        <div class="home-card-content">
-          <p class="eyebrow">Featured doctor</p>
-          <h2 id="featured-doctor">Dr Thitta Mohanty</h2>
-          <p class="doctor-role">Professor &amp; Head of Department</p>
-          <p class="doctor-specialty">Respiratory Medicine</p>
-          <a class="text-link" href="doctors/dr-thitta-mohanty.html">View profile</a>
-        </div>
-      </section>
+<meta charset="UTF-8">
 
-      <section class="home-doctor-card" aria-labelledby="pediatrician-name">
-        <div class="home-card-image">
-          <img
-            src="assets/images/doctor-portrait.svg"
-            alt="Portrait illustration of Dr Debasish Prusty"
-          />
-        </div>
-        <div class="home-card-content">
-          <p class="eyebrow">Pediatrics</p>
-          <h2 id="pediatrician-name">Dr Debasish Prusty</h2>
-          <p class="doctor-role">Pediatrician</p>
-          <p class="doctor-specialty">Child health and pediatrics</p>
-          <a class="text-link" href="doctors/dr-debasish-prusty.html">View profile</a>
-        </div>
-      </section>
-    </main>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>Thomson Clinic</p>
-        <p>Mental Health &amp; Neuroscience eClinic</p>
-        <p>© <span id="current-year"></span> Thomson Clinic</p>
-      </div>
-    </footer>
+<title>
+Thomson Clinic — Mental Health & Neuroscience E-Clinic
+</title>
 
-    <script src="assets/js/doctor-profile.js"></script>
-    <script>
-      document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
-  </body>
+<meta
+name="description"
+content="Thomson Clinic is a specialized mental health and neuroscience e-clinic offering psychiatry, psychology, therapy, neuroscience-based care and connected specialist clinics."
+>
+
+<meta
+name="keywords"
+content="Thomson Clinic, mental health clinic, neuroscience clinic, psychiatry, psychology, therapy, psychiatrist, psychologist, psychiatric social worker, neurology, dermatology, oncology, diabetes, medicine specialist, e-clinic India"
+>
+
+<meta
+name="author"
+content="Thomson Clinic"
+>
+
+<meta
+name="robots"
+content="index, follow"
+>
+
+<link
+rel="canonical"
+href="https://thomsonclinic.com/"
+>
+
+<meta
+property="og:type"
+content="website"
+>
+
+<meta
+property="og:title"
+content="Thomson Clinic — Mental Health & Neuroscience E-Clinic"
+>
+
+<meta
+property="og:description"
+content="Specialized mental health and neuroscience care connected with a wider network of specialist clinics."
+>
+
+<meta
+property="og:url"
+content="https://thomsonclinic.com/"
+>
+
+<meta
+property="og:site_name"
+content="Thomson Clinic"
+>
+
+<meta
+property="og:image"
+content="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=85"
+>
+
+<meta
+name="twitter:card"
+content="summary_large_image"
+>
+
+<meta
+name="twitter:title"
+content="Thomson Clinic — Mental Health & Neuroscience E-Clinic"
+>
+
+<meta
+name="twitter:description"
+content="Specialized mental health and neuroscience care with connected specialist clinics."
+>
+
+<meta
+name="theme-color"
+content="#f5f5f7"
+>
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com"
+>
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+rel="stylesheet"
+>
+
+
+<script type="application/ld+json">
+
+{
+  "@context":"https://schema.org",
+  "@type":"MedicalClinic",
+  "name":"Thomson Clinic",
+  "alternateName":"Thomson Clinic Mental Health & Neuroscience E-Clinic",
+  "url":"https://thomsonclinic.com/",
+  "logo":"https://thomsonclinic.com/assets/thomson-clinic-logo.png",
+  "description":"Thomson Clinic is a specialized mental health and neuroscience e-clinic with connected specialist clinics across medicine.",
+  "medicalSpecialty":[
+    "Psychiatry",
+    "Psychology",
+    "Mental Health",
+    "Neuroscience",
+    "Sleep Medicine",
+    "Addiction Medicine",
+    "Child and Adolescent Mental Health",
+    "Neurology"
+  ]
+}
+
+</script>
+
+
+<style>
+
+/* =========================================================
+   THOMSON CLINIC
+========================================================= */
+
+:root{
+
+--black:#171719;
+--black2:#252527;
+
+--white:#ffffff;
+
+--paper:#f5f5f7;
+--paper2:#fafafa;
+
+--text:#1d1d1f;
+
+--muted:#6e6e73;
+--muted2:#86868b;
+
+--line:#e5e5e7;
+
+--blue:#0071e3;
+--blue-dark:#0066cc;
+--blue-soft:#eaf4ff;
+
+--green:#34c759;
+
+--max:1180px;
+
+--radius:26px;
+--radius-lg:34px;
+
+--shadow:
+0 25px 70px rgba(0,0,0,.09);
+
+}
+
+
+*{
+
+box-sizing:border-box;
+
+margin:0;
+padding:0;
+
+}
+
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+
+body{
+
+font-family:
+Inter,
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"SF Pro Text",
+sans-serif;
+
+color:var(--text);
+
+background:white;
+
+line-height:1.5;
+
+-webkit-font-smoothing:antialiased;
+
+overflow-x:hidden;
+
+}
+
+
+img{
+
+display:block;
+width:100%;
+
+}
+
+
+a{
+
+color:inherit;
+text-decoration:none;
+
+}
+
+
+button{
+
+font:inherit;
+
+}
+
+
+.container{
+
+width:min(
+calc(100% - 48px),
+var(--max)
+);
+
+margin:auto;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.thomson-logo{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+
+.logo-symbol{
+
+width:30px;
+height:30px;
+
+border-radius:8px;
+
+background:#171719;
+
+position:relative;
+
+flex-shrink:0;
+
+}
+
+
+.logo-symbol::before{
+
+content:"";
+
+position:absolute;
+
+width:14px;
+height:14px;
+
+border:1.5px solid white;
+
+border-radius:50%;
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+}
+
+
+.logo-symbol::after{
+
+content:"";
+
+position:absolute;
+
+width:4px;
+height:4px;
+
+background:white;
+
+border-radius:50%;
+
+left:50%;
+top:50%;
+
+transform:translate(-50%,-50%);
+
+}
+
+
+.logo-text{
+
+display:flex;
+
+flex-direction:column;
+
+line-height:1.05;
+
+}
+
+
+.logo-main{
+
+font-size:16px;
+
+font-weight:700;
+
+letter-spacing:-.045em;
+
+}
+
+
+.logo-sub{
+
+margin-top:4px;
+
+color:#77777c;
+
+font-size:6.5px;
+
+font-weight:600;
+
+letter-spacing:.055em;
+
+text-transform:uppercase;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+
+position:fixed;
+
+top:0;
+left:0;
+right:0;
+
+height:68px;
+
+z-index:1000;
+
+background:
+rgba(255,255,255,.86);
+
+backdrop-filter:
+saturate(180%)
+blur(22px);
+
+-webkit-backdrop-filter:
+saturate(180%)
+blur(22px);
+
+border-bottom:
+1px solid rgba(0,0,0,.055);
+
+}
+
+
+.header-inner{
+
+height:100%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+
+.nav{
+
+display:flex;
+
+align-items:center;
+
+gap:27px;
+
+}
+
+
+.nav a{
+
+font-size:11px;
+
+color:#444446;
+
+transition:.2s ease;
+
+}
+
+
+.nav a:hover{
+
+color:#000;
+
+}
+
+
+.nav-cta{
+
+padding:9px 16px;
+
+border-radius:999px;
+
+background:var(--blue);
+
+color:white!important;
+
+font-weight:600;
+
+}
+
+
+.mobile-menu{
+
+display:none;
+
+background:none;
+
+border:0;
+
+font-size:22px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+padding-top:68px;
+
+min-height:900px;
+
+background:var(--paper2);
+
+display:flex;
+
+align-items:center;
+
+overflow:hidden;
+
+}
+
+
+.hero-grid{
+
+display:grid;
+
+grid-template-columns:.82fr 1.18fr;
+
+gap:65px;
+
+align-items:center;
+
+}
+
+
+.hero-copy{
+
+padding:70px 0;
+
+}
+
+
+.eyebrow{
+
+color:var(--blue);
+
+font-size:11px;
+
+font-weight:600;
+
+text-transform:uppercase;
+
+letter-spacing:.025em;
+
+}
+
+
+.hero-title{
+
+margin-top:20px;
+
+font-size:
+clamp(48px,6.4vw,79px);
+
+line-height:.98;
+
+letter-spacing:-.075em;
+
+font-weight:700;
+
+}
+
+
+.hero-title .blue{
+
+color:var(--blue);
+
+}
+
+
+.hero-title .grey{
+
+color:var(--muted2);
+
+}
+
+
+.hero-description{
+
+margin-top:27px;
+
+max-width:550px;
+
+color:var(--muted);
+
+font-size:16px;
+
+line-height:1.75;
+
+}
+
+
+.hero-actions{
+
+margin-top:34px;
+
+display:flex;
+
+align-items:center;
+
+gap:23px;
+
+}
+
+
+.primary{
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+padding:13px 21px;
+
+border-radius:999px;
+
+background:var(--blue);
+
+color:white;
+
+font-size:12px;
+
+font-weight:600;
+
+transition:.2s ease;
+
+}
+
+
+.primary:hover{
+
+background:var(--blue-dark);
+
+transform:translateY(-1px);
+
+}
+
+
+.secondary{
+
+color:var(--blue);
+
+font-size:12px;
+
+font-weight:500;
+
+}
+
+
+.hero-meta{
+
+margin-top:32px;
+
+display:flex;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:10px;
+
+color:var(--muted2);
+
+font-size:9px;
+
+}
+
+
+.hero-meta i{
+
+width:3px;
+height:3px;
+
+background:#bbb;
+
+border-radius:50%;
+
+}
+
+
+/* =========================================================
+   HERO CLINICAL NETWORK
+========================================================= */
+
+.network-visual{
+
+height:610px;
+
+position:relative;
+
+border-radius:var(--radius-lg);
+
+overflow:hidden;
+
+background:
+radial-gradient(
+circle at 50% 48%,
+#ffffff 0%,
+#f3f5f7 42%,
+#e5e8eb 100%
+);
+
+border:1px solid #e3e5e7;
+
+box-shadow:
+0 30px 90px rgba(0,0,0,.10);
+
+}
+
+
+/* subtle background */
+
+.network-grid-bg{
+
+position:absolute;
+
+inset:0;
+
+opacity:.35;
+
+background-image:
+linear-gradient(
+rgba(0,0,0,.035) 1px,
+transparent 1px
+),
+linear-gradient(
+90deg,
+rgba(0,0,0,.035) 1px,
+transparent 1px
+);
+
+background-size:
+48px 48px;
+
+mask-image:
+radial-gradient(
+circle at center,
+black,
+transparent 72%
+);
+
+}
+
+
+/* title */
+
+.network-heading{
+
+position:absolute;
+
+top:25px;
+
+left:28px;
+
+z-index:10;
+
+}
+
+
+.network-heading small{
+
+display:block;
+
+font-size:8px;
+
+font-weight:600;
+
+color:var(--blue);
+
+letter-spacing:.06em;
+
+text-transform:uppercase;
+
+}
+
+
+.network-heading strong{
+
+display:block;
+
+margin-top:4px;
+
+font-size:13px;
+
+letter-spacing:-.025em;
+
+}
+
+
+/* =========================================================
+   CONNECTION SVG
+========================================================= */
+
+.connections{
+
+position:absolute;
+
+inset:0;
+
+z-index:2;
+
+pointer-events:none;
+
+}
+
+
+.connection-line{
+
+fill:none;
+
+stroke:#c6ccd2;
+
+stroke-width:1.4;
+
+stroke-dasharray:5 7;
+
+opacity:.7;
+
+}
+
+
+.connection-active{
+
+stroke:#79b8ed;
+
+stroke-width:1.7;
+
+stroke-dasharray:3 8;
+
+animation:
+lineDash 4s linear infinite;
+
+}
+
+
+@keyframes lineDash{
+
+to{
+
+stroke-dashoffset:-44;
+
+}
+
+}
+
+
+/* moving nodes */
+
+.signal{
+
+fill:var(--blue);
+
+animation:
+signalPulse 2.6s ease-in-out infinite;
+
+}
+
+
+@keyframes signalPulse{
+
+0%,100%{
+
+opacity:.25;
+r:3;
+
+}
+
+50%{
+
+opacity:1;
+r:5;
+
+}
+
+}
+
+
+/* =========================================================
+   CENTRAL PATIENT CORE
+========================================================= */
+
+.patient-core{
+
+position:absolute;
+
+z-index:7;
+
+left:50%;
+
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:190px;
+
+height:210px;
+
+border-radius:30px;
+
+background:
+rgba(255,255,255,.94);
+
+border:
+1px solid rgba(0,0,0,.08);
+
+box-shadow:
+0 25px 60px rgba(0,0,0,.13);
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+}
+
+
+.patient-ring{
+
+position:absolute;
+
+width:240px;
+
+height:240px;
+
+border-radius:50%;
+
+border:
+1px solid rgba(0,113,227,.13);
+
+animation:
+corePulse 4s ease-in-out infinite;
+
+}
+
+
+.patient-ring::before{
+
+content:"";
+
+position:absolute;
+
+inset:16px;
+
+border-radius:50%;
+
+border:
+1px dashed rgba(0,113,227,.15);
+
+}
+
+
+@keyframes corePulse{
+
+0%,100%{
+
+transform:scale(.96);
+
+opacity:.65;
+
+}
+
+50%{
+
+transform:scale(1.04);
+
+opacity:1;
+
+}
+
+}
+
+
+.patient-photo{
+
+width:82px;
+height:82px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:
+4px solid white;
+
+box-shadow:
+0 7px 20px rgba(0,0,0,.12);
+
+position:relative;
+
+z-index:3;
+
+}
+
+
+.patient-photo img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+.patient-core strong{
+
+margin-top:13px;
+
+font-size:14px;
+
+letter-spacing:-.025em;
+
+}
+
+
+.patient-core span{
+
+margin-top:4px;
+
+color:var(--muted);
+
+font-size:8px;
+
+}
+
+
+.patient-status{
+
+margin-top:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+font-size:7px!important;
+
+color:#4d4d50!important;
+
+}
+
+
+.patient-status i{
+
+width:5px;
+height:5px;
+
+background:var(--green);
+
+border-radius:50%;
+
+animation:statusPulse 2s infinite;
+
+}
+
+
+@keyframes statusPulse{
+
+50%{
+opacity:.3;
+}
+
+}
+
+
+/* =========================================================
+   CLINICIAN CARD
+========================================================= */
+
+.clinician-card{
+
+position:absolute;
+
+z-index:8;
+
+background:
+rgba(255,255,255,.95);
+
+border:
+1px solid rgba(0,0,0,.075);
+
+box-shadow:
+0 18px 42px rgba(0,0,0,.11);
+
+backdrop-filter:
+blur(14px);
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:11px;
+
+transition:
+transform .35s ease,
+box-shadow .35s ease;
+
+}
+
+
+.clinician-card:hover{
+
+transform:
+translateY(-5px);
+
+box-shadow:
+0 25px 55px rgba(0,0,0,.15);
+
+}
+
+
+.clinician-photo{
+
+width:44px;
+height:44px;
+
+border-radius:12px;
+
+overflow:hidden;
+
+flex-shrink:0;
+
+background:#ddd;
+
+}
+
+
+.clinician-photo img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+.clinician-info{
+
+min-width:0;
+
+}
+
+
+.clinician-info strong{
+
+display:block;
+
+font-size:9px;
+
+font-weight:600;
+
+white-space:nowrap;
+
+}
+
+
+.clinician-info span{
+
+display:block;
+
+margin-top:3px;
+
+font-size:7px;
+
+color:var(--muted);
+
+white-space:nowrap;
+
+}
+
+
+.clinician-online{
+
+margin-top:5px;
+
+display:flex;
+
+align-items:center;
+
+gap:4px;
+
+font-size:6px!important;
+
+color:#4d4d50!important;
+
+}
+
+
+.clinician-online i{
+
+width:4px;
+height:4px;
+
+background:var(--green);
+
+border-radius:50%;
+
+}
+
+
+/* LARGE */
+
+.card-psychiatrist{
+
+left:36px;
+
+top:115px;
+
+padding:13px 17px;
+
+width:190px;
+
+animation:
+cardFloat1 6s ease-in-out infinite;
+
+}
+
+
+.card-psychiatrist .clinician-photo{
+
+width:55px;
+height:55px;
+
+border-radius:15px;
+
+}
+
+
+.card-psychiatrist .clinician-info strong{
+
+font-size:11px;
+
+}
+
+
+.card-psychiatrist .clinician-info span{
+
+font-size:8px;
+
+}
+
+
+@keyframes cardFloat1{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-6px);
+}
+
+}
+
+
+/* PSYCHOLOGIST */
+
+.card-psychologist{
+
+right:28px;
+
+top:130px;
+
+padding:11px 14px;
+
+width:178px;
+
+animation:
+cardFloat2 6.5s ease-in-out infinite;
+
+}
+
+
+@keyframes cardFloat2{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(6px);
+}
+
+}
+
+
+/* SOCIAL WORKER */
+
+.card-social{
+
+left:27px;
+
+bottom:115px;
+
+padding:10px 13px;
+
+width:185px;
+
+animation:
+cardFloat3 7s ease-in-out infinite;
+
+}
+
+
+@keyframes cardFloat3{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-5px);
+}
+
+}
+
+
+/* NEUROLOGIST */
+
+.card-neurologist{
+
+right:29px;
+
+bottom:112px;
+
+padding:9px 12px;
+
+width:155px;
+
+animation:
+cardFloat4 6.2s ease-in-out infinite;
+
+}
+
+
+@keyframes cardFloat4{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(5px);
+}
+
+}
+
+
+/* SMALL CARDS */
+
+.mini-card{
+
+padding:7px 10px;
+
+gap:7px;
+
+border-radius:13px;
+
+}
+
+
+.mini-card .clinician-photo{
+
+width:30px;
+height:30px;
+
+border-radius:9px;
+
+}
+
+
+.mini-card .clinician-info strong{
+
+font-size:7px;
+
+}
+
+
+.mini-card .clinician-info span{
+
+font-size:6px;
+
+margin-top:2px;
+
+}
+
+
+/* DERMATOLOGIST */
+
+.card-dermatologist{
+
+left:175px;
+
+top:53px;
+
+animation:
+miniFloat 6s ease-in-out infinite;
+
+}
+
+
+/* ONCOLOGIST */
+
+.card-oncologist{
+
+right:190px;
+
+top:58px;
+
+animation:
+miniFloat2 7s ease-in-out infinite;
+
+}
+
+
+/* MEDICINE */
+
+.card-medicine{
+
+left:205px;
+
+bottom:55px;
+
+animation:
+miniFloat3 6.5s ease-in-out infinite;
+
+}
+
+
+/* DIABETES */
+
+.card-diabetes{
+
+right:170px;
+
+bottom:49px;
+
+animation:
+miniFloat4 7s ease-in-out infinite;
+
+}
+
+
+@keyframes miniFloat{
+
+50%{
+transform:translateY(-5px);
+}
+
+}
+
+
+@keyframes miniFloat2{
+
+50%{
+transform:translateY(5px);
+}
+
+}
+
+
+@keyframes miniFloat3{
+
+50%{
+transform:translateY(-4px);
+}
+
+}
+
+
+@keyframes miniFloat4{
+
+50%{
+transform:translateY(4px);
+}
+
+}
+
+
+/* CORE LABEL */
+
+.core-label{
+
+position:absolute;
+
+z-index:10;
+
+bottom:25px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+padding:7px 12px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.8);
+
+backdrop-filter:blur(12px);
+
+border:
+1px solid rgba(0,0,0,.06);
+
+font-size:7px;
+
+font-weight:600;
+
+color:#666;
+
+white-space:nowrap;
+
+}
+
+
+/* =========================================================
+   SECTION SYSTEM
+========================================================= */
+
+.section-label{
+
+color:var(--blue);
+
+font-size:11px;
+
+font-weight:600;
+
+text-transform:uppercase;
+
+letter-spacing:.025em;
+
+margin-bottom:15px;
+
+}
+
+
+.section-title{
+
+font-size:
+clamp(38px,5vw,60px);
+
+line-height:1.04;
+
+letter-spacing:-.06em;
+
+font-weight:700;
+
+max-width:760px;
+
+}
+
+
+.section-title span{
+
+color:var(--muted2);
+
+}
+
+
+/* =========================================================
+   CORE
+========================================================= */
+
+.core{
+
+padding:145px 0;
+
+background:white;
+
+}
+
+
+.core-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:100px;
+
+align-items:end;
+
+}
+
+
+.core-title{
+
+font-size:
+clamp(40px,5vw,61px);
+
+line-height:1.03;
+
+letter-spacing:-.065em;
+
+}
+
+
+.core-title span{
+
+color:var(--muted2);
+
+}
+
+
+.core-copy{
+
+max-width:500px;
+
+color:var(--muted);
+
+font-size:15px;
+
+line-height:1.85;
+
+}
+
+
+/* =========================================================
+   CARE
+========================================================= */
+
+.care{
+
+padding:125px 0;
+
+background:var(--paper);
+
+}
+
+
+.care-heading{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:end;
+
+gap:50px;
+
+}
+
+
+.care-heading p{
+
+max-width:390px;
+
+color:var(--muted);
+
+font-size:13px;
+
+line-height:1.7;
+
+}
+
+
+.care-grid{
+
+display:grid;
+
+grid-template-columns:1.15fr .85fr;
+
+grid-template-rows:270px 270px;
+
+gap:14px;
+
+margin-top:55px;
+
+}
+
+
+.care-card{
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:25px;
+
+background:#ddd;
+
+}
+
+
+.care-card.large{
+
+grid-row:span 2;
+
+}
+
+
+.care-card img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+transition:
+transform .8s cubic-bezier(.2,.7,.2,1);
+
+}
+
+
+.care-card:hover img{
+
+transform:scale(1.045);
+
+}
+
+
+.care-overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+transparent 35%,
+rgba(0,0,0,.72)
+);
+
+}
+
+
+.care-info{
+
+position:absolute;
+
+z-index:3;
+
+left:25px;
+right:25px;
+
+bottom:24px;
+
+color:white;
+
+}
+
+
+.care-tag{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:6px;
+
+padding:6px 9px;
+
+border-radius:999px;
+
+background:
+rgba(255,255,255,.17);
+
+backdrop-filter:blur(10px);
+
+font-size:8px;
+
+font-weight:600;
+
+}
+
+
+.care-info h3{
+
+margin-top:11px;
+
+font-size:24px;
+
+letter-spacing:-.04em;
+
+}
+
+
+.care-info p{
+
+max-width:450px;
+
+margin-top:5px;
+
+color:rgba(255,255,255,.78);
+
+font-size:10px;
+
+line-height:1.6;
+
+}
+
+
+/* =========================================================
+   INDIA
+========================================================= */
+
+.india{
+
+padding:140px 0;
+
+background:white;
+
+}
+
+
+.india-grid{
+
+display:grid;
+
+grid-template-columns:.8fr 1.2fr;
+
+gap:90px;
+
+align-items:center;
+
+}
+
+
+.india-title{
+
+font-size:
+clamp(40px,5vw,61px);
+
+line-height:1.03;
+
+letter-spacing:-.065em;
+
+}
+
+
+.india-title span{
+
+color:var(--muted2);
+
+}
+
+
+.india-copy{
+
+margin-top:20px;
+
+max-width:480px;
+
+color:var(--muted);
+
+font-size:14px;
+
+line-height:1.8;
+
+}
+
+
+.india-grid-images{
+
+display:grid;
+
+grid-template-columns:1.1fr .9fr;
+
+grid-template-rows:250px 250px;
+
+gap:12px;
+
+}
+
+
+.india-photo{
+
+overflow:hidden;
+
+border-radius:23px;
+
+position:relative;
+
+}
+
+
+.india-photo.tall{
+
+grid-row:span 2;
+
+}
+
+
+.india-photo img{
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+transition:transform .7s ease;
+
+}
+
+
+.india-photo:hover img{
+
+transform:scale(1.04);
+
+}
+
+
+.india-label{
+
+position:absolute;
+
+left:15px;
+bottom:15px;
+
+padding:7px 9px;
+
+border-radius:8px;
+
+background:
+rgba(255,255,255,.88);
+
+backdrop-filter:blur(12px);
+
+font-size:8px;
+
+color:#555;
+
+}
+
+
+.india-label strong{
+
+display:block;
+
+color:#222;
+
+font-size:9px;
+
+}
+
+
+/* =========================================================
+   SPECIALIZATION
+========================================================= */
+
+.specialization{
+
+padding:140px 0;
+
+background:var(--black);
+
+color:white;
+
+}
+
+
+.specialization-head{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:80px;
+
+}
+
+
+.specialization .section-label{
+
+color:#5aa9ff;
+
+}
+
+
+.specialization-title{
+
+font-size:
+clamp(40px,5vw,63px);
+
+line-height:1.02;
+
+letter-spacing:-.065em;
+
+}
+
+
+.specialization-title span{
+
+color:#77777d;
+
+}
+
+
+.specialization-copy{
+
+max-width:480px;
+
+color:#a1a1a6;
+
+font-size:14px;
+
+line-height:1.8;
+
+}
+
+
+.specialty-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+margin-top:70px;
+
+border-left:1px solid #363638;
+
+border-top:1px solid #363638;
+
+}
+
+
+.specialty{
+
+min-height:145px;
+
+padding:23px;
+
+border-right:1px solid #363638;
+
+border-bottom:1px solid #363638;
+
+transition:.25s ease;
+
+}
+
+
+.specialty:hover{
+
+background:#222224;
+
+}
+
+
+.specialty-number{
+
+color:#68686d;
+
+font-size:9px;
+
+}
+
+
+.specialty strong{
+
+display:block;
+
+margin-top:27px;
+
+font-size:14px;
+
+font-weight:500;
+
+}
+
+
+.specialty p{
+
+margin-top:5px;
+
+color:#818186;
+
+font-size:10px;
+
+line-height:1.55;
+
+}
+
+
+/* =========================================================
+   CONNECTED SPECIALTIES
+========================================================= */
+
+.connected{
+
+padding:130px 0;
+
+background:var(--paper);
+
+}
+
+
+.connected-title{
+
+max-width:800px;
+
+font-size:
+clamp(39px,5vw,60px);
+
+line-height:1.04;
+
+letter-spacing:-.06em;
+
+}
+
+
+.connected-title span{
+
+color:var(--muted2);
+
+}
+
+
+.connected-description{
+
+max-width:610px;
+
+margin-top:20px;
+
+color:var(--muted);
+
+font-size:14px;
+
+line-height:1.8;
+
+}
+
+
+.connected-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:12px;
+
+margin-top:55px;
+
+}
+
+
+.connected-card{
+
+min-height:180px;
+
+padding:23px;
+
+background:white;
+
+border:1px solid var(--line);
+
+border-radius:18px;
+
+transition:.25s ease;
+
+}
+
+
+.connected-card:hover{
+
+transform:translateY(-3px);
+
+box-shadow:var(--shadow);
+
+}
+
+
+.connected-mark{
+
+width:35px;
+height:35px;
+
+border-radius:9px;
+
+background:var(--blue-soft);
+
+color:var(--blue);
+
+display:grid;
+
+place-items:center;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+
+.connected-card h3{
+
+margin-top:22px;
+
+font-size:14px;
+
+}
+
+
+.connected-card p{
+
+margin-top:5px;
+
+color:var(--muted);
+
+font-size:10px;
+
+line-height:1.6;
+
+}
+
+
+/* =========================================================
+   DIRECTORY
+========================================================= */
+
+.directory{
+
+padding:130px 0;
+
+background:white;
+
+}
+
+
+.directory-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+margin-top:55px;
+
+}
+
+
+.directory-card{
+
+min-height:280px;
+
+padding:32px;
+
+border:1px solid var(--line);
+
+border-radius:24px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+.directory-card::after{
+
+content:"→";
+
+position:absolute;
+
+right:27px;
+
+bottom:23px;
+
+color:var(--blue);
+
+font-size:20px;
+
+}
+
+
+.directory-number{
+
+color:var(--muted2);
+
+font-size:9px;
+
+}
+
+
+.directory-card h3{
+
+margin-top:70px;
+
+font-size:25px;
+
+letter-spacing:-.045em;
+
+}
+
+
+.directory-card p{
+
+margin-top:8px;
+
+max-width:300px;
+
+color:var(--muted);
+
+font-size:11px;
+
+line-height:1.7;
+
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.how{
+
+padding:130px 0;
+
+background:var(--paper);
+
+}
+
+
+.steps{
+
+margin-top:60px;
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+border-top:1px solid var(--line);
+
+}
+
+
+.step{
+
+padding:27px 22px 20px 0;
+
+}
+
+
+.step + .step{
+
+padding-left:23px;
+
+border-left:1px solid var(--line);
+
+}
+
+
+.step-number{
+
+color:var(--blue);
+
+font-size:10px;
+
+font-weight:600;
+
+}
+
+
+.step h3{
+
+margin-top:27px;
+
+font-size:17px;
+
+}
+
+
+.step p{
+
+margin-top:7px;
+
+color:var(--muted);
+
+font-size:11px;
+
+line-height:1.7;
+
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq{
+
+padding:130px 0;
+
+background:white;
+
+}
+
+
+.faq-list{
+
+max-width:820px;
+
+margin:50px auto 0;
+
+}
+
+
+.faq-item{
+
+border-top:1px solid var(--line);
+
+}
+
+
+.faq-item:last-child{
+
+border-bottom:1px solid var(--line);
+
+}
+
+
+.faq-question{
+
+width:100%;
+
+padding:22px 0;
+
+border:0;
+
+background:none;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+text-align:left;
+
+cursor:pointer;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+
+.faq-plus{
+
+color:var(--muted2);
+
+font-size:20px;
+
+transition:.25s ease;
+
+}
+
+
+.faq-answer{
+
+max-height:0;
+
+overflow:hidden;
+
+transition:max-height .3s ease;
+
+}
+
+
+.faq-answer p{
+
+padding:
+0 50px 20px 0;
+
+color:var(--muted);
+
+font-size:11px;
+
+line-height:1.75;
+
+}
+
+
+.faq-item.active .faq-plus{
+
+transform:rotate(45deg);
+
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+
+padding:150px 0;
+
+background:var(--paper2);
+
+text-align:center;
+
+}
+
+
+.cta h2{
+
+max-width:850px;
+
+margin:auto;
+
+font-size:
+clamp(43px,6vw,70px);
+
+line-height:1.01;
+
+letter-spacing:-.07em;
+
+}
+
+
+.cta h2 span{
+
+color:var(--muted2);
+
+}
+
+
+.cta p{
+
+max-width:540px;
+
+margin:22px auto 30px;
+
+color:var(--muted);
+
+font-size:14px;
+
+line-height:1.7;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+
+padding:65px 0 30px;
+
+background:var(--paper);
+
+border-top:1px solid var(--line);
+
+}
+
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:
+1.6fr .7fr .7fr .8fr;
+
+gap:50px;
+
+}
+
+
+.footer-description{
+
+max-width:350px;
+
+margin-top:15px;
+
+color:var(--muted);
+
+font-size:10px;
+
+line-height:1.7;
+
+}
+
+
+.footer-heading{
+
+margin-bottom:15px;
+
+font-size:10px;
+
+font-weight:600;
+
+}
+
+
+.footer-links{
+
+display:grid;
+
+gap:9px;
+
+}
+
+
+.footer-links a{
+
+color:var(--muted);
+
+font-size:10px;
+
+}
+
+
+.footer-links a:hover{
+
+color:var(--black);
+
+}
+
+
+.footer-bottom{
+
+margin-top:55px;
+
+padding-top:20px;
+
+border-top:1px solid var(--line);
+
+display:flex;
+
+justify-content:space-between;
+
+color:#99999e;
+
+font-size:9px;
+
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+
+opacity:0;
+
+transform:translateY(18px);
+
+transition:
+opacity .65s ease,
+transform .65s ease;
+
+}
+
+
+.reveal.visible{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+
+.nav{
+
+display:none;
+
+position:fixed;
+
+top:68px;
+
+left:0;
+right:0;
+
+padding:25px;
+
+background:
+rgba(255,255,255,.98);
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:20px;
+
+border-bottom:1px solid var(--line);
+
+}
+
+
+.nav.open{
+
+display:flex;
+
+}
+
+
+.nav a{
+
+font-size:15px;
+
+}
+
+
+.mobile-menu{
+
+display:block;
+
+}
+
+
+.hero-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.hero{
+
+padding-bottom:70px;
+
+}
+
+
+.core-grid,
+.india-grid,
+.specialization-head{
+
+grid-template-columns:1fr;
+
+gap:50px;
+
+}
+
+
+.care-heading{
+
+display:block;
+
+}
+
+
+.care-heading p{
+
+margin-top:20px;
+
+}
+
+
+.connected-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+
+.directory-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.steps{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+
+.specialty-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+
+@media(max-width:700px){
+
+.network-visual{
+
+height:570px;
+
+}
+
+
+.card-psychiatrist{
+
+left:18px;
+
+top:115px;
+
+width:165px;
+
+}
+
+
+.card-psychologist{
+
+right:18px;
+
+top:125px;
+
+width:155px;
+
+}
+
+
+.card-social{
+
+left:18px;
+
+bottom:120px;
+
+width:165px;
+
+}
+
+
+.card-neurologist{
+
+right:18px;
+
+bottom:115px;
+
+width:145px;
+
+}
+
+
+.card-dermatologist{
+
+left:25px;
+
+top:55px;
+
+}
+
+
+.card-oncologist{
+
+right:25px;
+
+top:58px;
+
+}
+
+
+.card-medicine{
+
+left:42px;
+
+bottom:52px;
+
+}
+
+
+.card-diabetes{
+
+right:38px;
+
+bottom:48px;
+
+}
+
+
+.patient-core{
+
+width:160px;
+
+height:180px;
+
+}
+
+
+.patient-ring{
+
+width:205px;
+height:205px;
+
+}
+
+
+.patient-photo{
+
+width:68px;
+height:68px;
+
+}
+
+
+.connection{
+
+display:none;
+
+}
+
+}
+
+
+@media(max-width:650px){
+
+.container{
+
+width:calc(100% - 30px);
+
+}
+
+
+.hero{
+
+min-height:auto;
+
+}
+
+
+.hero-copy{
+
+padding:
+55px 0 35px;
+
+}
+
+
+.hero-title{
+
+font-size:48px;
+
+}
+
+
+.hero-actions{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+
+.network-visual{
+
+height:530px;
+
+border-radius:22px;
+
+}
+
+
+.network-heading{
+
+top:18px;
+
+left:18px;
+
+}
+
+
+.card-psychiatrist{
+
+left:12px;
+
+top:95px;
+
+transform:scale(.88);
+
+transform-origin:left top;
+
+}
+
+
+.card-psychologist{
+
+right:10px;
+
+top:110px;
+
+transform:scale(.86);
+
+transform-origin:right top;
+
+}
+
+
+.card-social{
+
+left:10px;
+
+bottom:105px;
+
+transform:scale(.84);
+
+transform-origin:left bottom;
+
+}
+
+
+.card-neurologist{
+
+right:10px;
+
+bottom:102px;
+
+transform:scale(.82);
+
+transform-origin:right bottom;
+
+}
+
+
+.card-dermatologist{
+
+left:25px;
+
+top:53px;
+
+transform:scale(.78);
+
+transform-origin:left top;
+
+}
+
+
+.card-oncologist{
+
+right:25px;
+
+top:53px;
+
+transform:scale(.78);
+
+transform-origin:right top;
+
+}
+
+
+.card-medicine{
+
+left:35px;
+
+bottom:42px;
+
+transform:scale(.78);
+
+transform-origin:left bottom;
+
+}
+
+
+.card-diabetes{
+
+right:32px;
+
+bottom:40px;
+
+transform:scale(.78);
+
+transform-origin:right bottom;
+
+}
+
+
+.patient-core{
+
+width:145px;
+
+height:165px;
+
+}
+
+
+.patient-ring{
+
+width:190px;
+
+height:190px;
+
+}
+
+
+.patient-photo{
+
+width:62px;
+
+height:62px;
+
+}
+
+
+.patient-core strong{
+
+font-size:12px;
+
+}
+
+
+.core,
+.care,
+.india,
+.specialization,
+.connected,
+.directory,
+.how,
+.faq,
+.cta{
+
+padding:90px 0;
+
+}
+
+
+.care-grid{
+
+grid-template-columns:1fr;
+
+grid-template-rows:
+400px
+240px
+240px;
+
+}
+
+
+.care-card.large{
+
+grid-row:auto;
+
+}
+
+
+.india-grid-images{
+
+grid-template-columns:1fr 1fr;
+
+grid-template-rows:
+220px 220px;
+
+}
+
+
+.connected-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.specialty-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+.steps{
+
+grid-template-columns:1fr;
+
+}
+
+
+.step{
+
+padding:24px 0;
+
+}
+
+
+.step + .step{
+
+padding-left:0;
+
+border-left:0;
+
+border-top:1px solid var(--line);
+
+}
+
+
+.footer-grid{
+
+grid-template-columns:1fr;
+
+gap:32px;
+
+}
+
+
+.footer-bottom{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:8px;
+
+}
+
+}
+
+
+@media(prefers-reduced-motion:reduce){
+
+*{
+
+animation-duration:.01ms!important;
+
+animation-iteration-count:1!important;
+
+transition-duration:.01ms!important;
+
+scroll-behavior:auto!important;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+
+<a
+href="#top"
+class="thomson-logo"
+aria-label="Thomson Clinic Mental Health and Neuroscience E-Clinic"
+>
+
+<span class="logo-symbol"></span>
+
+<span class="logo-text">
+
+<span class="logo-main">
+Thomson Clinic
+</span>
+
+<span class="logo-sub">
+Mental Health & Neuroscience E-Clinic
+</span>
+
+</span>
+
+</a>
+
+
+<nav
+class="nav"
+id="nav"
+>
+
+<a href="#mental-health">
+Mental Health
+</a>
+
+<a href="#care">
+Care
+</a>
+
+<a href="#specialties">
+Specialties
+</a>
+
+<a href="#professionals">
+Professionals
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+<a
+href="#book"
+class="nav-cta"
+>
+Book consultation
+</a>
+
+</nav>
+
+
+<button
+class="mobile-menu"
+id="mobileMenu"
+aria-label="Open navigation"
+>
+☰
+</button>
+
+
+</div>
+
+</header>
+
+
+
+<main id="top">
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero">
+
+<div class="container hero-grid">
+
+
+<div class="hero-copy">
+
+
+<div class="eyebrow">
+
+Mental Health & Neuroscience E-Clinic
+
+</div>
+
+
+<h1 class="hero-title">
+
+Care for the
+<span class="blue">mind.</span>
+
+Understanding for the
+<span class="grey">brain.</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+Thomson Clinic is a specialized mental health and
+neuroscience e-clinic providing psychiatry,
+psychology, therapy and neuroscience-based care —
+with a connected network of specialist medical clinics.
+
+</p>
+
+
+<div class="hero-actions">
+
+<a
+href="#book"
+class="primary"
+>
+Book a consultation
+</a>
+
+<a
+href="#mental-health"
+class="secondary"
+>
+Explore mental healthcare →
+</a>
+
+</div>
+
+
+<div class="hero-meta">
+
+<span>Psychiatry</span>
+
+<i></i>
+
+<span>Psychology</span>
+
+<i></i>
+
+<span>Therapy</span>
+
+<i></i>
+
+<span>Neuroscience</span>
+
+<i></i>
+
+<span>Specialist Network</span>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =======================================================
+     CLINICAL NETWORK HERO VISUAL
+======================================================= -->
+
+<div class="network-visual">
+
+
+<div class="network-grid-bg"></div>
+
+
+<div class="network-heading">
+
+<small>
+Connected clinical care
+</small>
+
+<strong>
+One patient. Multiple perspectives.
+</strong>
+
+</div>
+
+
+<!-- =====================================================
+     CONNECTIONS
+===================================================== -->
+
+<svg
+class="connections"
+viewBox="0 0 700 610"
+preserveAspectRatio="none"
+aria-hidden="true"
+>
+
+
+<!-- Psychiatrist -->
+
+<path
+class="connection-line connection-active"
+d="M130 180 C230 220 280 270 350 305"
+/>
+
+<circle
+class="signal"
+cx="130"
+cy="180"
+r="3"
+/>
+
+
+<!-- Psychologist -->
+
+<path
+class="connection-line connection-active"
+d="M570 190 C470 225 430 270 350 305"
+/>
+
+<circle
+class="signal"
+cx="570"
+cy="190"
+r="3"
+/>
+
+
+<!-- Social worker -->
+
+<path
+class="connection-line"
+d="M120 485 C215 425 280 360 350 305"
+/>
+
+
+<!-- Neurologist -->
+
+<path
+class="connection-line"
+d="M575 480 C485 420 430 355 350 305"
+/>
+
+
+<!-- Dermatologist -->
+
+<path
+class="connection-line"
+d="M225 100 C280 150 315 220 350 305"
+/>
+
+
+<!-- Oncologist -->
+
+<path
+class="connection-line"
+d="M475 100 C425 155 390 225 350 305"
+/>
+
+
+<!-- Medicine -->
+
+<path
+class="connection-line"
+d="M245 540 C295 450 330 370 350 305"
+/>
+
+
+<!-- Diabetes -->
+
+<path
+class="connection-line"
+d="M475 540 C425 450 390 370 350 305"
+/>
+
+
+</svg>
+
+
+
+<!-- =====================================================
+     CENTRAL PATIENT CORE
+===================================================== -->
+
+<div class="patient-core">
+
+
+<div class="patient-ring"></div>
+
+
+<div class="patient-photo">
+
+<img
+src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=85"
+alt="Patient at the centre of connected clinical care"
+>
+
+</div>
+
+
+<strong>
+Patient care
+</strong>
+
+
+<span>
+The centre of the Thomson network
+</span>
+
+
+<div class="patient-status">
+
+<i></i>
+
+Connected clinical pathway
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     PSYCHIATRIST — LARGE
+===================================================== -->
+
+<div
+class="clinician-card card-psychiatrist"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=85"
+alt="Psychiatrist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Psychiatrist
+</strong>
+
+<span>
+Mental Health & Psychiatry
+</span>
+
+<div class="clinician-online">
+
+<i></i>
+
+Core specialist
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PSYCHOLOGIST
+===================================================== -->
+
+<div
+class="clinician-card card-psychologist"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=85"
+alt="Psychologist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Psychologist
+</strong>
+
+<span>
+Psychology & Therapy
+</span>
+
+<div class="clinician-online">
+
+<i></i>
+
+Mental healthcare
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PSYCHIATRIC SOCIAL WORKER
+===================================================== -->
+
+<div
+class="clinician-card card-social"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=85"
+alt="Psychiatric social worker"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Psychiatric Social Worker
+</strong>
+
+<span>
+Psychosocial Care
+</span>
+
+<div class="clinician-online">
+
+<i></i>
+
+Integrated support
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     NEUROLOGIST
+===================================================== -->
+
+<div
+class="clinician-card card-neurologist"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=400&q=85"
+alt="Neurologist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Neurologist
+</strong>
+
+<span>
+Brain & Nervous System
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DERMATOLOGIST
+===================================================== -->
+
+<div
+class="clinician-card mini-card card-dermatologist"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=85"
+alt="Dermatologist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Dermatologist
+</strong>
+
+<span>
+Skin Health
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ONCOLOGIST
+===================================================== -->
+
+<div
+class="clinician-card mini-card card-oncologist"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&q=85"
+alt="Oncologist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Oncologist
+</strong>
+
+<span>
+Cancer Care
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MEDICINE SPECIALIST
+===================================================== -->
+
+<div
+class="clinician-card mini-card card-medicine"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&q=85"
+alt="Medicine specialist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Medicine Specialist
+</strong>
+
+<span>
+Internal Medicine
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DIABETES SPECIALIST
+===================================================== -->
+
+<div
+class="clinician-card mini-card card-diabetes"
+>
+
+<div class="clinician-photo">
+
+<img
+src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=300&q=85"
+alt="Diabetes specialist"
+>
+
+</div>
+
+
+<div class="clinician-info">
+
+<strong>
+Diabetes Specialist
+</strong>
+
+<span>
+Metabolic Health
+</span>
+
+</div>
+
+</div>
+
+
+
+<div class="core-label">
+
+Mental health at the core · Specialist care around it
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CORE MESSAGE
+======================================================= -->
+
+<section
+class="core"
+id="mental-health"
+>
+
+<div class="container core-grid">
+
+
+<div>
+
+<div class="section-label">
+The core of Thomson Clinic
+</div>
+
+
+<h2 class="core-title">
+
+A clinic built around
+<span>the mind and brain.</span>
+
+</h2>
+
+</div>
+
+
+<div>
+
+<p class="core-copy">
+
+Mental health and neuroscience are not simply one
+department within Thomson Clinic. They are the central
+clinical focus.
+
+<br><br>
+
+Psychiatry, psychology, therapy, sleep, addiction,
+child and adolescent mental health and neurobehavioral
+care are brought together into one specialized ecosystem.
+
+<br><br>
+
+Other medical specialties connect around this core when
+physical health, neurological or systemic conditions
+require specialist attention.
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CARE
+======================================================= -->
+
+<section
+class="care"
+id="care"
+>
+
+<div class="container">
+
+
+<div class="care-heading">
+
+<div>
+
+<div class="section-label">
+Care that fits real life
+</div>
+
+<h2 class="section-title">
+
+Different people.
+<span>Different realities.</span>
+
+</h2>
+
+</div>
+
+
+<p>
+
+Mental healthcare should reach people where they
+actually live, study, work and grow.
+
+</p>
+
+</div>
+
+
+
+<div class="care-grid">
+
+
+<article
+class="care-card large reveal"
+>
+
+<img
+src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1300&q=88"
+alt="Healthcare consultation in a community setting"
+loading="lazy"
+>
+
+<div class="care-overlay"></div>
+
+
+<div class="care-info">
+
+<div class="care-tag">
+Community & rural care
+</div>
+
+
+<h3>
+Mental healthcare should travel beyond the clinic.
+</h3>
+
+
+<p>
+
+Telepsychiatry and connected care can help extend
+specialist mental healthcare to communities that
+may otherwise have limited access.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+<article
+class="care-card reveal"
+>
+
+<img
+src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=88"
+alt="Students discussing mental health"
+loading="lazy"
+>
+
+<div class="care-overlay"></div>
+
+
+<div class="care-info">
+
+<div class="care-tag">
+Student mental health
+</div>
+
+
+<h3>
+Support for students.
+</h3>
+
+
+<p>
+
+Academic pressure, anxiety, sleep problems,
+attention difficulties and emotional wellbeing.
+
+</p>
+
+</div>
+
+</article>
+
+
+
+<article
+class="care-card reveal"
+>
+
+<img
+src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1100&q=88"
+alt="Online therapy consultation"
+loading="lazy"
+>
+
+<div class="care-overlay"></div>
+
+
+<div class="care-info">
+
+<div class="care-tag">
+
+<span class="live-dot"></span>
+
+Online therapy
+
+</div>
+
+
+<h3>
+Care from your own space.
+</h3>
+
+
+<p>
+Remote consultations where clinically appropriate.
+</p>
+
+</div>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     INDIA
+======================================================= -->
+
+<section class="india">
+
+<div class="container india-grid">
+
+
+<div>
+
+<div class="section-label">
+Built for India
+</div>
+
+
+<h2 class="india-title">
+
+Mental healthcare
+<span>for real Indian lives.</span>
+
+</h2>
+
+
+<p class="india-copy">
+
+From students navigating academic pressure to working
+adults, parents, older adults and people living in
+communities far from specialist centres, Thomson Clinic
+is designed around the diversity of how mental health
+is experienced across India.
+
+</p>
+
+
+<p class="india-copy">
+
+The goal is not simply to move a consultation online.
+It is to make specialist care more accessible while
+keeping the clinical relationship human.
+
+</p>
+
+</div>
+
+
+
+<div class="india-grid-images">
+
+
+<div class="india-photo tall">
+
+<img
+src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=88"
+alt="Young adults in a collaborative setting"
+loading="lazy"
+>
+
+
+<div class="india-label">
+
+<strong>
+Young adults
+</strong>
+
+Education · Work · Relationships
+
+</div>
+
+</div>
+
+
+
+<div class="india-photo">
+
+<img
+src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?auto=format&fit=crop&w=700&q=88"
+alt="Woman participating in healthcare consultation"
+loading="lazy"
+>
+
+
+<div class="india-label">
+
+<strong>
+Women's mental health
+</strong>
+
+Life-stage care
+
+</div>
+
+</div>
+
+
+
+<div class="india-photo">
+
+<img
+src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=700&q=88"
+alt="Student using a computer"
+loading="lazy"
+>
+
+
+<div class="india-label">
+
+<strong>
+Students
+</strong>
+
+Accessible digital care
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     SPECIALIZATION
+======================================================= -->
+
+<section class="specialization">
+
+<div class="container">
+
+
+<div class="specialization-head">
+
+
+<div>
+
+<div class="section-label">
+Specialized mental health
+</div>
+
+
+<h2 class="specialization-title">
+
+Deep expertise for
+<span>complex human problems.</span>
+
+</h2>
+
+</div>
+
+
+<p class="specialization-copy">
+
+Mental health conditions can involve biological,
+psychological, behavioural, developmental and social
+factors. Thomson Clinic is structured around this
+complexity rather than reducing care to a single
+symptom.
+
+</p>
+
+
+</div>
+
+
+
+<div class="specialty-grid">
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+01
+</div>
+
+<strong>
+Psychiatry
+</strong>
+
+<p>
+Psychiatric assessment, diagnosis and treatment.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+02
+</div>
+
+<strong>
+Psychology & Therapy
+</strong>
+
+<p>
+Structured psychological interventions and therapy.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+03
+</div>
+
+<strong>
+Neuroscience
+</strong>
+
+<p>
+Brain, cognition, behaviour and neuropsychiatric care.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+04
+</div>
+
+<strong>
+Sleep
+</strong>
+
+<p>
+Assessment and treatment pathways for sleep problems.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+05
+</div>
+
+<strong>
+Addiction Psychiatry
+</strong>
+
+<p>
+Specialist care for substance and behavioural addictions.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+06
+</div>
+
+<strong>
+Child & Adolescent
+</strong>
+
+<p>
+Developmentally informed mental healthcare.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+07
+</div>
+
+<strong>
+Neurobehavioral Care
+</strong>
+
+<p>
+Cognition, behaviour and functional concerns.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+08
+</div>
+
+<strong>
+Preventive Mental Healthcare
+</strong>
+
+<p>
+Early recognition and long-term mental wellbeing.
+</p>
+
+</div>
+
+
+<div class="specialty">
+
+<div class="specialty-number">
+09
+</div>
+
+<strong>
+Integrated Care
+</strong>
+
+<p>
+Mental healthcare connected with relevant medical specialties.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CONNECTED SPECIALTIES
+======================================================= -->
+
+<section
+class="connected"
+id="specialties"
+>
+
+<div class="container">
+
+
+<div class="section-label">
+Connected specialist clinics
+</div>
+
+
+<h2 class="connected-title">
+
+Beyond the mind and brain,
+<span>the rest of the patient matters too.</span>
+
+</h2>
+
+
+<p class="connected-description">
+
+Mental and physical health are closely connected.
+Thomson Clinic therefore brings other specialist
+disciplines into the wider clinical ecosystem while
+keeping mental health and neuroscience at its centre.
+
+</p>
+
+
+
+<div class="connected-grid">
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
++
+</div>
+
+<h3>
+Cardiology
+</h3>
+
+<p>
+Cardiovascular health and specialist cardiac care.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+N
+</div>
+
+<h3>
+Neurology
+</h3>
+
+<p>
+Neurological and brain-related conditions.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+D
+</div>
+
+<h3>
+Dermatology
+</h3>
+
+<p>
+Skin, hair and nail conditions.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+K
+</div>
+
+<h3>
+Nephrology
+</h3>
+
+<p>
+Kidney health and renal conditions.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+O
+</div>
+
+<h3>
+Oncology
+</h3>
+
+<p>
+Specialist cancer consultation and care.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+G
+</div>
+
+<h3>
+Diabetes
+</h3>
+
+<p>
+Diabetes assessment and long-term management.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+M
+</div>
+
+<h3>
+Metabolic Health
+</h3>
+
+<p>
+Metabolic risk, nutrition and related conditions.
+</p>
+
+</article>
+
+
+<article class="connected-card reveal">
+
+<div class="connected-mark">
+W
+</div>
+
+<h3>
+Obesity Medicine
+</h3>
+
+<p>
+Specialist weight and obesity management.
+</p>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     PROFESSIONALS
+======================================================= -->
+
+<section
+class="directory"
+id="professionals"
+>
+
+<div class="container">
+
+
+<div class="section-label">
+Thomson network
+</div>
+
+
+<h2 class="section-title">
+
+Meet the people behind
+<span>the care.</span>
+
+</h2>
+
+
+<p class="section-description">
+
+Individual professionals have their own dedicated
+profiles. The homepage remains focused on Thomson
+Clinic as a clinical platform rather than a single
+individual.
+
+</p>
+
+
+
+<div class="directory-grid">
+
+
+<a
+href="/doctors/"
+class="directory-card reveal"
+>
+
+<div class="directory-number">
+01 · DOCTORS
+</div>
+
+<h3>
+Doctors
+</h3>
+
+<p>
+Psychiatrists, neurologists and physicians across
+the Thomson specialist network.
+</p>
+
+</a>
+
+
+
+<a
+href="/therapists/"
+class="directory-card reveal"
+>
+
+<div class="directory-number">
+02 · THERAPISTS
+</div>
+
+<h3>
+Therapists
+</h3>
+
+<p>
+Psychologists and therapists providing structured
+psychological care.
+</p>
+
+</a>
+
+
+
+<a
+href="/clinics/"
+class="directory-card reveal"
+>
+
+<div class="directory-number">
+03 · CLINICS
+</div>
+
+<h3>
+Specialist Clinics
+</h3>
+
+<p>
+Explore Thomson's mental health and connected
+multidisciplinary specialty clinics.
+</p>
+
+</a>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     HOW IT WORKS
+======================================================= -->
+
+<section
+class="how"
+id="how"
+>
+
+<div class="container">
+
+
+<div class="section-label">
+How it works
+</div>
+
+
+<h2 class="section-title">
+Start with what you're experiencing.
+</h2>
+
+
+<p class="section-description">
+
+You do not need to arrive with a diagnosis.
+Start with the concern and find the appropriate
+clinical pathway.
+
+</p>
+
+
+
+<div class="steps">
+
+
+<div class="step reveal">
+
+<div class="step-number">
+01
+</div>
+
+<h3>
+Identify your concern
+</h3>
+
+<p>
+Explore mental health, neuroscience or another
+specialist area.
+</p>
+
+</div>
+
+
+<div class="step reveal">
+
+<div class="step-number">
+02
+</div>
+
+<h3>
+Find the right professional
+</h3>
+
+<p>
+Choose an appropriate doctor, therapist or clinic.
+</p>
+
+</div>
+
+
+<div class="step reveal">
+
+<div class="step-number">
+03
+</div>
+
+<h3>
+Have your consultation
+</h3>
+
+<p>
+Consult online or in person where clinically appropriate.
+</p>
+
+</div>
+
+
+<div class="step reveal">
+
+<div class="step-number">
+04
+</div>
+
+<h3>
+Continue your care
+</h3>
+
+<p>
+Follow-up and coordinated specialist care can continue
+as required.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     FAQ
+======================================================= -->
+
+<section
+class="faq"
+id="faq"
+>
+
+<div class="container">
+
+
+<div class="section-label">
+Frequently asked
+</div>
+
+
+<h2 class="section-title">
+Questions, answered.
+</h2>
+
+
+
+<div class="faq-list">
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Is Thomson Clinic primarily a mental health clinic?
+
+<span class="faq-plus">
++
+</span>
+
+</button>
+
+
+<div class="faq-answer">
+
+<p>
+
+Yes. Mental health and neuroscience are the core
+clinical focus of Thomson Clinic. Other medical
+specialties are connected to this core through the
+wider Thomson specialist network.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+What mental health services are available?
+
+<span class="faq-plus">
++
+</span>
+
+</button>
+
+
+<div class="faq-answer">
+
+<p>
+
+The platform is designed around psychiatry,
+psychology and therapy, neuroscience, sleep,
+addiction, child and adolescent mental health and
+neurobehavioral care.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Can I consult online?
+
+<span class="faq-plus">
++
+</span>
+
+</button>
+
+
+<div class="faq-answer">
+
+<p>
+
+Online consultation may be available depending on
+the clinician, specialty and clinical suitability
+of remote care.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Why are other specialties connected to Thomson Clinic?
+
+<span class="faq-plus">
++
+</span>
+
+</button>
+
+
+<div class="faq-answer">
+
+<p>
+
+Mental and physical health influence one another.
+The wider specialist network allows relevant
+medical conditions to be addressed through
+appropriate specialist pathways without changing
+the central mental health and neuroscience focus.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+Can I choose a specific doctor or therapist?
+
+<span class="faq-plus">
++
+</span>
+
+</button>
+
+
+<div class="faq-answer">
+
+<p>
+
+Yes. Doctors and therapists can have dedicated
+Thomson Clinic profiles containing their specialty,
+clinical interests and consultation information.
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+     CTA
+======================================================= -->
+
+<section
+class="cta"
+id="book"
+>
+
+<div class="container">
+
+
+<h2>
+
+Better understanding.
+<span>Better care.</span>
+
+</h2>
+
+
+<p>
+
+Begin with a conversation about what you are
+experiencing and find the appropriate specialist
+pathway.
+
+</p>
+
+
+<a
+href="https://wa.me/919876543210"
+class="primary"
+target="_blank"
+rel="noopener"
+>
+Start a consultation
+</a>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+<div class="container">
+
+
+<div class="footer-grid">
+
+
+<div>
+
+<a
+href="#top"
+class="thomson-logo"
+>
+
+<span class="logo-symbol"></span>
+
+<span class="logo-text">
+
+<span class="logo-main">
+Thomson Clinic
+</span>
+
+<span class="logo-sub">
+Mental Health & Neuroscience E-Clinic
+</span>
+
+</span>
+
+</a>
+
+
+<p class="footer-description">
+
+A specialized mental health and neuroscience
+e-clinic, with a connected network of specialist
+medical clinics.
+
+</p>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-heading">
+Mental Health
+</div>
+
+<div class="footer-links">
+
+<a href="#mental-health">
+Psychiatry
+</a>
+
+<a href="#mental-health">
+Psychology & Therapy
+</a>
+
+<a href="#mental-health">
+Neuroscience
+</a>
+
+<a href="#mental-health">
+Sleep
+</a>
+
+<a href="#mental-health">
+Addiction
+</a>
+
+</div>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-heading">
+Network
+</div>
+
+<div class="footer-links">
+
+<a href="/doctors/">
+Doctors
+</a>
+
+<a href="/therapists/">
+Therapists
+</a>
+
+<a href="/clinics/">
+Clinics
+</a>
+
+<a href="#specialties">
+Specialties
+</a>
+
+</div>
+
+</div>
+
+
+
+<div>
+
+<div class="footer-heading">
+Thomson Clinic
+</div>
+
+<div class="footer-links">
+
+<a href="#how">
+How it works
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+<a href="#book">
+Book consultation
+</a>
+
+<a href="mailto:hello@thomsonclinic.com">
+Contact
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="footer-bottom">
+
+<span>
+© <span id="year"></span> Thomson Clinic
+</span>
+
+<span>
+Mental Health · Neuroscience · Integrated Specialist Care
+</span>
+
+</div>
+
+
+</div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+const mobileMenu =
+document.getElementById("mobileMenu");
+
+const nav =
+document.getElementById("nav");
+
+
+mobileMenu.addEventListener(
+"click",
+()=>{
+
+nav.classList.toggle("open");
+
+}
+);
+
+
+nav.querySelectorAll("a")
+.forEach(link=>{
+
+link.addEventListener(
+"click",
+()=>{
+
+nav.classList.remove("open");
+
+}
+);
+
+});
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+const faqItems =
+document.querySelectorAll(".faq-item");
+
+
+faqItems.forEach(item=>{
+
+const button =
+item.querySelector(".faq-question");
+
+const answer =
+item.querySelector(".faq-answer");
+
+
+button.addEventListener(
+"click",
+()=>{
+
+const open =
+item.classList.contains("active");
+
+
+faqItems.forEach(other=>{
+
+other.classList.remove("active");
+
+other.querySelector(
+".faq-answer"
+).style.maxHeight=null;
+
+});
+
+
+if(!open){
+
+item.classList.add("active");
+
+answer.style.maxHeight =
+answer.scrollHeight+"px";
+
+}
+
+}
+);
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver =
+new IntersectionObserver(
+entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add(
+"visible"
+);
+
+revealObserver.unobserve(
+entry.target
+);
+
+}
+
+});
+
+},
+{
+threshold:.12
+}
+);
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(element=>{
+
+revealObserver.observe(element);
+
+});
+
+
+/* =========================================================
+   YEAR
+========================================================= */
+
+document.getElementById("year")
+.textContent=
+new Date().getFullYear();
+
+
+/* =========================================================
+   ESCAPE MOBILE MENU
+========================================================= */
+
+document.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Escape"){
+
+nav.classList.remove("open");
+
+}
+
+}
+);
+
+</script>
+
+
+</body>
+
 </html>
