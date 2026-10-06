@@ -1562,11 +1562,23 @@ color:var(--muted2);
 }
 
 .brand-doctors-viewport{
-  overflow:hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
   width:100%;
   padding:4px 0 10px;
+  cursor:grab;
+  touch-action:pan-y;
+  scrollbar-width:none;
   mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);
+}
+
+.brand-doctors-viewport::-webkit-scrollbar{display:none;}
+
+.brand-doctors-viewport.is-dragging{
+  cursor:grabbing;
+  user-select:none;
+  -webkit-user-select:none;
 }
 
 .brand-doctors-track{
@@ -5701,6 +5713,120 @@ document.getElementById("mobileMenu");
 
 const nav =
 document.getElementById("nav");
+
+const doctorsViewport =
+document.querySelector(".brand-doctors-viewport");
+
+const doctorsTrack =
+document.querySelector(".brand-doctors-track");
+
+let doctorsDrag = null;
+let doctorsDragged = false;
+
+doctorsViewport.addEventListener(
+"pointerdown",
+event=>{
+
+if(!event.isPrimary||(event.pointerType==="mouse"&&event.button!==0)){
+return;
+}
+
+const animation =
+doctorsTrack.getAnimations().find(item=>item.animationName==="brandDoctorScroll");
+
+if(animation){
+animation.pause();
+}
+
+doctorsDrag={
+pointerId:event.pointerId,
+startX:event.clientX,
+startTime:animation?.currentTime??0,
+startScrollLeft:doctorsViewport.scrollLeft,
+animation,
+distance:doctorsTrack.scrollWidth/2+9
+};
+
+doctorsDragged=false;
+doctorsViewport.classList.add("is-dragging");
+
+}
+);
+
+window.addEventListener(
+"pointermove",
+event=>{
+
+if(!doctorsDrag||event.pointerId!==doctorsDrag.pointerId){
+return;
+}
+
+const delta =
+doctorsDrag.startX-event.clientX;
+
+if(Math.abs(delta)>5){
+doctorsDragged=true;
+event.preventDefault();
+}
+
+if(!doctorsDragged){
+return;
+}
+
+if(doctorsDrag.animation){
+const duration =
+Number(doctorsDrag.animation.effect.getTiming().duration);
+
+const time =
+doctorsDrag.startTime+delta/doctorsDrag.distance*duration;
+
+doctorsDrag.animation.currentTime =
+((time%duration)+duration)%duration;
+}else{
+doctorsViewport.scrollLeft =
+doctorsDrag.startScrollLeft+delta;
+}
+
+},
+{passive:false}
+);
+
+const finishDoctorsDrag=event=>{
+
+if(!doctorsDrag||event.pointerId!==doctorsDrag.pointerId){
+return;
+}
+
+if(doctorsDrag.animation){
+doctorsDrag.animation.play();
+}
+
+doctorsDrag=null;
+doctorsViewport.classList.remove("is-dragging");
+
+};
+
+window.addEventListener("pointerup",finishDoctorsDrag);
+window.addEventListener("pointercancel",finishDoctorsDrag);
+
+doctorsViewport.addEventListener(
+"click",
+event=>{
+
+if(doctorsDragged){
+event.preventDefault();
+event.stopPropagation();
+doctorsDragged=false;
+}
+
+},
+true
+);
+
+doctorsViewport.addEventListener(
+"dragstart",
+event=>event.preventDefault()
+);
 
 
 mobileMenu.addEventListener(
