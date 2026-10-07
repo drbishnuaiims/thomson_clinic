@@ -1,0 +1,5726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#f5f5f7"
+>
+
+<meta
+    name="description"
+    content="Professional doctor profile and appointment booking page."
+>
+
+<title>
+    Dr. Asit Kumar Mohanty — Sr. Consultant & HOD, Radiation Oncology
+</title>
+
+
+<!-- =========================================================
+     QR CODE LIBRARY
+
+     The QR image itself is generated locally in the browser
+     from the doctor's current profile URL.
+     ========================================================= -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+
+
+<style>
+
+/* =========================================================
+   DOCTOR PROFILE
+   STANDALONE APPLE-INSPIRED UI
+   ========================================================= */
+
+:root {
+
+    --background: #f5f5f7;
+
+    --white: #ffffff;
+
+    --surface: rgba(255,255,255,.82);
+
+    --surface-soft: #fafafa;
+
+    --text: #171717;
+
+    --text-secondary: #606064;
+
+    --text-tertiary: #8b8b91;
+
+    --border: rgba(0,0,0,.075);
+
+    --accent: #405867;
+
+    --accent-soft: #edf2f5;
+
+    --green: #26785d;
+
+    --green-soft: #edf7f2;
+
+    --blue: #1d9bf0;
+
+    --black: #181818;
+
+    --shadow-small:
+        0 2px 4px rgba(0,0,0,.025),
+        0 8px 25px rgba(0,0,0,.035);
+
+    --shadow-medium:
+        0 18px 55px rgba(0,0,0,.12);
+
+    --radius-xl: 28px;
+
+    --radius-large: 22px;
+
+    --radius-medium: 16px;
+
+    --radius-small: 12px;
+
+    --max-width: 1060px;
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    line-height:
+        1.5;
+
+}
+
+button,
+input,
+select,
+textarea {
+
+    font: inherit;
+
+}
+
+button {
+
+    cursor: pointer;
+
+}
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+
+    width:
+        min(
+            var(--max-width),
+            calc(100% - 40px)
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        58px
+        0
+        90px;
+
+}
+
+
+/* =========================================================
+   TOP DOCTORJET PLATFORM INDICATOR
+   ========================================================= */
+
+.platform-bar {
+
+    position:
+        fixed;
+
+    top:
+        10px;
+
+    right:
+        12px;
+
+    z-index:
+        500;
+
+}
+
+
+/* clickable attribution */
+
+.platform-trigger {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-width:
+        31px;
+
+    min-height:
+        31px;
+
+    padding:
+        0;
+
+    border:
+        1px solid
+        rgba(0,0,0,.07);
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.86);
+
+    color:
+        #2b70a8;
+
+    appearance:
+        none;
+
+    -webkit-appearance:
+        none;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0,0,0,.07);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    overflow:
+        hidden;
+
+    transition:
+        width .28s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+/* expanded attribution */
+
+.platform-bar.expanded
+.platform-trigger {
+
+    width:
+        215px;
+
+    min-width:
+        215px;
+
+    justify-content:
+        flex-start;
+
+    padding:
+        5px 9px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    box-shadow:
+        0 7px 25px
+        rgba(0,0,0,.10);
+
+}
+
+
+/* security icon */
+
+.security-icon {
+
+    width:
+        22px;
+
+    height:
+        22px;
+
+    flex:
+        0 0 22px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    color:
+        #1677c8;
+
+    filter:
+        drop-shadow(
+            0 2px 5px
+            rgba(22,119,200,.22)
+        );
+
+}
+
+
+.security-icon svg {
+
+    width:
+        21px;
+
+    height:
+        21px;
+
+    display:
+        block;
+
+}
+
+
+.platform-bar.expanded
+.security-icon {
+
+    color:
+        #1267ad;
+
+}
+
+
+/* DoctorJet link inside expanded attribution */
+
+.platform-doctorjet-link {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    width:
+        100%;
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+/* attribution content */
+
+.platform-attribution {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    width:
+        0;
+
+    opacity:
+        0;
+
+    overflow:
+        hidden;
+
+    margin-left:
+        0;
+
+    transform:
+        translateX(5px);
+
+    transition:
+        width .28s ease,
+        opacity .2s ease,
+        margin .28s ease,
+        transform .28s ease;
+
+}
+
+
+.platform-bar.expanded
+.platform-attribution {
+
+    width:
+        180px;
+
+    opacity:
+        1;
+
+    margin-left:
+        7px;
+
+    transform:
+        translateX(0);
+
+}
+
+
+/* DoctorJet logo */
+
+.platform-logo {
+
+    width:
+        25px;
+
+    height:
+        25px;
+
+    flex:
+        0 0 25px;
+
+    object-fit:
+        contain;
+
+    border-radius:
+        7px;
+
+}
+
+
+/* attribution text */
+
+.platform-copy {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        flex-start;
+
+    min-width:
+        0;
+
+    white-space:
+        nowrap;
+
+    line-height:
+        1.15;
+
+}
+
+
+.platform-copy strong {
+
+    color:
+        #35383b;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+}
+
+
+.platform-copy small {
+
+    color:
+        #8b8f93;
+
+    font-size:
+        8px;
+
+    margin-top:
+        2px;
+
+}
+
+
+/* =========================================================
+   DOCTOR HERO
+   ========================================================= */
+
+.doctor-intro {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        150px
+        minmax(0,1fr)
+        auto;
+
+    align-items:
+        center;
+
+    gap:
+        30px;
+
+    padding:
+        34px;
+
+    background:
+        var(--surface);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius-xl);
+
+    box-shadow:
+        var(--shadow-small);
+
+    backdrop-filter:
+        blur(20px);
+
+}
+
+
+/* =========================================================
+   DOCTOR PHOTO
+   ========================================================= */
+
+.photo-container {
+
+    position:
+        relative;
+
+}
+
+
+.doctor-photo {
+
+    width:
+        138px;
+
+    height:
+        138px;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
+
+    border-radius:
+        24px;
+
+    background:
+        #e8e8ea;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0,0,0,.08),
+        0 10px 25px
+        rgba(0,0,0,.06);
+
+}
+
+
+/* =========================================================
+   INSTAGRAM-STYLE VERIFIED BADGE
+   ========================================================= */
+
+.verified-badge {
+
+    position:
+        absolute;
+
+    right:
+        -6px;
+
+    bottom:
+        -5px;
+
+    width:
+        29px;
+
+    height:
+        29px;
+
+    display:
+        block;
+
+    z-index:
+        5;
+
+    filter:
+        drop-shadow(
+            0 2px 4px
+            rgba(0,0,0,.15)
+        );
+
+}
+
+
+.verified-badge svg {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+}
+
+
+/* =========================================================
+   QR CODE BLOCK
+   ========================================================= */
+
+.profile-qr {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        8px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        1px solid
+        rgba(0,0,0,.065);
+
+    border-radius:
+        14px;
+
+    min-width:
+        92px;
+
+}
+
+
+.qr-code {
+
+    width:
+        70px;
+
+    height:
+        70px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        white;
+
+    border-radius:
+        7px;
+
+}
+
+
+.qr-code img,
+.qr-code canvas {
+
+    width:
+        70px !important;
+
+    height:
+        70px !important;
+
+    display:
+        block;
+
+}
+
+
+.qr-label {
+
+    margin-top:
+        6px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        8px;
+
+    font-weight:
+        650;
+
+    text-align:
+        center;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
+
+.doctor-label {
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--blue);
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .9px;
+
+}
+
+
+.doctor-name {
+
+    margin:
+        0;
+
+    color:
+        var(--text);
+
+    font-size:
+        clamp(
+            30px,
+            4vw,
+            42px
+        );
+
+    line-height:
+        1.08;
+
+    letter-spacing:
+        -1.5px;
+
+    font-weight:
+        700;
+
+}
+
+
+.doctor-specialty {
+
+    margin-top:
+        9px;
+
+    color:
+        var(--blue);
+
+    font-size:
+        17px;
+
+    font-weight:
+        600;
+
+}
+
+
+.doctor-credentials {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   PROFILE TAGS
+   ========================================================= */
+
+.profile-tags {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+
+    margin-top:
+        17px;
+
+}
+
+
+.profile-tag {
+
+    padding:
+        6px 10px;
+
+    border:
+        1px solid
+        rgba(0,0,0,.045);
+
+    border-radius:
+        999px;
+
+    background:
+        #f2f2f3;
+
+    color:
+        #57575a;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-button {
+
+    border:
+        none;
+
+    background:
+        var(--black);
+
+    color:
+        white;
+
+    border-radius:
+        13px;
+
+    padding:
+        13px 19px;
+
+    font-size:
+        13px;
+
+    font-weight:
+        650;
+
+    white-space:
+        nowrap;
+
+    box-shadow:
+        0 5px 14px
+        rgba(0,0,0,.12);
+
+    transition:
+        transform .15s ease,
+        background .15s ease;
+
+}
+
+
+.primary-button:hover {
+
+    background:
+        #2b2b2b;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   QUICK INFORMATION
+   ========================================================= */
+
+.quick-info {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    margin-top:
+        14px;
+
+    overflow:
+        hidden;
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        18px;
+
+}
+
+
+.quick-item {
+
+    padding:
+        17px 20px;
+
+    border-right:
+        1px solid
+        var(--border);
+
+}
+
+
+.quick-item:last-child {
+
+    border-right:
+        none;
+
+}
+
+
+.quick-label {
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .7px;
+
+}
+
+
+.quick-value {
+
+    margin-top:
+        3px;
+
+    color:
+        var(--text);
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.content {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        315px;
+
+    gap:
+        18px;
+
+    margin-top:
+        18px;
+
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+
+    padding:
+        27px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        var(--radius-large);
+
+    box-shadow:
+        var(--shadow-small);
+
+}
+
+
+.card + .card {
+
+    margin-top:
+        18px;
+
+}
+
+
+.card-title {
+
+    margin:
+        0;
+
+    color:
+        var(--text);
+
+    font-size:
+        19px;
+
+    font-weight:
+        650;
+
+    letter-spacing:
+        -.35px;
+
+}
+
+
+.card-description {
+
+    margin:
+        5px 0 22px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about {
+
+    margin:
+        0;
+
+    color:
+        #515151;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.75;
+
+}
+
+
+.approach {
+
+    margin-top:
+        20px;
+
+    padding:
+        17px 18px;
+
+    background:
+        var(--accent-soft);
+
+    border:
+        1px solid
+        rgba(63,89,107,.07);
+
+    border-radius:
+        15px;
+
+}
+
+
+.approach-title {
+
+    color:
+        var(--accent);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    margin-bottom:
+        4px;
+
+}
+
+
+.approach-text {
+
+    color:
+        #61707a;
+
+    font-size:
+        12px;
+
+}
+
+
+/* =========================================================
+   QUALIFICATIONS
+   ========================================================= */
+
+.qualification-list {
+
+    display:
+        grid;
+
+    gap:
+        10px;
+
+}
+
+
+.qualification {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    padding:
+        13px 14px;
+
+    background:
+        var(--surface-soft);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        14px;
+
+}
+
+
+.qualification-icon {
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    flex:
+        0 0 36px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        10px;
+
+    background:
+        #f0f0f1;
+
+    color:
+        #4e4e50;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+}
+
+
+.qualification-name {
+
+    font-size:
+        13px;
+
+    font-weight:
+        650;
+
+}
+
+
+.qualification-detail {
+
+    margin-top:
+        2px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   SPECIALTIES
+   ========================================================= */
+
+.specialties {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+}
+
+
+.specialty {
+
+    padding:
+        8px 11px;
+
+    background:
+        #f5f5f6;
+
+    border:
+        1px solid
+        rgba(0,0,0,.05);
+
+    border-radius:
+        10px;
+
+    color:
+        #4e4e50;
+
+    font-size:
+        12px;
+
+    font-weight:
+        550;
+
+}
+
+
+/* =========================================================
+   LOCATIONS
+   ========================================================= */
+
+.location-selector {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        9px;
+
+}
+
+
+.location-button {
+
+    position:
+        relative;
+
+    padding:
+        15px;
+
+    background:
+        #fafafa;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        15px;
+
+    text-align:
+        left;
+
+    transition:
+        background .15s ease,
+        border .15s ease;
+
+}
+
+
+.location-button:hover {
+
+    background:
+        #f6f6f7;
+
+}
+
+
+.location-button.active {
+
+    background:
+        #f0f3f5;
+
+    border-color:
+        rgba(63,89,107,.35);
+
+}
+
+
+.location-city {
+
+    font-size:
+        14px;
+
+    font-weight:
+        650;
+
+}
+
+
+.location-clinic {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+}
+
+
+.location-indicator {
+
+    position:
+        absolute;
+
+    top:
+        13px;
+
+    right:
+        13px;
+
+    width:
+        7px;
+
+    height:
+        7px;
+
+    border-radius:
+        50%;
+
+    background:
+        #d3d3d5;
+
+}
+
+
+.location-button.active
+.location-indicator {
+
+    background:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   LOCATION DETAIL
+   ========================================================= */
+
+.location-detail {
+
+    margin-top:
+        12px;
+
+    padding:
+        20px;
+
+    background:
+        #f8f8f9;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        17px;
+
+}
+
+
+.location-detail-top {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+}
+
+
+.detail-city {
+
+    font-size:
+        17px;
+
+    font-weight:
+        650;
+
+}
+
+
+.detail-clinic {
+
+    margin-top:
+        2px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        12px;
+
+}
+
+
+.detail-address {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        11px;
+
+}
+
+
+.detail-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        9px;
+
+    margin-top:
+        18px;
+
+}
+
+
+.detail-item {
+
+    padding:
+        12px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.detail-item-label {
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .65px;
+
+}
+
+
+.detail-item-value {
+
+    margin-top:
+        4px;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+}
+
+
+.modes {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        6px;
+
+    margin-top:
+        15px;
+
+}
+
+
+.mode {
+
+    padding:
+        6px 9px;
+
+    background:
+        var(--green-soft);
+
+    color:
+        var(--green);
+
+    border-radius:
+        8px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        650;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+
+    position:
+        sticky;
+
+    top:
+        25px;
+
+    align-self:
+        start;
+
+}
+
+
+.booking-card {
+
+    padding:
+        24px;
+
+    background:
+        #191919;
+
+    color:
+        white;
+
+    border-radius:
+        var(--radius-large);
+
+    box-shadow:
+        0 16px 40px
+        rgba(0,0,0,.14);
+
+}
+
+
+.booking-eyebrow {
+
+    color:
+        #9e9e9e;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .8px;
+
+}
+
+
+.booking-title {
+
+    margin:
+        7px 0;
+
+    color:
+        white;
+
+    font-size:
+        22px;
+
+    font-weight:
+        650;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.booking-description {
+
+    margin:
+        0;
+
+    color:
+        #a8a8aa;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+}
+
+
+.booking-divider {
+
+    height:
+        1px;
+
+    margin:
+        19px 0;
+
+    background:
+        rgba(255,255,255,.1);
+
+}
+
+
+.booking-row {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        7px 0;
+
+    font-size:
+        12px;
+
+}
+
+
+.booking-row-label {
+
+    color:
+        #a5a5a7;
+
+}
+
+
+.booking-row-value {
+
+    text-align:
+        right;
+
+    color:
+        white;
+
+    font-weight:
+        600;
+
+}
+
+
+.booking-button {
+
+    width:
+        100%;
+
+    margin-top:
+        15px;
+
+    padding:
+        13px;
+
+    border:
+        none;
+
+    border-radius:
+        12px;
+
+    background:
+        white;
+
+    color:
+        #161616;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    transition:
+        transform .15s ease;
+
+}
+
+
+.booking-button:hover {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.sidebar-note {
+
+    margin-top:
+        12px;
+
+    padding:
+        17px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        17px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.faq-item {
+
+    border-top:
+        1px solid
+        var(--border);
+
+}
+
+
+.faq-item:first-child {
+
+    border-top:
+        none;
+
+}
+
+
+.faq-question {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        15px 0;
+
+    border:
+        none;
+
+    background:
+        none;
+
+    color:
+        var(--text);
+
+    text-align:
+        left;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+}
+
+
+.faq-icon {
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        17px;
+
+    line-height:
+        1;
+
+}
+
+
+.faq-answer {
+
+    display:
+        none;
+
+    padding:
+        0 0 15px;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.65;
+
+}
+
+
+.faq-item.open
+.faq-answer {
+
+    display:
+        block;
+
+}
+
+
+/* =========================================================
+   APPOINTMENT MODAL
+   ========================================================= */
+
+.modal-backdrop {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        1000;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        18px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    backdrop-filter:
+        blur(7px);
+
+}
+
+
+.modal-backdrop.open {
+
+    display:
+        flex;
+
+}
+
+
+.modal {
+
+    width:
+        min(
+            590px,
+            100%
+        );
+
+    max-height:
+        92vh;
+
+    overflow-y:
+        auto;
+
+    background:
+        white;
+
+    border-radius:
+        25px;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.25);
+
+}
+
+
+.modal-header {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        21px 23px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+}
+
+
+.modal-title {
+
+    margin:
+        0;
+
+    font-size:
+        19px;
+
+    font-weight:
+        650;
+
+    letter-spacing:
+        -.3px;
+
+}
+
+
+.modal-subtitle {
+
+    margin-top:
+        3px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        11px;
+
+}
+
+
+.close-button {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    border:
+        none;
+
+    border-radius:
+        9px;
+
+    background:
+        #f2f2f3;
+
+    color:
+        #555;
+
+    font-size:
+        18px;
+
+}
+
+
+.modal-body {
+
+    padding:
+        22px 23px 24px;
+
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        14px;
+
+}
+
+
+.form-group.full {
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+.form-label {
+
+    display:
+        block;
+
+    margin-bottom:
+        6px;
+
+    color:
+        #444;
+
+    font-size:
+        11px;
+
+    font-weight:
+        650;
+
+}
+
+
+.form-control {
+
+    width:
+        100%;
+
+    padding:
+        11px 12px;
+
+    border:
+        1px solid
+        #dedee0;
+
+    border-radius:
+        11px;
+
+    outline:
+        none;
+
+    background:
+        #fafafa;
+
+    color:
+        var(--text);
+
+    font-size:
+        12px;
+
+    transition:
+        border .15s ease,
+        box-shadow .15s ease;
+
+}
+
+
+.form-control:focus {
+
+    background:
+        white;
+
+    border-color:
+        #8c9da8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(63,89,107,.08);
+
+}
+
+
+.slot-grid {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        6px;
+
+}
+
+
+.slot {
+
+    padding:
+        8px 10px;
+
+    border:
+        1px solid
+        #dedee0;
+
+    border-radius:
+        8px;
+
+    background:
+        #fafafa;
+
+    color:
+        #444;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+}
+
+
+.slot.selected {
+
+    background:
+        #1b1b1b;
+
+    border-color:
+        #1b1b1b;
+
+    color:
+        white;
+
+}
+
+
+.form-note {
+
+    margin-top:
+        16px;
+
+    color:
+        var(--text-tertiary);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.submit-button {
+
+    width:
+        100%;
+
+    margin-top:
+        13px;
+
+    padding:
+        13px;
+
+    border:
+        none;
+
+    border-radius:
+        12px;
+
+    background:
+        #171717;
+
+    color:
+        white;
+
+    font-size:
+        12px;
+
+    font-weight:
+        650;
+
+}
+
+
+/* =========================================================
+   WHATSAPP APPOINTMENT
+   ========================================================= */
+
+.whatsapp-privacy-note {
+    padding:
+        12px 13px;
+
+    border:
+        1px solid
+        rgba(29,155,240,.14);
+
+    border-radius:
+        11px;
+
+    background:
+        #f5faff;
+
+    color:
+        #66717a;
+
+}
+
+.whatsapp-privacy-note strong {
+    color:
+        #2d668f;
+
+    font-weight:
+        700;
+
+}
+
+.whatsapp-submit {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+}
+
+.whatsapp-icon {
+    width:
+        18px;
+
+    height:
+        18px;
+
+    flex:
+        0 0 18px;
+
+    display:
+        block;
+
+    fill:
+        currentColor;
+
+}
+
+
+/* =========================================================
+   MOBILE BOOKING BAR
+   ========================================================= */
+
+.mobile-book {
+
+    display:
+        none;
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .doctor-intro {
+
+        grid-template-columns:
+            125px
+            minmax(0,1fr);
+
+        gap:
+            23px;
+
+    }
+
+
+    .doctor-photo {
+
+        width:
+            120px;
+
+        height:
+            120px;
+
+    }
+
+
+    .doctor-intro
+    .primary-button {
+
+        grid-column:
+            1 / -1;
+
+        width:
+            100%;
+
+    }
+
+
+    .content {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .sidebar {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+
+        padding-bottom:
+            68px;
+
+    }
+
+
+    .page {
+
+        width:
+            calc(100% - 20px);
+
+        padding:
+            18px 0 35px;
+
+    }
+
+
+    /* attribution */
+
+    .platform-bar {
+
+        top:
+            8px;
+
+        right:
+            9px;
+
+    }
+
+
+    .platform-trigger {
+
+        min-width:
+            29px;
+
+        min-height:
+            29px;
+
+        border-radius:
+            9px;
+
+    }
+
+
+    .platform-bar.expanded
+    .platform-trigger {
+
+        width:
+            202px;
+
+        min-width:
+            202px;
+
+    }
+
+
+    /* hero */
+
+    .doctor-intro {
+
+        grid-template-columns:
+            86px
+            minmax(0,1fr);
+
+        gap:
+            15px;
+
+        padding:
+            20px;
+
+        border-radius:
+            22px;
+
+    }
+
+
+    .doctor-photo {
+
+        width:
+            82px;
+
+        height:
+            82px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .verified-badge {
+
+        width:
+            25px;
+
+        height:
+            25px;
+
+        right:
+            -5px;
+
+        bottom:
+            -4px;
+
+    }
+
+
+    .doctor-name {
+
+        font-size:
+            26px;
+
+        letter-spacing:
+            -.9px;
+
+    }
+
+
+    .doctor-specialty {
+
+        margin-top:
+            5px;
+
+        font-size:
+            13px;
+
+    }
+
+
+    .doctor-credentials {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .profile-tags {
+
+        margin-top:
+            10px;
+
+    }
+
+
+    .profile-tag {
+
+        padding:
+            5px 7px;
+
+        font-size:
+            9px;
+
+    }
+
+
+    .doctor-intro
+    .primary-button {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    /* QR */
+
+    .profile-qr {
+
+        grid-column:
+            1 / -1;
+
+        width:
+            100%;
+
+        flex-direction:
+            row;
+
+        justify-content:
+            flex-start;
+
+        gap:
+            10px;
+
+        padding:
+            8px 11px;
+
+    }
+
+
+    .qr-label {
+
+        margin-top:
+            0;
+
+        text-align:
+            left;
+
+        white-space:
+            normal;
+
+    }
+
+
+    /* quick information */
+
+    .quick-info {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        border-radius:
+            15px;
+
+    }
+
+
+    .quick-item {
+
+        padding:
+            13px;
+
+        border-bottom:
+            1px solid
+            var(--border);
+
+    }
+
+
+    .quick-item:nth-child(2) {
+
+        border-right:
+            none;
+
+    }
+
+
+    .quick-item:nth-child(3),
+    .quick-item:nth-child(4) {
+
+        border-bottom:
+            none;
+
+    }
+
+
+    /* cards */
+
+    .card {
+
+        padding:
+            21px;
+
+        border-radius:
+            19px;
+
+    }
+
+
+    /* locations */
+
+    .location-selector {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .location-detail-top {
+
+        display:
+            block;
+
+    }
+
+
+    .detail-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    /* modal */
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .form-group.full {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    /* mobile booking */
+
+    .mobile-book {
+
+        position:
+            fixed;
+
+        display:
+            block;
+
+        left:
+            0;
+
+        right:
+            0;
+
+        bottom:
+            0;
+
+        z-index:
+            800;
+
+        padding:
+            9px 11px;
+
+        background:
+            rgba(255,255,255,.93);
+
+        border-top:
+            1px solid
+            var(--border);
+
+        backdrop-filter:
+            blur(18px);
+
+    }
+
+
+    .mobile-book
+    button {
+
+        width:
+            100%;
+
+        padding:
+            13px;
+
+    }
+
+}
+
+</style>
+
+
+<style id="doctor-profile-share-refinement">
+/* =========================================================
+   DOCTOR PROFILE — QR SHARE CONTROL
+   ========================================================= */
+
+.profile-qr-share-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:nowrap;
+}
+
+.profile-share-wrap{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    min-width:150px;
+}
+
+.profile-share-button{
+    appearance:none;
+    border:1px solid rgba(29,155,240,.22);
+    background:#fff;
+    color:#171717;
+    min-height:40px;
+    padding:0 14px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    font:600 13px/1 inherit;
+    cursor:pointer;
+    box-shadow:0 5px 16px rgba(15,23,42,.07);
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+}
+
+.profile-share-button:hover{
+    transform:translateY(-1px);
+    border-color:rgba(29,155,240,.42);
+    box-shadow:0 8px 22px rgba(15,23,42,.10);
+}
+
+.profile-share-button:active{
+    transform:translateY(0);
+}
+
+.profile-share-button:focus-visible,
+.profile-share-option:focus-visible{
+    outline:3px solid rgba(29,155,240,.20);
+    outline-offset:2px;
+}
+
+.profile-share-icon{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#1d9bf0;
+    color:#fff;
+    flex:0 0 20px;
+}
+
+.profile-share-icon svg{
+    width:13px;
+    height:13px;
+    display:block;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.9;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.profile-share-options{
+    width:210px;
+    margin-top:8px;
+    padding:6px;
+    border:1px solid rgba(15,23,42,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.98);
+    box-shadow:0 12px 30px rgba(15,23,42,.12);
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    z-index:20;
+}
+
+.profile-share-options[hidden]{
+    display:none;
+}
+
+.profile-share-option{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#171717;
+    min-height:42px;
+    padding:8px 9px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    text-align:left;
+    font:600 12px/1.25 inherit;
+    cursor:pointer;
+    transition:background .16s ease;
+}
+
+.profile-share-option:hover{
+    background:#f4f8fb;
+}
+
+.profile-share-option.whatsapp:hover{
+    background:#eefaf3;
+}
+
+.share-option-icon{
+    width:28px;
+    height:28px;
+    flex:0 0 28px;
+    border-radius:8px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1f5f9;
+    color:#475569;
+}
+
+.share-option-icon svg{
+    width:16px;
+    height:16px;
+    display:block;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.share-option-icon.whatsapp-icon{
+    background:#e9f8ef;
+    color:#168a45;
+}
+
+.share-option-icon.whatsapp-icon svg path:first-child{
+    fill:currentColor;
+    stroke:none;
+}
+
+.share-option-icon.whatsapp-icon svg path:last-child{
+    fill:none;
+    stroke:#fff;
+    stroke-width:1.55;
+}
+
+.share-option-icon.copy-icon{
+    background:#eef4f8;
+    color:#3d5365;
+}
+
+@media (max-width:680px){
+    .profile-qr-share-wrap{
+        gap:10px;
+    }
+
+    .profile-share-wrap{
+        min-width:0;
+    }
+
+    .profile-share-button{
+        min-height:38px;
+        padding:0 12px;
+    }
+
+    .profile-share-options{
+        width:200px;
+    }
+}
+
+@media (max-width:900px){
+    .doctor-intro .profile-qr-share-wrap{
+        grid-column:1 / -1;
+        width:100%;
+        align-items:center;
+        justify-content:flex-start;
+        flex-wrap:nowrap;
+    }
+
+    .profile-qr-share-wrap .profile-qr{
+        grid-column:auto;
+        width:auto;
+        flex:0 0 auto;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:0;
+        padding:8px;
+    }
+
+    .profile-qr-share-wrap .qr-label{
+        margin-top:6px;
+        text-align:center;
+    }
+
+    .profile-qr-share-wrap .profile-share-wrap{
+        min-width:0;
+        flex:0 0 auto;
+    }
+}
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOP-RIGHT DOCTORJET ATTRIBUTION
+
+     Entire expanded section is a link to DoctorJet.in
+     ========================================================= -->
+
+<div
+    class="platform-bar"
+    id="platformBar"
+>
+
+    <!-- Security / expand control -->
+
+    <button
+        class="platform-trigger"
+        id="platformTrigger"
+        type="button"
+        aria-label="Show DoctorJet attribution"
+        aria-expanded="false"
+    >
+
+        <span class="security-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M12 2.6 19.5 5.5v5.3c0 5-3.1 8.9-7.5 10.6-4.4-1.7-7.5-5.6-7.5-10.6V5.5L12 2.6Z"
+                    fill="currentColor"
+                />
+
+                <path
+                    d="m8.1 11.9 2.55 2.55 5.35-5.45"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </span>
+
+        <!-- Expanded DoctorJet attribution -->
+
+        <span
+            class="platform-attribution"
+            id="platformAttribution"
+        >
+
+            <a
+                href="https://doctorjet.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="platform-doctorjet-link"
+                aria-label="Open DoctorJet.in"
+            >
+
+                <img
+                    src="../../images/powered-by-doctorjet.png"
+                    alt="DoctorJet"
+                    class="platform-logo"
+                >
+
+                <span class="platform-copy">
+
+                    <strong>
+                        Powered by DoctorJet.in
+                    </strong>
+
+                    <small>
+                        Secure profile & appointments
+                    </small>
+
+                </span>
+
+            </a>
+
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     PAGE
+     ========================================================= -->
+
+<main class="page">
+
+
+<!-- =========================================================
+     DOCTOR HERO
+     ========================================================= -->
+
+<section class="doctor-intro">
+
+
+    <!-- Doctor photo -->
+
+    <div class="photo-container">
+
+        <img
+            id="doctorPhoto"
+            class="doctor-photo"
+            src="./dr-asit-kumar-mohanty.png"
+            alt="Doctor"
+        >
+
+
+        <!-- Instagram-style verification -->
+
+        <span
+            class="verified-badge"
+            title="Verified doctor profile"
+            aria-label="Verified doctor profile"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M12 2.8
+                    14.05 4.2
+                    16.45 4.1
+                    17.55 6.25
+                    19.65 7.45
+                    19.45 9.85
+                    20.6 12
+                    19.45 14.15
+                    19.65 16.55
+                    17.55 17.75
+                    16.45 19.9
+                    14.05 19.8
+                    12 21.2
+                    9.95 19.8
+                    7.55 19.9
+                    6.45 17.75
+                    4.35 16.55
+                    4.55 14.15
+                    3.4 12
+                    4.55 9.85
+                    4.35 7.45
+                    6.45 6.25
+                    7.55 4.1
+                    9.95 4.2
+                    12 2.8Z"
+                    fill="#1D9BF0"
+                />
+
+                <path
+                    d="m7.9 12.1 2.65 2.55 5.55-5.7"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </span>
+
+    </div>
+
+
+    <!-- Doctor information -->
+
+    <div>
+
+        <div class="doctor-label">
+            Consultant
+        </div>
+
+
+        <h1
+            class="doctor-name"
+            id="doctorName"
+        >
+            Dr. Asit Kumar Mohanty
+        </h1>
+
+
+        <div
+            class="doctor-specialty"
+            id="doctorSpecialty"
+        >
+            Sr. Consultant &amp; HOD – Radiation Oncology
+        </div>
+
+
+        <div
+            class="doctor-credentials"
+            id="doctorCredentials"
+        >
+            MBBS, MD, DNB – Radiation Oncology
+        </div>
+
+
+        <div class="profile-tags">
+
+            <span class="profile-tag">
+                Evidence-based care
+            </span>
+
+            <span class="profile-tag">
+                Online consultation
+            </span>
+
+            <span class="profile-tag">
+                By appointment
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- QR code + share -->
+
+    <div class="profile-qr-share-wrap">
+
+        <div class="profile-qr">
+
+            <div
+                class="qr-code"
+                id="doctorQR"
+                aria-label="QR code for this doctor profile"
+            >
+            </div>
+
+            <div class="qr-label">
+                Doctor's Profile<br>
+                QR Code
+            </div>
+
+        </div>
+
+        <div class="profile-share-wrap">
+
+            <button
+                type="button"
+                class="profile-share-button"
+                id="profileShareButton"
+                aria-expanded="false"
+                aria-controls="profileShareOptions"
+            >
+                <span class="profile-share-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M12 16V4"></path>
+                        <path d="M7 9l5-5 5 5"></path>
+                        <path d="M5 13v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6"></path>
+                    </svg>
+                </span>
+                <span>Share</span>
+            </button>
+
+            <div
+                class="profile-share-options"
+                id="profileShareOptions"
+                hidden
+            >
+                <button
+                    type="button"
+                    class="profile-share-option whatsapp"
+                    id="shareWhatsAppButton"
+                >
+                    <span class="share-option-icon whatsapp-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.6-4A8 8 0 1 1 20 11.5Z"></path>
+                            <path d="M9 8.5c.2-.4.5-.5.8-.4l1 .8c.3.2.3.5.2.8l-.4.7c.5.9 1.2 1.6 2.1 2.1l.7-.4c.3-.2.6-.1.8.2l.8 1c.2.3.1.6-.2.8-.6.5-1.4.6-2.1.3-2.7-1.1-4.5-2.9-5.6-5.6-.3-.7-.2-1.5.3-2.1Z"></path>
+                        </svg>
+                    </span>
+                    <span>Share on WhatsApp</span>
+                </button>
+
+                <button
+                    type="button"
+                    class="profile-share-option"
+                    id="copyProfileLinkButton"
+                >
+                    <span class="share-option-icon copy-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+                            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+                        </svg>
+                    </span>
+                    <span id="copyProfileLinkText">Copy profile link</span>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Booking -->
+
+    <button
+        class="primary-button"
+        onclick="openBooking()"
+    >
+        Book Appointment
+    </button>
+
+
+</section>
+
+
+<!-- =========================================================
+     QUICK INFORMATION
+     ========================================================= -->
+
+<section class="quick-info">
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Experience
+        </div>
+
+        <div
+            class="quick-value"
+            id="experience"
+        >
+            20+ Years
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Consultation
+        </div>
+
+        <div class="quick-value">
+            In-person & Online
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Languages
+        </div>
+
+        <div class="quick-value">
+            English · Hindi
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Appointment
+        </div>
+
+        <div class="quick-value">
+            By appointment
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
+
+<div class="content">
+
+
+<div>
+
+
+<!-- =========================================================
+     ABOUT
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        About
+    </h2>
+
+    <p class="card-description">
+        Clinical background and approach to care
+    </p>
+
+
+    <p
+        class="about"
+        id="aboutText"
+    >
+        Dr. Asit Kumar Mohanty is a senior Radiation Oncologist
+        with over 20 years of extensive clinical experience in
+        the field of Radiation Oncology. He is currently
+        associated with KIMS Cancer Center as Senior Consultant
+        and Head of Department – Radiation Oncology. His
+        professional experience includes work at prestigious
+        institutions such as Tata Memorial Hospital, Mumbai,
+        A.H. Regional Cancer Centre, Cuttack, and Kuwait Cancer
+        Control Centre, Ministry of Health, Kuwait.
+    </p>
+
+
+    <div class="approach">
+
+        <div class="approach-title">
+            Approach to care
+        </div>
+
+        <div class="approach-text">
+            Multidisciplinary cancer care · Evidence-based
+            treatment planning · Precision radiotherapy ·
+            Individualised oncology decisions
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     QUALIFICATIONS
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Qualifications
+    </h2>
+
+    <p class="card-description">
+        Academic and professional credentials
+    </p>
+
+
+    <div class="qualification-list">
+
+
+        <div class="qualification">
+
+            <div class="qualification-icon">
+                MBBS
+            </div>
+
+            <div>
+
+                <div class="qualification-name">
+                    MBBS
+                </div>
+
+                <div class="qualification-detail">
+                    Bachelor of Medicine and Bachelor of Surgery
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="qualification">
+
+            <div class="qualification-icon">
+                MD
+            </div>
+
+            <div>
+
+                <div class="qualification-name">
+                    MD – Radiation Oncology
+                </div>
+
+                <div class="qualification-detail">
+                    Postgraduate qualification in Radiation Oncology
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="qualification">
+
+            <div class="qualification-icon">
+                DNB
+            </div>
+
+            <div>
+
+                <div class="qualification-name">
+                    DNB – Radiation Oncology
+                </div>
+
+                <div class="qualification-detail">
+                    Diplomate of National Board qualification
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="qualification">
+
+            <div class="qualification-icon">
+                Assoc.
+            </div>
+
+            <div>
+
+                <div class="qualification-name">
+                    Professional Experience
+                </div>
+
+                <div class="qualification-detail">
+                    Tata Memorial Hospital, Mumbai · A.H. Regional Cancer Centre, Cuttack · Kuwait Cancer Control Centre · KIMS Cancer Center
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     AREAS OF EXPERTISE
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Areas of expertise
+    </h2>
+
+    <p class="card-description">
+        Conditions commonly evaluated and treated
+    </p>
+
+
+    <div class="specialties">
+
+        <span class="specialty">
+            Breast Tumors
+        </span>
+
+        <span class="specialty">
+            GI Malignancies
+        </span>
+
+        <span class="specialty">
+            Brain Tumors
+        </span>
+
+        <span class="specialty">
+            IGRT
+        </span>
+
+        <span class="specialty">
+            IMRT
+        </span>
+
+        <span class="specialty">
+            SBRT &amp; SRS
+        </span>
+
+        <span class="specialty">
+            Intracavitary Brachytherapy
+        </span>
+
+        <span class="specialty">
+            Clinical Radiation Oncology
+        </span>
+
+        <span class="specialty">
+            Multidisciplinary Cancer Care
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRACTICE LOCATIONS
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Practice locations
+    </h2>
+
+    <p class="card-description">
+        Select a location to view clinic details and availability
+    </p>
+
+
+    <div
+        class="location-selector"
+        id="locationSelector"
+    >
+    </div>
+
+
+    <div
+        class="location-detail"
+        id="locationDetail"
+    >
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FAQ
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Frequently asked questions
+    </h2>
+
+    <p class="card-description">
+        Common appointment questions
+    </p>
+
+
+    <div class="faq-item">
+
+        <button class="faq-question">
+
+            <span>
+                Do I need an appointment?
+            </span>
+
+            <span class="faq-icon">
+                +
+            </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+            Appointments are recommended so that dedicated
+            consultation time can be reserved for you.
+
+        </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <button class="faq-question">
+
+            <span>
+                Is online consultation available?
+            </span>
+
+            <span class="faq-icon">
+                +
+            </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+            Online consultation is available for selected
+            locations and appointment slots.
+
+        </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <button class="faq-question">
+
+            <span>
+                Can I choose the clinic?
+            </span>
+
+            <span class="faq-icon">
+                +
+            </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+            Yes. Select your preferred practice location
+            before submitting the appointment request.
+
+        </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <button class="faq-question">
+
+            <span>
+                How is my appointment confirmed?
+            </span>
+
+            <span class="faq-icon">
+                +
+            </span>
+
+        </button>
+
+        <div class="faq-answer">
+
+            Your appointment details are transferred directly
+            to Thomson Clinic through WhatsApp. The clinic can
+            then confirm the appointment through WhatsApp.
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+</div>
+
+
+<!-- =========================================================
+     DESKTOP BOOKING SIDEBAR
+     ========================================================= -->
+
+<aside class="sidebar">
+
+
+    <div class="booking-card">
+
+
+        <div class="booking-eyebrow">
+            Appointments
+        </div>
+
+
+        <h2 class="booking-title">
+            Book a consultation
+        </h2>
+
+
+        <p class="booking-description">
+            Choose your preferred location, consultation
+            mode, date and time.
+        </p>
+
+
+        <div class="booking-divider"></div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Location
+            </span>
+
+            <span
+                class="booking-row-value"
+                id="sideLocation"
+            >
+                Bhubaneswar
+            </span>
+
+        </div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Consultation
+            </span>
+
+            <span class="booking-row-value">
+                In-person / Online
+            </span>
+
+        </div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Fee
+            </span>
+
+            <span
+                class="booking-row-value"
+                id="sideFee"
+            >
+                Fees vary
+            </span>
+
+        </div>
+
+
+        <button
+            class="booking-button"
+            onclick="openBooking()"
+        >
+            Book Appointment
+        </button>
+
+
+    </div>
+
+
+    <div class="sidebar-note">
+
+        Your appointment details are not stored on this
+        page or sent to a server/database. They are passed
+        directly to Thomson Clinic through WhatsApp.
+        Please avoid entering highly sensitive medical
+        information.
+
+    </div>
+
+
+</aside>
+
+
+</div>
+
+
+</main>
+
+
+<!-- =========================================================
+     MOBILE BOOKING BAR
+     ========================================================= -->
+
+<div class="mobile-book">
+
+    <button
+        class="primary-button"
+        onclick="openBooking()"
+    >
+        Book Appointment
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     APPOINTMENT MODAL
+     ========================================================= -->
+
+<div
+    class="modal-backdrop"
+    id="bookingModal"
+    onclick="outsideModal(event)"
+>
+
+
+    <div class="modal">
+
+
+        <div class="modal-header">
+
+
+            <div>
+
+                <h2 class="modal-title">
+                    Book an appointment
+                </h2>
+
+                <div class="modal-subtitle">
+
+                    <span id="modalDoctor">
+                        Dr. Asit Kumar Mohanty
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                onclick="closeBooking()"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <form
+                id="appointmentForm"
+                onsubmit="submitAppointment(event)"
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- PATIENT NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="patientName"
+                        >
+                            Patient name
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="patientName"
+                            type="text"
+                            placeholder="Full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="patientPhone"
+                        >
+                            Mobile number
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="patientPhone"
+                            type="tel"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="10-digit mobile"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="bookingLocation"
+                        >
+                            Practice location
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="bookingLocation"
+                            onchange="bookingLocationChanged()"
+                            required
+                        >
+                        </select>
+
+                    </div>
+
+
+                    <!-- MODE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="consultationMode"
+                        >
+                            Consultation mode
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="consultationMode"
+                            required
+                        >
+
+                            <option value="">
+                                Select mode
+                            </option>
+
+                            <option>
+                                In-person consultation
+                            </option>
+
+                            <option>
+                                Online consultation
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="appointmentDate"
+                        >
+                            Preferred date
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="appointmentDate"
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TIME -->
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Preferred time
+                        </label>
+
+
+                        <div
+                            class="slot-grid"
+                            id="slotGrid"
+                        >
+                        </div>
+
+
+                        <input
+                            id="selectedSlot"
+                            type="hidden"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="patientMessage"
+                        >
+
+                            Reason for consultation
+
+                            <span
+                                style="
+                                color:#aaa;
+                                font-weight:400;
+                                "
+                            >
+                                optional
+                            </span>
+
+                        </label>
+
+
+                        <textarea
+                            class="form-control"
+                            id="patientMessage"
+                            rows="3"
+                            placeholder="Briefly describe your concern"
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-note whatsapp-privacy-note">
+
+                    <strong>Privacy &amp; booking:</strong>
+                    This appointment form does not store your
+                    information or send it to any website,
+                    server or database. When you click the
+                    button below, the details you entered are
+                    transferred directly to Thomson Clinic
+                    through WhatsApp. Please avoid entering
+                    highly sensitive medical information.
+
+                </div>
+
+
+                <button
+                    class="submit-button whatsapp-submit"
+                    type="submit"
+                >
+                    <svg
+                        class="whatsapp-icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M20.52 3.48A11.83 11.83 0 0 0 12.08 0C5.54 0 .22 5.32.22 11.86c0 2.09.55 4.13 1.59 5.92L.12 24l6.38-1.67a11.85 11.85 0 0 0 5.58 1.4h.01c6.54 0 11.86-5.32 11.86-11.86 0-3.17-1.23-6.14-3.43-8.39ZM12.09 21.7h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.21-3.79.99 1.01-3.7-.23-.38a9.84 9.84 0 0 1-1.5-5.17C2.19 6.44 6.63 2 12.08 2c2.64 0 5.12 1.03 6.98 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.89-9.86 9.89Zm5.42-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.26.49 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"
+                        />
+                    </svg>
+                    Book Appointment via WhatsApp
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DOCTOR CONFIGURATION
+   =========================================================
+
+   CHANGE THIS OBJECT FOR EACH DOCTOR.
+
+   The QR code automatically uses the current page URL,
+   so every doctor's profile gets its own QR code.
+   ========================================================= */
+
+const doctor = {
+
+    name:
+        "Dr. Asit Kumar Mohanty",
+
+    specialty:
+        "Sr. Consultant & HOD – Radiation Oncology",
+
+    credentials:
+        "MBBS, MD, DNB – Radiation Oncology",
+
+    experience:
+        "20+ Years",
+
+    photo:
+        "./dr-asit-kumar-mohanty.png",
+
+    about:
+        "Dr. Asit Kumar Mohanty is a senior Radiation Oncologist with over 20 years of extensive clinical experience in the field of Radiation Oncology. He is currently associated with KIMS Cancer Center as Senior Consultant and Head of Department – Radiation Oncology. His professional experience includes work at prestigious institutions such as Tata Memorial Hospital, Mumbai, A.H. Regional Cancer Centre, Cuttack, and Kuwait Cancer Control Centre, Ministry of Health, Kuwait.",
+
+
+    locations: [
+
+        {
+
+            city:
+                "Bhubaneswar",
+
+            clinic:
+                "KIMS Cancer Center",
+
+            address:
+                "KIMS Cancer Center, Room No 2017, Bhubaneswar, Odisha",
+
+            consultation:
+                "In-person & Online",
+
+            fee:
+                "Fees vary by treatment and service",
+
+            days:
+                "Prior appointment required",
+
+            hours:
+                "By appointment",
+
+            modes: [
+                "In-person",
+                "Online"
+            ],
+
+            slots: [
+
+                "By appointment",
+                "Prior booking",
+                "Consultation review"
+
+            ]
+
+        },
+
+
+        {
+
+            city:
+                "Cuttack",
+
+            clinic:
+                "Cuttack",
+
+            address:
+                "Cuttack, Odisha",
+
+            consultation:
+                "In-person & Online",
+
+            fee:
+                "Fees vary by treatment and service",
+
+            days:
+                "Prior appointment required",
+
+            hours:
+                "By appointment",
+
+            modes: [
+                "In-person",
+                "Online"
+            ],
+
+            slots: [
+
+                "By appointment",
+                "Prior booking",
+                "Consultation review"
+
+            ]
+
+        },
+
+
+        {
+
+            city:
+                "Balasore",
+
+            clinic:
+                "Balasore",
+
+            address:
+                "Balasore, Odisha",
+
+            consultation:
+                "In-person & Online",
+
+            fee:
+                "Fees vary by treatment and service",
+
+            days:
+                "Prior appointment required",
+
+            hours:
+                "By appointment",
+
+            modes: [
+                "In-person",
+                "Online"
+            ],
+
+            slots: [
+
+                "By appointment",
+                "Prior booking",
+                "Consultation review"
+
+            ]
+
+        },
+
+
+        {
+
+            city:
+                "Sambalpur",
+
+            clinic:
+                "Sambalpur",
+
+            address:
+                "Sambalpur, Odisha",
+
+            consultation:
+                "In-person & Online",
+
+            fee:
+                "Fees vary by treatment and service",
+
+            days:
+                "Prior appointment required",
+
+            hours:
+                "By appointment",
+
+            modes: [
+                "In-person",
+                "Online"
+            ],
+
+            slots: [
+
+                "By appointment",
+                "Prior booking",
+                "Consultation review"
+
+            ]
+
+        },
+
+
+        {
+
+            city:
+                "Bolangir",
+
+            clinic:
+                "Bolangir",
+
+            address:
+                "Bolangir, Odisha",
+
+            consultation:
+                "In-person & Online",
+
+            fee:
+                "Fees vary by treatment and service",
+
+            days:
+                "Prior appointment required",
+
+            hours:
+                "By appointment",
+
+            modes: [
+                "In-person",
+                "Online"
+            ],
+
+            slots: [
+
+                "By appointment",
+                "Prior booking",
+                "Consultation review"
+
+            ]
+
+        }
+
+    ]
+
+};
+
+
+/* =========================================================
+   INITIALISE DOCTOR
+   ========================================================= */
+
+document
+    .getElementById("doctorName")
+    .textContent =
+        doctor.name;
+
+
+document
+    .getElementById("doctorSpecialty")
+    .textContent =
+        doctor.specialty;
+
+
+document
+    .getElementById("doctorCredentials")
+    .textContent =
+        doctor.credentials;
+
+
+document
+    .getElementById("experience")
+    .textContent =
+        doctor.experience;
+
+
+function setDoctorPhotoSource(image, source) {
+
+    const photoPath =
+        source.match(
+            /^(.*)\.(jpg|jpeg|png)$/i
+        );
+
+
+    if (!photoPath) {
+        throw new Error(
+            `Unsupported doctor photo path: ${source}`
+        );
+    }
+
+
+    const basePath =
+        photoPath[1];
+
+    const preferredExtension =
+        photoPath[2].toLowerCase();
+
+    const extensions = [
+        preferredExtension,
+        ...["jpg", "jpeg", "png"].filter(
+            extension =>
+                extension !== preferredExtension
+        )
+    ];
+
+    let nextExtension =
+        1;
+
+
+    function clearFallback() {
+
+        image.removeEventListener(
+            "error",
+            tryNextImageFormat
+        );
+
+    }
+
+
+    function tryNextImageFormat() {
+
+        if (nextExtension >= extensions.length) {
+
+            image.removeEventListener(
+                "error",
+                tryNextImageFormat
+            );
+
+            image.removeEventListener(
+                "load",
+                clearFallback
+            );
+
+            console.error(
+                `Unable to load doctor photo. Tried: ${extensions
+                    .map(extension => `${basePath}.${extension}`)
+                    .join(", ")}`
+            );
+
+            return;
+
+        }
+
+
+        image.src =
+            `${basePath}.${extensions[nextExtension++]}`;
+
+    }
+
+
+    image.addEventListener(
+        "error",
+        tryNextImageFormat
+    );
+
+    image.addEventListener(
+        "load",
+        clearFallback,
+        { once: true }
+    );
+
+    image.src =
+        `${basePath}.${extensions[0]}`;
+
+}
+
+
+document
+    .getElementById("doctorPhoto")
+    .alt =
+        doctor.name;
+
+
+setDoctorPhotoSource(
+    document.getElementById("doctorPhoto"),
+    doctor.photo
+);
+
+
+document
+    .getElementById("aboutText")
+    .textContent =
+        doctor.about;
+
+
+document
+    .getElementById("modalDoctor")
+    .textContent =
+        doctor.name;
+
+
+/* =========================================================
+   LOCAL QR GENERATION
+   =========================================================
+
+   Uses the actual URL of the current doctor profile.
+
+   Example:
+
+   https://doctorjet.in/doctor/dr-ananya-mehta
+
+   becomes the QR payload automatically.
+
+   Therefore you do NOT need to manually change the QR
+   whenever you duplicate the profile page.
+   ========================================================= */
+
+function generateDoctorQR() {
+
+    const qrContainer =
+        document.getElementById(
+            "doctorQR"
+        );
+
+
+    if (!qrContainer) {
+        return;
+    }
+
+
+    qrContainer.innerHTML = "";
+
+
+    /*
+       The current profile URL is used.
+
+       If the page is opened locally while developing,
+       the QR will encode the local URL.
+
+       Once uploaded to DoctorJet.in, it will automatically
+       encode the production doctor profile URL.
+    */
+
+    const profileURL =
+        window.location.href;
+
+
+    new QRCode(
+        qrContainer,
+        {
+
+            text:
+                profileURL,
+
+            width:
+                70,
+
+            height:
+                70,
+
+            colorDark:
+                "#171717",
+
+            colorLight:
+                "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.M
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   WAIT FOR QR LIBRARY
+   ========================================================= */
+
+function initialiseQR() {
+
+    if (
+        typeof QRCode !==
+        "undefined"
+    ) {
+
+        generateDoctorQR();
+
+    } else {
+
+        /*
+           If the external QR library has not finished loading,
+           try again shortly.
+        */
+
+        setTimeout(
+            initialiseQR,
+            100
+        );
+
+    }
+
+}
+
+
+window.addEventListener(
+    "load",
+    initialiseQR
+);
+
+
+/* =========================================================
+   LOCATION STATE
+   ========================================================= */
+
+let selectedLocation = 0;
+
+
+/* =========================================================
+   RENDER LOCATION BUTTONS
+   ========================================================= */
+
+function renderLocations() {
+
+    const selector =
+        document.getElementById(
+            "locationSelector"
+        );
+
+
+    selector.innerHTML =
+        "";
+
+
+    doctor.locations.forEach(
+        (location,index) => {
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "location-button" +
+                (
+                    index ===
+                    selectedLocation
+                        ? " active"
+                        : ""
+                );
+
+
+            button.innerHTML = `
+
+                <div class="location-city">
+                    ${location.city}
+                </div>
+
+                <div class="location-clinic">
+                    ${location.clinic}
+                </div>
+
+                <span
+                    class="location-indicator"
+                ></span>
+
+            `;
+
+
+            button.onclick = () => {
+
+                selectedLocation =
+                    index;
+
+
+                renderLocations();
+
+                renderLocationDetail();
+
+                syncBookingLocation();
+
+            };
+
+
+            selector.appendChild(
+                button
+            );
+
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOCATION DETAIL
+   ========================================================= */
+
+function renderLocationDetail() {
+
+    const location =
+        doctor.locations[
+            selectedLocation
+        ];
+
+
+    document
+        .getElementById(
+            "locationDetail"
+        )
+        .innerHTML = `
+
+            <div class="location-detail-top">
+
+                <div>
+
+                    <div class="detail-city">
+                        ${location.city}
+                    </div>
+
+                    <div class="detail-clinic">
+                        ${location.clinic}
+                    </div>
+
+                    <div class="detail-address">
+                        ${location.address}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="detail-grid">
+
+
+                <div class="detail-item">
+
+                    <div class="detail-item-label">
+                        Consultation
+                    </div>
+
+                    <div class="detail-item-value">
+                        ${location.consultation}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-item-label">
+                        Consultation fee
+                    </div>
+
+                    <div class="detail-item-value">
+                        ${location.fee}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-item">
+
+                    <div class="detail-item-label">
+                        Timing
+                    </div>
+
+                    <div class="detail-item-value">
+                        ${location.hours}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modes">
+
+                ${
+                    location.modes
+                        .map(
+                            mode =>
+                                `
+                                <span class="mode">
+                                    ${mode}
+                                </span>
+                                `
+                        )
+                        .join("")
+                }
+
+            </div>
+
+        `;
+
+
+    document
+        .getElementById(
+            "sideLocation"
+        )
+        .textContent =
+            location.city;
+
+
+    document
+        .getElementById(
+            "sideFee"
+        )
+        .textContent =
+            location.fee;
+
+}
+
+
+/* =========================================================
+   INITIALISE LOCATIONS
+   ========================================================= */
+
+renderLocations();
+
+renderLocationDetail();
+
+
+/* =========================================================
+   OPEN BOOKING MODAL
+   ========================================================= */
+
+function openBooking() {
+
+    document
+        .getElementById(
+            "bookingModal"
+        )
+        .classList.add(
+            "open"
+        );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    syncBookingLocation();
+
+}
+
+
+/* =========================================================
+   CLOSE BOOKING MODAL
+   ========================================================= */
+
+function closeBooking() {
+
+    document
+        .getElementById(
+            "bookingModal"
+        )
+        .classList.remove(
+            "open"
+        );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================================
+   CLOSE WHEN CLICKING BACKDROP
+   ========================================================= */
+
+function outsideModal(event) {
+
+    if (
+        event.target.id ===
+        "bookingModal"
+    ) {
+
+        closeBooking();
+
+    }
+
+}
+
+
+/* =========================================================
+   SYNC BOOKING LOCATION
+   ========================================================= */
+
+function syncBookingLocation() {
+
+    const select =
+        document.getElementById(
+            "bookingLocation"
+        );
+
+
+    select.innerHTML =
+        doctor.locations
+            .map(
+                (location,index) => `
+
+                    <option
+                        value="${index}"
+                        ${
+                            index ===
+                            selectedLocation
+                                ? "selected"
+                                : ""
+                        }
+                    >
+                        ${location.city}
+                    </option>
+
+                `
+            )
+            .join("");
+
+
+    renderSlots();
+
+}
+
+
+/* =========================================================
+   CHANGE BOOKING LOCATION
+   ========================================================= */
+
+function bookingLocationChanged() {
+
+    selectedLocation =
+        Number(
+            document
+                .getElementById(
+                    "bookingLocation"
+                )
+                .value
+        );
+
+
+    renderSlots();
+
+    renderLocations();
+
+    renderLocationDetail();
+
+}
+
+
+/* =========================================================
+   TIME SLOTS
+   ========================================================= */
+
+function renderSlots() {
+
+    const index =
+        Number(
+            document
+                .getElementById(
+                    "bookingLocation"
+                )
+                .value ||
+            selectedLocation
+        );
+
+
+    const location =
+        doctor.locations[index];
+
+
+    const container =
+        document.getElementById(
+            "slotGrid"
+        );
+
+
+    const hidden =
+        document.getElementById(
+            "selectedSlot"
+        );
+
+
+    hidden.value =
+        "";
+
+
+    container.innerHTML =
+        "";
+
+
+    location.slots.forEach(
+        slot => {
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "slot";
+
+
+            button.textContent =
+                slot;
+
+
+            button.onclick = () => {
+
+
+                document
+                    .querySelectorAll(
+                        ".slot"
+                    )
+                    .forEach(
+                        item =>
+                            item.classList
+                                .remove(
+                                    "selected"
+                                )
+                    );
+
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+                hidden.value =
+                    slot;
+
+
+            };
+
+
+            container.appendChild(
+                button
+            );
+
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+const dateInput =
+    document.getElementById(
+        "appointmentDate"
+    );
+
+
+dateInput.min =
+    new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+/* =========================================================
+   APPOINTMENT SUBMISSION
+   ========================================================= */
+
+function submitAppointment(event) {
+
+    event.preventDefault();
+
+
+    const slot =
+        document
+            .getElementById(
+                "selectedSlot"
+            )
+            .value;
+
+
+    if (!slot) {
+
+        alert(
+            "Please select a preferred time."
+        );
+
+        return;
+
+    }
+
+
+    const location =
+        doctor.locations[
+            Number(
+                document
+                    .getElementById(
+                        "bookingLocation"
+                    )
+                    .value
+            )
+        ];
+
+
+    const patientName =
+        document
+            .getElementById(
+                "patientName"
+            )
+            .value
+            .trim();
+
+
+    const patientPhone =
+        document
+            .getElementById(
+                "patientPhone"
+            )
+            .value
+            .trim();
+
+
+    const mode =
+        document
+            .getElementById(
+                "consultationMode"
+            )
+            .value;
+
+
+    const date =
+        document
+            .getElementById(
+                "appointmentDate"
+            )
+            .value;
+
+
+    const message =
+        document
+            .getElementById(
+                "patientMessage"
+            )
+            .value
+            .trim();
+
+
+    /*
+       =====================================================
+       DIRECT WHATSAPP BOOKING
+
+       The page does NOT store appointment data and does NOT
+       send it to a server, database, Google Sheet or API.
+
+       The entered details are placed into a WhatsApp message
+       and handed directly to Thomson Clinic's WhatsApp chat.
+       =====================================================
+    */
+
+    const whatsappNumber =
+        "919438450966";
+
+
+    const formattedDate =
+        date
+            ? new Date(
+                date + "T00:00:00"
+            ).toLocaleDateString(
+                "en-IN",
+                {
+                    day:
+                        "2-digit",
+                    month:
+                        "short",
+                    year:
+                        "numeric"
+                }
+            )
+            : "";
+
+
+    const whatsappMessage = [
+        "THOMSON CLINIC — APPOINTMENT REQUEST",
+        "",
+        "Doctor: " +
+            doctor.name,
+        "Patient: " +
+            patientName,
+        "Mobile: " +
+            patientPhone,
+        "",
+        "Location: " +
+            location.city,
+        "Clinic: " +
+            location.clinic,
+        "Consultation: " +
+            mode,
+        "Preferred date: " +
+            formattedDate,
+        "Preferred time: " +
+            slot,
+        message
+            ? "Reason for consultation: " +
+              message
+            : "",
+        "",
+        "Please confirm the appointment."
+    ]
+        .filter(
+            line =>
+                line !== ""
+        )
+        .join("\n");
+
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(
+            whatsappMessage
+        );
+
+
+    window.location.href =
+        whatsappUrl;
+
+}
+
+
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+document
+    .querySelectorAll(
+        ".faq-question"
+    )
+    .forEach(
+        question => {
+
+
+            question.addEventListener(
+                "click",
+                () => {
+
+
+                    const item =
+                        question.parentElement;
+
+
+                    item.classList.toggle(
+                        "open"
+                    );
+
+
+                    const icon =
+                        question.querySelector(
+                            ".faq-icon"
+                        );
+
+
+                    icon.textContent =
+                        item.classList.contains(
+                            "open"
+                        )
+                            ? "−"
+                            : "+";
+
+
+                }
+            );
+
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeBooking();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   DOCTORJET ATTRIBUTION
+   =========================================================
+
+   Expanded:
+       Powered by DoctorJet.in
+
+   After 10 seconds:
+       Security icon only
+
+   Clicking security icon:
+       Expands only — no navigation
+
+   Clicking DoctorJet attribution:
+       Opens DoctorJet.in
+
+   The security control and DoctorJet link are separate
+   interactive elements.
+   ========================================================= */
+
+let platformHideTimer =
+    null;
+
+
+function expandPlatformBar() {
+
+    const bar =
+        document.getElementById(
+            "platformBar"
+        );
+
+
+    bar.classList.add(
+        "expanded"
+    );
+
+    platformTrigger.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+
+    clearTimeout(
+        platformHideTimer
+    );
+
+
+    platformHideTimer =
+        setTimeout(
+            collapsePlatformBar,
+            10000
+        );
+
+}
+
+
+function collapsePlatformBar() {
+
+    const bar =
+        document.getElementById(
+            "platformBar"
+        );
+
+
+    bar.classList.remove(
+        "expanded"
+    );
+
+    platformTrigger.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+}
+
+
+/*
+   Two-stage interaction:
+
+   1. When collapsed, clicking the security shield ONLY expands
+      the attribution. It does not open DoctorJet.in.
+
+   2. Once expanded, click the DoctorJet logo/text to open
+      DoctorJet.in in a new tab.
+
+   The DoctorJet link is intentionally nested inside the
+   button only for the visual control? No — the attribution
+   link is handled separately below to avoid navigation on
+   shield clicks.
+*/
+
+const platformTrigger =
+    document.getElementById(
+        "platformTrigger"
+    );
+
+
+platformTrigger.addEventListener(
+    "click",
+    event => {
+
+        /*
+           The trigger is the shield control. Its click only
+           reveals the attribution.
+        */
+
+        event.preventDefault();
+
+        expandPlatformBar();
+
+    }
+);
+
+
+/*
+   Prevent the attribution link from being treated as a
+   shield click. Its own normal link behavior opens
+   DoctorJet.in.
+*/
+
+document
+    .getElementById(
+        "platformAttribution"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+/* =========================================================
+   INITIAL PLATFORM ATTRIBUTION
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        expandPlatformBar();
+
+    }
+);
+
+
+
+/* =========================================================
+   PROFILE LINK SHARING
+   ========================================================= */
+
+(function(){
+
+    const shareButton =
+        document.getElementById("profileShareButton");
+
+    const shareOptions =
+        document.getElementById("profileShareOptions");
+
+    const whatsappButton =
+        document.getElementById("shareWhatsAppButton");
+
+    const copyButton =
+        document.getElementById("copyProfileLinkButton");
+
+    const copyButtonText =
+        document.getElementById("copyProfileLinkText");
+
+    if(
+        !shareButton ||
+        !shareOptions ||
+        !whatsappButton ||
+        !copyButton
+    ){
+        return;
+    }
+
+    const profileURL =
+        window.location.href;
+
+    const shareMessage =
+        "View this DoctorJet profile: " + profileURL;
+
+    function closeShareOptions(){
+        shareOptions.hidden = true;
+        shareButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+    shareButton.addEventListener(
+        "click",
+        function(event){
+
+            event.stopPropagation();
+
+            const willOpen =
+                shareOptions.hidden;
+
+            shareOptions.hidden =
+                !willOpen;
+
+            shareButton.setAttribute(
+                "aria-expanded",
+                willOpen ? "true" : "false"
+            );
+
+        }
+    );
+
+    whatsappButton.addEventListener(
+        "click",
+        function(){
+
+            const whatsappURL =
+                "https://wa.me/?text=" +
+                encodeURIComponent(
+                    shareMessage
+                );
+
+            window.open(
+                whatsappURL,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+    );
+
+    copyButton.addEventListener(
+        "click",
+        async function(){
+
+            try{
+
+                await navigator.clipboard.writeText(
+                    profileURL
+                );
+
+                if(copyButtonText){
+                    copyButtonText.textContent =
+                        "Profile link copied";
+                }
+
+                setTimeout(
+                    function(){
+                        if(copyButtonText){
+                            copyButtonText.textContent =
+                                "Copy profile link";
+                        }
+                    },
+                    1800
+                );
+
+            }catch(error){
+
+                const temporaryInput =
+                    document.createElement("textarea");
+
+                temporaryInput.value =
+                    profileURL;
+
+                temporaryInput.setAttribute(
+                    "readonly",
+                    ""
+                );
+
+                temporaryInput.style.position =
+                    "fixed";
+
+                temporaryInput.style.opacity =
+                    "0";
+
+                document.body.appendChild(
+                    temporaryInput
+                );
+
+                temporaryInput.select();
+
+                try{
+                    document.execCommand("copy");
+                }catch(copyError){}
+
+                temporaryInput.remove();
+
+                if(copyButtonText){
+                    copyButtonText.textContent =
+                        "Profile link copied";
+                }
+
+                setTimeout(
+                    function(){
+                        if(copyButtonText){
+                            copyButtonText.textContent =
+                                "Copy profile link";
+                        }
+                    },
+                    1800
+                );
+
+            }
+
+        }
+    );
+
+    document.addEventListener(
+        "click",
+        function(event){
+
+            if(
+                !event.target.closest(
+                    ".profile-share-wrap"
+                )
+            ){
+                closeShareOptions();
+            }
+
+        }
+    );
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
