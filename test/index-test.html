@@ -6074,23 +6074,22 @@ value=>value
 .replace(/[^a-z0-9]+/g," ")
 .trim();
 
+const doctorAssetPrefix=window.location.pathname.split("/").at(-2)==="test"?"../":"";
+
 const doctorSearchProfiles =
 Array.from(document.querySelectorAll(".brand-doctors-track > .brand-doctor-card"))
 .map(card=>{
 const sourceHref=card.getAttribute("href");
-if(!sourceHref.startsWith("../")){
-card.setAttribute("href",`../${sourceHref.replace(/^\/+/,"")}`);
-}
 const profilePath=sourceHref.startsWith("../")
 ?sourceHref.slice(3)
 :sourceHref;
+card.setAttribute("href",`${doctorAssetPrefix}${profilePath}`);
 const slug=profilePath.split("/")[1];
 const details=doctorSearchDetails[slug];
 const image=card.querySelector("img");
 const sourceImage=image.getAttribute("src");
-if(!sourceImage.startsWith("../")){
-image.setAttribute("src",`../${sourceImage.replace(/^\/+/,"")}`);
-}
+const imagePath=sourceImage.startsWith("../")?sourceImage.slice(3):sourceImage;
+image.setAttribute("src",`${doctorAssetPrefix}${imagePath}`);
 const name=card.querySelector("h3").textContent.trim();
 const cardSpecialty=card.querySelector(".brand-doctor-info p").textContent.trim();
 
@@ -6100,7 +6099,7 @@ specialty:details?.specialty||cardSpecialty,
 practice:details?.practice||"",
 locations:details?.locations||[],
 keywords:details?.keywords||[],
-href:`../${profilePath}`,
+href:`${doctorAssetPrefix}${profilePath}`,
 image:image.getAttribute("src"),
 alt:image.alt||name
 };
