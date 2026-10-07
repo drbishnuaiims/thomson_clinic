@@ -1,0 +1,210 @@
+.join-team-modal,
+.join-team-modal * {
+  box-sizing: border-box;
+}
+
+.join-team-modal {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(18, 24, 32, .48);
+  backdrop-filter: blur(8px);
+}
+
+.join-team-modal.is-open {
+  display: flex;
+}
+
+body.join-team-open {
+  overflow: hidden;
+}
+
+.join-team-dialog {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: min(90vh, 820px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 38px);
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, .2);
+  color: #1d1d1f;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.join-team-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f2f4;
+  color: #55555b;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.join-team-kicker {
+  margin: 0 0 7px;
+  color: #0071e3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.join-team-dialog h2 {
+  margin: 0;
+  font-size: clamp(24px, 5vw, 32px);
+  letter-spacing: -.04em;
+}
+
+.join-team-intro {
+  margin: 9px 0 22px;
+  color: #6e6e73;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.join-team-form {
+  display: grid;
+  gap: 14px;
+}
+
+.join-team-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.join-team-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  color: #3b3b40;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.join-team-field input,
+.join-team-field select,
+.join-team-field textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #dedee2;
+  border-radius: 11px;
+  outline: none;
+  background: #fff;
+  color: #1d1d1f;
+  font: 400 13px/1.4 Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.join-team-field textarea {
+  min-height: 74px;
+  resize: vertical;
+}
+
+.join-team-field input:focus,
+.join-team-field select:focus,
+.join-team-field textarea:focus {
+  border-color: rgba(0, 113, 227, .55);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, .08);
+}
+
+.join-team-doctorjet {
+  padding: 13px;
+  border: 1px solid #e5e5e7;
+  border-radius: 13px;
+}
+
+.join-team-doctorjet legend {
+  padding: 0 4px;
+  color: #3b3b40;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.join-team-radio-options {
+  display: flex;
+  gap: 18px;
+  margin: 4px 0 10px;
+}
+
+.join-team-radio-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #45454a;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.join-team-radio-options input {
+  accent-color: #0071e3;
+}
+
+.join-team-conditional {
+  display: grid;
+  gap: 8px;
+}
+
+.join-team-conditional[hidden] {
+  display: none;
+}
+
+.join-team-guidance,
+.join-team-privacy {
+  margin: 0;
+  color: #6e6e73;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.join-team-submit {
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: #0071e3;
+  color: #fff;
+  font: 600 13px Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  cursor: pointer;
+}
+
+.join-team-submit:hover {
+  background: #0066cc;
+}
+
+.join-team-privacy {
+  text-align: center;
+  font-size: 10px;
+}
+
+@media (max-width: 600px) {
+  .join-team-modal {
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .join-team-dialog {
+    max-height: calc(100vh - 24px);
+    padding: 26px 18px;
+    border-radius: 20px;
+  }
+
+  .join-team-form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}

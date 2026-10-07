@@ -41,6 +41,7 @@
         <a href="${sectionUrl("specialties")}">Specialties</a>
         <a href="${sectionUrl("professionals")}">Professionals</a>
         <a href="${sectionUrl("faq")}">FAQ</a>
+        <button class="tc-site-join-trigger" type="button">Join our team</button>
         <button class="tc-site-nav-cta" type="button">Book consultation</button>
       </nav>
       <button class="tc-site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>

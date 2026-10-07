@@ -188,6 +188,18 @@ h1, h2, h3 {
 
 .nav a:hover { color: var(--blue); }
 
+.nav .join-team-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #48484a;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.nav .join-team-trigger:hover { color: var(--blue); }
+
 .nav .nav-cta {
   color: #fff;
   background: var(--blue);
@@ -910,6 +922,11 @@ h1, h2, h3 {
     font-size: 13px;
   }
 
+  .nav .join-team-trigger {
+    padding: 13px 0;
+    font-size: 13px;
+  }
+
   .nav .nav-cta {
     align-self: flex-start;
     padding: 10px 17px;
@@ -1005,6 +1022,8 @@ h1, h2, h3 {
   }
 }
 </script>
+<link rel="stylesheet" href="../../assets/join-team.css">
+
 </head>
 
 <body>
@@ -1030,6 +1049,7 @@ h1, h2, h3 {
       <a href="#expertise">Expertise</a>
       <a href="#consultation">Consultation</a>
       <a href="#faq">FAQs</a>
+      <button class="join-team-trigger" type="button">Join our team</button>
       <a class="nav-cta" href="#book" data-book>Request an appointment</a>
     </nav>
   </div>
@@ -1647,6 +1667,8 @@ document.getElementById("bookingForm").addEventListener("submit", event => {
 document.getElementById("year").textContent =
   new Date().getFullYear();
 </script>
+
+<script src="../../assets/join-team.js" data-whatsapp-number="919438450966"></script>
 
 </body>
 </html>

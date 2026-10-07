@@ -159,6 +159,21 @@
   cursor: pointer;
 }
 
+.tc-site-nav .tc-site-join-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #444446;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+
+.tc-site-nav .tc-site-join-trigger:hover {
+  color: #000;
+}
+
 .tc-site-menu-toggle {
   display: none;
   padding: 4px 7px;
@@ -368,6 +383,10 @@ body.tc-not-found-page {
 
   .tc-site-nav .tc-site-nav-cta {
     font-size: 13px;
+  }
+
+  .tc-site-nav .tc-site-join-trigger {
+    font-size: 15px;
   }
 
   .tc-site-menu-toggle {
