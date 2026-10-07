@@ -8,17 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-Thomson Clinic — Mental Health & Neuroscience E-Clinic
+Thomson Clinic — Mental Health & Neuroscience e-Clinic
 </title>
 
 <meta
 name="description"
-content="Thomson Clinic is a specialized mental health and neuroscience e-clinic offering psychiatry, psychology, therapy, neuroscience-based care and connected specialist clinics."
+content="Thomson Clinic is a specialized mental health and neuroscience e-Clinic offering psychiatry, psychology, therapy, neuroscience-based care and connected specialist clinics."
 >
 
 <meta
 name="keywords"
-content="Thomson Clinic, mental health clinic, neuroscience clinic, psychiatry, psychology, therapy, psychiatrist, psychologist, psychiatric social worker, neurology, dermatology, oncology, diabetes, medicine specialist, e-clinic India"
+content="Thomson Clinic, mental health clinic, neuroscience clinic, psychiatry, psychology, therapy, psychiatrist, psychologist, psychiatric social worker, neurology, dermatology, oncology, diabetes, medicine specialist, e-Clinic India"
 >
 
 <meta
@@ -43,7 +43,7 @@ content="website"
 
 <meta
 property="og:title"
-content="Thomson Clinic — Mental Health & Neuroscience E-Clinic"
+content="Thomson Clinic — Mental Health & Neuroscience e-Clinic"
 >
 
 <meta
@@ -73,7 +73,7 @@ content="summary_large_image"
 
 <meta
 name="twitter:title"
-content="Thomson Clinic — Mental Health & Neuroscience E-Clinic"
+content="Thomson Clinic — Mental Health & Neuroscience e-Clinic"
 >
 
 <meta
@@ -84,6 +84,12 @@ content="Specialized mental health and neuroscience care with connected speciali
 <meta
 name="theme-color"
 content="#f5f5f7"
+>
+
+<link
+rel="icon"
+href="assets/www.thomsonclinic.com-favicon.ico"
+type="image/x-icon"
 >
 
 <link
@@ -109,10 +115,10 @@ rel="stylesheet"
   "@context":"https://schema.org",
   "@type":"MedicalClinic",
   "name":"Thomson Clinic",
-  "alternateName":"Thomson Clinic Mental Health & Neuroscience E-Clinic",
+  "alternateName":"Thomson Clinic Mental Health & Neuroscience e-Clinic",
   "url":"https://thomsonclinic.com/",
-  "logo":"https://thomsonclinic.com/assets/thomson-clinic-logo.png",
-  "description":"Thomson Clinic is a specialized mental health and neuroscience e-clinic with connected specialist clinics across medicine.",
+  "logo":"https://drbishnuaiims.github.io/thomson_clinic/assets/thomson-clinic-logo-main.png",
+  "description":"Thomson Clinic is a specialized mental health and neuroscience e-Clinic with connected specialist clinics across medicine.",
   "medicalSpecialty":[
     "Psychiatry",
     "Psychology",
@@ -433,6 +439,224 @@ border:0;
 
 font-size:22px;
 
+}
+
+.doctor-search{
+position:relative;
+flex:0 1 300px;
+min-width:190px;
+margin:0 22px;
+}
+
+.doctor-search-form{
+position:relative;
+}
+
+.doctor-search-icon{
+position:absolute;
+top:50%;
+left:13px;
+width:16px;
+height:16px;
+color:#77777c;
+transform:translateY(-50%);
+pointer-events:none;
+}
+
+.doctor-search-input{
+width:100%;
+height:38px;
+padding:0 38px 0 38px;
+border:1px solid #e3e5e8;
+border-radius:999px;
+outline:none;
+background:rgba(248,249,250,.92);
+color:var(--text);
+font:500 12px/1 Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+
+.doctor-search-input::placeholder{
+color:#858990;
+}
+
+.doctor-search-input:focus{
+border-color:#92bdf0;
+background:#fff;
+box-shadow:0 0 0 3px rgba(0,113,227,.11);
+}
+
+.doctor-search-clear{
+position:absolute;
+top:50%;
+right:7px;
+display:none;
+width:26px;
+height:26px;
+align-items:center;
+justify-content:center;
+border:0;
+border-radius:50%;
+background:transparent;
+color:#71757b;
+font-size:18px;
+line-height:1;
+transform:translateY(-50%);
+cursor:pointer;
+}
+
+.doctor-search.has-query .doctor-search-clear{
+display:flex;
+}
+
+.doctor-search-results{
+position:absolute;
+top:calc(100% + 9px);
+left:0;
+z-index:1100;
+width:min(420px,calc(100vw - 30px));
+max-height:40vh;
+overflow:auto;
+overscroll-behavior:contain;
+padding:7px;
+border:1px solid rgba(22,32,44,.09);
+border-radius:16px;
+background:rgba(255,255,255,.98);
+box-shadow:0 18px 48px rgba(20,32,46,.18);
+backdrop-filter:blur(18px);
+}
+
+.doctor-search-results[hidden]{
+display:none;
+}
+
+.doctor-search-caption{
+padding:7px 9px 8px;
+color:#858990;
+font-size:10px;
+font-weight:700;
+letter-spacing:.07em;
+text-transform:uppercase;
+}
+
+.doctor-search-result{
+display:grid;
+grid-template-columns:48px minmax(0,1fr);
+gap:11px;
+align-items:center;
+padding:9px;
+border-radius:11px;
+color:var(--text);
+text-decoration:none;
+transition:background .15s ease;
+}
+
+.doctor-search-result:hover,
+.doctor-search-result:focus-visible,
+.doctor-search-result.is-active{
+outline:none;
+background:#f0f6fd;
+}
+
+.doctor-search-result img{
+width:48px;
+height:52px;
+border-radius:9px;
+object-fit:cover;
+background:#e9edf3;
+}
+
+.doctor-search-result-copy{
+min-width:0;
+}
+
+.doctor-search-result-name{
+display:block;
+overflow:hidden;
+color:#20242a;
+font-size:12px;
+font-weight:700;
+line-height:1.3;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+.doctor-search-result-specialty{
+display:block;
+margin-top:2px;
+overflow:hidden;
+color:#49535d;
+font-size:10.5px;
+line-height:1.35;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+.doctor-search-result-meta{
+display:flex;
+flex-wrap:wrap;
+gap:4px 9px;
+margin-top:4px;
+color:#737b84;
+font-size:9.5px;
+line-height:1.35;
+}
+
+.doctor-search-result-meta span{
+overflow:hidden;
+max-width:100%;
+text-overflow:ellipsis;
+white-space:nowrap;
+}
+
+.doctor-search-empty{
+padding:13px 10px 15px;
+color:#6e747c;
+font-size:12px;
+line-height:1.5;
+}
+
+@media(max-width:1050px){
+  .header{
+    height:auto;
+    min-height:112px;
+  }
+
+  .header-inner{
+    height:auto;
+    min-height:112px;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:6px 12px;
+    padding:7px 0 9px;
+  }
+
+  .doctor-search{
+    order:3;
+    flex:0 0 100%;
+    min-width:0;
+    margin:0;
+  }
+
+  .doctor-search-input{
+    height:36px;
+  }
+
+  .doctor-search-results{
+    width:100%;
+  }
+
+  .nav{
+    top:112px;
+  }
+
+  .hero{
+    padding-top:112px;
+  }
+}
+
+.doctor-search-result:focus-visible{
+box-shadow:inset 0 0 0 2px rgba(0,113,227,.5);
 }
 
 
@@ -1118,7 +1342,7 @@ display:block;
 
 margin-top:3px;
 
-font-size:7px;
+font-size:6px;
 
 color:var(--muted);
 
@@ -1556,17 +1780,30 @@ color:var(--muted2);
 }
 
 .brand-doctors-viewport{
-  overflow:hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
   width:100%;
   padding:4px 0 10px;
+  cursor:grab;
+  touch-action:pan-y;
+  scrollbar-width:none;
   mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);
 }
 
+.brand-doctors-viewport::-webkit-scrollbar{display:none;}
+
+.brand-doctors-viewport.is-dragging{
+  cursor:grabbing;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
 .brand-doctors-track{
+  --brand-doctor-loop-offset:7px;
   display:flex;
   width:max-content;
-  gap:18px;
+  gap:14px;
   animation:brandDoctorScroll 38s linear infinite;
   will-change:transform;
   padding:0 2px;
@@ -1576,15 +1813,15 @@ color:var(--muted2);
 
 .brand-doctor-card{
   position:relative;
-  width:246px;
-  height:330px;
+  width:197px;
+  height:264px;
   display:flex;
   align-items:flex-end;
   overflow:hidden;
   flex-shrink:0;
   padding:0;
   border:1px solid rgba(255,255,255,.78);
-  border-radius:25px;
+  border-radius:20px;
   background:#dfe3ea;
   box-shadow:
     0 20px 55px rgba(0,0,0,.10),
@@ -1657,7 +1894,7 @@ color:var(--muted2);
   z-index:2;
   width:100%;
   min-width:0;
-  padding:20px 18px 18px;
+  padding:16px 14px 14px;
   color:#fff;
   text-shadow:0 1px 8px rgba(0,0,0,.22);
 }
@@ -1665,8 +1902,8 @@ color:var(--muted2);
 .brand-doctor-label{
   display:inline-flex;
   align-items:center;
-  min-height:20px;
-  padding:4px 8px;
+  min-height:16px;
+  padding:3px 6px;
   border:1px solid rgba(255,255,255,.25);
   border-radius:999px;
   background:rgba(255,255,255,.14);
@@ -1681,8 +1918,8 @@ color:var(--muted2);
 }
 
 .brand-doctor-info h3{
-  margin-top:9px;
-  font-size:18px;
+  margin-top:7px;
+  font-size:14.5px;
   line-height:1.05;
   letter-spacing:-.035em;
   font-weight:700;
@@ -1690,24 +1927,24 @@ color:var(--muted2);
 }
 
 .brand-doctor-info p{
-  margin-top:6px;
+  margin-top:5px;
   color:rgba(255,255,255,.93);
-  font-size:9.5px;
+  font-size:7.6px;
   line-height:1.45;
   font-weight:500;
 }
 
 .brand-doctor-info small{
   display:block;
-  margin-top:4px;
+  margin-top:3px;
   color:rgba(255,255,255,.72);
-  font-size:7.5px;
+  font-size:6px;
   line-height:1.4;
 }
 
 @keyframes brandDoctorScroll{
   from{transform:translateX(0);}
-  to{transform:translateX(calc(-50% - 9px));}
+  to{transform:translateX(calc(-50% - var(--brand-doctor-loop-offset)));}
 }
 
 @media(max-width:700px){
@@ -1715,10 +1952,10 @@ color:var(--muted2);
   .brand-doctors-head{display:block;margin-bottom:20px;}
   .brand-doctors-note{margin-top:9px;text-align:left;max-width:330px;}
   .brand-doctors-viewport{padding-bottom:8px;}
-  .brand-doctor-card{width:218px;height:292px;border-radius:22px;}
-  .brand-doctor-info{padding:17px 15px 15px;}
-  .brand-doctor-info h3{font-size:16px;}
-  .brand-doctors-track{gap:14px;animation-duration:32s;}
+  .brand-doctor-card{width:174px;height:234px;border-radius:18px;}
+  .brand-doctor-info{padding:14px 12px 12px;}
+  .brand-doctor-info h3{font-size:13px;}
+  .brand-doctors-track{--brand-doctor-loop-offset:5.5px;gap:11px;animation-duration:32s;}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -3560,6 +3797,26 @@ width:105px;
 }
 }
 
+@media(max-width:1050px){
+  .header{
+    height:auto;
+    min-height:112px;
+  }
+
+  .header-inner{
+    height:auto;
+    min-height:112px;
+  }
+
+  .nav{
+    top:112px;
+  }
+
+  .hero{
+    padding-top:112px;
+  }
+}
+
 </style>
 
 </head>
@@ -3580,12 +3837,12 @@ width:105px;
 <a
 href="#top"
 class="thomson-logo"
-aria-label="Thomson Clinic Mental Health and Neuroscience E-Clinic"
+aria-label="Thomson Clinic Mental Health and Neuroscience e-Clinic"
 >
 
 <img
 class="logo-symbol"
-src="/assets/thomson-clinic-logo.png"
+src="assets/thomson-clinic-logo-header.png"
 alt="Thomson Clinic logo"
 >
 
@@ -3596,12 +3853,42 @@ Thomson Clinic
 </span>
 
 <span class="logo-sub">
-Mental Health & Neuroscience E-Clinic
+Mental Health & Neuroscience e-Clinic
 </span>
 
 </span>
 
 </a>
+
+<div class="doctor-search" id="doctorSearch">
+  <form class="doctor-search-form" role="search" onsubmit="return false">
+    <svg class="doctor-search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle>
+      <path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+    </svg>
+    <input
+      class="doctor-search-input"
+      id="doctorSearchInput"
+      type="search"
+      placeholder="Search doctors, specialties, locations"
+      aria-label="Search doctor profiles"
+      aria-autocomplete="list"
+      aria-controls="doctorSearchResults"
+      aria-expanded="false"
+      autocomplete="off"
+      enterkeyhint="search"
+    >
+    <button class="doctor-search-clear" id="doctorSearchClear" type="button" aria-label="Clear search">×</button>
+  </form>
+  <div
+    class="doctor-search-results"
+    id="doctorSearchResults"
+    role="listbox"
+    aria-label="Doctor search results"
+    aria-live="polite"
+    hidden
+  ></div>
+</div>
 
 
 <nav
@@ -3670,13 +3957,13 @@ aria-label="Open navigation"
 
 <img
 class="hero-logo"
-src="/assets/thomson-clinic-logo.png"
+src="assets/thomson-clinic-logo-main.png"
 alt="Thomson Clinic"
 >
 
 <div class="eyebrow">
 
-Mental Health & Neuroscience E-Clinic
+Mental Health & Neuroscience e-Clinic
 
 </div>
 
@@ -3695,7 +3982,7 @@ Understanding for the
 <p class="hero-description">
 
 Thomson Clinic is a specialized mental health and
-neuroscience e-clinic providing psychiatry,
+neuroscience e-Clinic providing psychiatry,
 psychology, therapy and neuroscience-based care —
 with a connected network of specialist medical clinics.
 
@@ -3878,8 +4165,8 @@ d="M475 540 C425 450 390 370 350 305"
 <div class="patient-photo">
 
 <img
-src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=85"
-alt="Patient at the centre of connected clinical care"
+src="assets/images/connected-clinical-care/patient-care.jpg"
+alt="Indian woman using a laptop to access care"
 >
 
 </div>
@@ -3919,8 +4206,8 @@ class="clinician-card card-psychiatrist"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=85"
-alt="Psychiatrist"
+src="assets/images/connected-clinical-care/psychiatrist.jpg"
+alt="Indian doctor consulting with a patient"
 >
 
 </div>
@@ -3961,8 +4248,8 @@ class="clinician-card card-psychologist"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=85"
-alt="Psychologist"
+src="assets/images/connected-clinical-care/psychologist.jpg"
+alt="Portrait of an Indian woman"
 >
 
 </div>
@@ -4003,8 +4290,8 @@ class="clinician-card card-social"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=85"
-alt="Psychiatric social worker"
+src="assets/images/connected-clinical-care/social-worker.jpg"
+alt="Women from an Indian rural community"
 >
 
 </div>
@@ -4045,8 +4332,8 @@ class="clinician-card card-neurologist"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=400&q=85"
-alt="Neurologist"
+src="assets/images/connected-clinical-care/neurologist.jpg"
+alt="Indian woman doctor in a clinical setting"
 >
 
 </div>
@@ -4079,8 +4366,8 @@ class="clinician-card mini-card card-dermatologist"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=85"
-alt="Dermatologist"
+src="assets/images/connected-clinical-care/dermatologist.jpg"
+alt="Indian woman clinician in a diagnostic setting"
 >
 
 </div>
@@ -4113,8 +4400,8 @@ class="clinician-card mini-card card-oncologist"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?auto=format&fit=crop&w=300&q=85"
-alt="Oncologist"
+src="assets/images/connected-clinical-care/oncologist.jpg"
+alt="Indian woman clinician in a diagnostic setting"
 >
 
 </div>
@@ -4147,8 +4434,8 @@ class="clinician-card mini-card card-medicine"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=300&q=85"
-alt="Medicine specialist"
+src="assets/images/connected-clinical-care/medicine-specialist.jpg"
+alt="Indian doctor consulting with a patient"
 >
 
 </div>
@@ -4181,8 +4468,8 @@ class="clinician-card mini-card card-diabetes"
 <div class="clinician-photo">
 
 <img
-src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=300&q=85"
-alt="Diabetes specialist"
+src="assets/images/connected-clinical-care/diabetes-specialist.jpg"
+alt="Indian woman clinician in a diagnostic setting"
 >
 
 </div>
@@ -4239,80 +4526,100 @@ Mental health at the core · Specialist care around it
   <div class="brand-doctors-viewport">
     <div class="brand-doctors-track">
 
-      <a class="brand-doctor-card" href="/doctors/dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar/" aria-label="View Dr. Bishnu Prasad Sahoo profile">
+      <a class="brand-doctor-card" href="doctors/dr-antaryami-sahoo-senior-consultant–radiation-oncology-capital-hospital-bhubaneswar/index.html" aria-label="View Dr. Antaryami Sahoo profile">
         <div class="brand-doctor-photo">
-          <img src="/assets/doctors/dr-bishnu-prasad-sahoo.jpg" alt="Dr. Bishnu Prasad Sahoo" loading="lazy">
+          <img src="doctors/dr-antaryami-sahoo-senior-consultant–radiation-oncology-capital-hospital-bhubaneswar/card.jpg" alt="Dr. Antaryami Sahoo" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
+        </div>
+        <div class="brand-doctor-info">
+          <div class="brand-doctor-label">Capital Hospital</div>
+          <h3>Dr. Antaryami Sahoo</h3>
+          <p>Senior Consultant</p>
+          <small>Radiation Oncology · Bhubaneswar</small>
+        </div>
+      </a>
+
+      <a class="brand-doctor-card" href="doctors/dr-anushree-mishra-clinical-psychologist-aiims-bhubaneswar/index.html" aria-label="View Dr. Anushree Mishra profile">
+        <div class="brand-doctor-photo">
+          <img src="doctors/dr-anushree-mishra-clinical-psychologist-aiims-bhubaneswar/card.jpg" alt="Dr. Anushree Mishra" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
+        </div>
+        <div class="brand-doctor-info">
+          <div class="brand-doctor-label">AIIMS Bhubaneswar</div>
+          <h3>Dr. Anushree Mishra</h3>
+          <p>Consultant Psychologist &amp; Therapist</p>
+          <small>Psychology · Bhubaneswar</small>
+        </div>
+      </a>
+
+      <a class="brand-doctor-card" href="doctors/dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar/index.html" aria-label="View Dr. Asit Kumar Mohanty profile">
+        <div class="brand-doctor-photo">
+          <img src="doctors/dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar/card.jpg" alt="Dr. Asit Kumar Mohanty" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
+        </div>
+        <div class="brand-doctor-info">
+          <div class="brand-doctor-label">KIMS Cancer Center</div>
+          <h3>Dr. Asit Kumar Mohanty</h3>
+          <p>Senior Consultant &amp; HOD</p>
+          <small>Radiation Oncology · Bhubaneswar</small>
+        </div>
+      </a>
+
+      <a class="brand-doctor-card" href="doctors/dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad/index.html" aria-label="View Dr. Aswini Kumar Panigrahi profile">
+        <div class="brand-doctor-photo">
+          <img src="doctors/dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad/card.jpg" alt="Dr. Aswini Kumar Panigrahi" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
+        </div>
+        <div class="brand-doctor-info">
+          <div class="brand-doctor-label">Apollo Hospitals</div>
+          <h3>Dr. Aswini Kumar Panigrahi</h3>
+          <p>Senior Nephrologist</p>
+          <small>Nephrology · Hyderabad</small>
+        </div>
+      </a>
+
+      <a class="brand-doctor-card" href="doctors/dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar/index.html" aria-label="View Dr. Bishnu Prasad Sahoo profile">
+        <div class="brand-doctor-photo">
+          <img src="doctors/dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar/card.jpg" alt="Dr. Bishnu Prasad Sahoo" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="brand-doctor-info">
           <div class="brand-doctor-label">Thomson Clinic</div>
           <h3>Dr. Bishnu Prasad Sahoo</h3>
-          <p>Consultant Psychiatrist · Neuropsychiatry</p>
-          <small>MD Psychiatry · AIIMS Bhubaneswar</small>
+          <p>Consultant Neuropsychiatrist</p>
+          <small>Psychiatry · Bhubaneswar</small>
         </div>
       </a>
 
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
+      <a class="brand-doctor-card" href="doctors/dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar/index.html" aria-label="View Dr. Byomakesh Dikshit profile">
         <div class="brand-doctor-photo">
-          <img src="/assets/doctors/featured-doctor-2.jpg" alt="Featured Thomson Clinic doctor" loading="lazy">
+          <img src="doctors/dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar/card.jpg" alt="Dr. Byomakesh Dikshit" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="brand-doctor-info">
-          <div class="brand-doctor-label">Featured clinician</div>
-          <h3>Thomson Clinic Doctor</h3>
-          <p>Specialist profile · Clinical expertise</p>
-          <small>Profile details coming soon</small>
+          <div class="brand-doctor-label">Apollo Hospitals</div>
+          <h3>Dr. Byomakesh Dikshit</h3>
+          <p>Consultant Cardiologist</p>
+          <small>Cardiology · Bhubaneswar</small>
         </div>
       </a>
 
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
+      <a class="brand-doctor-card" href="doctors/dr-debasish-prusty-consultant-pediatrician-bhubaneswar/index.html" aria-label="View Dr. Debasish Prusty profile">
         <div class="brand-doctor-photo">
-          <img src="/assets/doctors/featured-doctor-3.jpg" alt="Featured Thomson Clinic doctor" loading="lazy">
-        </div>
-        <div class="brand-doctor-info">
-          <div class="brand-doctor-label">Featured clinician</div>
-          <h3>Thomson Clinic Doctor</h3>
-          <p>Specialist profile · Clinical expertise</p>
-          <small>Profile details coming soon</small>
-        </div>
-      </a>
-
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
-        <div class="brand-doctor-photo">
-          <img src="/assets/doctors/featured-doctor-4.jpg" alt="Featured Thomson Clinic doctor" loading="lazy">
-        </div>
-        <div class="brand-doctor-info">
-          <div class="brand-doctor-label">Featured clinician</div>
-          <h3>Thomson Clinic Doctor</h3>
-          <p>Specialist profile · Clinical expertise</p>
-          <small>Profile details coming soon</small>
-        </div>
-      </a>
-
-      <!-- Duplicate set for seamless auto-scroll -->
-      <a class="brand-doctor-card" href="/doctors/dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar/" aria-label="View Dr. Bishnu Prasad Sahoo profile">
-        <div class="brand-doctor-photo">
-          <img src="/assets/doctors/dr-bishnu-prasad-sahoo.jpg" alt="Dr. Bishnu Prasad Sahoo" loading="lazy">
+          <img src="doctors/dr-debasish-prusty-consultant-pediatrician-bhubaneswar/card.jpg" alt="Dr. Debasish Prusty" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="brand-doctor-info">
           <div class="brand-doctor-label">Thomson Clinic</div>
-          <h3>Dr. Bishnu Prasad Sahoo</h3>
-          <p>Consultant Psychiatrist · Neuropsychiatry</p>
-          <small>MD Psychiatry · AIIMS Bhubaneswar</small>
+          <h3>Dr. Debasish Prusty</h3>
+          <p>Consultant Pediatrician</p>
+          <small>Pediatrics · Bhubaneswar</small>
         </div>
       </a>
 
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
-        <div class="brand-doctor-photo"><img src="/assets/doctors/featured-doctor-2.jpg" alt="Featured Thomson Clinic doctor" loading="lazy"></div>
-        <div class="brand-doctor-info"><div class="brand-doctor-label">Featured clinician</div><h3>Thomson Clinic Doctor</h3><p>Specialist profile · Clinical expertise</p><small>Profile details coming soon</small></div>
-      </a>
-
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
-        <div class="brand-doctor-photo"><img src="/assets/doctors/featured-doctor-3.jpg" alt="Featured Thomson Clinic doctor" loading="lazy"></div>
-        <div class="brand-doctor-info"><div class="brand-doctor-label">Featured clinician</div><h3>Thomson Clinic Doctor</h3><p>Specialist profile · Clinical expertise</p><small>Profile details coming soon</small></div>
-      </a>
-
-      <a class="brand-doctor-card" href="/doctors/" aria-label="Explore Thomson Clinic doctors">
-        <div class="brand-doctor-photo"><img src="/assets/doctors/featured-doctor-4.jpg" alt="Featured Thomson Clinic doctor" loading="lazy"></div>
-        <div class="brand-doctor-info"><div class="brand-doctor-label">Featured clinician</div><h3>Thomson Clinic Doctor</h3><p>Specialist profile · Clinical expertise</p><small>Profile details coming soon</small></div>
+      <a class="brand-doctor-card" href="doctors/dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar/index.html" aria-label="View Dr. Thitta Mohanty profile">
+        <div class="brand-doctor-photo">
+          <img src="doctors/dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar/card.jpg" alt="Dr. Thitta Mohanty" width="197" height="264" loading="lazy" decoding="async" fetchpriority="low">
+        </div>
+        <div class="brand-doctor-info">
+          <div class="brand-doctor-label">PGIMER &amp; Capital Hospital</div>
+          <h3>Dr. Thitta Mohanty</h3>
+          <p>Professor &amp; Head</p>
+          <small>Respiratory Medicine · Bhubaneswar</small>
+        </div>
       </a>
 
     </div>
@@ -4428,8 +4735,8 @@ class="care-card large reveal"
 >
 
 <img
-src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1300&q=88"
-alt="Healthcare consultation in a community setting"
+src="assets/images/care-that-fits-real-life/rural-community.jpg"
+alt="Women in an Indian rural community"
 loading="lazy"
 >
 
@@ -4467,8 +4774,8 @@ class="care-card reveal"
 >
 
 <img
-src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=88"
-alt="Students discussing mental health"
+src="assets/images/care-that-fits-real-life/students.jpg"
+alt="Indian school students in a classroom"
 loading="lazy"
 >
 
@@ -4505,8 +4812,8 @@ class="care-card reveal"
 >
 
 <img
-src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1100&q=88"
-alt="Online therapy consultation"
+src="assets/images/care-that-fits-real-life/online-therapy.jpg"
+alt="Indian woman using a laptop at home"
 loading="lazy"
 >
 
@@ -4599,8 +4906,8 @@ keeping the clinical relationship human.
 <div class="india-photo tall">
 
 <img
-src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=88"
-alt="Young adults in a collaborative setting"
+src="assets/images/built-for-india/young-adults-professionals.jpg"
+alt="Indian professionals collaborating at work"
 loading="lazy"
 >
 
@@ -4622,8 +4929,8 @@ Education · Work · Relationships
 <div class="india-photo">
 
 <img
-src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?auto=format&fit=crop&w=700&q=88"
-alt="Woman participating in healthcare consultation"
+src="assets/images/built-for-india/womens-mental-health.jpg"
+alt="Indian woman using a laptop from home"
 loading="lazy"
 >
 
@@ -4645,8 +4952,8 @@ Life-stage care
 <div class="india-photo">
 
 <img
-src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=700&q=88"
-alt="Student using a computer"
+src="assets/images/built-for-india/students.jpg"
+alt="Indian students learning in a classroom"
 loading="lazy"
 >
 
@@ -5537,7 +5844,7 @@ class="thomson-logo"
 
 <img
 class="logo-symbol"
-src="/assets/thomson-clinic-logo.png"
+src="assets/thomson-clinic-logo-header.png"
 alt="Thomson Clinic logo"
 >
 
@@ -5548,7 +5855,7 @@ Thomson Clinic
 </span>
 
 <span class="logo-sub">
-Mental Health & Neuroscience E-Clinic
+Mental Health & Neuroscience e-Clinic
 </span>
 
 </span>
@@ -5559,7 +5866,7 @@ Mental Health & Neuroscience E-Clinic
 <p class="footer-description">
 
 A specialized mental health and neuroscience
-e-clinic, with a connected network of specialist
+e-Clinic, with a connected network of specialist
 medical clinics.
 
 </p>
@@ -5668,7 +5975,7 @@ Contact
 <div class="footer-bottom">
 
 <span>
-© <span id="year"></span> Thomson Clinic
+© <span id="year"></span> Thomson Clinic powered by <a href="https://doctorjet.in" target="_blank" rel="noopener">DoctorJet.in</a>
 </span>
 
 <span>
@@ -5695,6 +6002,403 @@ document.getElementById("mobileMenu");
 
 const nav =
 document.getElementById("nav");
+
+const doctorSearch =
+document.getElementById("doctorSearch");
+
+const doctorSearchInput =
+document.getElementById("doctorSearchInput");
+
+const doctorSearchResults =
+document.getElementById("doctorSearchResults");
+
+const doctorSearchClear =
+document.getElementById("doctorSearchClear");
+
+const doctorSearchDetails = {
+"dr-antaryami-sahoo-senior-consultant–radiation-oncology-capital-hospital-bhubaneswar":{
+specialty:"Senior Consultant · Radiation Oncology",
+practice:"PGIMER & Capital Hospital",
+locations:["Bhubaneswar","Ganga Nagar","Puri","Chandanpur"],
+keywords:["radiation oncology","cancer","breast cancer","GI malignancy","brain tumour","IGRT","image guided radiation therapy","IMRT","intensity modulated radiation therapy","SBRT","SRS","stereotactic radiosurgery","brachytherapy","AIIMS Bhubaneswar","AHRCC Cuttack"]
+},
+"dr-anushree-mishra-clinical-psychologist-aiims-bhubaneswar":{
+specialty:"Consultant Psychologist & Therapist",
+practice:"AIIMS Bhubaneswar · Gurudra Mental Health Center",
+locations:["Bhubaneswar","Ganga Nagar","online"],
+keywords:["psychology","clinical psychology","psychologist","therapy","psychotherapy","counselling","counseling","CBT","cognitive behavioural therapy","anxiety","stress","emotional wellbeing","emotional intelligence","mindfulness","resilience","mental wellness"]
+},
+"dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar":{
+specialty:"Senior Consultant & HOD · Radiation Oncology",
+practice:"KIMS Cancer Center",
+locations:["Bhubaneswar","KIMS","KIMS Cancer Center","Cuttack","Balasore","Sambalpur","Bolangir"],
+keywords:["radiation oncology","cancer","breast tumour","GI malignancy","brain tumour","IGRT","image guided radiation therapy","IMRT","intensity modulated radiation therapy","SBRT","SRS","stereotactic radiosurgery","brachytherapy","Tata Memorial Hospital","Kuwait Cancer Control Centre"]
+},
+"dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad":{
+specialty:"Senior Nephrologist · Adult Nephrology",
+practice:"Apollo Hospitals Jubilee Hills",
+locations:["Hyderabad","Jubilee Hills","Telangana"],
+keywords:["nephrology","kidney","renal","chronic kidney disease","CKD","acute kidney injury","acute renal failure","nephrotic syndrome","polycystic kidney disease","Alport syndrome","kidney stones","electrolyte disorders","resistant hypertension","renal transplantation","ABO-incompatible transplant","complex renal disease"]
+},
+"dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar":{
+specialty:"Consultant Neuropsychiatrist",
+practice:"Thomson Clinic",
+locations:["Bhubaneswar","Saheed Nagar","Sahid Nagar","Ganga Nagar","Puri","Odisha"],
+keywords:["psychiatry","neuropsychiatry","mental health","depression","anxiety","panic disorder","OCD","obsessive compulsive disorder","sleep disorder","addiction","bipolar disorder","psychosis","psychotic disorders","stress","SCB Medical College","AIIMS Bhubaneswar","in person","online"]
+},
+"dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar":{
+specialty:"Consultant Cardiologist",
+practice:"Apollo Hospitals, Gajapati Nagar",
+locations:["Bhubaneswar","Gajapati Nagar","Odisha"],
+keywords:["cardiology","cardiologist","heart","cardiac","heart disease","echocardiography","trans-esophageal echo","TEE","BP monitoring","blood pressure","colour doppler","ambulatory blood pressure","holter monitoring","temporary pacemaker","PAMI","catheter ablation","VSS Medical College","SCB Medical College"]
+},
+"dr-debasish-prusty-consultant-pediatrician-bhubaneswar":{
+specialty:"Consultant Pediatrician",
+practice:"Pediatric clinics · Patia, Bhubaneswar",
+locations:["Patia","Barang","Bhubaneswar","Cuttack","CDA Sector 13","Nayapalli","Raghunathpur","Jajpur Road","online"],
+keywords:["pediatrics","pediatrician","paediatrician","child","children","newborn","newborn care","infant","adolescent","neonatal","asthma","respiratory infection","fever","infection","nutrition","growth","development","developmental delay","ADHD","autism","seizure","immunization","vaccination","MKCG Medical College","Nazareth Hospital"]
+},
+"dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar":{
+specialty:"Professor & Head · Respiratory Medicine",
+practice:"PGIMER & Capital Hospital",
+locations:["Bhubaneswar","Capital Hospital","PGIMER","Odisha"],
+keywords:["respiratory medicine","pulmonology","pulmonary","lung","chest","breathing","tuberculosis","TB","MDR-TB","drug resistant tuberculosis","chest disease","respiratory procedures","PGIMER","Capital Hospital","SCB Medical College"]
+}
+};
+
+const normalizeDoctorSearchText =
+value=>value
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.toLowerCase()
+.replace(/[^a-z0-9]+/g," ")
+.trim();
+
+const doctorSearchProfiles =
+Array.from(document.querySelectorAll(".brand-doctors-track > .brand-doctor-card"))
+.map(card=>{
+const sourceHref=card.getAttribute("href");
+if(!sourceHref.startsWith("../")){
+card.setAttribute("href",`../${sourceHref.replace(/^\/+/,"")}`);
+}
+const profilePath=sourceHref.startsWith("../")
+?sourceHref.slice(3)
+:sourceHref;
+const slug=profilePath.split("/")[1];
+const details=doctorSearchDetails[slug];
+const image=card.querySelector("img");
+const sourceImage=image.getAttribute("src");
+if(!sourceImage.startsWith("../")){
+image.setAttribute("src",`../${sourceImage.replace(/^\/+/,"")}`);
+}
+const name=card.querySelector("h3").textContent.trim();
+const cardSpecialty=card.querySelector(".brand-doctor-info p").textContent.trim();
+
+return {
+name,
+specialty:details?.specialty||cardSpecialty,
+practice:details?.practice||"",
+locations:details?.locations||[],
+keywords:details?.keywords||[],
+href:`../${profilePath}`,
+image:image.getAttribute("src"),
+alt:image.alt||name
+};
+});
+
+let activeDoctorSearchResult=-1;
+
+function closeDoctorSearch(){
+doctorSearchResults.hidden=true;
+doctorSearchInput.setAttribute("aria-expanded","false");
+doctorSearchInput.removeAttribute("aria-activedescendant");
+activeDoctorSearchResult=-1;
+}
+
+function renderDoctorSearch(){
+const query=normalizeDoctorSearchText(doctorSearchInput.value);
+doctorSearch.classList.toggle("has-query",Boolean(query));
+doctorSearchResults.replaceChildren();
+activeDoctorSearchResult=-1;
+doctorSearchInput.removeAttribute("aria-activedescendant");
+
+if(!query){
+doctorSearchResults.innerHTML='<div class="doctor-search-empty">Search by doctor name, specialty, condition, hospital or location.</div>';
+doctorSearchResults.hidden=false;
+doctorSearchInput.setAttribute("aria-expanded","true");
+return;
+}
+
+const ignoredTokens=new Set(["a","an","and","at","by","dr","doctor","doctors","for","in","of","the","to"]);
+const queryTokens=query.split(/\s+/).filter(token=>token.length>1&&!ignoredTokens.has(token));
+const ranked=doctorSearchProfiles.map(doctor=>{
+const fields=[
+{label:"Name",values:[doctor.name],weight:12},
+{label:"Specialty",values:[doctor.specialty],weight:9},
+{label:"Practice",values:[doctor.practice],weight:7},
+{label:"Location",values:doctor.locations,weight:7},
+{label:"Expertise",values:doctor.keywords,weight:5}
+];
+let score=0;
+let matchedTokens=0;
+const matchedDetails=[];
+
+queryTokens.forEach(token=>{
+let tokenMatched=false;
+fields.forEach(field=>{
+const matchedValue=field.values.find(value=>normalizeDoctorSearchText(value).includes(token));
+if(matchedValue){
+score+=field.weight;
+tokenMatched=true;
+if(["Specialty","Location","Expertise"].includes(field.label)&&!matchedDetails.includes(matchedValue)){
+matchedDetails.push(matchedValue);
+}
+}
+});
+if(tokenMatched)matchedTokens++;
+});
+
+if(normalizeDoctorSearchText(doctor.name).includes(query))score+=20;
+if(normalizeDoctorSearchText(doctor.specialty).includes(query))score+=12;
+if(normalizeDoctorSearchText(doctor.practice).includes(query))score+=8;
+
+return {doctor,score,matchedTokens,matchedDetails};
+})
+.filter(result=>result.score>0&&result.matchedTokens>0)
+.sort((a,b)=>b.matchedTokens-a.matchedTokens||b.score-a.score||a.doctor.name.localeCompare(b.doctor.name));
+
+const completeMatches=ranked.filter(result=>result.matchedTokens===queryTokens.length);
+const visibleResults=completeMatches.length?completeMatches:ranked;
+
+if(!visibleResults.length){
+const empty=document.createElement("div");
+empty.className="doctor-search-empty";
+empty.textContent="No doctor profiles found. Try another name, specialty, condition or location.";
+doctorSearchResults.appendChild(empty);
+}else{
+const caption=document.createElement("div");
+caption.className="doctor-search-caption";
+caption.textContent=`${visibleResults.length} matching ${visibleResults.length===1?"profile":"profiles"}`;
+doctorSearchResults.appendChild(caption);
+
+visibleResults.forEach(({doctor,matchedDetails},index)=>{
+const link=document.createElement("a");
+link.className="doctor-search-result";
+link.id=`doctorSearchResult${index}`;
+link.href=doctor.href;
+link.setAttribute("role","option");
+link.setAttribute("aria-selected","false");
+
+const photo=document.createElement("img");
+photo.src=doctor.image;
+photo.alt=doctor.alt;
+photo.width=48;
+photo.height=52;
+photo.loading="eager";
+photo.decoding="async";
+
+const copy=document.createElement("span");
+copy.className="doctor-search-result-copy";
+
+const name=document.createElement("span");
+name.className="doctor-search-result-name";
+name.textContent=doctor.name;
+
+const specialty=document.createElement("span");
+specialty.className="doctor-search-result-specialty";
+specialty.textContent=doctor.specialty;
+
+const meta=document.createElement("span");
+meta.className="doctor-search-result-meta";
+
+const practice=document.createElement("span");
+practice.textContent=doctor.practice;
+meta.appendChild(practice);
+
+if(matchedDetails.length){
+const match=document.createElement("span");
+match.textContent=`Matches: ${matchedDetails.slice(0,2).join(" · ")}`;
+meta.appendChild(match);
+}
+
+copy.append(name,specialty,meta);
+link.append(photo,copy);
+doctorSearchResults.appendChild(link);
+});
+}
+
+doctorSearchResults.hidden=false;
+doctorSearchInput.setAttribute("aria-expanded","true");
+}
+
+function setActiveDoctorSearchResult(nextIndex){
+const results=Array.from(doctorSearchResults.querySelectorAll(".doctor-search-result"));
+if(!results.length)return;
+activeDoctorSearchResult=(nextIndex+results.length)%results.length;
+results.forEach((result,index)=>{
+const active=index===activeDoctorSearchResult;
+result.classList.toggle("is-active",active);
+result.setAttribute("aria-selected",String(active));
+});
+doctorSearchInput.setAttribute("aria-activedescendant",results[activeDoctorSearchResult].id);
+results[activeDoctorSearchResult].scrollIntoView({block:"nearest"});
+}
+
+doctorSearchInput.addEventListener("input",renderDoctorSearch);
+doctorSearchInput.addEventListener("focus",()=>{
+if(doctorSearchResults.hidden)renderDoctorSearch();
+});
+
+doctorSearchInput.addEventListener("keydown",event=>{
+if(event.key==="ArrowDown"){
+event.preventDefault();
+if(doctorSearchResults.hidden)renderDoctorSearch();
+setActiveDoctorSearchResult(activeDoctorSearchResult+1);
+}else if(event.key==="ArrowUp"){
+event.preventDefault();
+setActiveDoctorSearchResult(activeDoctorSearchResult<0?0:activeDoctorSearchResult-1);
+}else if(event.key==="Enter"&&activeDoctorSearchResult>=0){
+const activeResult=doctorSearchResults.querySelector(".doctor-search-result.is-active");
+if(activeResult){
+event.preventDefault();
+window.location.href=activeResult.href;
+}
+}else if(event.key==="Escape"){
+closeDoctorSearch();
+doctorSearchInput.blur();
+}
+});
+
+doctorSearchClear.addEventListener("click",()=>{
+doctorSearchInput.value="";
+renderDoctorSearch();
+doctorSearchInput.focus();
+});
+
+document.addEventListener("pointerdown",event=>{
+if(!doctorSearch.contains(event.target))closeDoctorSearch();
+});
+
+const doctorsViewport =
+document.querySelector(".brand-doctors-viewport");
+
+const doctorsTrack =
+document.querySelector(".brand-doctors-track");
+
+Array.from(doctorsTrack.children).forEach(card=>{
+const duplicate=card.cloneNode(true);
+duplicate.setAttribute("aria-hidden","true");
+duplicate.tabIndex=-1;
+doctorsTrack.appendChild(duplicate);
+});
+
+let doctorsDrag = null;
+let doctorsDragged = false;
+
+doctorsViewport.addEventListener(
+"pointerdown",
+event=>{
+
+if(!event.isPrimary||(event.pointerType==="mouse"&&event.button!==0)){
+return;
+}
+
+const animation =
+doctorsTrack.getAnimations().find(item=>item.animationName==="brandDoctorScroll");
+
+if(animation){
+animation.pause();
+}
+
+doctorsDrag={
+pointerId:event.pointerId,
+startX:event.clientX,
+startTime:animation?.currentTime??0,
+startScrollLeft:doctorsViewport.scrollLeft,
+animation,
+distance:doctorsTrack.scrollWidth/2+9
+};
+
+doctorsDragged=false;
+doctorsViewport.classList.add("is-dragging");
+
+}
+);
+
+window.addEventListener(
+"pointermove",
+event=>{
+
+if(!doctorsDrag||event.pointerId!==doctorsDrag.pointerId){
+return;
+}
+
+const delta =
+doctorsDrag.startX-event.clientX;
+
+if(Math.abs(delta)>5){
+doctorsDragged=true;
+event.preventDefault();
+}
+
+if(!doctorsDragged){
+return;
+}
+
+if(doctorsDrag.animation){
+const duration =
+Number(doctorsDrag.animation.effect.getTiming().duration);
+
+const time =
+doctorsDrag.startTime+delta/doctorsDrag.distance*duration;
+
+doctorsDrag.animation.currentTime =
+((time%duration)+duration)%duration;
+}else{
+doctorsViewport.scrollLeft =
+doctorsDrag.startScrollLeft+delta;
+}
+
+},
+{passive:false}
+);
+
+const finishDoctorsDrag=event=>{
+
+if(!doctorsDrag||event.pointerId!==doctorsDrag.pointerId){
+return;
+}
+
+if(doctorsDrag.animation){
+doctorsDrag.animation.play();
+}
+
+doctorsDrag=null;
+doctorsViewport.classList.remove("is-dragging");
+
+};
+
+window.addEventListener("pointerup",finishDoctorsDrag);
+window.addEventListener("pointercancel",finishDoctorsDrag);
+
+doctorsViewport.addEventListener(
+"click",
+event=>{
+
+if(doctorsDragged){
+event.preventDefault();
+event.stopPropagation();
+doctorsDragged=false;
+}
+
+},
+true
+);
+
+doctorsViewport.addEventListener(
+"dragstart",
+event=>event.preventDefault()
+);
 
 
 mobileMenu.addEventListener(
@@ -6026,17 +6730,17 @@ when you choose to continue to WhatsApp.
       return;
     }
 
-    const THOMSON_WHATSAPP = "919876543210";
+    const THOMSON_WHATSAPP = "919438450966";
 
     const professionalOptions = {
-      "Psychiatrist":["Any available psychiatrist"],
-      "Psychologist / Therapist":["Any available psychologist / therapist"],
-      "Psychiatric Social Worker":["Any available psychiatric social worker"],
+      "Psychiatrist":["Any available psychiatrist", "Dr Bishnu Prasad Sahoo, Consultant Neuropsychiatrist"],
+      "Psychologist / Therapist":["Any available psychologist / therapist", "Dr Anushree Mishra, Clinical Psychologist, AIIMS Bhubaneswar"],
+      "Psychiatric Social Worker":["Any available psychiatric social worker", "Miss Kavya Parayil, Psychiatric Social Worker, Bengaluru"],
       "Neurologist":["Any available neurologist"],
-      "Dermatologist":["Any available dermatologist"],
-      "Cardiologist":["Any available cardiologist"],
-      "Nephrologist":["Any available nephrologist"],
-      "Oncologist":["Any available oncologist"],
+      "Dermatologist":["Any available dermatologist", "Dr Anil Kumar Bhoi, Consultant Dermatologist, UCMS & AIIMS Delhi, Lucknow"],
+      "Cardiologist":["Any available cardiologist", "Dr Byomakesh Dixit, Consultant Cardiologist, Apollo Hospitals Bhubaneswar"],
+      "Nephrologist":["Any available nephrologist", "Dr Aswini Kumar Panigrahi, Consultant Nephrologist, Apollo Hospitals Hyderabad"],
+      "Oncologist":["Any available oncologist", "Dr Asit Kumar Mohanty, Consultant Oncologist, HOD, KIMS Cancer Center Bhubaneswar", "Dr Antaryami Sahoo, Consultant Oncologist, Capital Hospital  Bhubaneswar"],
       "Medicine Specialist":["Any available medicine specialist"],
       "Diabetes Specialist":["Any available diabetes specialist"],
       "Metabolic Health Specialist":["Any available metabolic health specialist"],
