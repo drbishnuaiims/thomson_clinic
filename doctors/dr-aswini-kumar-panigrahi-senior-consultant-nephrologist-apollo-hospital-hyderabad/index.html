@@ -3106,7 +3106,7 @@ a {
             >
 
                 <img
-                    src="../../images/powered-by-doctorjet.png"
+                    src="../../assets/powered-by-doctorjet.png"
                     alt="DoctorJet"
                     class="platform-logo"
                 >
@@ -5177,7 +5177,7 @@ document.addEventListener(
    Expanded:
        Powered by DoctorJet.in
 
-   After 10 seconds:
+   After 5 seconds:
        Security icon only
 
    Clicking security icon:
@@ -5220,7 +5220,7 @@ function expandPlatformBar() {
     platformHideTimer =
         setTimeout(
             collapsePlatformBar,
-            10000
+            5000
         );
 
 }
@@ -5302,21 +5302,6 @@ document
 
         }
     );
-
-
-/* =========================================================
-   INITIAL PLATFORM ATTRIBUTION
-   ========================================================= */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        expandPlatformBar();
-
-    }
-);
-
 
 
 /* =========================================================
