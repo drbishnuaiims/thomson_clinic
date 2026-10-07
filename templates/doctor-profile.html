@@ -1,0 +1,1653 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ==================================================
+     THOMSON CLINIC — DOCTOR PROFILE TEMPLATE
+     To reuse: edit the profile content in the HTML.
+     ================================================== -->
+
+<title>Dr. Bishnu Prasad Sahoo | Thomson Clinic</title>
+<meta name="description" content="Meet your clinician at Thomson Clinic. Explore qualifications, areas of expertise and consultation options.">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://thomsonclinic.com/doctors/dr-bishnu.html">
+
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Thomson Clinic">
+<meta property="og:title" content="Dr. Bishnu Prasad Sahoo | Thomson Clinic">
+<meta property="og:description" content="Thoughtful, evidence-based care. Meet your clinician at Thomson Clinic.">
+<meta property="og:image" content="https://thomsonclinic.com/assets/doctor-profile.jpg">
+
+<link rel="icon" href="assets/www.thomsonclinic.com-favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700;750&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --soft-muted: #86868b;
+  --blue: #0071e3;
+  --blue-hover: #0066cc;
+  --paper: #f5f5f7;
+  --white: #fff;
+  --line: rgba(0,0,0,.075);
+  --max: 1120px;
+  --radius: 28px;
+  --shadow: 0 20px 60px rgba(0,0,0,.065);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+
+body, button, input, select, textarea { font-family: inherit; }
+
+a { color: inherit; text-decoration: none; }
+
+button { cursor: pointer; }
+
+img { display: block; max-width: 100%; }
+
+.container {
+  width: min(calc(100% - 48px), var(--max));
+  margin-inline: auto;
+}
+
+.section { padding: 105px 0; }
+
+.eyebrow {
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1, h2, h3 {
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+
+.muted { color: var(--muted); }
+
+.blue { color: var(--blue); }
+
+.btn {
+  min-height: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
+
+.btn:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(0,0,0,.12);
+  color: var(--ink);
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: var(--ink);
+}
+
+/* HEADER */
+
+.header {
+  height: 68px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.86);
+  border-bottom: 1px solid rgba(0,0,0,.055);
+  backdrop-filter: saturate(180%) blur(22px);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+}
+
+.header-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+
+.brand-caption {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav a {
+  font-size: 11px;
+  color: #48484a;
+  transition: color .2s;
+}
+
+.nav a:hover { color: var(--blue); }
+
+.nav .nav-cta {
+  color: #fff;
+  background: var(--blue);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 23px;
+}
+
+/* PROFILE HERO */
+
+.profile-hero {
+  padding: 66px 0 76px;
+  background:
+    radial-gradient(ellipse at 76% 12%, rgba(0,113,227,.075), transparent 33%),
+    linear-gradient(180deg, #fafafd, #f5f5f7);
+  overflow: hidden;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-bottom: 45px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.breadcrumbs a:hover { color: var(--blue); }
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.02fr .98fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.profile-copy { padding: 12px 0; }
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 8px 12px;
+  border: 1px solid rgba(52,199,89,.2);
+  border-radius: 999px;
+  background: rgba(255,255,255,.75);
+  color: #276c3b;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.availability-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34c759;
+}
+
+.profile-copy h1 {
+  max-width: 600px;
+  margin-bottom: 14px;
+  font-size: clamp(43px, 5.5vw, 70px);
+  font-weight: 750;
+  letter-spacing: -.075em;
+  line-height: .99;
+}
+
+.designation {
+  margin-bottom: 22px;
+  color: #424245;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.profile-intro {
+  max-width: 485px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.credentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 29px;
+}
+
+.credential {
+  padding: 8px 11px;
+  border: 1px solid rgba(0,0,0,.075);
+  border-radius: 9px;
+  background: rgba(255,255,255,.67);
+  font-size: 10px;
+  font-weight: 550;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+}
+
+.profile-note {
+  margin-top: 18px;
+  color: var(--soft-muted);
+  font-size: 10px;
+}
+
+.profile-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin-left: auto;
+  aspect-ratio: 4 / 4.65;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 32px;
+  background: linear-gradient(145deg, #e7ebf0, #d2d9e3);
+  box-shadow: 0 30px 85px rgba(31,43,62,.13);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 24%;
+}
+
+.portrait-placeholder {
+  display: none;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: #6d7582;
+  text-align: center;
+  padding: 30px;
+}
+
+.portrait-placeholder strong { font-size: 15px; }
+.portrait-placeholder span { font-size: 11px; }
+
+.portrait-caption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 17px;
+  background: rgba(255,255,255,.79);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.portrait-caption strong {
+  display: block;
+  font-size: 11px;
+}
+
+.portrait-caption span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.portrait-mark {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #eaf4ff;
+  color: var(--blue);
+  font-size: 17px;
+}
+
+/* QUICK FACTS */
+
+.quick-facts {
+  position: relative;
+  z-index: 2;
+  margin-top: -1px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.fact {
+  padding: 27px 24px;
+  text-align: center;
+}
+
+.fact + .fact { border-left: 1px solid var(--line); }
+
+.fact strong {
+  display: block;
+  font-size: 14px;
+  letter-spacing: -.025em;
+}
+
+.fact span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* SECTION HEADINGS */
+
+.section-heading {
+  max-width: 700px;
+  margin-bottom: 45px;
+}
+
+.section-heading h2 {
+  margin: 12px 0 15px;
+  font-size: clamp(34px, 4.5vw, 55px);
+  font-weight: 700;
+}
+
+.section-heading p {
+  max-width: 570px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* ABOUT */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: .82fr 1.18fr;
+  gap: 85px;
+  align-items: start;
+}
+
+.about-aside h2 {
+  margin: 12px 0 0;
+  font-size: clamp(37px, 4.5vw, 53px);
+}
+
+.about-body p {
+  color: #55555a;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.about-body p:last-child { margin-bottom: 0; }
+
+.signature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 23px;
+  border-top: 1px solid var(--line);
+}
+
+.signature-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.signature strong {
+  display: block;
+  font-size: 11px;
+}
+
+.signature span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+/* EXPERTISE */
+
+.expertise {
+  background: var(--paper);
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.expertise-card {
+  min-height: 205px;
+  padding: 25px;
+  border: 1px solid rgba(0,0,0,.045);
+  border-radius: 22px;
+  background: #fff;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.expertise-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.expertise-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #edf5ff;
+  color: var(--blue);
+  font-size: 19px;
+}
+
+.expertise-card h3 {
+  margin: 25px 0 8px;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.expertise-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* APPROACH */
+
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.approach-card {
+  min-height: 205px;
+  padding: 29px;
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  background: #fff;
+}
+
+.approach-number {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .07em;
+}
+
+.approach-card h3 {
+  margin: 30px 0 10px;
+  font-size: 19px;
+}
+
+.approach-card p {
+  max-width: 410px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+/* CONSULTATION */
+
+.consultation {
+  background: var(--paper);
+}
+
+.consultation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.consultation-card {
+  padding: 34px;
+  border: 1px solid rgba(0,0,0,.045);
+  border-radius: 25px;
+  background: #fff;
+}
+
+.consultation-card.featured {
+  color: #fff;
+  background: #1d1d1f;
+  border-color: #1d1d1f;
+}
+
+.consultation-card .eyebrow { display: block; }
+
+.consultation-card.featured .eyebrow { color: #79baff; }
+
+.consultation-card h3 {
+  margin: 15px 0 12px;
+  font-size: 28px;
+}
+
+.consultation-card p {
+  max-width: 410px;
+  margin-bottom: 25px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.consultation-card.featured p { color: #b5b5ba; }
+
+.consultation-card .btn-outline {
+  border-color: rgba(255,255,255,.23);
+  color: #fff;
+  background: rgba(255,255,255,.07);
+}
+
+.consultation-card.featured .btn-outline:hover {
+  background: rgba(255,255,255,.14);
+}
+
+/* FAQ */
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+.faq-item { border-bottom: 1px solid var(--line); }
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 22px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.faq-symbol {
+  color: var(--muted);
+  font-size: 21px;
+  font-weight: 400;
+  transition: transform .2s;
+}
+
+.faq-item.open .faq-symbol { transform: rotate(45deg); }
+
+.faq-answer {
+  display: none;
+  padding: 0 40px 21px 0;
+}
+
+.faq-item.open .faq-answer { display: block; }
+
+.faq-answer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+/* FINAL CTA */
+
+.final-cta {
+  padding: 92px 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(0,113,227,.09), transparent 55%),
+    #f5f5f7;
+  text-align: center;
+}
+
+.final-cta h2 {
+  max-width: 700px;
+  margin: 15px auto;
+  font-size: clamp(37px, 5.2vw, 61px);
+  letter-spacing: -.07em;
+}
+
+.final-cta p {
+  max-width: 480px;
+  margin: 0 auto 27px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 43px 0 24px;
+  background: #fff;
+}
+
+.footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 35px;
+  padding-bottom: 30px;
+}
+
+.footer-copy {
+  max-width: 360px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.footer-links a:hover { color: var(--blue); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--soft-muted);
+  font-size: 9px;
+}
+
+/* BOOKING MODAL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15,15,18,.48);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.modal.open { display: flex; }
+
+.modal-panel {
+  position: relative;
+  width: min(100%, 500px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 30px 90px rgba(0,0,0,.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--paper);
+  font-size: 21px;
+}
+
+.modal-panel h2 {
+  margin: 12px 0;
+  font-size: 32px;
+}
+
+.modal-panel > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.booking-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 23px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field label {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 43px;
+  padding: 11px 12px;
+  border: 1px solid #dedee3;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 12px;
+  outline: none;
+}
+
+.field textarea {
+  min-height: 75px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0,113,227,.09);
+}
+
+.privacy-note {
+  color: var(--soft-muted);
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+@media (max-width: 850px) {
+  .profile-grid {
+    grid-template-columns: 1fr  .85fr;
+    gap: 35px;
+  }
+
+  .profile-copy h1 { font-size: 49px; }
+
+  .about-grid { gap: 45px; }
+
+  .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 650px) {
+  .container { width: calc(100% - 34px); }
+
+  .section { padding: 75px 0; }
+
+  .header { height: 64px; }
+
+  .brand img { width: 34px; height: 34px; }
+
+  .brand-name { font-size: 14px; }
+
+  .brand-caption { font-size: 7px; }
+
+  .menu-toggle { display: block; }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 10px 22px 20px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.97);
+    backdrop-filter: blur(20px);
+  }
+
+  .nav.open { display: flex; }
+
+  .nav a {
+    padding: 13px 0;
+    font-size: 13px;
+  }
+
+  .nav .nav-cta {
+    align-self: flex-start;
+    padding: 10px 17px;
+    margin-top: 6px;
+  }
+
+  .profile-hero { padding: 32px 0 40px; }
+
+  .breadcrumbs { margin-bottom: 27px; }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .profile-copy { padding: 0; }
+
+  .profile-copy h1 { font-size: clamp(43px, 12vw, 60px); }
+
+  .designation { font-size: 13px; }
+
+  .profile-intro { font-size: 13px; }
+
+  .portrait-frame {
+    max-width: none;
+    aspect-ratio: 4 / 4.15;
+    border-radius: 25px;
+  }
+
+  .facts-grid { grid-template-columns: 1fr; }
+
+  .fact { padding: 18px; text-align: left; }
+
+  .fact + .fact {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .fact strong { font-size: 13px; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 30px; }
+
+  .expertise-grid { grid-template-columns: 1fr; }
+
+  .expertise-card { min-height: auto; }
+
+  .expertise-card h3 { margin-top: 18px; }
+
+  .approach-grid,
+  .consultation-grid { grid-template-columns: 1fr; }
+
+  .approach-card { min-height: auto; }
+
+  .approach-card h3 { margin-top: 20px; }
+
+  .consultation-card { padding: 26px; }
+
+  .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .footer-links { gap: 15px; }
+
+  .modal-panel { padding: 25px 19px; }
+
+  .final-cta { padding: 72px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
+</style>
+
+<!-- Clinician profile structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Physician",
+  "name": "Dr. Bishnu Prasad Sahoo",
+  "url": "https://thomsonclinic.com/doctors/dr-bishnu.html",
+  "image": "https://thomsonclinic.com/assets/doctor-profile.jpg",
+  "medicalSpecialty": "Psychiatry",
+  "worksFor": {
+    "@type": "MedicalClinic",
+    "name": "Thomson Clinic",
+    "url": "https://thomsonclinic.com/"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="https://thomsonclinic.com/" aria-label="Thomson Clinic home">
+      <img src="assets/thomson-clinic-logo-header.png"
+           alt="Thomson Clinic logo">
+      <span>
+        <span class="brand-name">Thomson Clinic</span>
+        <span class="brand-caption">Mental Health & Neuroscience e-Clinic</span>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+            aria-label="Open navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav" id="mainNav" aria-label="Main navigation">
+      <a href="https://thomsonclinic.com/">Home</a>
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#consultation">Consultation</a>
+      <a href="#faq">FAQs</a>
+      <a class="nav-cta" href="#book" data-book>Request an appointment</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- PROFILE HERO -->
+<section class="profile-hero">
+  <div class="container">
+    <div class="breadcrumbs">
+      <a href="https://thomsonclinic.com/">Thomson Clinic</a>
+      <span>›</span>
+      <a href="https://thomsonclinic.com/">Our clinicians</a>
+      <span>›</span>
+      <span>Psychiatry</span>
+    </div>
+
+    <div class="profile-grid">
+      <div class="profile-copy">
+        <div class="availability">
+          <span class="availability-dot"></span>
+          Thomson Clinic · Clinician profile
+        </div>
+
+        <div class="eyebrow">Psychiatry & Mental Health</div>
+
+        <h1>Dr. Bishnu<br>Prasad Sahoo<span class="blue">.</span></h1>
+
+        <p class="designation">
+          Consultant Psychiatrist
+        </p>
+
+        <p class="profile-intro">
+          Thoughtful, evidence-based psychiatric care that places the
+          individual, their experiences and their goals at the centre
+          of every consultation.
+        </p>
+
+        <div class="credentials">
+          <span class="credential">MD Psychiatry</span>
+          <span class="credential">AIIMS Bhubaneswar</span>
+          <span class="credential">Online consultations</span>
+        </div>
+
+        <div class="profile-actions">
+          <a class="btn" href="#book" data-book>
+            Request an appointment <span aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn-outline" href="#about">
+            Meet your clinician
+          </a>
+        </div>
+
+        <p class="profile-note">
+          Thomson Clinic · Mental Health & Neuroscience e-Clinic
+        </p>
+      </div>
+
+      <div class="profile-visual">
+        <div class="portrait-frame">
+          <img id="doctorPortrait"
+               src="assets/doctor-profile.jpg"
+               alt="Portrait of Dr. Bishnu Prasad Sahoo"
+               onerror="this.style.display='none';document.getElementById('portraitPlaceholder').style.display='flex';">
+
+          <div class="portrait-placeholder" id="portraitPlaceholder">
+            <strong>Clinician portrait</strong>
+            <span>Replace assets/doctor-profile.jpg with your photograph.</span>
+          </div>
+
+          <div class="portrait-caption">
+            <div>
+              <strong>Dr. Bishnu Prasad Sahoo</strong>
+              <span>Consultant Psychiatrist</span>
+            </div>
+            <div class="portrait-mark" aria-hidden="true">✳</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE FACTS -->
+<section class="quick-facts" aria-label="Professional overview">
+  <div class="container facts-grid">
+    <div class="fact">
+      <strong>Psychiatry</strong>
+      <span>Primary specialty</span>
+    </div>
+    <div class="fact">
+      <strong>Evidence-based care</strong>
+      <span>Individualised clinical approach</span>
+    </div>
+    <div class="fact">
+      <strong>Online consultations</strong>
+      <span>Remote access to care</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-aside">
+      <div class="eyebrow">A little about me</div>
+      <h2>Care that begins with <span class="blue">listening.</span></h2>
+    </div>
+
+    <div class="about-body">
+      <p>
+        Mental health concerns can affect how we think, feel, sleep,
+        work and connect with the people around us. Seeking help is
+        an important step towards understanding these experiences
+        and finding a way forward.
+      </p>
+
+      <p>
+        My approach to psychiatry emphasises careful assessment,
+        collaborative decision-making and treatment plans informed
+        by clinical evidence and the person's individual needs.
+        Each consultation is an opportunity to understand the
+        concerns that matter most to the person seeking care.
+      </p>
+
+      <p>
+        At Thomson Clinic, the aim is to make professional mental
+        healthcare more accessible while maintaining a thoughtful,
+        respectful and confidential clinical environment.
+      </p>
+
+      <div class="signature">
+        <div class="signature-mark">TC</div>
+        <div>
+          <strong>Dr. Bishnu Prasad Sahoo</strong>
+          <span>Thomson Clinic · Psychiatry</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="section expertise" id="expertise">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Areas of clinical interest</div>
+      <h2>Understanding the whole person.</h2>
+      <p>
+        Explore the concerns that may be discussed during an
+        assessment. The appropriate evaluation and treatment
+        depend on each person's clinical presentation.
+      </p>
+    </div>
+
+    <div class="expertise-grid">
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">◌</div>
+        <h3>Anxiety & Stress</h3>
+        <p>
+          Assessment of persistent worry, panic symptoms, stress
+          and difficulties affecting everyday functioning.
+        </p>
+      </article>
+
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">☼</div>
+        <h3>Mood Concerns</h3>
+        <p>
+          Evaluation of low mood, changes in energy, emotional
+          wellbeing and related difficulties.
+        </p>
+      </article>
+
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">◷</div>
+        <h3>Sleep Difficulties</h3>
+        <p>
+          Assessment of insomnia, sleep-related concerns and
+          their relationship with mental wellbeing.
+        </p>
+      </article>
+
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">◎</div>
+        <h3>Addiction Psychiatry</h3>
+        <p>
+          Assessment and management planning for substance-use
+          concerns and associated mental health needs.
+        </p>
+      </article>
+
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">⌘</div>
+        <h3>Child & Adolescent Mental Health</h3>
+        <p>
+          Developmentally informed assessment of emotional,
+          behavioural and related mental health concerns.
+        </p>
+      </article>
+
+      <article class="expertise-card">
+        <div class="expertise-icon" aria-hidden="true">＋</div>
+        <h3>General Psychiatric Assessment</h3>
+        <p>
+          Comprehensive assessment, diagnostic clarification
+          and discussion of appropriate treatment options.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section" id="approach">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">The consultation experience</div>
+      <h2>Clinical care, with you at the centre.</h2>
+      <p>
+        A good consultation is not just about identifying symptoms.
+        It is about understanding the context, discussing options
+        and agreeing on a practical plan.
+      </p>
+    </div>
+
+    <div class="approach-grid">
+      <article class="approach-card">
+        <div class="approach-number">01 / UNDERSTAND</div>
+        <h3>Start with your concerns</h3>
+        <p>
+          Discuss your symptoms, history, current difficulties
+          and what you hope to achieve from treatment.
+        </p>
+      </article>
+
+      <article class="approach-card">
+        <div class="approach-number">02 / ASSESS</div>
+        <h3>Build a clinical picture</h3>
+        <p>
+          Review relevant clinical information and consider
+          possible explanations for the difficulties you describe.
+        </p>
+      </article>
+
+      <article class="approach-card">
+        <div class="approach-number">03 / COLLABORATE</div>
+        <h3>Discuss your options</h3>
+        <p>
+          Understand suitable treatment approaches, their
+          potential benefits and limitations, and your preferences.
+        </p>
+      </article>
+
+      <article class="approach-card">
+        <div class="approach-number">04 / FOLLOW THROUGH</div>
+        <h3>Plan the next steps</h3>
+        <p>
+          Agree on practical recommendations, follow-up
+          arrangements and further assessment when needed.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTATION -->
+<section class="section consultation" id="consultation">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Access to care</div>
+      <h2>Professional care, on your terms.</h2>
+      <p>
+        Choose the consultation format that suits your circumstances.
+        Availability and suitability are confirmed during booking.
+      </p>
+    </div>
+
+    <div class="consultation-grid">
+      <article class="consultation-card featured">
+        <div class="eyebrow">Remote care</div>
+        <h3>Online consultation.</h3>
+        <p>
+          Consult remotely from a private, comfortable setting.
+          Suitable for clinical concerns that can appropriately
+          be evaluated online.
+        </p>
+        <a class="btn" href="#book" data-book>
+          Request online consultation ↗
+        </a>
+      </article>
+
+      <article class="consultation-card">
+        <div class="eyebrow">In-person care</div>
+        <h3>Meet in person.</h3>
+        <p>
+          Request an in-person appointment, subject to the
+          clinician's location, schedule and service availability.
+        </p>
+        <a class="btn btn-outline" href="#book" data-book>
+          Enquire about availability ↗
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-heading">
+      <div class="eyebrow">Before your appointment</div>
+      <h2>A few helpful answers.</h2>
+      <p>
+        Know what to expect before requesting a consultation.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How do I request an appointment?
+          <span class="faq-symbol">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Use the appointment request form on this page.
+            Your preferred consultation format and contact
+            details will help the clinic coordinate the request.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What should I prepare before a consultation?
+          <span class="faq-symbol">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Consider bringing relevant previous prescriptions,
+            medical reports, a list of current medicines and
+            a brief account of your main concerns.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I have an online consultation?
+          <span class="faq-symbol">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Online consultations may be suitable for many concerns.
+            The clinician will determine whether remote assessment
+            is appropriate or an in-person evaluation is needed.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is my consultation confidential?
+          <span class="faq-symbol">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Clinical information is handled in accordance with
+            applicable professional and legal confidentiality
+            requirements, subject to relevant exceptions.
+            Please use a private setting for online consultations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="final-cta" id="book">
+  <div class="container">
+    <div class="eyebrow">Your next step</div>
+    <h2>Taking the first step can make a difference.</h2>
+    <p>
+      Request an appointment with Thomson Clinic to discuss
+      your concerns and explore appropriate care options.
+    </p>
+    <button class="btn" type="button" data-book>
+      Request an appointment ↗
+    </button>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="https://thomsonclinic.com/">
+          <img src="assets/thomson-clinic-logo-header.png"
+               alt="Thomson Clinic logo">
+          <span>
+            <span class="brand-name">Thomson Clinic</span>
+            <span class="brand-caption">Mental Health & Neuroscience e-Clinic</span>
+          </span>
+        </a>
+        <p class="footer-copy">
+          Connecting people with thoughtful, evidence-based
+          healthcare through a modern, accessible clinical experience.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="https://thomsonclinic.com/">Home</a>
+        <a href="#about">About the clinician</a>
+        <a href="#expertise">Areas of interest</a>
+        <a href="#consultation">Consultation</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Thomson Clinic. All rights reserved.</span>
+      <span>Professional care. Human connection.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- APPOINTMENT REQUEST MODAL -->
+<div class="modal" id="bookingModal" role="dialog"
+     aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-panel">
+    <button class="modal-close" id="closeModal"
+            type="button" aria-label="Close appointment form">×</button>
+
+    <div class="eyebrow">Thomson Clinic</div>
+    <h2 id="modalTitle">Request an appointment.</h2>
+    <p>
+      Share your contact details and preferred consultation format.
+      Your request will open in WhatsApp for you to review and send.
+    </p>
+
+    <form class="booking-form" id="bookingForm">
+      <div class="field">
+        <label for="patientName">Your name</label>
+        <input id="patientName" name="name" autocomplete="name"
+               required maxlength="100" placeholder="Enter your name">
+      </div>
+
+      <div class="field">
+        <label for="patientPhone">Contact number</label>
+        <input id="patientPhone" name="phone" type="tel"
+               autocomplete="tel" required maxlength="20"
+               placeholder="Enter your contact number">
+      </div>
+
+      <div class="field">
+        <label for="consultationType">Preferred consultation</label>
+        <select id="consultationType" name="type" required>
+          <option value="">Select an option</option>
+          <option value="Online consultation">Online consultation</option>
+          <option value="In-person consultation">In-person consultation</option>
+          <option value="Need guidance choosing">Need guidance choosing</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="preferredTime">Preferred date or time (optional)</label>
+        <input id="preferredTime" name="time"
+               placeholder="e.g. Saturday evening">
+      </div>
+
+      <button class="btn" type="submit">
+        Continue to WhatsApp ↗
+      </button>
+
+      <p class="privacy-note">
+        This form does not submit data to a clinic database.
+        Your details are included in a WhatsApp message only after
+        you choose to continue. Avoid entering sensitive clinical
+        information in the booking request.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ============================================
+   THOMSON CLINIC PROFILE — INTERACTIONS
+   ============================================ */
+
+/*
+  IMPORTANT:
+  Replace this with the clinic's actual WhatsApp number.
+  Use country code + number, digits only.
+  Example format: 919876543210
+*/
+const CLINIC_WHATSAPP = "91XXXXXXXXXX";
+
+/* Mobile navigation */
+const menuToggle = document.getElementById("menuToggle");
+const mainNav = document.getElementById("mainNav");
+
+menuToggle.addEventListener("click", () => {
+  const open = mainNav.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute(
+    "aria-label",
+    open ? "Close navigation" : "Open navigation"
+  );
+  menuToggle.textContent = open ? "×" : "☰";
+});
+
+mainNav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    mainNav.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation");
+    menuToggle.textContent = "☰";
+  });
+});
+
+/* FAQ accordion */
+document.querySelectorAll(".faq-question").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.closest(".faq-item");
+    const willOpen = !item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(other => {
+      other.classList.remove("open");
+      other.querySelector(".faq-question")
+        .setAttribute("aria-expanded", "false");
+    });
+
+    if (willOpen) {
+      item.classList.add("open");
+      button.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+
+/* Appointment modal */
+const modal = document.getElementById("bookingModal");
+const closeModalButton = document.getElementById("closeModal");
+let lastFocusedElement = null;
+
+function openBooking() {
+  lastFocusedElement = document.activeElement;
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("patientName").focus();
+}
+
+function closeBooking() {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+  if (lastFocusedElement) lastFocusedElement.focus();
+}
+
+document.querySelectorAll("[data-book]").forEach(button => {
+  button.addEventListener("click", event => {
+    event.preventDefault();
+    openBooking();
+  });
+});
+
+closeModalButton.addEventListener("click", closeBooking);
+
+modal.addEventListener("click", event => {
+  if (event.target === modal) closeBooking();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && modal.classList.contains("open")) {
+    closeBooking();
+  }
+});
+
+/* WhatsApp appointment request */
+document.getElementById("bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (!/^91\d{10}$/.test(CLINIC_WHATSAPP)) {
+    alert("Please configure the clinic WhatsApp number in the page script before accepting appointment requests.");
+    return;
+  }
+
+  const form = new FormData(event.currentTarget);
+  const name = String(form.get("name") || "").trim();
+  const phone = String(form.get("phone") || "").trim();
+  const type = String(form.get("type") || "").trim();
+  const time = String(form.get("time") || "").trim();
+
+  const message = [
+    "Hello Thomson Clinic, I would like to request an appointment.",
+    "",
+    "Clinician: Dr. Bishnu Prasad Sahoo",
+    "Name: " + name,
+    "Contact number: " + phone,
+    "Preferred consultation: " + type,
+    time ? "Preferred date/time: " + time : ""
+  ].filter(Boolean).join("\n");
+
+  const whatsappURL =
+    "https://wa.me/" + CLINIC_WHATSAPP +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(whatsappURL, "_blank", "noopener,noreferrer");
+});
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+</script>
+
+</body>
+</html>
+```
