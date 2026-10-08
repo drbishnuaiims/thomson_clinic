@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta
+        name="description"
+        content="Sleep hygiene: a complete guide for better sleep, healthy bedtime habits, and natural ways to improve rest and mental well-being."
+    />
+    <title>Sleep Hygiene: A Complete Guide for Better Sleep | Dr. Bishnu Prasad Sahoo</title>
+    <style>
+        :root {
+            --background: #f5f5f7;
+            --white: #ffffff;
+            --surface: rgba(255,255,255,.82);
+            --surface-soft: #fafafa;
+            --text: #171717;
+            --text-secondary: #606064;
+            --text-tertiary: #8b8b91;
+            --border: rgba(0,0,0,.075);
+            --accent: #405867;
+            --accent-soft: #edf2f5;
+            --green: #26785d;
+            --green-soft: #edf7f2;
+            --blue: #1d9bf0;
+            --black: #181818;
+            --shadow-small: 0 2px 4px rgba(0,0,0,.025), 0 8px 25px rgba(0,0,0,.035);
+            --shadow-medium: 0 18px 55px rgba(0,0,0,.12);
+            --radius-xl: 28px;
+            --radius-large: 22px;
+            --radius-medium: 16px;
+            --radius-small: 12px;
+            --max-width: 1060px;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+        a { color: inherit; text-decoration: none; }
+        p, li, span, strong, h1, h2, h3, ul, ol { margin-top: 0; }
+
+        .page {
+            width: min(var(--max-width), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 58px 0 90px;
+        }
+
+        .doctor-intro {
+            display: grid;
+            grid-template-columns: 150px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 30px;
+            padding: 34px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-small);
+            backdrop-filter: blur(20px);
+        }
+
+        .photo-container { position: relative; }
+        .doctor-photo {
+            width: 138px;
+            height: 138px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #dfeaf1 0%, #c7d9e7 50%, #a7bed0 100%);
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.08), 0 10px 25px rgba(0,0,0,.06);
+        }
+
+        .verified-badge {
+            position: absolute;
+            right: -6px;
+            bottom: -5px;
+            width: 29px;
+            height: 29px;
+            display: block;
+            z-index: 5;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+        }
+        .verified-badge svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .profile-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: rgba(255,255,255,.78);
+            border: 1px solid rgba(0,0,0,.065);
+            border-radius: 14px;
+            min-width: 92px;
+        }
+        .qr-code {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 7px;
+            background-image:
+                linear-gradient(90deg, rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%),
+                linear-gradient(rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%);
+            background-size: 56px 56px;
+            background-position: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+        }
+        .qr-label {
+            margin-top: 6px;
+            color: var(--text-tertiary);
+            font-size: 8px;
+            font-weight: 650;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .doctor-label {
+            margin-bottom: 7px;
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .9px;
+        }
+        .doctor-name {
+            margin: 0;
+            color: var(--text);
+            font-size: clamp(30px, 4vw, 42px);
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+            font-weight: 700;
+        }
+        .doctor-specialty {
+            margin-top: 9px;
+            color: var(--blue);
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .doctor-credentials {
+            margin-top: 7px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 17px;
+        }
+        .profile-tag {
+            padding: 6px 10px;
+            border: 1px solid rgba(0,0,0,.045);
+            border-radius: 999px;
+            background: #f2f2f3;
+            color: #57575a;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            margin-top: 14px;
+            overflow: hidden;
+            background: rgba(255,255,255,.72);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+        .quick-item {
+            padding: 17px 20px;
+            border-right: 1px solid var(--border);
+        }
+        .quick-item:last-child { border-right: none; }
+        .quick-label {
+            color: var(--text-tertiary);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+        .quick-value {
+            margin-top: 3px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: minmax(0,1fr) 315px;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .card {
+            padding: 27px;
+            background: rgba(255,255,255,.82);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-small);
+        }
+        .card + .card { margin-top: 18px; }
+        .card-title {
+            margin: 0;
+            color: var(--text);
+            font-size: 19px;
+            font-weight: 650;
+            letter-spacing: -.35px;
+        }
+        .card-description {
+            margin: 5px 0 22px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .about, .faq-item p, .step-content p, .article-body p, .article-body li, .mini-list li, .checklist li {
+            color: #515151;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+        .about p:last-child, .step-content p:last-child, .faq-item p:last-child { margin-bottom: 0; }
+
+        .approach {
+            margin-top: 20px;
+            padding: 17px 18px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(63,89,107,.07);
+            border-radius: 15px;
+        }
+        .approach-title {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .approach-text {
+            color: #61707a;
+            font-size: 12px;
+        }
+
+        .specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .specialty {
+            padding: 8px 11px;
+            background: #f5f5f6;
+            border: 1px solid rgba(0,0,0,.05);
+            border-radius: 10px;
+            color: #4e4e50;
+            font-size: 12px;
+            font-weight: 550;
+        }
+
+        .checklist, .mini-list, .faq-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .checklist li, .mini-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 10px;
+        }
+        .checklist li::before, .mini-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .step-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .step-card {
+            padding: 18px 18px 16px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+        .step-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .step-number {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #dceefe, #c9ebff);
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .08em;
+        }
+        .step-head h3 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text);
+        }
+        .step-content { margin: 0; }
+        .step-subheading {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 10px 0 4px;
+            display: inline-block;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .stat-box {
+            padding: 18px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, #ffffff, #fbfbfb);
+            text-align: center;
+        }
+        .stat-box strong {
+            display: block;
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .stat-box span {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+        .faq-item {
+            padding: 16px 16px 12px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+        .faq-item h3 {
+            margin: 0 0 8px;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .sidebar .card { padding: 22px 20px; }
+        .sidebar .card + .card { margin-top: 18px; }
+
+        @media (max-width: 900px) {
+            .doctor-intro {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .photo-container { margin: 0 auto; }
+            .profile-qr { margin: 0 auto; }
+            .profile-tags { justify-content: center; }
+            .content { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .page { width: min(var(--max-width), calc(100% - 22px)); padding-top: 20px; }
+            .doctor-intro { padding: 22px 18px; }
+            .quick-info { grid-template-columns: repeat(2, 1fr); }
+            .stats-row { grid-template-columns: 1fr; }
+            .card { padding: 20px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="doctor-intro">
+            <div class="photo-container">
+                <div class="doctor-photo">S</div>
+                <span class="verified-badge" aria-label="Verified sleep guide">
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="15" fill="#2a8cff"></circle>
+                        <path d="M16 7.8c2.8 0 5 2.2 5 5v1.2c0 2.8-2.2 5-5 5s-5-2.2-5-5V12.8c0-2.8 2.2-5 5-5zm-7 11.6c.6-3.3 3.2-5.8 7-5.8s6.4 2.5 7 5.8c.2 1.1-1.1 1.9-2.1 1.9H10.8c-1 0-2.3-.8-2.1-1.9z" fill="#fff"></path>
+                        <path d="M13.8 15.2l1.7 1.7 3.7-4.1 1.5 1.4-5.2 5.7-3.2-3.2 1.5-1.5z" fill="#2a8cff"></path>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="doctor-copy">
+                <div class="doctor-label">Mental wellness • sleep health</div>
+                <h1 class="doctor-name">Sleep Hygiene</h1>
+                <div class="doctor-specialty">A Complete Guide for Better Sleep</div>
+                <div class="doctor-credentials">Healthy sleep habits for better rest, recovery, and emotional well-being</div>
+
+                <div class="profile-tags" aria-label="Article tags">
+                    <span class="profile-tag">Better sleep</span>
+                    <span class="profile-tag">Bedtime routine</span>
+                    <span class="profile-tag">Stress reduction</span>
+                    <span class="profile-tag">Healthy habits</span>
+                </div>
+            </div>
+
+            <div class="profile-qr" aria-label="Sleep guide QR">
+                <div class="qr-code" aria-hidden="true"></div>
+                <div class="qr-label">Sleep Guide</div>
+            </div>
+        </header>
+
+        <div class="quick-info" aria-label="Article overview">
+            <div class="quick-item">
+                <div class="quick-label">Sleep need</div>
+                <div class="quick-value">7–9 hours</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Routine</div>
+                <div class="quick-value">30–60 mins</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Best practice</div>
+                <div class="quick-value">Consistent timing</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Goal</div>
+                <div class="quick-value">Deep rest</div>
+            </div>
+        </div>
+
+        <main class="content">
+            <section aria-label="Article content">
+                <article class="card">
+                    <h2 class="card-title">What is sleep hygiene?</h2>
+                    <div class="about">
+                        <p>Sleep hygiene refers to the daily habits and environmental factors that help you get good-quality sleep. Just as brushing your teeth helps maintain oral health, healthy sleep habits help maintain physical and mental well-being.</p>
+                        <p>Poor sleep hygiene can lead to difficulty falling asleep, frequent awakenings, daytime tiredness, poor concentration, irritability, and anxiety or depression.</p>
+                        <p>Good sleep hygiene is not a medicine—it is a set of simple lifestyle practices that can improve your sleep naturally.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Why is good sleep important?</h2>
+                    <div class="specialties" aria-label="Benefits of good sleep">
+                        <span class="specialty">Memory</span>
+                        <span class="specialty">Concentration</span>
+                        <span class="specialty">Emotional well-being</span>
+                        <span class="specialty">Physical recovery</span>
+                        <span class="specialty">Immunity</span>
+                        <span class="specialty">Heart health</span>
+                        <span class="specialty">Hormonal balance</span>
+                        <span class="specialty">Energy levels</span>
+                    </div>
+                    <div class="approach">
+                        <div class="approach-title">Recommended sleep duration</div>
+                        <div class="approach-text">Most adults need 7–9 hours of sleep every night.</div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Signs of poor sleep hygiene</h2>
+                    <ul class="checklist">
+                        <li>Take more than 30 minutes to fall asleep.</li>
+                        <li>Wake up repeatedly during the night.</li>
+                        <li>Feel tired despite sleeping for many hours.</li>
+                        <li>Feel sleepy during the day.</li>
+                        <li>Depend on sleeping pills.</li>
+                        <li>Sleep at different times every day.</li>
+                        <li>Use your mobile phone late at night.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">12 practical habits to improve sleep</h2>
+                    <div class="step-list">
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">01</span>
+                                <h3>Maintain a regular sleep schedule</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Go to bed at the same time every night and wake up at the same time every morning. Maintain the schedule even on weekends.</p>
+                                <p><strong>Remember:</strong> Even after a poor night’s sleep, wake up at your usual time.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">02</span>
+                                <h3>Avoid long daytime naps</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Long naps can interfere with nighttime sleep. Limit naps to 20–30 minutes and avoid naps after 3 PM.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">03</span>
+                                <h3>Create a relaxing bedtime routine</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Spend 30–60 minutes winding down before bed with reading, meditation, deep breathing, warm bath, or relaxation exercises such as JPMR.</p>
+                                <p>Avoid stressful discussions, office work, social media, and exciting television programs.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">04</span>
+                                <h3>Limit screen time</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>The blue light from phones, tablets, laptops, and televisions suppresses melatonin, the hormone that regulates sleep. Stop using screens at least one hour before bedtime and keep your phone away from your bed.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">05</span>
+                                <h3>Avoid caffeine in the evening</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Caffeine is a stimulant that can remain in the body for several hours. Avoid caffeine after 4 PM.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">06</span>
+                                <h3>Avoid smoking and nicotine</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Nicotine stimulates the brain and can make it difficult to fall asleep. Avoid smoking for several hours before bedtime.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">07</span>
+                                <h3>Avoid alcohol as a sleep aid</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Although alcohol may make you sleepy initially, it often causes frequent awakenings, poor sleep quality, early morning awakening, and restless sleep. Alcohol is not a treatment for insomnia.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">08</span>
+                                <h3>Exercise regularly</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Regular exercise improves sleep quality, mood, energy levels, and stress management. Morning, afternoon, and early evening exercise are often best. Avoid vigorous exercise within 2–3 hours of bedtime.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">09</span>
+                                <h3>Avoid heavy meals before bed</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Heavy meals can cause acidity, indigestion, discomfort, and poor sleep. Eat dinner 2–3 hours before bedtime and avoid spicy or oily foods late at night.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">10</span>
+                                <h3>Limit fluids before bedtime</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Drinking large amounts of fluids at night may cause repeated awakenings to use the bathroom. Reduce fluid intake 1–2 hours before sleep.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">11</span>
+                                <h3>Create a sleep-friendly bedroom</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Keep your bedroom quiet, dark, comfortable, clean, and cool. Use curtains, eye masks, earplugs, and comfortable pillows if needed.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">12</span>
+                                <h3>Use your bed only for sleep</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Your brain should associate the bed with sleep, not work or entertainment. Avoid watching television, eating, working, or scrolling on your phone in bed.</p>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">What if you cannot sleep?</h2>
+                    <ul class="checklist">
+                        <li>If you cannot sleep after 20 minutes, get out of bed.</li>
+                        <li>Read a book or listen to calming music.</li>
+                        <li>Return to bed only when you feel sleepy.</li>
+                        <li>Avoid forcing yourself to sleep.</li>
+                        <li>Do not watch the clock; constantly checking the time increases stress.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Relaxation techniques that help</h2>
+                    <div class="specialties" aria-label="Relaxation methods">
+                        <span class="specialty">Deep breathing</span>
+                        <span class="specialty">JPMR</span>
+                        <span class="specialty">Meditation</span>
+                        <span class="specialty">Mindfulness</span>
+                        <span class="specialty">Yoga</span>
+                        <span class="specialty">Gentle stretching</span>
+                    </div>
+                    <div class="approach">
+                        <div class="approach-title">Suggested practice</div>
+                        <div class="approach-text">Practicing these techniques for 10–15 minutes before bed can improve sleep quality.</div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Common myths about sleep</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h3>Myth: “Alcohol helps me sleep.”</h3>
+                            <p>Reality: Alcohol causes poor-quality sleep.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Myth: “I can catch up on sleep during weekends.”</h3>
+                            <p>Reality: Oversleeping disrupts your biological clock.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Myth: “Watching television helps me sleep.”</h3>
+                            <p>Reality: Screen exposure delays sleep.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Myth: “Staying in bed longer helps insomnia.”</h3>
+                            <p>Reality: Spending too much time in bed can worsen insomnia.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">When should you consult a doctor?</h2>
+                    <ul class="checklist">
+                        <li>Sleep problems persist for more than three months.</li>
+                        <li>You snore loudly or stop breathing during sleep.</li>
+                        <li>You feel excessively sleepy during the day.</li>
+                        <li>Sleep problems affect your work or relationships.</li>
+                        <li>You depend on sleeping pills regularly.</li>
+                        <li>You have symptoms of anxiety or depression.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Key take-home messages</h2>
+                    <ul class="checklist">
+                        <li>Follow a regular sleep schedule.</li>
+                        <li>Reduce screen time before bed.</li>
+                        <li>Avoid caffeine, nicotine, and alcohol at night.</li>
+                        <li>Exercise regularly.</li>
+                        <li>Create a relaxing bedtime routine.</li>
+                        <li>Keep your bedroom comfortable.</li>
+                        <li>Practice relaxation exercises.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Final message</h2>
+                    <div class="about">
+                        <p>Healthy sleep is one of the pillars of good physical and mental health. Small lifestyle changes practiced consistently can lead to better sleep, improved mood, and a healthier life.</p>
+                        <p><strong>Healthy days begin with healthy nights.</strong></p>
+                    </div>
+                </article>
+            </section>
+
+            <aside class="sidebar" aria-label="Quick summary">
+                <div class="card">
+                    <h3 class="card-title">At a glance</h3>
+                    <ul class="mini-list">
+                        <li>Sleep hygiene is the daily structure of healthy sleep.</li>
+                        <li>Regular timing improves the body clock.</li>
+                        <li>Low light and reduced stimulation help melatonin.</li>
+                        <li>Good sleep supports mood, energy, and recovery.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Top sleep habits</h3>
+                    <ul class="mini-list">
+                        <li>Go to bed and wake at the same time.</li>
+                        <li>Avoid late caffeine and nicotine.</li>
+                        <li>Limit screens before bedtime.</li>
+                        <li>Keep your bedroom quiet, dark, and cool.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">When to seek help</h3>
+                    <ul class="mini-list">
+                        <li>Chronic insomnia</li>
+                        <li>Loud snoring</li>
+                        <li>Excessive daytime sleepiness</li>
+                        <li>Sleep-related anxiety or depression</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

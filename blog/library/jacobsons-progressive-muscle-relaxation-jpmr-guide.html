@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta
+        name="description"
+        content="Jacobson's Progressive Muscle Relaxation (JPMR): A complete patient guide for stress relief, relaxation, and better sleep."
+    />
+    <title>Jacobson’s Progressive Muscle Relaxation (JPMR) | Dr. Bishnu Prasad Sahoo</title>
+    <style>
+        :root {
+            --background: #f5f5f7;
+            --white: #ffffff;
+            --surface: rgba(255,255,255,.82);
+            --surface-soft: #fafafa;
+            --text: #171717;
+            --text-secondary: #606064;
+            --text-tertiary: #8b8b91;
+            --border: rgba(0,0,0,.075);
+            --accent: #405867;
+            --accent-soft: #edf2f5;
+            --green: #26785d;
+            --green-soft: #edf7f2;
+            --blue: #1d9bf0;
+            --black: #181818;
+            --shadow-small: 0 2px 4px rgba(0,0,0,.025), 0 8px 25px rgba(0,0,0,.035);
+            --shadow-medium: 0 18px 55px rgba(0,0,0,.12);
+            --radius-xl: 28px;
+            --radius-large: 22px;
+            --radius-medium: 16px;
+            --radius-small: 12px;
+            --max-width: 1060px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        p,
+        li,
+        span,
+        strong,
+        h1,
+        h2,
+        h3,
+        ul,
+        ol {
+            margin-top: 0;
+        }
+
+        .page {
+            width: min(var(--max-width), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 58px 0 90px;
+        }
+
+        .doctor-intro {
+            display: grid;
+            grid-template-columns: 150px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 30px;
+            padding: 34px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-small);
+            backdrop-filter: blur(20px);
+        }
+
+        .photo-container {
+            position: relative;
+        }
+
+        .doctor-photo {
+            width: 138px;
+            height: 138px;
+            object-fit: cover;
+            display: block;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #dfeaf1 0%, #c7d9e7 50%, #a7bed0 100%);
+            box-shadow: 0 2px 5px rgba(0,0,0,.08), 0 10px 25px rgba(0,0,0,.06);
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .verified-badge {
+            position: absolute;
+            right: -6px;
+            bottom: -5px;
+            width: 29px;
+            height: 29px;
+            display: block;
+            z-index: 5;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+        }
+
+        .verified-badge svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .profile-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: rgba(255,255,255,.78);
+            border: 1px solid rgba(0,0,0,.065);
+            border-radius: 14px;
+            min-width: 92px;
+        }
+
+        .qr-code {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 7px;
+            background-image:
+                linear-gradient(90deg, rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%),
+                linear-gradient(rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%);
+            background-size: 56px 56px;
+            background-position: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+        }
+
+        .qr-label {
+            margin-top: 6px;
+            color: var(--text-tertiary);
+            font-size: 8px;
+            font-weight: 650;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .doctor-label {
+            margin-bottom: 7px;
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .9px;
+        }
+
+        .doctor-name {
+            margin: 0;
+            color: var(--text);
+            font-size: clamp(30px, 4vw, 42px);
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+            font-weight: 700;
+        }
+
+        .doctor-specialty {
+            margin-top: 9px;
+            color: var(--blue);
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .doctor-credentials {
+            margin-top: 7px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 17px;
+        }
+
+        .profile-tag {
+            padding: 6px 10px;
+            border: 1px solid rgba(0,0,0,.045);
+            border-radius: 999px;
+            background: #f2f2f3;
+            color: #57575a;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            margin-top: 14px;
+            overflow: hidden;
+            background: rgba(255,255,255,.72);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .quick-item {
+            padding: 17px 20px;
+            border-right: 1px solid var(--border);
+        }
+
+        .quick-item:last-child {
+            border-right: none;
+        }
+
+        .quick-label {
+            color: var(--text-tertiary);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .quick-value {
+            margin-top: 3px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: minmax(0,1fr) 315px;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .card {
+            padding: 27px;
+            background: rgba(255,255,255,.82);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-small);
+        }
+
+        .card + .card {
+            margin-top: 18px;
+        }
+
+        .card-title {
+            margin: 0;
+            color: var(--text);
+            font-size: 19px;
+            font-weight: 650;
+            letter-spacing: -.35px;
+        }
+
+        .card-description {
+            margin: 5px 0 22px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .about,
+        .faq-item p,
+        .step-content p,
+        .article-body p,
+        .article-body li,
+        .mini-list li,
+        .checklist li {
+            color: #515151;
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        .about p:last-child,
+        .step-content p:last-child,
+        .faq-item p:last-child {
+            margin-bottom: 0;
+        }
+
+        .approach {
+            margin-top: 20px;
+            padding: 17px 18px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(63,89,107,.07);
+            border-radius: 15px;
+        }
+
+        .approach-title {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .approach-text {
+            color: #61707a;
+            font-size: 12px;
+        }
+
+        .specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .specialty {
+            padding: 8px 11px;
+            background: #f5f5f6;
+            border: 1px solid rgba(0,0,0,.05);
+            border-radius: 10px;
+            color: #4e4e50;
+            font-size: 12px;
+            font-weight: 550;
+        }
+
+        .checklist,
+        .mini-list,
+        .faq-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .checklist li,
+        .mini-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 10px;
+        }
+
+        .checklist li::before,
+        .mini-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .step-list {
+            display: grid;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .step-card {
+            padding: 18px 18px 16px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .step-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .step-number {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #dceefe, #c9ebff);
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .08em;
+        }
+
+        .step-head h3 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .step-content {
+            margin: 0;
+        }
+
+        .step-subheading {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 10px 0 4px;
+            display: inline-block;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .stat-box {
+            padding: 18px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, #ffffff, #fbfbfb);
+            text-align: center;
+        }
+
+        .stat-box strong {
+            display: block;
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .stat-box span {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .faq-item {
+            padding: 16px 16px 12px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .sidebar .card {
+            padding: 22px 20px;
+        }
+
+        .sidebar .card + .card {
+            margin-top: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .doctor-intro {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .photo-container {
+                margin: 0 auto;
+            }
+
+            .profile-qr {
+                margin: 0 auto;
+            }
+
+            .profile-tags {
+                justify-content: center;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: min(var(--max-width), calc(100% - 22px));
+                padding-top: 20px;
+            }
+
+            .doctor-intro {
+                padding: 22px 18px;
+            }
+
+            .quick-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="doctor-intro">
+            <div class="photo-container">
+                <div class="doctor-photo">B</div>
+                <span class="verified-badge" aria-label="Verified health guide">
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="15" fill="#2a8cff"></circle>
+                        <path d="M16 7.8c2.8 0 5 2.2 5 5v1.2c0 2.8-2.2 5-5 5s-5-2.2-5-5V12.8c0-2.8 2.2-5 5-5zm-7 11.6c.6-3.3 3.2-5.8 7-5.8s6.4 2.5 7 5.8c.2 1.1-1.1 1.9-2.1 1.9H10.8c-1 0-2.3-.8-2.1-1.9z" fill="#fff"></path>
+                        <path d="M13.8 15.2l1.7 1.7 3.7-4.1 1.5 1.4-5.2 5.7-3.2-3.2 1.5-1.5z" fill="#2a8cff"></path>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="doctor-copy">
+                <div class="doctor-label">Mental wellness • relaxation therapy</div>
+                <h1 class="doctor-name">Jacobson’s Progressive Muscle Relaxation (JPMR)</h1>
+                <div class="doctor-specialty">A Complete Patient Guide</div>
+                <div class="doctor-credentials">Evidence-based stress reduction technique for mind-body balance</div>
+
+                <div class="profile-tags" aria-label="Article tags">
+                    <span class="profile-tag">Stress relief</span>
+                    <span class="profile-tag">Better sleep</span>
+                    <span class="profile-tag">Anxiety support</span>
+                    <span class="profile-tag">Mind-body wellness</span>
+                </div>
+            </div>
+
+            <div class="profile-qr" aria-label="Clinical guide QR">
+                <div class="qr-code" aria-hidden="true"></div>
+                <div class="qr-label">Clinical Guide</div>
+            </div>
+        </header>
+
+        <div class="quick-info" aria-label="Article overview">
+            <div class="quick-item">
+                <div class="quick-label">Session length</div>
+                <div class="quick-value">15–20 minutes</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Practice</div>
+                <div class="quick-value">1–2 times daily</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Best results</div>
+                <div class="quick-value">2–4 weeks</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Goal</div>
+                <div class="quick-value">Calm + relaxation</div>
+            </div>
+        </div>
+
+        <main class="content">
+            <section aria-label="Article content">
+                <article class="card">
+                    <h2 class="card-title">What is Jacobson’s Progressive Muscle Relaxation (JPMR)?</h2>
+                    <div class="about">
+                        <p>Jacobson’s Progressive Muscle Relaxation (JPMR) is a simple relaxation technique developed by Dr. Edmund Jacobson. It helps you reduce stress by teaching you to recognize and release muscle tension in different parts of your body.</p>
+                        <p>The basic idea is simple: first, gently tighten a group of muscles for a few seconds. Then, slowly relax those muscles and notice the difference between tension and relaxation.</p>
+                        <p>Our body and mind are closely connected. When we are anxious, stressed, worried, or angry, our muscles become tense. Similarly, when the muscles relax, the mind also becomes calmer.</p>
+                        <p>Regular practice of JPMR can help improve both physical and mental well-being.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">How can JPMR help?</h2>
+                    <div class="specialties" aria-label="Conditions that may benefit from JPMR">
+                        <span class="specialty">Stress and anxiety</span>
+                        <span class="specialty">Difficulty sleeping</span>
+                        <span class="specialty">Depression</span>
+                        <span class="specialty">Headaches</span>
+                        <span class="specialty">Muscle pain</span>
+                        <span class="specialty">Panic attacks</span>
+                        <span class="specialty">Work stress</span>
+                        <span class="specialty">Examination anxiety</span>
+                        <span class="specialty">Chronic pain</span>
+                        <span class="specialty">Irritability</span>
+                    </div>
+                    <div class="approach">
+                        <div class="approach-title">What many people notice</div>
+                        <div class="approach-text">Many people feel calmer, sleep better, and can concentrate more easily after regular practice.</div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Before you start</h2>
+                    <ul class="checklist">
+                        <li>Choose a time when you are unlikely to be disturbed.</li>
+                        <li>Find a comfortable place and sit in a chair or lie on a bed.</li>
+                        <li>Wear loose, comfortable clothing and remove tight belts, watches, or shoes if possible.</li>
+                        <li>Keep your phone on silent mode.</li>
+                        <li>Dim the lights, keep the room quiet, and ensure the temperature is comfortable.</li>
+                        <li>Do not practice immediately after a heavy meal.</li>
+                        <li>Avoid alcohol or stimulants beforehand.</li>
+                        <li>Never tighten muscles so much that it causes pain.</li>
+                        <li>If you have an injury, recent surgery, or severe arthritis, avoid tightening the affected muscles.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Step-by-step practice</h2>
+                    <div class="step-list">
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">01</span>
+                                <h3>Deep breathing</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Before starting</div>
+                                <p>Take three slow deep breaths. Breathe in through your nose for four seconds, hold for two seconds, and breathe out slowly through your mouth for six seconds. Repeat three to five times.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">02</span>
+                                <h3>Hands and forearms</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Make a tight fist with both hands and squeeze gently. Hold for 5–10 seconds and notice the tension in your fingers, palms, and forearms.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Open your hands slowly, let your fingers loosen completely, and rest for 15–20 seconds. Pay attention to the feeling of warmth and relaxation.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">03</span>
+                                <h3>Upper arms</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Bend your elbows and tighten your upper arms. Hold for 5–10 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Let your arms drop comfortably and feel the tension leaving your muscles. Relax for 15–20 seconds.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">04</span>
+                                <h3>Forehead</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Raise your eyebrows as high as possible and hold for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Let your forehead become smooth and relaxed and notice the difference.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">05</span>
+                                <h3>Eyes and cheeks</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Close your eyes tightly and hold for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Open your eyes slowly and let the muscles around your eyes relax.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">06</span>
+                                <h3>Jaw and mouth</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Clench your teeth gently and press your lips together. Hold for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Allow your jaw to drop slightly and relax your mouth completely. Notice how much tension was present.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">07</span>
+                                <h3>Neck and shoulders</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Lift your shoulders toward your ears and hold for 5–10 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Let your shoulders drop naturally. Many people carry stress in this region, so spend extra time relaxing your shoulders.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">08</span>
+                                <h3>Chest</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Take a deep breath and hold it for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Slowly exhale and feel your chest relax. Take normal breaths again.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">09</span>
+                                <h3>Abdomen</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Pull your stomach inward or tighten your abdominal muscles. Hold for 5–10 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Release the tension and let your stomach soften.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">10</span>
+                                <h3>Lower back and hips</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Press your lower back gently against the chair or bed and hold for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Release slowly and notice how the lower back feels lighter.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">11</span>
+                                <h3>Thighs</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Press your thighs together and hold for 5–10 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Let your thighs become loose and comfortable.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">12</span>
+                                <h3>Calves</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Point your toes upward toward your head and hold for 5–10 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Let your feet relax completely.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">13</span>
+                                <h3>Feet and toes</h3>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-subheading">Tighten</div>
+                                <p>Curl your toes downward and hold for 5 seconds.</p>
+                                <div class="step-subheading">Relax</div>
+                                <p>Stretch your toes comfortably and notice the relaxation spreading through your feet.</p>
+                            </div>
+                        </section>
+
+                        <section class="step-card">
+                            <div class="step-head">
+                                <span class="step-number">14</span>
+                                <h3>Whole-body relaxation</h3>
+                            </div>
+                            <div class="step-content">
+                                <p>Close your eyes and focus on your entire body. Notice how relaxed each muscle group feels. Take three slow breaths and imagine that with each breath out, stress is leaving your body.</p>
+                                <p>Remain relaxed for two or three minutes. When you are ready, wiggle your fingers and toes, stretch gently, and open your eyes slowly.</p>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">How long does JPMR take?</h2>
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <strong>15–20 minutes</strong>
+                            <span>Full session</span>
+                        </div>
+                        <div class="stat-box">
+                            <strong>5–10 minutes</strong>
+                            <span>Short version</span>
+                        </div>
+                        <div class="stat-box">
+                            <strong>1–2 times</strong>
+                            <span>Daily practice</span>
+                        </div>
+                    </div>
+                    <div class="approach" style="margin-top: 18px;">
+                        <div class="approach-title">Expected timeline</div>
+                        <div class="approach-text">The best results usually appear after 2–4 weeks of regular practice.</div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Tips for better results</h2>
+                    <ul class="checklist">
+                        <li>Practice at the same time every day.</li>
+                        <li>Find a quiet place where you can focus.</li>
+                        <li>Focus on the difference between tension and relaxation.</li>
+                        <li>Combine JPMR with slow breathing.</li>
+                        <li>Be patient; relaxation improves with regular practice.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Common mistakes to avoid</h2>
+                    <ul class="checklist">
+                        <li>Tightening muscles too hard.</li>
+                        <li>Holding your breath.</li>
+                        <li>Practicing immediately after a heavy meal.</li>
+                        <li>Expecting instant results.</li>
+                        <li>Practicing irregularly.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Safety precautions</h2>
+                    <ul class="checklist">
+                        <li>Consult your doctor before practicing if you have severe heart disease, recent surgery, severe muscle injury, severe arthritis, or uncontrolled high blood pressure.</li>
+                        <li>Stop the exercise if you experience severe pain, dizziness, shortness of breath, or chest pain.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Frequently asked questions</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h3>Can I do JPMR while lying in bed?</h3>
+                            <p>Yes. Many people practice it before sleep to improve sleep quality.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Will it replace my medicines?</h3>
+                            <p>No. JPMR is an additional technique and should not replace medicines prescribed by your doctor.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How soon will I feel better?</h3>
+                            <p>Some people feel relaxed after the first session, but regular practice for several weeks gives the best results.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can children and older adults practice JPMR?</h3>
+                            <p>Yes, with appropriate guidance.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h2 class="card-title">Final message</h2>
+                    <div class="about">
+                        <p>Stress causes muscles to tighten, and tense muscles send signals of stress back to the brain. JPMR breaks this cycle by teaching your body how to relax.</p>
+                        <p>Just 15 minutes of practice every day can help you sleep better, reduce anxiety, and improve your overall sense of well-being.</p>
+                    </div>
+                </article>
+            </section>
+
+            <aside class="sidebar" aria-label="Quick summary">
+                <div class="card">
+                    <h3 class="card-title">At a glance</h3>
+                    <ul class="mini-list">
+                        <li>Developed by Dr. Edmund Jacobson</li>
+                        <li>Focuses on tension and release</li>
+                        <li>Helps reduce stress and anxiety</li>
+                        <li>Improves sleep and concentration</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Common benefits</h3>
+                    <ul class="mini-list">
+                        <li>Better sleep quality</li>
+                        <li>Reduced muscle tension</li>
+                        <li>Improved emotional calm</li>
+                        <li>Increased body awareness</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">When to pause</h3>
+                    <ul class="mini-list">
+                        <li>Severe pain</li>
+                        <li>Dizziness</li>
+                        <li>Shortness of breath</li>
+                        <li>Chest pain</li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

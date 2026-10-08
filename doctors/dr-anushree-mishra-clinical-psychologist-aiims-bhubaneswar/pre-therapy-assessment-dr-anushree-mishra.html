@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f5f7" />
+    <meta name="description" content="Dr. Anushree Mishra pre-therapy assessment form for psychological consultation and therapy intake." />
+    <title>Pre-Therapy Assessment | Dr. Anushree Mishra</title>
+    <style>
+        :root {
+            --background: #f5f5f7;
+            --white: #ffffff;
+            --surface: rgba(255,255,255,.82);
+            --surface-soft: #fafafa;
+            --text: #171717;
+            --text-secondary: #606064;
+            --text-tertiary: #8b8b91;
+            --border: rgba(0,0,0,.075);
+            --accent: #405867;
+            --accent-soft: #edf2f5;
+            --green: #26785d;
+            --green-soft: #edf7f2;
+            --blue: #1d9bf0;
+            --black: #181818;
+            --shadow-small: 0 2px 4px rgba(0,0,0,.025), 0 8px 25px rgba(0,0,0,.035);
+            --shadow-medium: 0 18px 55px rgba(0,0,0,.12);
+            --radius-xl: 28px;
+            --radius-large: 22px;
+            --radius-medium: 16px;
+            --radius-small: 12px;
+            --max-width: 1060px;
+            --danger: #b3261e;
+            --success: #1d8a64;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+        a { color: inherit; text-decoration: none; }
+        p, li, h1, h2, h3, ul, ol, span, strong { margin-top: 0; }
+        button, input, select, textarea { font: inherit; }
+        button { cursor: pointer; }
+
+        .page {
+            width: min(var(--max-width), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 58px 0 90px;
+        }
+
+        .doctor-intro {
+            display: grid;
+            grid-template-columns: 150px minmax(0,1fr) auto;
+            align-items: center;
+            gap: 30px;
+            padding: 34px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-small);
+            backdrop-filter: blur(20px);
+        }
+
+        .photo-container { position: relative; }
+        .doctor-photo {
+            width: 138px;
+            height: 138px;
+            display: grid;
+            place-items: center;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #dfeaf1 0%, #c7d9e7 50%, #a7bed0 100%);
+            color: var(--accent);
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.08), 0 10px 25px rgba(0,0,0,.06);
+        }
+        .verified-badge {
+            position: absolute;
+            right: -6px;
+            bottom: -5px;
+            width: 29px;
+            height: 29px;
+            display: block;
+            z-index: 5;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+        }
+        .verified-badge svg { width: 100%; height: 100%; display: block; }
+
+        .profile-qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: rgba(255,255,255,.78);
+            border: 1px solid rgba(0,0,0,.065);
+            border-radius: 14px;
+            min-width: 92px;
+        }
+        .qr-code {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 7px;
+            background-image:
+                linear-gradient(90deg, rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%),
+                linear-gradient(rgba(0,0,0,.12) 0, rgba(0,0,0,.12) 10%, transparent 10%, transparent 20%, rgba(0,0,0,.12) 20%, rgba(0,0,0,.12) 30%, transparent 30%, transparent 40%, rgba(0,0,0,.12) 40%, rgba(0,0,0,.12) 50%, transparent 50%, transparent 60%, rgba(0,0,0,.12) 60%, rgba(0,0,0,.12) 70%, transparent 70%, transparent 80%, rgba(0,0,0,.12) 80%, rgba(0,0,0,.12) 90%, transparent 90%);
+            background-size: 56px 56px;
+            background-position: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+        }
+        .qr-label {
+            margin-top: 6px;
+            color: var(--text-tertiary);
+            font-size: 8px;
+            font-weight: 650;
+            text-align: center;
+            white-space: nowrap;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .doctor-label {
+            margin-bottom: 7px;
+            color: var(--blue);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .9px;
+        }
+        .doctor-name {
+            margin: 0;
+            color: var(--text);
+            font-size: clamp(30px, 4vw, 42px);
+            line-height: 1.08;
+            letter-spacing: -1.5px;
+            font-weight: 700;
+        }
+        .doctor-specialty {
+            margin-top: 9px;
+            color: var(--blue);
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .doctor-credentials {
+            margin-top: 7px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 17px;
+        }
+        .profile-tag {
+            padding: 6px 10px;
+            border: 1px solid rgba(0,0,0,.045);
+            border-radius: 999px;
+            background: #f2f2f3;
+            color: #57575a;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            margin-top: 14px;
+            overflow: hidden;
+            background: rgba(255,255,255,.72);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+        .quick-item {
+            padding: 17px 20px;
+            border-right: 1px solid var(--border);
+        }
+        .quick-item:last-child { border-right: none; }
+        .quick-label {
+            color: var(--text-tertiary);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+        .quick-value {
+            margin-top: 3px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .content {
+            width: min(100%, 860px);
+            margin: 18px auto 0;
+        }
+
+        .card {
+            background: rgba(255,255,255,.82);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-small);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 24px 26px 0;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.82));
+        }
+        .card-header h2 {
+            margin: 0;
+            color: var(--text);
+            font-size: 24px;
+            letter-spacing: -.04em;
+        }
+        .card-header p {
+            margin: 8px 0 16px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        .progress-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .progress {
+            height: 6px;
+            background: #eef1f2;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .progress-bar {
+            width: 16.67%;
+            height: 100%;
+            background: linear-gradient(90deg, #4a88d9, #1d9bf0);
+            border-radius: inherit;
+            transition: width .2s ease;
+        }
+
+        .step-wrap {
+            display: none;
+            padding: 26px 26px 8px;
+        }
+        .step-wrap.active { display: block; }
+        .step-wrap h3 {
+            margin: 0 0 8px;
+            color: var(--accent);
+            font-size: 20px;
+            letter-spacing: -.03em;
+        }
+        .step-intro {
+            margin: 0 0 18px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 16px;
+        }
+        .field { min-width: 0; margin-bottom: 14px; }
+        .field.full { grid-column: 1 / -1; }
+        label, .legend {
+            display: block;
+            margin-bottom: 6px;
+            color: #254b59;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .req { color: var(--danger); }
+
+        input, select, textarea {
+            width: 100%;
+            border: 1px solid rgba(64,88,103,.18);
+            background: var(--white);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: border-color .15s ease, box-shadow .15s ease;
+        }
+        input, select { min-height: 42px; }
+        textarea {
+            min-height: 88px;
+            resize: vertical;
+        }
+        input::placeholder, textarea::placeholder { color: #9aa4a8; }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(29,155,240,.09);
+        }
+
+        .choice-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px;
+        }
+        .choice {
+            display: flex;
+            align-items: flex-start;
+            min-width: 0;
+            gap: 9px;
+            margin: 0;
+            padding: 9px 11px;
+            border-radius: 10px;
+            border: 1px solid rgba(64,88,103,.14);
+            background: #fbfcfd;
+            color: #2c3a42;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+            transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+        }
+        .choice input {
+            flex: 0 0 16px;
+            width: 16px;
+            height: 16px;
+            min-height: 16px;
+            margin: 1px 0 0;
+            padding: 0;
+            accent-color: var(--blue);
+        }
+        .choice:hover {
+            border-color: rgba(64,88,103,.28);
+            background: #f7fafc;
+        }
+        .choice:focus-within {
+            border-color: rgba(29,155,240,.5);
+            box-shadow: 0 0 0 3px rgba(29,155,240,.08);
+        }
+        .choice:has(input:checked) {
+            border-color: rgba(29,155,240,.38);
+            background: #f2f8fd;
+        }
+
+        .help {
+            margin-top: 6px;
+            color: var(--text-tertiary);
+            font-size: 12px;
+        }
+
+        .document-box {
+            padding: 14px 16px;
+            border: 1px dashed rgba(64,88,103,.28);
+            background: #fbfcfe;
+            border-radius: 12px;
+        }
+        .document-box strong { color: var(--accent); }
+
+        .cta-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 26px 22px;
+            border-top: 1px solid var(--border);
+            background: rgba(255,255,255,.96);
+        }
+        .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: transform .15s ease, opacity .15s ease;
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn:disabled { opacity: .5; cursor: not-allowed; }
+        .btn-secondary {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #1d9bf0, #155ea8);
+            color: var(--white);
+            box-shadow: 0 12px 22px rgba(29,155,240,.18);
+        }
+        .hidden { display: none !important; }
+
+        .consent-box {
+            margin-top: 14px;
+            padding: 14px;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .consent-box h4 {
+            margin: 0 0 6px;
+            font-size: 14px;
+            color: var(--accent);
+        }
+        .consent-box p {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin: 0 0 8px;
+        }
+
+        .success {
+            display: none;
+            padding: 48px 28px 56px;
+            text-align: center;
+        }
+        .success.show { display: block; }
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 18px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #edf9f1;
+            color: var(--success);
+            font-size: 30px;
+            font-weight: 800;
+        }
+        .success h2 {
+            margin: 0;
+            color: var(--accent);
+            font-size: 30px;
+            letter-spacing: -.04em;
+        }
+        .success p {
+            margin: 12px auto 0;
+            max-width: 560px;
+            color: var(--text-secondary);
+        }
+        .request-id {
+            display: inline-block;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: var(--green-soft);
+            color: var(--green);
+            font-weight: 800;
+            margin: 20px 0 14px;
+            border: 1px solid rgba(38,120,93,.18);
+        }
+
+        @media (max-width: 900px) {
+            .doctor-intro {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .photo-container { margin: 0 auto; }
+            .profile-qr { margin: 0 auto; }
+            .profile-tags { justify-content: center; }
+        }
+
+        @media (max-width: 720px) {
+            .grid { grid-template-columns: 1fr; }
+            .choice-group { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+        }
+
+        @media (max-width: 640px) {
+            .page { width: min(var(--max-width), calc(100% - 32px)); padding-top: 32px; }
+            .doctor-intro { padding: 22px 18px; }
+            .card-header, .step-wrap, .cta-row { padding-left: 20px; padding-right: 20px; }
+            .quick-info { grid-template-columns: repeat(2, 1fr); }
+            .cta-row { flex-direction: column-reverse; }
+            .cta-row .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="doctor-intro">
+            <div class="photo-container">
+                <div class="doctor-photo">A</div>
+                <span class="verified-badge" aria-label="Verified psychologist profile">
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="15" fill="#2a8cff"></circle>
+                        <path d="M16 7.8c2.8 0 5 2.2 5 5v1.2c0 2.8-2.2 5-5 5s-5-2.2-5-5V12.8c0-2.8 2.2-5 5-5zm-7 11.6c.6-3.3 3.2-5.8 7-5.8s6.4 2.5 7 5.8c.2 1.1-1.1 1.9-2.1 1.9H10.8c-1 0-2.3-.8-2.1-1.9z" fill="#fff"></path>
+                        <path d="M13.8 15.2l1.7 1.7 3.7-4.1 1.5 1.4-5.2 5.7-3.2-3.2 1.5-1.5z" fill="#2a8cff"></path>
+                    </svg>
+                </span>
+            </div>
+
+            <div class="doctor-copy">
+                <div class="doctor-label">Psychology • Therapy intake</div>
+                <h1 class="doctor-name">Dr. Anushree Mishra</h1>
+                <div class="doctor-specialty">Consultant Psychologist &amp; Therapist</div>
+                <div class="doctor-credentials">Clinical assessment for personalised care and therapy planning</div>
+                <div class="profile-tags" aria-label="Article tags">
+                    <span class="profile-tag">Mental health</span>
+                    <span class="profile-tag">Therapy intake</span>
+                    <span class="profile-tag">Care planning</span>
+                    <span class="profile-tag">Confidential support</span>
+                </div>
+            </div>
+
+            <div class="profile-qr" aria-label="Assessment QR">
+                <div class="qr-code" aria-hidden="true"></div>
+                <div class="qr-label">Intake</div>
+            </div>
+        </header>
+
+        <div class="quick-info" aria-label="Assessment snapshot">
+            <div class="quick-item">
+                <div class="quick-label">Assessment</div>
+                <div class="quick-value">Pre-therapy intake</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Format</div>
+                <div class="quick-value">Confidential</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Duration</div>
+                <div class="quick-value">30–45 min</div>
+            </div>
+            <div class="quick-item">
+                <div class="quick-label">Goal</div>
+                <div class="quick-value">Personalised care</div>
+            </div>
+        </div>
+
+        <main class="content">
+            <section class="card">
+                <div id="formArea">
+                    <div class="card-header">
+                        <h2>Pre-therapy assessment</h2>
+                        <p>Please complete this confidential form before your first appointment. Your responses help us understand your concerns and plan the right support.</p>
+                        <div class="progress-meta">
+                            <span id="stepLabel">Step 1 of 6</span>
+                            <span id="stepPercent">17%</span>
+                        </div>
+                        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+                    </div>
+
+                    <form id="therapyForm" novalidate>
+                        <div class="step-wrap active" data-step="0">
+                            <h3>Personal information</h3>
+                            <p class="step-intro">Basic details for appointment coordination and clinical identification.</p>
+                            <div class="grid">
+                                <div class="field"><label>Full name <span class="req">*</span></label><input name="fullName" required /></div>
+                                <div class="field"><label>Preferred name</label><input name="preferredName" /></div>
+                                <div class="field"><label>Age <span class="req">*</span></label><input name="age" type="number" min="1" max="120" required /></div>
+                                <div class="field"><label>Date of birth</label><input name="dateOfBirth" type="date" /></div>
+                                <div class="field"><label>Gender <span class="req">*</span></label>
+                                    <select name="gender" required>
+                                        <option value="">Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Non-binary</option>
+                                        <option>Prefer to self-describe</option>
+                                        <option>Prefer not to disclose</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Phone / WhatsApp <span class="req">*</span></label><input name="phone" type="tel" required /></div>
+                                <div class="field"><label>Email <span class="req">*</span></label><input name="email" type="email" required /></div>
+                                <div class="field"><label>City / location <span class="req">*</span></label><input name="city" required /></div>
+                                <div class="field"><label>Country of residence <span class="req">*</span></label><input name="countryOfResidence" value="India" required /></div>
+                                <div class="field"><label>Are you currently residing outside India? <span class="req">*</span></label>
+                                    <select name="residentOutsideIndia" id="residentOutsideIndia" required>
+                                        <option value="">Select</option>
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Preferred therapy language <span class="req">*</span></label>
+                                    <select name="language" required>
+                                        <option value="">Select</option>
+                                        <option>English</option>
+                                        <option>Hindi</option>
+                                        <option>Odia</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Marital / relationship status</label>
+                                    <select name="maritalStatus">
+                                        <option value="">Select</option>
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>In a relationship</option>
+                                        <option>Separated</option>
+                                        <option>Divorced</option>
+                                        <option>Widowed</option>
+                                        <option>Prefer not to disclose</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Occupation</label>
+                                    <select name="occupation">
+                                        <option value="">Select</option>
+                                        <option>Student</option>
+                                        <option>Employed</option>
+                                        <option>Self-employed</option>
+                                        <option>Homemaker</option>
+                                        <option>Unemployed</option>
+                                        <option>Retired</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="field full">
+                                    <label>Choose the documents you will be ready to share <span class="req">*</span></label>
+                                    <div class="document-box">
+                                        <strong>Primary identity document</strong>
+                                        <div class="help">Choose the option that applies to you.</div>
+                                        <select name="primaryIDDocument" required style="margin-top:10px;">
+                                            <option value="">Select</option>
+                                            <option>Aadhaar Card</option>
+                                            <option>Passport</option>
+                                            <option>Driving License</option>
+                                            <option>Voter ID</option>
+                                            <option>PAN Card</option>
+                                            <option>Other government-issued ID</option>
+                                        </select>
+                                        <div style="margin-top:16px;">
+                                            <strong>Secondary document (if applicable)</strong>
+                                            <select name="secondaryIDDocument" id="secondaryIDDocument" style="margin-top:10px;">
+                                                <option value="">Not required / not applicable</option>
+                                                <option>Aadhaar Card</option>
+                                                <option>Passport</option>
+                                                <option>Driving License</option>
+                                                <option>Voter ID</option>
+                                                <option>PAN Card</option>
+                                                <option>Address proof</option>
+                                                <option>Other supporting document</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field full">
+                                    <label>Other documents you may want to share later</label>
+                                    <div class="choice-group">
+                                        <label class="choice"><input type="checkbox" name="additionalDocuments" value="Previous therapy notes" />Previous therapy notes</label>
+                                        <label class="choice"><input type="checkbox" name="additionalDocuments" value="Medical reports" />Medical reports</label>
+                                        <label class="choice"><input type="checkbox" name="additionalDocuments" value="Prescription / medication list" />Prescription / medication list</label>
+                                        <label class="choice"><input type="checkbox" name="additionalDocuments" value="Academic or work-related documents" />Academic or work-related documents</label>
+                                        <label class="choice"><input type="checkbox" name="additionalDocuments" value="No additional documents" />No additional documents</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="1">
+                            <h3>Reason for seeking therapy</h3>
+                            <p class="step-intro">Describe what you would like help with at this stage.</p>
+                            <div class="field"><label>What brings you to therapy at this time? <span class="req">*</span></label><textarea name="mainConcern" required></textarea></div>
+                            <div class="field"><label>What problems would you like help with? <span class="req">*</span></label>
+                                <div class="choice-group">
+                                    <label class="choice"><input type="checkbox" name="problems" value="Anxiety / excessive worry">Anxiety / excessive worry</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Stress">Stress</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Low mood / depression">Low mood / depression</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Relationship problems">Relationship problems</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Family conflict">Family conflict</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Work / academic difficulties">Work / academic difficulties</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Sleep problems">Sleep problems</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Grief / bereavement">Grief / bereavement</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Trauma-related difficulties">Trauma-related difficulties</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Low self-esteem">Low self-esteem</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Panic / phobias">Panic / phobias</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Obsessive thoughts / compulsions">Obsessive thoughts / compulsions</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Anger / emotional regulation">Anger / emotional regulation</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Self-harm concerns">Self-harm concerns</label>
+                                    <label class="choice"><input type="checkbox" name="problems" value="Other">Other</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="field"><label>How long have you experienced this problem?</label>
+                                    <select name="problemDuration">
+                                        <option value="">Select</option>
+                                        <option>Less than 2 weeks</option>
+                                        <option>2–4 weeks</option>
+                                        <option>1–3 months</option>
+                                        <option>3–6 months</option>
+                                        <option>6–12 months</option>
+                                        <option>More than 1 year</option>
+                                        <option>Since childhood / adolescence</option>
+                                        <option>Not sure</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Overall severity</label>
+                                    <select name="severity">
+                                        <option value="">Select</option>
+                                        <option>Mild</option>
+                                        <option>Moderate</option>
+                                        <option>Severe</option>
+                                        <option>Very severe</option>
+                                        <option>Not sure</option>
+                                    </select>
+                                </div>
+                                <div class="field full"><label>What do you think may have contributed to your current difficulties?</label><textarea name="contributingFactors"></textarea></div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="2">
+                            <h3>Current symptoms</h3>
+                            <p class="step-intro">These questions help the therapist understand your present symptom profile.</p>
+                            <div class="field"><label>Have you recently experienced any of the following?</label>
+                                <div class="choice-group">
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Persistent sadness / low mood">Persistent sadness / low mood</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Loss of interest or pleasure">Loss of interest or pleasure</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Excessive worry">Excessive worry</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Panic attacks">Panic attacks</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Irritability">Irritability</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Low energy / motivation">Low energy / motivation</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Worthlessness / guilt">Worthlessness / guilt</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Hopelessness">Hopelessness</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Poor concentration">Poor concentration</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Racing thoughts">Racing thoughts</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Social withdrawal">Social withdrawal</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Intrusive thoughts">Intrusive thoughts</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Compulsive behaviours">Compulsive behaviours</label>
+                                    <label class="choice"><input type="checkbox" name="symptoms" value="Fear / avoidance">Fear / avoidance</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="field"><label>How often do you feel excessively worried?</label>
+                                    <select name="worryFrequency">
+                                        <option value="">Select</option>
+                                        <option>Never</option>
+                                        <option>Occasionally</option>
+                                        <option>Sometimes</option>
+                                        <option>Often</option>
+                                        <option>Almost constantly</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>How would you describe your sleep?</label>
+                                    <select name="sleep">
+                                        <option value="">Select</option>
+                                        <option>Normal</option>
+                                        <option>Difficulty falling asleep</option>
+                                        <option>Frequent awakenings</option>
+                                        <option>Early morning awakening</option>
+                                        <option>Sleeping excessively</option>
+                                        <option>Irregular sleep schedule</option>
+                                        <option>Non-restorative sleep</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Average sleep duration</label>
+                                    <select name="sleepDuration">
+                                        <option value="">Select</option>
+                                        <option>Less than 4 hours</option>
+                                        <option>4–5 hours</option>
+                                        <option>5–6 hours</option>
+                                        <option>6–7 hours</option>
+                                        <option>7–8 hours</option>
+                                        <option>More than 8 hours</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Impact on daily functioning</label>
+                                    <select name="functionalImpact">
+                                        <option value="">Select</option>
+                                        <option>Not affected</option>
+                                        <option>Mild</option>
+                                        <option>Moderate</option>
+                                        <option>Severe</option>
+                                        <option>Very severe</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="3">
+                            <h3>Life history &amp; mental health</h3>
+                            <p class="step-intro">Share only what you are comfortable sharing. These details support clinical assessment.</p>
+                            <div class="field"><label>Recent major stressors</label><textarea name="recentStressors" placeholder="Relationship, family, work, academic, financial, bereavement, health or other stressors"></textarea></div>
+                            <div class="grid">
+                                <div class="field"><label>Who do you currently live with?</label>
+                                    <select name="livingSituation">
+                                        <option value="">Select</option>
+                                        <option>Alone</option>
+                                        <option>Parents</option>
+                                        <option>Spouse / partner</option>
+                                        <option>Children</option>
+                                        <option>Friends / roommates</option>
+                                        <option>Other family</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="field"><label>Do you have someone you can talk to when emotionally distressed?</label>
+                                    <select name="socialSupport">
+                                        <option value="">Select</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                        <option>Sometimes</option>
+                                        <option>Not sure</option>
+                                    </select>
+                                </div>
+                                <div class="field full"><label>Any relationship or family issues that feel relevant right now?</label><textarea name="relationshipIssues" placeholder="Optional"></textarea></div>
+                                <div class="field full"><label>Any significant childhood or past experiences you think matter?</label><textarea name="childhoodExperiences" placeholder="Optional"></textarea></div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="4">
+                            <h3>Medical history &amp; treatment</h3>
+                            <p class="step-intro">Your responses help us understand current health and prior treatment context.</p>
+                            <div class="grid">
+                                <div class="field full"><label>Current medical conditions</label><textarea name="medicalConditions"></textarea></div>
+                                <div class="field full"><label>Current medications</label><textarea name="currentMedications"></textarea></div>
+                                <div class="field full"><label>Have you had any previous mental health consultation or diagnosis?</label><textarea name="previousMentalHealthConsultation" placeholder="If yes, please share briefly."></textarea></div>
+                                <div class="field full"><label>Previous psychiatric medication or psychotherapy</label><textarea name="previousPsychiatricMedication" placeholder="Optional"></textarea></div>
+                                <div class="field full"><label>Previous therapy experience</label><textarea name="previousTherapyExperience" placeholder="What was helpful or unhelpful?"></textarea></div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="5">
+                            <h3>Safety, goals &amp; appointment preferences</h3>
+                            <p class="step-intro">This section helps us respond appropriately and plan care with your needs in mind.</p>
+                            <div class="grid">
+                                <div class="field full"><label>Have you had thoughts that life is not worth living, or thoughts of harming yourself?</label><select name="lifeNotWorthLiving"><option value="">Select</option><option>No</option><option>Sometimes</option><option>Yes</option></select></div>
+                                <div class="field full"><label>Any suicidal thoughts or plans?</label><textarea name="suicidalThoughts"></textarea></div>
+                                <div class="field full"><label>Any previous self-harm or suicide attempt?</label><textarea name="previousSelfHarm"></textarea></div>
+                                <div class="field full"><label>Who is your immediate support person if you feel distressed?</label><textarea name="immediateSupport"></textarea></div>
+                                <div class="field full"><label>What would you most like to gain from therapy?</label><textarea name="therapyGoal"></textarea></div>
+                                <div class="field full"><label>Which areas would you like to improve?</label><textarea name="areasToImprove"></textarea></div>
+                                <div class="field full"><label>Preferred appointment date</label><input name="preferredAppointmentDate" type="date" /></div>
+                                <div class="field full"><label>Preferred appointment time / availability</label><input name="preferredAppointmentTime" /></div>
+                            </div>
+                        </div>
+
+                        <div class="step-wrap" data-step="6">
+                            <h3>Consent &amp; final review</h3>
+                            <p class="step-intro">Please confirm the relevant consent statements before sending the WhatsApp intake summary.</p>
+
+                            <div class="consent-box">
+                                <h4>1. Consultation consent</h4>
+                                <p>I understand that the assessment is for clinical evaluation and therapy planning.</p>
+                                <label class="choice"><input type="checkbox" name="consultationConsent" required />I consent to the consultation assessment. <span class="req">*</span></label>
+                            </div>
+
+                            <div class="consent-box">
+                                <h4>2. Recording consent</h4>
+                                <p>Audio and/or video recording may be used for documentation and quality improvement if applicable and explained by the clinic.</p>
+                                <label class="choice"><input type="checkbox" name="recordingConsent" required />I understand and consent to the above recording policy. <span class="req">*</span></label>
+                            </div>
+
+                            <div class="consent-box">
+                                <h4>3. Clinical information consent</h4>
+                                <p>I consent to the collection, storage, and use of my information for assessment, therapy planning, communication, and continuity of care.</p>
+                                <label class="choice"><input type="checkbox" name="clinicalInformationConsent" required />I consent to the use of my clinical information. <span class="req">*</span></label>
+                            </div>
+
+                            <div class="consent-box">
+                                <h4>4. Appointment acknowledgement</h4>
+                                <label class="choice"><input type="checkbox" name="appointmentConsent" required />I understand that submitting this form does not itself confirm an appointment. <span class="req">*</span></label>
+                            </div>
+
+                            <div class="consent-box">
+                                <h4>5. Declaration</h4>
+                                <label class="choice"><input type="checkbox" name="declaration" required />I confirm the information provided is accurate to the best of my knowledge. <span class="req">*</span></label>
+                                <label class="choice"><input type="checkbox" name="consentEmergency" required />I understand that this is not an emergency service and that urgent care should be sought if necessary. <span class="req">*</span></label>
+                            </div>
+
+                            <div class="field full" style="margin-top:18px;">
+                                <label>Anything else the therapist should know?</label>
+                                <textarea name="additionalInformation" placeholder="Optional"></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="cta-row">
+                        <button type="button" class="btn btn-secondary" id="backBtn">Back</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">Continue</button>
+                        <button type="button" class="btn btn-primary hidden" id="submitBtn">Send via WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="success" id="successScreen">
+                    <div class="success-icon">✓</div>
+                    <h2>Assessment ready</h2>
+                    <p>Your intake details have been prepared for WhatsApp. Please send the message to complete the form submission and share your selected documents.</p>
+                    <div class="request-id" id="requestId">Step completed</div>
+                    <p>Share the selected ID cards and documents with the clinic to complete the submission.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const form = document.getElementById('therapyForm');
+        const steps = [...document.querySelectorAll('.step-wrap')];
+        const nextBtn = document.getElementById('nextBtn');
+        const backBtn = document.getElementById('backBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressBar = document.getElementById('progressBar');
+        const stepLabel = document.getElementById('stepLabel');
+        const stepPercent = document.getElementById('stepPercent');
+        const residentOutsideIndia = document.getElementById('residentOutsideIndia');
+        const secondaryIDDocument = document.getElementById('secondaryIDDocument');
+        const formArea = document.getElementById('formArea');
+        const successScreen = document.getElementById('successScreen');
+        const requestId = document.getElementById('requestId');
+
+        let currentStep = 0;
+
+        function updateStep() {
+            steps.forEach((step, index) => step.classList.toggle('active', index === currentStep));
+            const pct = Math.round(((currentStep + 1) / steps.length) * 100);
+            progressBar.style.width = pct + '%';
+            stepLabel.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+            stepPercent.textContent = pct + '%';
+            backBtn.disabled = currentStep === 0;
+            const last = currentStep === steps.length - 1;
+            nextBtn.classList.toggle('hidden', last);
+            submitBtn.classList.toggle('hidden', !last);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validateStep() {
+            const current = steps[currentStep];
+            const required = [...current.querySelectorAll('[required]')];
+            for (const el of required) {
+                if (el.type === 'checkbox') {
+                    if (!el.checked) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        el.focus();
+                        return false;
+                    }
+                } else if (!el.value || !String(el.value).trim()) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.focus();
+                    return false;
+                }
+            }
+
+            if (currentStep === 1) {
+                const checked = current.querySelectorAll('input[name="problems"]:checked');
+                if (!checked.length) {
+                    alert('Please select at least one concern.');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (!validateStep()) return;
+            if (currentStep < steps.length - 1) {
+                currentStep += 1;
+                updateStep();
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep -= 1;
+                updateStep();
+            }
+        });
+
+        function updateDocumentRequirement() {
+            const outsideIndia = residentOutsideIndia && residentOutsideIndia.value === 'Yes';
+            if (secondaryIDDocument) {
+                secondaryIDDocument.disabled = !outsideIndia;
+                secondaryIDDocument.required = outsideIndia;
+                secondaryIDDocument.value = outsideIndia ? secondaryIDDocument.value || '' : '';
+            }
+        }
+        residentOutsideIndia.addEventListener('change', updateDocumentRequirement);
+        updateDocumentRequirement();
+
+        function readCheckboxValues(name) {
+            return [...form.querySelectorAll(`[name="${name}"]:checked`)].map(item => item.value).filter(Boolean);
+        }
+
+        function readField(name) {
+            const element = form.elements[name];
+            if (!element) return '';
+            return element.value ? String(element.value).trim() : '';
+        }
+
+        function formatValue(value) {
+            return value && value.trim() ? value : 'Not provided';
+        }
+
+        function buildWhatsAppMessage() {
+            const lines = [];
+            const chosenDocuments = [
+                readField('primaryIDDocument'),
+                readField('secondaryIDDocument'),
+                ...readCheckboxValues('additionalDocuments')
+            ].filter(value => value && value.trim() && value !== 'Not required / not applicable' && value !== 'Not provided');
+
+            lines.push('*PRE-THERAPY ASSESSMENT*');
+            lines.push('');
+            lines.push('*PERSONAL INFORMATION*');
+            lines.push('Full Name: ' + formatValue(readField('fullName')));
+            lines.push('Preferred Name: ' + formatValue(readField('preferredName')));
+            lines.push('Age: ' + formatValue(readField('age')));
+            lines.push('Date of Birth: ' + formatValue(readField('dateOfBirth')));
+            lines.push('Gender: ' + formatValue(readField('gender')));
+            lines.push('Phone / WhatsApp: ' + formatValue(readField('phone')));
+            lines.push('Email: ' + formatValue(readField('email')));
+            lines.push('City / Location: ' + formatValue(readField('city')));
+            lines.push('Country of Residence: ' + formatValue(readField('countryOfResidence')));
+            lines.push('Residing Outside India: ' + formatValue(readField('residentOutsideIndia')));
+            lines.push('Preferred Therapy Language: ' + formatValue(readField('language')));
+            lines.push('Marital Status: ' + formatValue(readField('maritalStatus')));
+            lines.push('Occupation: ' + formatValue(readField('occupation')));
+            lines.push('');
+
+            lines.push('*THERAPY DETAILS*');
+            lines.push('Main Concern: ' + formatValue(readField('mainConcern')));
+            lines.push('Problems: ' + formatValue(readCheckboxValues('problems').join(', ')));
+            lines.push('Problem Duration: ' + formatValue(readField('problemDuration')));
+            lines.push('Severity: ' + formatValue(readField('severity')));
+            lines.push('Contributing Factors: ' + formatValue(readField('contributingFactors')));
+            lines.push('Symptoms: ' + formatValue(readCheckboxValues('symptoms').join(', ')));
+            lines.push('Worry Frequency: ' + formatValue(readField('worryFrequency')));
+            lines.push('Sleep: ' + formatValue(readField('sleep')));
+            lines.push('Sleep Duration: ' + formatValue(readField('sleepDuration')));
+            lines.push('Functional Impact: ' + formatValue(readField('functionalImpact')));
+            lines.push('Recent Stressors: ' + formatValue(readField('recentStressors')));
+            lines.push('Living Situation: ' + formatValue(readField('livingSituation')));
+            lines.push('Available Support: ' + formatValue(readField('socialSupport')));
+            lines.push('Medical Conditions: ' + formatValue(readField('medicalConditions')));
+            lines.push('Current Medications: ' + formatValue(readField('currentMedications')));
+            lines.push('Previous Therapy / Diagnosis: ' + formatValue(readField('previousMentalHealthConsultation')));
+            lines.push('Therapy Goal: ' + formatValue(readField('therapyGoal')));
+            lines.push('Preferred Appointment Date: ' + formatValue(readField('preferredAppointmentDate')));
+            lines.push('Preferred Appointment Time: ' + formatValue(readField('preferredAppointmentTime')));
+            lines.push('Additional Information: ' + formatValue(readField('additionalInformation')));
+            lines.push('');
+
+            lines.push('*DOCUMENTS TO SHARE*');
+            if (chosenDocuments.length) {
+                lines.push('Selected documents: ' + chosenDocuments.join(', '));
+            } else {
+                lines.push('Selected documents: Not specified');
+            }
+            lines.push('');
+            lines.push('*IMPORTANT*');
+            lines.push('Share selected ID cards / documents to complete the form submission.');
+
+            return lines.join('\n');
+        }
+
+        function submitAssessment() {
+            if (!validateStep()) return;
+            const message = buildWhatsAppMessage();
+            const number = '919438450966';
+            const url = 'https://wa.me/' + number + '?text=' + encodeURIComponent(message);
+            window.open(url, '_blank');
+
+            requestId.textContent = 'WhatsApp summary ready';
+            formArea.style.display = 'none';
+            successScreen.classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        submitBtn.addEventListener('click', submitAssessment);
+        updateStep();
+    </script>
+</body>
+</html>
