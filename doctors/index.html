@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="description" content="Find and book appointments with doctors across the Thomson Clinic specialist network. Search by name, specialty or city.">
+<title>Find a Doctor — Thomson Clinic</title>
+<link rel="icon" href="../assets/www.thomsonclinic.com-favicon.ico" type="image/x-icon">
+
+<style>
+:root {
+    --background: #f5f5f7;
+    --white: #ffffff;
+    --surface: rgba(255,255,255,.82);
+    --surface-soft: #fafafa;
+    --text: #171717;
+    --text-secondary: #606064;
+    --text-tertiary: #8b8b91;
+    --border: rgba(0,0,0,.075);
+    --accent: #405867;
+    --accent-soft: #edf2f5;
+    --green: #26785d;
+    --green-soft: #edf7f2;
+    --black: #181818;
+    --shadow-small: 0 2px 4px rgba(0,0,0,.025), 0 8px 25px rgba(0,0,0,.035);
+    --shadow-medium: 0 18px 55px rgba(0,0,0,.12);
+    --radius-xl: 28px;
+    --radius-large: 22px;
+    --radius-medium: 16px;
+    --radius-small: 12px;
+    --max-width: 1060px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+}
+
+button, input, select { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+.page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px calc(64px + env(safe-area-inset-bottom));
+}
+
+.hero { padding: clamp(36px, 8vw, 72px) 0 clamp(20px, 4vw, 32px); text-align: center; }
+.eyebrow {
+    margin: 0 0 10px;
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -.04em;
+    font-weight: 700;
+}
+.hero h1 span { color: var(--text-tertiary); }
+.hero p {
+    max-width: 560px;
+    margin: 14px auto 0;
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 3.6vw, 1.15rem);
+}
+.hero .eyebrow { margin: 0 0 10px; max-width: none; color: var(--accent); font-size: .75rem; }
+
+.finder {
+    background: var(--surface);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-small);
+    padding: 14px;
+}
+.search-box { position: relative; }
+.search-box svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translateY(-50%);
+    stroke: var(--text-tertiary);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    pointer-events: none;
+}
+.search-box input {
+    width: 100%;
+    height: 52px;
+    padding: 0 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+    background: var(--white);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(64,88,103,.12); }
+.search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translateY(-50%);
+    border: 0;
+    border-radius: 50%;
+    background: #e8e8ed;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.search-clear[hidden] { display: none; }
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+.select-wrap { position: relative; }
+.select-wrap::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid var(--text-tertiary);
+    border-bottom: 2px solid var(--text-tertiary);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+}
+.select-wrap select {
+    width: 100%;
+    height: 48px;
+    padding: 0 36px 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+    background: var(--white);
+    color: var(--text);
+    font-size: .95rem;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+.select-wrap select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(64,88,103,.12); }
+
+.chips {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-bottom: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+    flex: none;
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--text-secondary);
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .2s, color .2s;
+}
+.chip[aria-pressed="true"] { background: var(--black); border-color: var(--black); color: #fff; }
+
+.results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 26px 2px 14px;
+    color: var(--text-secondary);
+    font-size: .9rem;
+}
+.reset {
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 0;
+}
+.reset[hidden] { display: none; }
+
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 3 / 4.1;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(145deg, #e9edf3, #cfd5df);
+    border: 1px solid rgba(255,255,255,.78);
+    border-radius: 20px;
+    box-shadow: 0 14px 40px rgba(0,0,0,.10), 0 3px 10px rgba(0,0,0,.06);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,.16), 0 6px 16px rgba(0,0,0,.07); }
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.25) 52%, rgba(0,0,0,.85) 100%);
+    pointer-events: none;
+}
+.photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover .photo { transform: scale(1.05); }
+.card-body { position: relative; z-index: 2; padding: 12px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
+.org-label {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    background: rgba(255,255,255,.16);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+.card-name { margin: 6px 0 0; font-size: 1rem; line-height: 1.15; letter-spacing: -.02em; font-weight: 700; }
+.card-role { margin: 3px 0 0; color: rgba(255,255,255,.92); font-size: .75rem; line-height: 1.3; }
+.card-org { margin: 2px 0 0; color: rgba(255,255,255,.7); font-size: .68rem; line-height: 1.3; }
+.online-dot { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; color: #8de2b8; font-size: .68rem; font-weight: 600; }
+.online-dot::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #34c759; }
+.card-actions { display: flex; gap: 6px; margin-top: 10px; text-shadow: none; }
+.btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s ease, background-color .2s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: #fff; color: var(--black); }
+.btn-primary:hover { background: #ececf0; }
+.btn-secondary { background: rgba(255,255,255,.2); color: #fff; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.btn-secondary:hover { background: rgba(255,255,255,.3); }
+
+.empty {
+    grid-column: 1 / -1;
+    padding: 48px 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    color: var(--text-secondary);
+}
+.empty strong { display: block; margin-bottom: 4px; color: var(--text); font-size: 1.1rem; }
+
+.help {
+    margin-top: 32px;
+    padding: clamp(24px, 5vw, 36px);
+    background: var(--black);
+    color: #fff;
+    border-radius: var(--radius-xl);
+    text-align: center;
+}
+.help h2 { margin: 0; font-size: clamp(1.4rem, 5vw, 2rem); letter-spacing: -.03em; }
+.help p { max-width: 460px; margin: 8px auto 20px; color: rgba(255,255,255,.7); }
+.help .btn { flex: none; background: #fff; color: var(--black); padding: 0 28px; }
+
+.sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,0,.4);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+.sheet-backdrop.open { display: flex; }
+.sheet {
+    width: 100%;
+    max-width: 480px;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-medium);
+}
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.sheet h2 { margin: 0; font-size: 1.35rem; letter-spacing: -.02em; }
+.sheet-sub { margin: 2px 0 0; color: var(--text-secondary); font-size: .9rem; }
+.sheet-close {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: #e8e8ed;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.form { display: grid; gap: 14px; margin-top: 20px; }
+.form label { display: grid; gap: 6px; color: var(--text-secondary); font-size: .8rem; font-weight: 600; }
+.form input, .form select {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--surface-soft);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.form input:focus, .form select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(64,88,103,.12); background: #fff; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form .btn { flex: none; width: 100%; min-height: 48px; font-size: .95rem; background: #25a244; color: #fff; }
+.form-note { margin: 0; color: var(--text-tertiary); font-size: .75rem; text-align: center; }
+.error { margin: 0; color: #a3262d; font-size: .85rem; text-align: center; }
+.error[hidden] { display: none; }
+
+button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); outline-offset: 2px; }
+
+@media (max-width: 960px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .form-row { grid-template-columns: 1fr; }
+    .sheet-backdrop { align-items: flex-end; padding: 0; }
+    .sheet {
+        max-width: none;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    }
+}
+@media (max-width: 380px) {
+    .filter-row { grid-template-columns: 1fr; }
+    .card-body { padding: 10px; }
+    .card-name { font-size: .92rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+<link rel="stylesheet" href="../assets/site-chrome.css">
+</head>
+
+<body>
+
+<main class="page">
+
+    <section class="hero">
+        <p class="eyebrow">Thomson network</p>
+        <h1>Find the right doctor,<br><span>book in minutes.</span></h1>
+        <p>Search specialists across the Thomson Clinic network, view their profiles and request an appointment on WhatsApp.</p>
+    </section>
+
+    <section class="finder" aria-label="Search doctors">
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+            <input id="search" type="search" placeholder="Search by doctor, specialty or hospital" autocomplete="off" aria-label="Search doctors">
+            <button class="search-clear" id="searchClear" type="button" aria-label="Clear search" hidden>×</button>
+        </div>
+        <div class="filter-row">
+            <div class="select-wrap"><select id="cityFilter" aria-label="Filter by city"></select></div>
+            <div class="select-wrap">
+                <select id="modeFilter" aria-label="Filter by consultation type">
+                    <option value="">Any consultation</option>
+                    <option value="online">Online available</option>
+                </select>
+            </div>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="Filter by specialty"></div>
+    </section>
+
+    <div class="results-bar">
+        <span id="count" aria-live="polite"></span>
+        <button class="reset" id="reset" type="button" hidden>Clear filters</button>
+    </div>
+
+    <section class="grid" id="grid" aria-label="Doctors"></section>
+
+    <section class="help">
+        <h2>Not sure who to see?</h2>
+        <p>Message Thomson Clinic and we’ll help you find the right specialist and a suitable time.</p>
+        <a class="btn" id="helpLink" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    </section>
+
+</main>
+
+<div class="sheet-backdrop" id="sheetBackdrop" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet">
+        <div class="sheet-head">
+            <div>
+                <h2 id="sheetTitle">Book appointment</h2>
+                <p class="sheet-sub" id="sheetSub"></p>
+            </div>
+            <button class="sheet-close" id="sheetClose" type="button" aria-label="Close">×</button>
+        </div>
+        <form class="form" id="bookForm" novalidate>
+            <label>Your name<input id="fName" type="text" autocomplete="name" required></label>
+            <label>Mobile number<input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+            <div class="form-row">
+                <label>City<select id="fCity"></select></label>
+                <label>Consultation<select id="fMode"></select></label>
+            </div>
+            <label>Preferred date<input id="fDate" type="date" required></label>
+            <label>Reason for consultation (optional)<input id="fReason" type="text"></label>
+            <p class="error" id="formError" role="alert" hidden></p>
+            <button class="btn" type="submit">Request on WhatsApp</button>
+            <p class="form-note">Your details are sent only through WhatsApp to Thomson Clinic to confirm the appointment.</p>
+        </form>
+    </div>
+</div>
+
+<script>
+(() => {
+    'use strict';
+
+    const WHATSAPP_NUMBER = '919438450966';
+
+    const doctors = [
+        { name: 'Dr. Antaryami Sahoo', role: 'Senior Consultant', org: 'Capital Hospital', specialty: 'Radiation Oncology', cities: ['Bhubaneswar', 'Puri'], online: false, folder: 'dr-antaryami-sahoo-senior-consultant–radiation-oncology-capital-hospital-bhubaneswar' },
+        { name: 'Dr. Anushree Mishra', role: 'Consultant Psychologist & Therapist', org: 'AIIMS Bhubaneswar', specialty: 'Psychology', cities: ['Bhubaneswar'], online: true, folder: 'dr-anushree-mishra-clinical-psychologist-aiims-bhubaneswar' },
+        { name: 'Dr. Asit Kumar Mohanty', role: 'Senior Consultant & HOD', org: 'KIMS Cancer Center', specialty: 'Radiation Oncology', cities: ['Bhubaneswar', 'Balasore', 'Bolangir', 'Cuttack', 'Sambalpur'], online: true, folder: 'dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar' },
+        { name: 'Dr. Aswini Kumar Panigrahi', role: 'Senior Nephrologist', org: 'Apollo Hospitals', specialty: 'Nephrology', cities: ['Hyderabad'], online: false, folder: 'dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad' },
+        { name: 'Dr. Bishnu Prasad Sahoo', role: 'Consultant Neuropsychiatrist', org: 'Thomson Clinic', specialty: 'Psychiatry', cities: ['Bhubaneswar', 'Puri'], online: true, folder: 'dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar' },
+        { name: 'Dr. Byomakesh Dikshit', role: 'Consultant Cardiologist', org: 'Apollo Hospitals', specialty: 'Cardiology', cities: ['Bhubaneswar'], online: true, folder: 'dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar' },
+        { name: 'Dr. Debasish Prusty', role: 'Consultant Pediatrician', org: 'Thomson Clinic', specialty: 'Pediatrics', cities: ['Bhubaneswar', 'Jajpur Road'], online: true, folder: 'dr-debasish-prusty-consultant-pediatrician-bhubaneswar' },
+        { name: 'Dr. Thitta Mohanty', role: 'Professor & Head', org: 'PGIMER & Capital Hospital', specialty: 'Respiratory Medicine', cities: ['Bhubaneswar'], online: true, folder: 'dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar' }
+    ];
+
+    const $ = (id) => document.getElementById(id);
+    const state = { query: '', city: '', mode: '', specialty: '' };
+
+    const escapeHtml = (value) => value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const profileUrl = (d) => `${encodeURIComponent(d.folder)}/`;
+    const photoUrl = (d) => `${encodeURIComponent(d.folder)}/card.jpg`;
+
+    const cities = [...new Set(doctors.flatMap((d) => d.cities))].sort();
+    const specialties = [...new Set(doctors.map((d) => d.specialty))].sort();
+
+    $('cityFilter').innerHTML = '<option value="">All cities</option>' + cities.map((c) => `<option>${escapeHtml(c)}</option>`).join('');
+    $('chips').innerHTML = ['All'].concat(specialties).map((s) =>
+        `<button class="chip" type="button" data-specialty="${s === 'All' ? '' : escapeHtml(s)}" aria-pressed="${s === 'All'}">${escapeHtml(s)}</button>`
+    ).join('');
+
+    function matches(d) {
+        const q = state.query.trim().toLowerCase();
+        if (q && ![d.name, d.role, d.org, d.specialty, ...d.cities].join(' ').toLowerCase().includes(q)) return false;
+        if (state.city && !d.cities.includes(state.city)) return false;
+        if (state.specialty && d.specialty !== state.specialty) return false;
+        if (state.mode === 'online' && !d.online) return false;
+        return true;
+    }
+
+    function render() {
+        const list = doctors.filter(matches);
+        const filtered = state.query || state.city || state.mode || state.specialty;
+        $('count').textContent = `${list.length} ${list.length === 1 ? 'doctor' : 'doctors'}${filtered ? ' found' : ' in the Thomson network'}`;
+        $('reset').hidden = !filtered;
+        $('searchClear').hidden = !state.query;
+
+        if (!list.length) {
+            $('grid').innerHTML = '<div class="empty"><strong>No doctors match your search</strong>Try a different name, specialty or city.</div>';
+            return;
+        }
+
+        $('grid').innerHTML = list.map((d) => {
+            const index = doctors.indexOf(d);
+            return `
+            <article class="card">
+                <img class="photo" src="${photoUrl(d)}" alt="${escapeHtml(d.name)}" loading="lazy" decoding="async">
+                <div class="card-body">
+                    <span class="org-label">${escapeHtml(d.org)}</span>
+                    <h2 class="card-name">${escapeHtml(d.name)}</h2>
+                    <p class="card-role">${escapeHtml(d.role)}</p>
+                    <p class="card-org">${escapeHtml(d.specialty)} · ${escapeHtml(d.cities[0])}${d.cities.length > 1 ? ` +${d.cities.length - 1}` : ''}</p>
+                    ${d.online ? '<span class="online-dot">Online available</span>' : ''}
+                    <div class="card-actions">
+                        <a class="btn btn-secondary" href="${profileUrl(d)}">Profile</a>
+                        <button class="btn btn-primary" type="button" data-book="${index}">Book</button>
+                    </div>
+                </div>
+            </article>`;
+        }).join('');
+    }
+
+    $('search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
+    $('searchClear').addEventListener('click', () => { $('search').value = ''; state.query = ''; render(); $('search').focus(); });
+    $('cityFilter').addEventListener('change', (e) => { state.city = e.target.value; render(); });
+    $('modeFilter').addEventListener('change', (e) => { state.mode = e.target.value; render(); });
+    $('chips').addEventListener('click', (e) => {
+        const chip = e.target.closest('.chip');
+        if (!chip) return;
+        state.specialty = chip.dataset.specialty;
+        $('chips').querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        render();
+    });
+    $('reset').addEventListener('click', () => {
+        Object.assign(state, { query: '', city: '', mode: '', specialty: '' });
+        $('search').value = '';
+        $('cityFilter').value = '';
+        $('modeFilter').value = '';
+        $('chips').querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.specialty === '')));
+        render();
+    });
+
+    let selected = null;
+    let lastFocus = null;
+
+    function openSheet(d) {
+        selected = d;
+        lastFocus = document.activeElement;
+        $('sheetSub').textContent = `${d.name} · ${d.specialty}`;
+        $('fCity').innerHTML = d.cities.map((c) => `<option>${escapeHtml(c)}</option>`).join('');
+        if (state.city && d.cities.includes(state.city)) $('fCity').value = state.city;
+        $('fMode').innerHTML = '<option>In-person</option>' + (d.online ? '<option>Online</option>' : '');
+        const today = new Date();
+        today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+        $('fDate').min = today.toISOString().slice(0, 10);
+        $('formError').hidden = true;
+        $('sheetBackdrop').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        $('fName').focus();
+    }
+
+    function closeSheet() {
+        $('sheetBackdrop').classList.remove('open');
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus();
+    }
+
+    $('grid').addEventListener('click', (e) => {
+        const button = e.target.closest('[data-book]');
+        if (button) openSheet(doctors[Number(button.dataset.book)]);
+    });
+    $('sheetClose').addEventListener('click', closeSheet);
+    $('sheetBackdrop').addEventListener('click', (e) => { if (e.target === $('sheetBackdrop')) closeSheet(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('sheetBackdrop').classList.contains('open')) closeSheet(); });
+
+    $('bookForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = $('fName').value.trim();
+        const phone = $('fPhone').value.trim();
+        const date = $('fDate').value;
+        const error = $('formError');
+        if (!name || phone.replace(/\D/g, '').length < 10 || !date) {
+            error.textContent = 'Please enter your name, a valid mobile number and a preferred date.';
+            error.hidden = false;
+            return;
+        }
+        const formattedDate = new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        const reason = $('fReason').value.trim();
+        const lines = [
+            'THOMSON CLINIC — APPOINTMENT REQUEST',
+            '',
+            `Doctor: ${selected.name}`,
+            `Patient: ${name}`,
+            `Mobile: ${phone}`,
+            '',
+            `Location: ${$('fCity').value}`,
+            `Consultation: ${$('fMode').value}`,
+            `Preferred date: ${formattedDate}`
+        ];
+        if (reason) lines.push(`Reason for consultation: ${reason}`);
+        lines.push('', 'Please confirm the appointment.');
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+        closeSheet();
+    });
+
+    $('helpLink').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello Thomson Clinic, I would like help choosing a doctor.')}`;
+
+    render();
+})();
+</script>
+
+<script>
+    window.openBooking = () => {
+        document.getElementById('grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+</script>
+<script src="../assets/site-chrome.js" data-site-root="../"></script>
+
+</body>
+</html>

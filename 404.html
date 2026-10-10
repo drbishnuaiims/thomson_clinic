@@ -2,24 +2,209 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f5f7">
   <meta name="robots" content="noindex">
   <title>Page not found — Thomson Clinic</title>
-  <link rel="icon" href="assets/www.thomsonclinic.com-favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="assets/site-chrome.css">
-  <link rel="stylesheet" href="assets/join-team.css">
+  <link rel="icon" href="/assets/www.thomsonclinic.com-favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f5f5f7;
+      --surface: #fff;
+      --text: #1d1d1f;
+      --secondary: #6e6e73;
+      --border: rgba(0, 0, 0, .08);
+      --accent: #405867;
+      --blue: #0071e3;
+      --blue-hover: #0077ed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background: var(--background);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+      padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+      background: rgba(245, 245, 247, .8);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: inline-flex; align-items: center; }
+    .brand img { display: block; height: 28px; width: auto; }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(32px, 8vw, 80px) 20px;
+    }
+    .content { width: 100%; max-width: 640px; text-align: center; }
+
+    .code {
+      margin: 0;
+      font-size: clamp(6rem, 28vw, 11rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.05em;
+      background: linear-gradient(180deg, #86868b 0%, #d2d2d7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+    h1 {
+      margin: 8px 0 12px;
+      font-size: clamp(1.75rem, 6vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+    }
+    .lead {
+      margin: 0 auto;
+      max-width: 460px;
+      color: var(--secondary);
+      font-size: clamp(1rem, 3.6vw, 1.1875rem);
+      line-height: 1.47;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 24px;
+      border-radius: 980px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color .2s ease, transform .2s ease;
+    }
+    .button:active { transform: scale(.97); }
+    .button-primary { background: var(--blue); color: #fff; }
+    .button-primary:hover { background: var(--blue-hover); }
+    .button-secondary { color: var(--blue); background: rgba(0, 113, 227, .08); }
+    .button-secondary:hover { background: rgba(0, 113, 227, .14); }
+
+    .links {
+      margin: clamp(36px, 8vw, 56px) 0 0;
+      padding: 0;
+      list-style: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      text-align: left;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .02), 0 8px 24px rgba(0, 0, 0, .04);
+    }
+    .links-title {
+      margin: 0;
+      padding: 14px 20px 6px;
+      color: var(--secondary);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    .links li + li { border-top: 1px solid var(--border); }
+    .links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 56px;
+      padding: 10px 20px;
+      color: var(--text);
+      text-decoration: none;
+      transition: background-color .15s ease;
+    }
+    .links a:hover { background: #fafafc; }
+    .links a:active { background: #f0f0f3; }
+    .link-text { display: grid; gap: 2px; }
+    .link-text strong { font-size: 1rem; font-weight: 600; }
+    .link-text span { color: var(--secondary); font-size: .875rem; }
+    .chevron { flex: none; width: 8px; height: 8px; border-top: 2px solid #c7c7cc; border-right: 2px solid #c7c7cc; transform: rotate(45deg); }
+
+    footer {
+      padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
+      color: var(--secondary);
+      font-size: .75rem;
+      text-align: center;
+    }
+
+    a:focus-visible { outline: 3px solid rgba(0, 113, 227, .5); outline-offset: -3px; }
+    .button:focus-visible { outline-offset: 3px; }
+
+    @media (max-width: 480px) {
+      .actions { flex-direction: column; align-items: stretch; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
 </head>
-<body class="tc-not-found-page">
-  <main class="tc-not-found">
-    <div class="tc-not-found-card">
-      <p class="tc-not-found-code" aria-hidden="true">404</p>
+<body>
+  <header class="header">
+    <a class="brand" href="/" aria-label="Thomson Clinic home">
+      <img src="/assets/thomson-clinic-logo-header.png" alt="Thomson Clinic">
+    </a>
+  </header>
+
+  <main>
+    <div class="content">
+      <p class="code" aria-hidden="true">404</p>
       <h1>We can’t find that page.</h1>
-      <p>The page may have moved, or the link may be out of date. Return to Thomson Clinic to continue exploring care options.</p>
-      <a class="tc-not-found-home" href="index.html">Back to Thomson Clinic</a>
+      <p class="lead">The page may have moved, or the link may be out of date. Let’s get you back to Thomson Clinic.</p>
+
+      <div class="actions">
+        <a class="button button-primary" href="/">Back to home</a>
+        <a class="button button-secondary" href="/#professionals">Find a doctor</a>
+      </div>
+
+      <nav aria-label="Helpful links">
+        <p class="links-title">You might be looking for</p>
+        <ul class="links">
+          <li>
+            <a href="/#professionals">
+              <span class="link-text"><strong>Our doctors</strong><span>Meet the specialists at Thomson Clinic</span></span>
+              <span class="chevron" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a href="/#faq">
+              <span class="link-text"><strong>Questions &amp; answers</strong><span>How care at Thomson Clinic works</span></span>
+              <span class="chevron" aria-hidden="true"></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </main>
-  <script src="assets/site-chrome.js" data-site-root="./"></script>
-  <script src="assets/join-team.js" data-whatsapp-number="919438450966"></script>
+
+  <footer>&copy; Thomson Clinic</footer>
 </body>
 </html>
