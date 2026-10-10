@@ -1,6 +1,13 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const core = require('../assets/stress-assessment-core.js');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const html = fs.readFileSync(path.join(__dirname, '../stress/index.html'), 'utf8');
+const coreSource = html.match(/<script id="stress-assessment-core">([\s\S]*?)<\/script>/)[1];
+const coreModule = { exports: {} };
+new Function('module', coreSource)(coreModule);
+const core = coreModule.exports;
 
 function baselineAnswers() {
   const answers = Array(30).fill(0);
