@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Read 25 illustrative mental health stories, including 10 depression stories about work, parenting, chronic pain, loneliness and seeking support.">
+    <meta name="description" content="Read 35 illustrative mental health stories, including anxiety stories about health worries, driving, exams, uncertainty and seeking support.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#f5f5f7">
     <link rel="canonical" href="https://thomsonclinic.com/blog/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Patient Stories: Mental Health Journeys | Thomson Clinic">
-    <meta property="og:description" content="Explore illustrative patient stories about depression, anxiety, sleep, family wellbeing, grief and seeking mental health support.">
+    <meta property="og:description" content="Explore illustrative anxiety and depression stories about work, health worries, social situations, relationships and seeking support.">
     <meta property="og:url" content="https://thomsonclinic.com/blog/">
     <title>Patient Stories: Mental Health Journeys | Thomson Clinic</title>
     <link rel="stylesheet" href="patient-stories.css">
@@ -19,7 +19,7 @@
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "Patient Stories: Mental Health Journeys",
-      "description": "Twenty-five illustrative composite stories about seeking mental health support, including ten stories about depression.",
+      "description": "Thirty-five illustrative composite stories about mental health, including ten stories about depression and ten about anxiety.",
       "url": "https://thomsonclinic.com/blog/",
       "publisher": {
         "@type": "Organization",
@@ -40,10 +40,22 @@
 
             <aside class="notice" aria-label="About these stories">
                 <strong>About these stories</strong>
-                These first-person stories are illustrative composite scenarios created for education. They do not describe actual patients. The professional-perspective quote boxes contain illustrative general guidance, not quotations from real clinicians. Nothing here is a testimonial or a promise of treatment outcomes.
+                These first-person stories are illustrative composite scenarios created for education. They do not describe actual patients. The professional-perspective quote boxes contain illustrative general guidance, not quotations from real clinicians. Nothing here is a real testimonial or a promise of treatment outcomes.
             </aside>
 
-            <section class="story-list" aria-label="Mental health patient stories">
+            <div class="story-search">
+                <label for="storySearchInput">Search patient stories</label>
+                <input
+                    id="storySearchInput"
+                    type="search"
+                    placeholder="Try anxiety, sleep, work, or family"
+                    autocomplete="off"
+                    aria-controls="storyList"
+                >
+                <p id="storySearchStatus" class="story-search-status" role="status" aria-live="polite">Showing all 35 stories.</p>
+            </div>
+
+            <section class="story-list" id="storyList" aria-label="Mental health patient stories">
                 <article class="story-card">
                     <p class="story-topic">Anxiety and work</p>
                     <h2>When worry starts following you to work</h2>
@@ -194,6 +206,66 @@
                     <p>An illustrative first-person story about sharing what depression feels like and accepting practical support.</p>
                     <a href="patient-stories/depression-story-family-support.html">Read the family support story <span aria-hidden="true">→</span></a>
                 </article>
+                <article class="story-card">
+                    <p class="story-topic">Health anxiety</p>
+                    <h2>Living with worries about what every symptom means</h2>
+                    <p>An illustrative story about health worries, repeated checking and discussing uncertainty with a professional.</p>
+                    <a href="patient-stories/anxiety-story-health-worries.html">Read the health anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Driving anxiety</p>
+                    <h2>Getting back behind the wheel at your own pace</h2>
+                    <p>A composite account of driving-related worry, everyday impact and exploring safe, professional support.</p>
+                    <a href="patient-stories/anxiety-story-driving.html">Read the driving anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Exam anxiety</p>
+                    <h2>When exam pressure follows you home</h2>
+                    <p>An illustrative student story about physical stress, fear of failure and asking for help before exams.</p>
+                    <a href="patient-stories/anxiety-story-exams.html">Read the exam anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Anxiety and uncertainty</p>
+                    <h2>Making decisions when you cannot know every outcome</h2>
+                    <p>A first-person composite story about overthinking everyday choices and finding support for persistent worry.</p>
+                    <a href="patient-stories/anxiety-story-uncertainty.html">Read the uncertainty and anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Relationship anxiety</p>
+                    <h2>Learning to talk about worry in a relationship</h2>
+                    <p>An illustrative story about reassurance-seeking, communication and exploring anxiety support together.</p>
+                    <a href="patient-stories/anxiety-story-relationships.html">Read the relationship anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Anxiety and commuting</p>
+                    <h2>Finding a calmer way to approach the daily commute</h2>
+                    <p>A scenario about growing commute worries, practical planning and discussing symptoms with a professional.</p>
+                    <a href="patient-stories/anxiety-story-commuting.html">Read the commuting anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Perfectionism and anxiety</p>
+                    <h2>When “good enough” never feels like enough</h2>
+                    <p>An illustrative account of perfectionism, fear of mistakes and learning to seek help without self-judgement.</p>
+                    <a href="patient-stories/anxiety-story-perfectionism.html">Read the perfectionism and anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Anxiety about medical appointments</p>
+                    <h2>Preparing for a conversation that feels difficult</h2>
+                    <p>A first-person composite story about appointment anxiety, asking questions and communicating health concerns.</p>
+                    <a href="patient-stories/anxiety-story-medical-appointments.html">Read the medical appointment anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Caregiver anxiety</p>
+                    <h2>Caring for family while worrying about what might happen</h2>
+                    <p>An illustrative story about caregiver worry, uncertainty and finding support while respecting personal limits.</p>
+                    <a href="patient-stories/anxiety-story-caregiver-worry.html">Read the caregiver anxiety story <span aria-hidden="true">→</span></a>
+                </article>
+                <article class="story-card">
+                    <p class="story-topic">Seeking help for anxiety</p>
+                    <h2>Starting again after anxiety returns</h2>
+                    <p>A composite story about noticing familiar anxiety symptoms and reconnecting with qualified care.</p>
+                    <a href="patient-stories/anxiety-story-returning-symptoms.html">Read the returning anxiety story <span aria-hidden="true">→</span></a>
+                </article>
             </section>
 
             <aside class="notice" aria-label="Health information">
@@ -202,6 +274,32 @@
             </aside>
         </main>
     </div>
+    <script>
+        (() => {
+            const input = document.getElementById("storySearchInput");
+            const status = document.getElementById("storySearchStatus");
+            const cards = Array.from(document.querySelectorAll(".story-card"));
+
+            input.addEventListener("input", () => {
+                const query = input.value.trim().toLocaleLowerCase();
+                let visibleCount = 0;
+
+                for (const card of cards) {
+                    const matches = card.textContent.toLocaleLowerCase().includes(query);
+                    card.hidden = !matches;
+                    if (matches) visibleCount += 1;
+                }
+
+                if (visibleCount === 0) {
+                    status.textContent = "No stories match your search. Try another word or phrase.";
+                } else if (query) {
+                    status.textContent = `Showing ${visibleCount} of ${cards.length} stories.`;
+                } else {
+                    status.textContent = `Showing all ${cards.length} stories.`;
+                }
+            });
+        })();
+    </script>
     <script src="../assets/site-chrome.js" data-site-root="../"></script>
 </body>
 </html>

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /templates/
+Disallow: /tests/
+
+Sitemap: https://thomsonclinic.com/sitemap.xml

@@ -29,6 +29,16 @@ The patient-story articles in this folder are illustrative composite scenarios c
 - [Depression and studying](./depression-story-study-and-support.html)
 - [When depression symptoms return](./depression-story-symptoms-return.html)
 - [Depression and family support](./depression-story-family-support.html)
+- [Health anxiety](./anxiety-story-health-worries.html)
+- [Driving anxiety](./anxiety-story-driving.html)
+- [Exam anxiety](./anxiety-story-exams.html)
+- [Anxiety and uncertainty](./anxiety-story-uncertainty.html)
+- [Anxiety in relationships](./anxiety-story-relationships.html)
+- [Commuting anxiety](./anxiety-story-commuting.html)
+- [Perfectionism and anxiety](./anxiety-story-perfectionism.html)
+- [Anxiety about medical appointments](./anxiety-story-medical-appointments.html)
+- [Caregiver anxiety](./anxiety-story-caregiver-worry.html)
+- [When anxiety symptoms return](./anxiety-story-returning-symptoms.html)
 
 The listing page is [the Thomson Clinic blog](../index.html). Each story uses a shared stylesheet at `../patient-stories.css` and is included in the site's root `sitemap.xml`. Clinical guides, including sleep hygiene and Jacobson's Progressive Muscle Relaxation, remain in the `../library/` folder.
 

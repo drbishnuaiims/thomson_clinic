@@ -116,10 +116,52 @@ h3 {
     margin-bottom: 4px;
 }
 
+.story-search {
+    max-width: 560px;
+    margin: 0 0 22px;
+}
+
+.story-search label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.story-search input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid #d5d5d9;
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+}
+
+.story-search input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 111, 214, .14);
+}
+
+.story-search-status {
+    min-height: 1.5em;
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
 .story-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
+}
+
+.story-card[hidden] {
+    display: none;
 }
 
 .story-card,
@@ -140,6 +182,13 @@ h3 {
 .story-card p {
     margin-bottom: 20px;
     color: var(--muted);
+}
+
+.story-card h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 1.35;
+    letter-spacing: -.02em;
 }
 
 .story-card a {
