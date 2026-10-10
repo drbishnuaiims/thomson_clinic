@@ -874,26 +874,561 @@ border-radius:50%;
 
 .network-visual{
 
-height:610px;
+height:470px;
 
 position:relative;
 
-border-radius:var(--radius-lg);
+overflow:visible;
+
+}
+
+
+.cn-heading{
+
+position:absolute;
+
+top:25px;
+
+left:28px;
+
+z-index:3;
+
+}
+
+
+.cn-heading small{
+
+display:block;
+
+font-size:8px;
+
+font-weight:600;
+
+color:var(--blue);
+
+letter-spacing:.06em;
+
+text-transform:uppercase;
+
+}
+
+
+.cn-heading strong{
+
+display:block;
+
+margin-top:4px;
+
+font-size:13px;
+
+letter-spacing:-.025em;
+
+}
+
+
+.cn-patient{
+
+position:absolute;
+
+top:174px;
+
+left:28px;
+
+right:28px;
+
+z-index:3;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:11px 14px;
+
+border:1px solid rgba(0,113,227,.14);
+
+border-radius:16px;
+
+background:rgba(255,255,255,.9);
+
+box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+}
+
+
+.cn-patient > div:nth-of-type(1){
+
+min-width:0;
+
+}
+
+
+.cn-patient strong,
+.cn-patient span{
+
+display:block;
+
+}
+
+
+.cn-patient strong{
+
+font-size:12px;
+
+letter-spacing:-.025em;
+
+}
+
+
+.cn-patient > div:nth-of-type(1) span{
+
+margin-top:4px;
+
+color:var(--muted);
+
+font-size:8px;
+
+}
+
+
+.cn-pulse{
+
+width:12px;
+
+height:12px;
+
+flex:0 0 12px;
+
+border-radius:50%;
+
+background:var(--blue);
+
+box-shadow:0 0 0 7px rgba(0,113,227,.1);
+
+animation:statusPulse 2s ease-in-out infinite;
+
+}
+
+
+.cn-status{
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+margin-left:auto;
+
+color:#4d4d50;
+
+font-size:7px;
+
+white-space:nowrap;
+
+}
+
+
+.cn-status i,
+.cn-coverage-label i,
+.cn-city i{
+
+display:inline-block;
+
+width:5px;
+
+height:5px;
+
+flex:0 0 5px;
+
+border-radius:50%;
+
+background:var(--green);
+
+}
+
+
+.cn-link{
+
+position:absolute;
+
+top:240px;
+
+left:50%;
+
+width:1px;
+
+height:20px;
+
+background:#9bc9ef;
+
+}
+
+
+.cn-link i{
+
+position:absolute;
+
+bottom:-2px;
+
+left:-3px;
+
+width:7px;
+
+height:7px;
+
+border-radius:50%;
+
+background:var(--blue);
+
+}
+
+
+.cn-grid{
+
+position:absolute;
+
+top:78px;
+
+left:28px;
+
+right:28px;
 
 overflow:hidden;
 
-background:
-radial-gradient(
-circle at 50% 48%,
-#ffffff 0%,
-#f3f5f7 42%,
-#e5e8eb 100%
-);
+}
 
-border:1px solid #e3e5e7;
+
+.cn-grid::before{
+
+display:none;
+
+}
+
+
+.cn-department-label{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+color:var(--muted);
+
+font-size:8px;
+
+}
+
+
+.cn-department-label i,
+.cn-department i{
+
+width:5px;
+
+height:5px;
+
+flex:0 0 5px;
+
+border-radius:50%;
+
+background:var(--blue);
+
+}
+
+
+.cn-grid .cn-marquee{
+
+margin-top:9px;
+
+}
+
+
+.cn-grid .cn-track{
+
+animation-duration:42s;
+
+}
+
+
+.cn-grid .cn-reverse .cn-track{
+
+animation-duration:48s;
+
+}
+
+
+.cn-department{
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+color:var(--muted2);
+
+font-size:9px;
+
+font-weight:500;
+
+white-space:nowrap;
+
+}
+
+
+.cn-card{
+
+position:relative;
+
+width:max-content;
+
+min-width:80px;
+
+max-width:180px;
+
+height:34px;
+
+padding:0 12px;
+
+border:1px solid rgba(15,23,42,.06);
+
+border-radius:999px;
+
+background:rgba(255,255,255,.74);
 
 box-shadow:
-0 30px 90px rgba(0,0,0,.10);
+inset 0 1px 0 rgba(255,255,255,.85),
+0 2px 7px rgba(15,23,42,.05);
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+}
+
+
+.cn-card.is-core{
+
+border-color:rgba(0,113,227,.12);
+
+background:rgba(232,244,255,.9);
+
+}
+
+
+.cn-card span,
+.cn-card strong{
+
+display:block;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+white-space:nowrap;
+
+}
+
+
+.cn-tag{
+
+display:none;
+
+font-size:7px;
+
+font-weight:600;
+
+text-transform:uppercase;
+
+letter-spacing:.05em;
+
+}
+
+
+.cn-card .cn-tag{
+
+display:none;
+
+}
+
+
+.cn-card strong{
+
+margin-top:0;
+
+font-size:10px;
+
+font-weight:600;
+
+letter-spacing:-.02em;
+
+}
+
+
+.cn-card > span:last-child{
+
+position:absolute;
+
+width:1px;
+
+height:1px;
+
+overflow:hidden;
+
+clip:rect(0 0 0 0);
+
+white-space:nowrap;
+
+}
+
+
+.cn-coverage{
+
+position:absolute;
+
+top:268px;
+
+right:28px;
+
+left:28px;
+
+overflow:hidden;
+
+}
+
+
+.cn-coverage-label{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+color:var(--muted);
+
+font-size:8px;
+
+}
+
+
+.cn-marquee{
+
+margin-top:9px;
+
+overflow:hidden;
+
+mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+
+}
+
+
+.cn-track{
+
+display:flex;
+
+width:max-content;
+
+gap:18px;
+
+animation:cnMarquee 70s linear infinite;
+
+}
+
+
+.cn-reverse .cn-track{
+
+margin-top:8px;
+
+animation-direction:reverse;
+
+animation-duration:78s;
+
+}
+
+
+.cn-city{
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+color:var(--muted2);
+
+font-size:8px;
+
+white-space:nowrap;
+
+}
+
+
+.cn-sr{
+
+position:absolute;
+
+width:1px;
+
+height:1px;
+
+overflow:hidden;
+
+clip:rect(0 0 0 0);
+
+white-space:nowrap;
+
+}
+
+
+@keyframes cnMarquee{
+
+to{
+
+transform:translateX(-50%);
+
+}
+
+}
+
+
+@media(max-width:700px){
+
+.cn-patient{
+
+left:18px;
+
+right:18px;
+
+}
+
+
+.cn-grid{
+
+top:78px;
+
+left:18px;
+
+right:18px;
+
+gap:7px;
+
+}
+
+
+.cn-coverage{
+
+right:18px;
+
+bottom:auto;
+
+left:18px;
+
+}
 
 }
 
@@ -2623,85 +3158,21 @@ line-height:1.8;
 }
 
 
-.connected-grid{
+.connected-note{
 
-display:grid;
+max-width:610px;
 
-grid-template-columns:repeat(4,1fr);
+margin-top:34px;
 
-gap:12px;
+padding-top:18px;
 
-margin-top:55px;
+border-top:1px solid var(--line);
 
-}
-
-
-.connected-card{
-
-min-height:180px;
-
-padding:23px;
-
-background:white;
-
-border:1px solid var(--line);
-
-border-radius:18px;
-
-transition:.25s ease;
-
-}
-
-
-.connected-card:hover{
-
-transform:translateY(-3px);
-
-box-shadow:var(--shadow);
-
-}
-
-
-.connected-mark{
-
-width:35px;
-height:35px;
-
-border-radius:9px;
-
-background:var(--blue-soft);
-
-color:var(--blue);
-
-display:grid;
-
-place-items:center;
+color:var(--muted2);
 
 font-size:12px;
 
-font-weight:600;
-
-}
-
-
-.connected-card h3{
-
-margin-top:22px;
-
-font-size:14px;
-
-}
-
-
-.connected-card p{
-
-margin-top:5px;
-
-color:var(--muted);
-
-font-size:10px;
-
-line-height:1.6;
+line-height:1.7;
 
 }
 
@@ -3257,13 +3728,6 @@ margin-top:20px;
 }
 
 
-.connected-grid{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-
 .directory-grid{
 
 grid-template-columns:1fr;
@@ -3291,7 +3755,7 @@ grid-template-columns:repeat(2,1fr);
 
 .network-visual{
 
-height:570px;
+height:450px;
 
 }
 
@@ -3452,7 +3916,7 @@ align-items:flex-start;
 
 .network-visual{
 
-height:530px;
+height:480px;
 
 border-radius:22px;
 
@@ -3646,13 +4110,6 @@ grid-template-columns:1fr 1fr;
 
 grid-template-rows:
 220px 220px;
-
-}
-
-
-.connected-grid{
-
-grid-template-columns:1fr;
 
 }
 
@@ -4158,6 +4615,17 @@ Explore mental healthcare →
 <strong>One patient. Multiple perspectives.</strong>
 </div>
 
+<div class="cn-coverage">
+<div class="cn-coverage-label"><i></i>Serving patients across cities &amp; online</div>
+<div class="cn-marquee" aria-hidden="true">
+<div class="cn-track"><span class="cn-city"><i></i>Delhi</span><span class="cn-city"><i></i>Mumbai</span><span class="cn-city"><i></i>Kolkata</span><span class="cn-city"><i></i>Chennai</span><span class="cn-city"><i></i>Bengaluru</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Ahmedabad</span><span class="cn-city"><i></i>Pune</span><span class="cn-city"><i></i>Jaipur</span><span class="cn-city"><i></i>Lucknow</span><span class="cn-city"><i></i>Kanpur</span><span class="cn-city"><i></i>Nagpur</span><span class="cn-city"><i></i>Indore</span><span class="cn-city"><i></i>Bhopal</span><span class="cn-city"><i></i>Patna</span><span class="cn-city"><i></i>Ranchi</span><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Guwahati</span><span class="cn-city"><i></i>Chandigarh</span><span class="cn-city"><i></i>Srinagar</span><span class="cn-city"><i></i>Jammu</span><span class="cn-city"><i></i>Dehradun</span><span class="cn-city"><i></i>Shimla</span><span class="cn-city"><i></i>Amritsar</span><span class="cn-city"><i></i>Ludhiana</span><span class="cn-city"><i></i>Varanasi</span><span class="cn-city"><i></i>Delhi</span><span class="cn-city"><i></i>Mumbai</span><span class="cn-city"><i></i>Kolkata</span><span class="cn-city"><i></i>Chennai</span><span class="cn-city"><i></i>Bengaluru</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Ahmedabad</span><span class="cn-city"><i></i>Pune</span><span class="cn-city"><i></i>Jaipur</span><span class="cn-city"><i></i>Lucknow</span><span class="cn-city"><i></i>Kanpur</span><span class="cn-city"><i></i>Nagpur</span><span class="cn-city"><i></i>Indore</span><span class="cn-city"><i></i>Bhopal</span><span class="cn-city"><i></i>Patna</span><span class="cn-city"><i></i>Ranchi</span><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Guwahati</span><span class="cn-city"><i></i>Chandigarh</span><span class="cn-city"><i></i>Srinagar</span><span class="cn-city"><i></i>Jammu</span><span class="cn-city"><i></i>Dehradun</span><span class="cn-city"><i></i>Shimla</span><span class="cn-city"><i></i>Amritsar</span><span class="cn-city"><i></i>Ludhiana</span><span class="cn-city"><i></i>Varanasi</span></div>
+</div>
+<div class="cn-marquee cn-reverse" aria-hidden="true">
+<div class="cn-track"><span class="cn-city"><i></i>Agra</span><span class="cn-city"><i></i>Meerut</span><span class="cn-city"><i></i>Surat</span><span class="cn-city"><i></i>Vadodara</span><span class="cn-city"><i></i>Rajkot</span><span class="cn-city"><i></i>Nashik</span><span class="cn-city"><i></i>Chhatrapati Sambhajinagar</span><span class="cn-city"><i></i>Visakhapatnam</span><span class="cn-city"><i></i>Vijayawada</span><span class="cn-city"><i></i>Kochi</span><span class="cn-city"><i></i>Thiruvananthapuram</span><span class="cn-city"><i></i>Kozhikode</span><span class="cn-city"><i></i>Coimbatore</span><span class="cn-city"><i></i>Madurai</span><span class="cn-city"><i></i>Mysuru</span><span class="cn-city"><i></i>Mangaluru</span><span class="cn-city"><i></i>Hubballi</span><span class="cn-city"><i></i>Raipur</span><span class="cn-city"><i></i>Jabalpur</span><span class="cn-city"><i></i>Gwalior</span><span class="cn-city"><i></i>Jodhpur</span><span class="cn-city"><i></i>Udaipur</span><span class="cn-city"><i></i>Siliguri</span><span class="cn-city"><i></i>Durgapur</span><span class="cn-city"><i></i>Jamshedpur</span><span class="cn-city"><i></i>Gurugram</span><span class="cn-city"><i></i>Agra</span><span class="cn-city"><i></i>Meerut</span><span class="cn-city"><i></i>Surat</span><span class="cn-city"><i></i>Vadodara</span><span class="cn-city"><i></i>Rajkot</span><span class="cn-city"><i></i>Nashik</span><span class="cn-city"><i></i>Chhatrapati Sambhajinagar</span><span class="cn-city"><i></i>Visakhapatnam</span><span class="cn-city"><i></i>Vijayawada</span><span class="cn-city"><i></i>Kochi</span><span class="cn-city"><i></i>Thiruvananthapuram</span><span class="cn-city"><i></i>Kozhikode</span><span class="cn-city"><i></i>Coimbatore</span><span class="cn-city"><i></i>Madurai</span><span class="cn-city"><i></i>Mysuru</span><span class="cn-city"><i></i>Mangaluru</span><span class="cn-city"><i></i>Hubballi</span><span class="cn-city"><i></i>Raipur</span><span class="cn-city"><i></i>Jabalpur</span><span class="cn-city"><i></i>Gwalior</span><span class="cn-city"><i></i>Jodhpur</span><span class="cn-city"><i></i>Udaipur</span><span class="cn-city"><i></i>Siliguri</span><span class="cn-city"><i></i>Durgapur</span><span class="cn-city"><i></i>Jamshedpur</span><span class="cn-city"><i></i>Gurugram</span></div>
+</div>
+<p class="cn-sr">Serving Delhi, Mumbai, Kolkata, Chennai, Bengaluru, Hyderabad, Ahmedabad, Pune, Jaipur, Lucknow, Kanpur, Nagpur, Indore, Bhopal, Patna, Ranchi, Bhubaneswar, Guwahati, Chandigarh, Srinagar, Jammu, Dehradun, Shimla, Amritsar, Ludhiana, Varanasi, Agra, Meerut, Surat, Vadodara, Rajkot, Nashik, Chhatrapati Sambhajinagar, Visakhapatnam, Vijayawada, Kochi, Thiruvananthapuram, Kozhikode, Coimbatore, Madurai, Mysuru, Mangaluru, Hubballi, Raipur, Jabalpur, Gwalior, Jodhpur, Udaipur, Siliguri, Durgapur, Jamshedpur, Gurugram.</p>
+</div>
+
 <div class="cn-patient">
 <span class="cn-pulse" aria-hidden="true"></span>
 <div>
@@ -4170,18 +4638,14 @@ Explore mental healthcare →
 <div class="cn-link" aria-hidden="true"><i></i></div>
 
 <div class="cn-grid">
-<div class="cn-card is-core"><span class="cn-tag">Core</span><strong>Psychiatry</strong><span>Mental health &amp; psychiatry</span></div><div class="cn-card is-core"><span class="cn-tag">Core</span><strong>Psychology</strong><span>Psychology &amp; therapy</span></div><div class="cn-card is-core"><span class="cn-tag">Core</span><strong>Psychosocial care</strong><span>Psychiatric social work</span></div><div class="cn-card is-core"><span class="cn-tag">Core</span><strong>Neurology</strong><span>Brain &amp; nervous system</span></div><div class="cn-card "><span class="cn-tag">Specialist</span><strong>Oncology</strong><span>Cancer care</span></div><div class="cn-card "><span class="cn-tag">Specialist</span><strong>Nephrology</strong><span>Kidney health</span></div><div class="cn-card "><span class="cn-tag">Specialist</span><strong>Internal medicine</strong><span>General &amp; internal medicine</span></div><div class="cn-card "><span class="cn-tag">Specialist</span><strong>Diabetes &amp; metabolic</strong><span>Metabolic health</span></div>
-</div>
-
-<div class="cn-coverage">
-<div class="cn-coverage-label"><i></i>Serving patients across cities &amp; online</div>
+<div class="cn-department-label"><i></i>Clinical departments</div>
 <div class="cn-marquee" aria-hidden="true">
-<div class="cn-track"><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Puri</span><span class="cn-city"><i></i>Cuttack</span><span class="cn-city"><i></i>Balasore</span><span class="cn-city"><i></i>Sambalpur</span><span class="cn-city"><i></i>Bolangir</span><span class="cn-city"><i></i>Jajpur Road</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Online · Pan-India</span><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Puri</span><span class="cn-city"><i></i>Cuttack</span><span class="cn-city"><i></i>Balasore</span><span class="cn-city"><i></i>Sambalpur</span><span class="cn-city"><i></i>Bolangir</span><span class="cn-city"><i></i>Jajpur Road</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Online · Pan-India</span></div>
+<div class="cn-track"><span class="cn-department"><i></i>Psychiatry</span><span class="cn-department"><i></i>Psychology</span><span class="cn-department"><i></i>Psychosocial care</span><span class="cn-department"><i></i>Neurology</span><span class="cn-department"><i></i>Oncology</span><span class="cn-department"><i></i>Nephrology</span><span class="cn-department"><i></i>Psychiatry</span><span class="cn-department"><i></i>Psychology</span><span class="cn-department"><i></i>Psychosocial care</span><span class="cn-department"><i></i>Neurology</span><span class="cn-department"><i></i>Oncology</span><span class="cn-department"><i></i>Nephrology</span></div>
 </div>
 <div class="cn-marquee cn-reverse" aria-hidden="true">
-<div class="cn-track"><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Puri</span><span class="cn-city"><i></i>Cuttack</span><span class="cn-city"><i></i>Balasore</span><span class="cn-city"><i></i>Sambalpur</span><span class="cn-city"><i></i>Bolangir</span><span class="cn-city"><i></i>Jajpur Road</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Online · Pan-India</span><span class="cn-city"><i></i>Bhubaneswar</span><span class="cn-city"><i></i>Puri</span><span class="cn-city"><i></i>Cuttack</span><span class="cn-city"><i></i>Balasore</span><span class="cn-city"><i></i>Sambalpur</span><span class="cn-city"><i></i>Bolangir</span><span class="cn-city"><i></i>Jajpur Road</span><span class="cn-city"><i></i>Hyderabad</span><span class="cn-city"><i></i>Online · Pan-India</span></div>
+<div class="cn-track"><span class="cn-department"><i></i>Internal medicine</span><span class="cn-department"><i></i>Diabetes &amp; metabolic</span><span class="cn-department"><i></i>Cardiology</span><span class="cn-department"><i></i>Pediatrics</span><span class="cn-department"><i></i>Pulmonology</span><span class="cn-department"><i></i>Gastroenterology</span><span class="cn-department"><i></i>Endocrinology</span><span class="cn-department"><i></i>Rheumatology</span><span class="cn-department"><i></i>Orthopedics</span><span class="cn-department"><i></i>Urology</span><span class="cn-department"><i></i>Ophthalmology</span><span class="cn-department"><i></i>ENT</span><span class="cn-department"><i></i>Internal medicine</span><span class="cn-department"><i></i>Diabetes &amp; metabolic</span><span class="cn-department"><i></i>Cardiology</span><span class="cn-department"><i></i>Pediatrics</span><span class="cn-department"><i></i>Pulmonology</span><span class="cn-department"><i></i>Gastroenterology</span><span class="cn-department"><i></i>Endocrinology</span><span class="cn-department"><i></i>Rheumatology</span><span class="cn-department"><i></i>Orthopedics</span><span class="cn-department"><i></i>Urology</span><span class="cn-department"><i></i>Ophthalmology</span><span class="cn-department"><i></i>ENT</span></div>
 </div>
-<p class="cn-sr">Serving Bhubaneswar, Puri, Cuttack, Balasore, Sambalpur, Bolangir, Jajpur Road, Hyderabad, Online · Pan-India.</p>
+<p class="cn-sr">Clinical departments include Psychiatry, Psychology, Psychosocial care, Neurology, Oncology, Nephrology, Internal medicine, Diabetes and metabolic care, Cardiology, Pediatrics, Pulmonology, Gastroenterology, Endocrinology, Rheumatology, Orthopedics, Urology, Ophthalmology, and ENT.</p>
 </div>
 
 </div>
@@ -4507,8 +4971,8 @@ class="care-card reveal"
 >
 
 <img
-src="assets/images/care-that-fits-real-life/online-therapy.jpg"
-alt="Indian woman using a laptop at home"
+src="assets/images/care-that-fits-real-life/video-therapy-call.jpg"
+alt="Woman joining a video call from home"
 loading="lazy"
 >
 
@@ -4601,8 +5065,8 @@ keeping the clinical relationship human.
 <div class="india-photo tall">
 
 <img
-src="assets/images/built-for-india/young-adults-professionals.jpg"
-alt="Indian professionals collaborating at work"
+src="assets/images/built-for-india/family-at-home.jpg"
+alt="Indian family at home"
 loading="lazy"
 >
 
@@ -4610,10 +5074,10 @@ loading="lazy"
 <div class="india-label">
 
 <strong>
-Young adults
+Families &amp; caregivers
 </strong>
 
-Education · Work · Relationships
+Care that fits home life
 
 </div>
 
@@ -4624,8 +5088,8 @@ Education · Work · Relationships
 <div class="india-photo">
 
 <img
-src="assets/images/built-for-india/womens-mental-health.jpg"
-alt="Indian woman using a laptop from home"
+src="assets/images/built-for-india/perinatal-mental-health.jpg"
+alt="Mother with her newborn baby"
 loading="lazy"
 >
 
@@ -4633,10 +5097,10 @@ loading="lazy"
 <div class="india-label">
 
 <strong>
-Women's mental health
+Perinatal mental health
 </strong>
 
-Life-stage care
+Pregnancy &amp; early parenthood
 
 </div>
 
@@ -4918,146 +5382,9 @@ keeping mental health and neuroscience at its centre.
 
 
 
-<div class="connected-grid">
-
-
-<a href="/specialists/cardiology/" class="connected-card reveal" aria-label="Open Cardiology specialist clinic">
-
-<div class="connected-mark">
-+
-</div>
-
-<h3>
-Cardiology
-</h3>
-
-<p>
-Cardiovascular health and specialist cardiac care.
+<p class="connected-note">
+When a wider medical perspective is clinically useful, care can be coordinated with relevant specialist clinicians while mental health and neuroscience remain at the centre of the plan.
 </p>
-
-</a>
-
-
-<a href="/specialists/neurology/" class="connected-card reveal" aria-label="Open Neurology specialist clinic">
-
-<div class="connected-mark">
-N
-</div>
-
-<h3>
-Neurology
-</h3>
-
-<p>
-Neurological and brain-related conditions.
-</p>
-
-</a>
-
-
-<a href="/specialists/dermatology/" class="connected-card reveal" aria-label="Open Dermatology specialist clinic">
-
-<div class="connected-mark">
-D
-</div>
-
-<h3>
-Dermatology
-</h3>
-
-<p>
-Skin, hair and nail conditions.
-</p>
-
-</a>
-
-
-<a href="/specialists/nephrology/" class="connected-card reveal" aria-label="Open Nephrology specialist clinic">
-
-<div class="connected-mark">
-K
-</div>
-
-<h3>
-Nephrology
-</h3>
-
-<p>
-Kidney health and renal conditions.
-</p>
-
-</a>
-
-
-<a href="/specialists/oncology/" class="connected-card reveal" aria-label="Open Oncology specialist clinic">
-
-<div class="connected-mark">
-O
-</div>
-
-<h3>
-Oncology
-</h3>
-
-<p>
-Specialist cancer consultation and care.
-</p>
-
-</a>
-
-
-<a href="/specialists/diabetes/" class="connected-card reveal" aria-label="Open Diabetes specialist clinic">
-
-<div class="connected-mark">
-G
-</div>
-
-<h3>
-Diabetes
-</h3>
-
-<p>
-Diabetes assessment and long-term management.
-</p>
-
-</a>
-
-
-<a href="/specialists/metabolic-health/" class="connected-card reveal" aria-label="Open Metabolic Health specialist clinic">
-
-<div class="connected-mark">
-M
-</div>
-
-<h3>
-Metabolic Health
-</h3>
-
-<p>
-Metabolic risk, nutrition and related conditions.
-</p>
-
-</a>
-
-
-<a href="/specialists/obesity-medicine/" class="connected-card reveal" aria-label="Open Obesity Medicine specialist clinic">
-
-<div class="connected-mark">
-W
-</div>
-
-<h3>
-Obesity Medicine
-</h3>
-
-<p>
-Specialist weight and obesity management.
-</p>
-
-</a>
-
-
-</div>
 
 </div>
 
