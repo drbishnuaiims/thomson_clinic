@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="A private, non-diagnostic mental health self-reflection from Thomson Clinic.">
+  <title>Mental Health Self-Reflection | Thomson Clinic</title>
+  <link rel="stylesheet" href="assets/site-chrome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f5f5f7;
+      --surface: rgba(255, 255, 255, .84);
+      --surface-solid: #fff;
+      --text: #171717;
+      --secondary: #606064;
+      --tertiary: #8b8b91;
+      --border: rgba(0, 0, 0, .075);
+      --accent: #405867;
+      --accent-soft: #edf2f5;
+      --blue: #1677c8;
+      --blue-soft: #edf5fb;
+      --green: #26785d;
+      --green-soft: #edf7f2;
+      --amber: #9a5b00;
+      --amber-soft: #fff5e5;
+      --red: #a3262d;
+      --red-soft: #fff0f0;
+      --shadow-small: 0 2px 4px rgba(0,0,0,.025), 0 8px 25px rgba(0,0,0,.035);
+      --shadow-medium: 0 18px 55px rgba(0,0,0,.12);
+      --radius-xl: 28px;
+      --radius-large: 22px;
+      --radius-medium: 16px;
+      --max-width: 1060px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--background);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible + label {
+      outline: 3px solid rgba(22,119,200,.45);
+      outline-offset: 3px;
+    }
+    .container { width: min(var(--max-width), calc(100% - 36px)); margin: 0 auto; }
+    .page { padding: 48px 0 84px; }
+    .hero { display: block; margin-bottom: 28px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    h1 { max-width: 660px; margin: 12px 0 10px; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.06; letter-spacing: -.06em; }
+    .hero-copy p { max-width: 650px; margin: 0; color: var(--secondary); font-size: .84rem; }
+    .privacy-note { display: flex; gap: 8px; align-items: flex-start; margin-top: 10px; color: var(--secondary); font-size: .7rem; }
+    .privacy-note strong { color: var(--text); }
+    .card { border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--surface); box-shadow: var(--shadow-small); }
+    .gauge-card { padding: 18px 20px 19px; background: linear-gradient(160deg, rgba(255,255,255,.98), rgba(237,242,245,.85)); }
+    .gauge-heading { margin: 0 0 4px; font-size: .83rem; color: var(--secondary); font-weight: 700; letter-spacing: .045em; text-transform: uppercase; text-align: center; }
+    .gauge { display: block; width: min(100%, 260px); height: auto; margin: 0 auto -3px; overflow: visible; }
+    .gauge-track, .gauge-progress { fill: none; stroke-width: 13; stroke-linecap: round; }
+    .gauge-track { stroke: #e5e9e7; }
+    .gauge-progress { stroke: url(#stressSpectrum); stroke-dasharray: 251.33; stroke-dashoffset: 251.33; transition: stroke-dashoffset .5s ease; }
+    .gauge-number { text-anchor: middle; fill: var(--text); font-size: 31px; font-weight: 700; letter-spacing: -1.5px; }
+    .gauge-percent { text-anchor: middle; fill: var(--secondary); font-size: 12px; font-weight: 600; }
+    .gauge-caption { max-width: 380px; margin: -4px auto 0; color: var(--secondary); font-size: .87rem; text-align: center; }
+    .gauge-caption strong { display: block; margin-bottom: 3px; color: var(--text); font-size: 1.12rem; }
+    .meter-scale { display: flex; justify-content: space-between; gap: 12px; margin: 12px auto 0; color: var(--secondary); font-size: .7rem; font-weight: 700; }
+    .meter-scale span:first-child { color: var(--green); }
+    .meter-scale span:last-child { color: var(--red); }
+    .submeter-list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .meter-row { min-width: 0; padding: 5px 2px 3px; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,.62); }
+    .meter-row-heading { display: block; color: var(--secondary); font-size: .6rem; font-weight: 650; text-align: center; }
+    .meter-row-heading strong { color: var(--text); font-variant-numeric: tabular-nums; }
+    .mini-gauge { display: block; width: 58px; height: 34px; margin: 2px auto 0; overflow: visible; }
+    .mini-gauge-track { fill: none; stroke: #e5e9e7; stroke-width: 7; stroke-linecap: round; }
+    .mini-gauge-spectrum { fill: none; stroke: url(#stressSpectrum); stroke-width: 7; stroke-linecap: round; opacity: .9; stroke-dasharray: 0 100; visibility: hidden; transition: stroke-dasharray .5s ease; }
+    .meter-note { margin: 9px 0 0; color: var(--tertiary); font-size: .62rem; line-height: 1.35; }
+    .assessment-qr { display: flex; align-items: center; gap: 12px; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--border); }
+    .assessment-qr-code { display: grid; place-items: center; width: 64px; height: 64px; padding: 4px; border-radius: 9px; background: #fff; }
+    .assessment-qr-code img, .assessment-qr-code canvas { display: block; width: 56px !important; height: 56px !important; }
+    .assessment-qr-copy { color: var(--secondary); font-size: .74rem; line-height: 1.35; }
+    .assessment-qr-copy strong { display: block; margin-bottom: 2px; color: var(--text); font-size: .8rem; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(300px, .88fr); gap: 24px; align-items: start; }
+    .assessment-card, .results-card { padding: 26px; }
+    .results-column { position: sticky; top: 88px; display: grid; gap: 18px; align-self: start; }
+    .section-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+    .section-nav a { padding: 7px 11px; border: 1px solid var(--border); border-radius: 999px; color: var(--secondary); background: #fff; font-size: .77rem; font-weight: 650; }
+    .section-nav a:hover { color: var(--accent); border-color: rgba(64,88,103,.3); }
+    .assessment-progress { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 14px; padding: 10px 12px; border-radius: 14px; background: var(--accent-soft); color: var(--secondary); font-size: .76rem; font-weight: 700; }
+    .assessment-progress strong { color: var(--accent); }
+    .assessment-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .assessment-heading h2, .results-card h2 { margin: 0; font-size: 1.45rem; letter-spacing: -.045em; }
+    .helper-chip { flex: none; padding: 7px 10px; border-radius: 999px; color: var(--secondary); background: #f1f2f3; font-size: .76rem; font-weight: 700; }
+    .assessment-intro { margin: 8px 0 0; color: var(--secondary); font-size: .91rem; }
+    .question-section { scroll-margin-top: 90px; margin-top: 26px; }
+    .question-section[hidden] { display: none; }
+    .section-heading { padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .section-heading h3 { margin: 0; font-size: 1.08rem; letter-spacing: -.025em; }
+    .section-heading p { margin: 4px 0 0; color: var(--secondary); font-size: .84rem; }
+    .question-list { display: grid; gap: 13px; margin-top: 14px; }
+    fieldset.question { min-width: 0; margin: 0; padding: 15px 14px 13px; border: 1px solid var(--border); border-radius: 18px; background: rgba(255,255,255,.82); }
+    .question legend { width: 100%; padding: 0; font-size: .94rem; font-weight: 620; line-height: 1.45; }
+    .question-number { display: inline-block; min-width: 27px; color: var(--tertiary); font-size: .78rem; font-weight: 700; }
+    .positive-indicator { display: block; margin: 4px 0 0 27px; color: var(--accent); font-size: .76rem; font-weight: 650; }
+    .options { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; margin-top: 12px; }
+    .option { position: relative; min-width: 0; }
+    .option input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .option label {
+      display: flex;
+      min-height: 40px;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 3px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--secondary);
+      background: #fafafa;
+      font-size: .66rem;
+      line-height: 1.18;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: background .16s ease, border-color .16s ease, color .16s ease;
+    }
+    .option input:checked + label { border-color: rgba(64,88,103,.36); color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px rgba(64,88,103,.12); }
+    .option input:focus-visible + label { outline: 3px solid rgba(22,119,200,.45); outline-offset: 2px; }
+    .question[data-conditional="true"] { border-color: rgba(163,38,45,.2); }
+    .callout { margin-top: 14px; padding: 13px 15px; border-radius: 15px; color: var(--secondary); background: var(--blue-soft); font-size: .84rem; }
+    .callout strong { color: var(--text); }
+    .callout.warning { color: #6f4707; background: var(--amber-soft); }
+    .callout.danger { color: #762129; background: var(--red-soft); }
+    .form-actions, .result-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .question-navigation { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .button { display: inline-flex; min-height: 45px; justify-content: center; align-items: center; padding: 11px 17px; border: 1px solid transparent; border-radius: 999px; font-size: .88rem; font-weight: 700; transition: transform .16s ease, box-shadow .16s ease; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { color: #fff; background: var(--accent); box-shadow: 0 8px 18px rgba(64,88,103,.2); }
+    .button-secondary { color: var(--text); border-color: var(--border); background: #fff; }
+    .button-urgent { color: #fff; background: #9b2029; }
+    .results-card { position: sticky; top: 88px; }
+    .results-card[hidden], [hidden] { display: none !important; }
+    .results-lead { margin: 8px 0 0; color: var(--secondary); font-size: .91rem; }
+    .result-block { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .result-block h3 { margin: 0 0 9px; font-size: 1rem; letter-spacing: -.02em; }
+    .result-copy { margin: 0; color: var(--secondary); font-size: .88rem; }
+    .recommendation-card { margin-top: 18px; padding: 17px; border: 1px solid rgba(64,88,103,.13); border-radius: 18px; background: linear-gradient(150deg, #fff, #f2f5f6); }
+    .recommendation-card.prompt { border-color: rgba(154,91,0,.2); background: var(--amber-soft); }
+    .recommendation-card.urgent { border-color: rgba(163,38,45,.25); background: var(--red-soft); }
+    .recommendation-card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+    .recommendation-card p { margin: 0; color: var(--secondary); font-size: .88rem; }
+    .profile-grid { display: grid; gap: 10px; }
+    .profile-item { padding: 12px 13px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.76); }
+    .profile-item strong { display: block; margin-bottom: 3px; font-size: .86rem; }
+    .profile-item p { margin: 0; color: var(--secondary); font-size: .81rem; }
+    .next-steps { display: grid; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+    .next-steps li { display: flex; gap: 9px; align-items: flex-start; color: var(--secondary); font-size: .85rem; }
+    .next-steps li::before { content: "•"; color: var(--accent); font-weight: 800; }
+    .crisis-box { margin-top: 15px; padding: 15px; border: 1px solid rgba(163,38,45,.18); border-radius: 16px; background: #fff; }
+    .crisis-box h4 { margin: 0 0 5px; font-size: .93rem; }
+    .crisis-box p { margin: 0; color: var(--secondary); font-size: .84rem; }
+    .crisis-links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
+    .crisis-links a { padding: 8px 11px; border-radius: 999px; color: #fff; background: #7e2228; font-size: .82rem; font-weight: 700; }
+    .crisis-links a.secondary { color: var(--text); border: 1px solid var(--border); background: #fff; }
+    .disclaimer { margin: 19px 0 0; color: var(--tertiary); font-size: .77rem; }
+    .live-message { min-height: 1.4em; margin: 10px 0 0; color: var(--red); font-size: .85rem; font-weight: 650; }
+    .result-summary { padding: 12px 14px; border-radius: 14px; background: var(--green-soft); color: #235842; font-size: .84rem; }
+    .method-note { margin-top: 16px; padding: 14px; border: 1px solid var(--border); border-radius: 15px; color: var(--secondary); background: rgba(255,255,255,.7); font-size: .78rem; }
+    .method-note summary { color: var(--text); font-weight: 700; cursor: pointer; }
+    .method-note p { margin: 8px 0 0; }
+    .site-footer { margin-top: 30px; color: var(--tertiary); font-size: .8rem; text-align: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .urgent-screen { border: 1px solid rgba(163,38,45,.2); border-radius: 20px; padding: 20px; background: var(--red-soft); }
+    .urgent-screen h2 { color: #762129; }
+    .urgent-screen p { color: #6c3b3e; }
+    .urgent-screen .crisis-box { border-color: rgba(163,38,45,.22); }
+    .urgent-screen .urgent-instruction { color: #762129; font-weight: 700; }
+    .noscript { margin: 20px auto; padding: 16px; border-radius: 14px; background: var(--amber-soft); color: #6f4707; }
+
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      .results-column { position: static; }
+      .gauge-card { max-width: 560px; width: 100%; justify-self: center; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 24px, var(--max-width)); }
+      .page { padding: 30px 0 55px; }
+      h1 { font-size: clamp(1.7rem, 9vw, 2.3rem); }
+      .hero-copy p { font-size: .8rem; }
+      .gauge-card, .assessment-card, .results-card { padding: 20px 16px; border-radius: 22px; }
+      .assessment-qr { align-items: flex-start; }
+      .submeter-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .options { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; }
+      .option label { min-height: 42px; padding: 4px 2px; font-size: .58rem; }
+      .question { padding: 13px 11px !important; }
+      .assessment-heading { display: block; }
+      .assessment-heading .helper-chip { display: inline-flex; margin-top: 9px; }
+      .button { width: 100%; }
+      .question-navigation { display: grid; grid-template-columns: 1fr 1fr; }
+      .question-navigation .button { width: 100%; }
+      .section-nav { gap: 6px; }
+      .section-nav a { font-size: .72rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+    @media print {
+      @page { margin: 14mm; }
+      body { background: #fff; color: #000; font-size: 10pt; }
+      .tc-site-header, .hero, .assessment-card, .result-actions, .tc-site-footer { display: none !important; }
+      .page { padding: 0; }
+      .container { width: 100%; }
+      .layout { display: block; }
+      .results-card { display: block !important; border: 0; box-shadow: none; padding: 0; }
+      .card, .recommendation-card, .profile-item, .crisis-box { break-inside: avoid; box-shadow: none; }
+      .gauge-progress { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      a { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="container">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <span class="eyebrow">Private self-reflection</span>
+          <h1 id="page-title" tabindex="-1">A thoughtful check-in with yourself.</h1>
+          <p>This 30-item reflection helps you notice experiences related to stress, emotions, sleep, daily functioning and coping. It is not a diagnostic test and cannot determine whether you have a mental-health condition.</p>
+          <p class="privacy-note"><span aria-hidden="true">◉</span><span><strong>Your answers stay on this device.</strong> Nothing is saved or sent. You can leave any time; Question 29 may be left unanswered.</span></p>
+        </div>
+      </section>
+
+      <noscript><p class="noscript">JavaScript is required to use this private, on-device questionnaire. No answers are transmitted.</p></noscript>
+
+      <div class="layout">
+        <section class="card assessment-card" aria-labelledby="assessment-title">
+          <div class="assessment-heading">
+            <div>
+              <h2 id="assessment-title">Mental health self-reflection</h2>
+              <p class="assessment-intro">Original, non-validated questions informed by common symptom domains. Please answer based on each stated time period.</p>
+            </div>
+            <span class="helper-chip">30 items · about 5–8 minutes</span>
+          </div>
+          <nav class="section-nav" aria-label="Assessment sections">
+            <a href="#section-stress">Stress</a>
+            <a href="#section-emotional">Emotional</a>
+            <a href="#section-physical">Physical &amp; sleep</a>
+            <a href="#section-function">Daily impact</a>
+            <a href="#section-context">Coping &amp; safety</a>
+          </nav>
+          <div class="assessment-progress" aria-live="polite">
+            <span>Guided reflection</span>
+            <strong id="stepProgress">Group 1 of 5</strong>
+          </div>
+          <form id="assessmentForm" novalidate>
+            <div id="questionSections"></div>
+            <p class="live-message" id="formMessage" role="status" aria-live="polite"></p>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">See my reflection</button>
+              <button class="button button-secondary" type="reset">Clear answers</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="results-column">
+          <section class="card gauge-card" aria-labelledby="gauge-heading">
+            <h2 class="gauge-heading" id="gauge-heading">Cumulative response index</h2>
+            <svg class="gauge" viewBox="0 0 200 116" role="img" aria-labelledby="gaugeTitle gaugeDescription">
+              <title id="gaugeTitle">Cumulative response index, not yet calculated</title>
+              <desc id="gaugeDescription">A descriptive visualization of responses across questions 1 through 28. It is not a clinical score.</desc>
+              <defs>
+                <linearGradient id="stressSpectrum" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#2c9a67"></stop>
+                  <stop offset="48%" stop-color="#d3a62a"></stop>
+                  <stop offset="100%" stop-color="#c74c4c"></stop>
+                </linearGradient>
+              </defs>
+              <path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100"></path>
+              <path class="gauge-progress" id="gaugeProgress" d="M 20 100 A 80 80 0 0 1 180 100"></path>
+              <text class="gauge-number" x="100" y="83" id="scoreValue">—</text>
+              <text class="gauge-percent" x="100" y="101" id="scoreSuffix">of 100</text>
+            </svg>
+            <p class="gauge-caption"><strong id="scoreTitle">Complete the reflection to view this index</strong><span id="scoreText">A cautious, non-validated summary of questions 1 through 28. Safety responses are handled separately and are never reduced to a score.</span></p>
+            <div class="meter-scale" aria-hidden="true"><span>Lower strain</span><span>Higher strain</span></div>
+            <div class="submeter-list" aria-label="Response domain meters">
+              <div class="meter-row"><div class="meter-row-heading"><span>Stress</span><strong id="meterStressValue">—</strong></div><svg class="mini-gauge" viewBox="0 0 100 58" aria-hidden="true"><path class="mini-gauge-track" d="M 12 50 A 38 38 0 0 1 88 50"></path><path class="mini-gauge-spectrum" d="M 12 50 A 38 38 0 0 1 88 50"></path></svg></div>
+              <div class="meter-row"><div class="meter-row-heading"><span>Emotions</span><strong id="meterEmotionalValue">—</strong></div><svg class="mini-gauge" viewBox="0 0 100 58" aria-hidden="true"><path class="mini-gauge-track" d="M 12 50 A 38 38 0 0 1 88 50"></path><path class="mini-gauge-spectrum" d="M 12 50 A 38 38 0 0 1 88 50"></path></svg></div>
+              <div class="meter-row"><div class="meter-row-heading"><span>Body</span><strong id="meterPhysicalValue">—</strong></div><svg class="mini-gauge" viewBox="0 0 100 58" aria-hidden="true"><path class="mini-gauge-track" d="M 12 50 A 38 38 0 0 1 88 50"></path><path class="mini-gauge-spectrum" d="M 12 50 A 38 38 0 0 1 88 50"></path></svg></div>
+              <div class="meter-row"><div class="meter-row-heading"><span>Impact</span><strong id="meterFunctionalValue">—</strong></div><svg class="mini-gauge" viewBox="0 0 100 58" aria-hidden="true"><path class="mini-gauge-track" d="M 12 50 A 38 38 0 0 1 88 50"></path><path class="mini-gauge-spectrum" d="M 12 50 A 38 38 0 0 1 88 50"></path></svg></div>
+              <div class="meter-row"><div class="meter-row-heading"><span>Coping</span><strong id="meterContextValue">—</strong></div><svg class="mini-gauge" viewBox="0 0 100 58" aria-hidden="true"><path class="mini-gauge-track" d="M 12 50 A 38 38 0 0 1 88 50"></path><path class="mini-gauge-spectrum" d="M 12 50 A 38 38 0 0 1 88 50"></path></svg></div>
+            </div>
+            <p class="meter-note">Domain meters describe response patterns; they are not diagnostic cut-offs. Q29–Q30 are safety questions and are kept separate.</p>
+            <div class="assessment-qr">
+              <div class="assessment-qr-code" id="assessmentQR" aria-label="QR code for this self-reflection"></div>
+              <div class="assessment-qr-copy"><strong>Continue on another device</strong>Scan to open this private self-reflection page.</div>
+            </div>
+          </section>
+          <section class="card results-card" id="resultsCard" aria-labelledby="resultsTitle" aria-live="polite" hidden>
+          <h2 id="resultsTitle">Your reflection</h2>
+          <p class="results-lead" id="resultsLead"></p>
+          <div id="urgentResult" hidden></div>
+          <div id="standardResult" hidden>
+            <div class="recommendation-card" id="recommendationCard">
+              <h3 id="recommendationTitle"></h3>
+              <p id="recommendationReason"></p>
+            </div>
+            <section class="result-block" aria-labelledby="profilesTitle">
+              <h3 id="profilesTitle">Your response profiles</h3>
+              <div class="profile-grid" id="profileGrid"></div>
+            </section>
+            <section class="result-block" aria-labelledby="contextTitle">
+              <h3 id="contextTitle">Duration, change and coping</h3>
+              <div class="profile-grid" id="contextGrid"></div>
+            </section>
+            <section class="result-block" aria-labelledby="stepsTitle">
+              <h3 id="stepsTitle">Possible next steps</h3>
+              <ul class="next-steps" id="nextSteps"></ul>
+            </section>
+            <div id="safetySupport"></div>
+            <details class="method-note">
+              <summary>How these findings are calculated</summary>
+              <p>The perceived-stress sub-meter is the mean of Q1–Q6 and reverse-coded Q7–Q8 (Never=0 through Almost always=4), divided by 4 and multiplied by 100. The cumulative meter summarizes normalized response patterns across Q1–Q28 with a neutral baseline while answers are incomplete; Q29–Q30 are kept separate for safety. These are transparent, non-validated descriptions, not the PSS-8/PSS-10 and not clinical categories. Symptom profiles show each response frequency separately; functional impact shows the five response counts and an unthresholded sum out of 20. Duration, trajectory, coping and safety are reported separately. No answers are combined into a clinical severity score.</p>
+              <p>Deterministic support rules (not validated cut-offs): urgent assistance takes priority when Q29 is positive and Q30 is Yes or Unsure. Otherwise, prompt professional assessment is recommended if any function response is A lot/Extremely, duration is One to three months/More than three months, trajectory is Worsening, or Q29 is positive. Consider professional support if at least two symptom responses across Q9–Q20 are Several days or more, any symptom response is More than half the days/Nearly every day, any functional response is Moderately or more, or coping confidence is Unsure/Not very confident/Not confident at all. If none applies, self-care and monitoring may be reasonable; this does not rule out a need for help. A low stress index never overrides these rules. This questionnaire does not predict suicide risk.</p>
+            </details>
+            <div class="result-actions">
+              <button class="button button-secondary" id="printButton" type="button">Print results</button>
+              <button class="button button-primary" id="retakeButton" type="button">Retake assessment</button>
+            </div>
+          </div>
+          <p class="disclaimer">This reflection cannot replace care from a qualified professional. Physical symptoms may have psychological, medical or lifestyle-related causes and should not automatically be attributed to stress. If you are concerned, seeking help is reasonable regardless of these responses.</p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/stress-assessment-core.js"></script>
+  <script src="assets/site-chrome.js" data-site-root="./"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const core = window.StressAssessmentCore;
+      const { responseScales, sections } = core;
+      const { calculateProfiles, getRecommendation } = core;
+
+      const form = document.getElementById('assessmentForm');
+      const sectionsRoot = document.getElementById('questionSections');
+      const formMessage = document.getElementById('formMessage');
+      const resultsCard = document.getElementById('resultsCard');
+      const urgentResult = document.getElementById('urgentResult');
+      const standardResult = document.getElementById('standardResult');
+      const q29PositiveValues = new Set(core.positiveIdeationValues.map(String));
+      const frequencyLabels = responseScales.frequency;
+      let urgentActive = false;
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (character) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        })[character]);
+      }
+
+      function renderQuestion(number, question, scale) {
+        const definition = typeof question === 'string' ? { text: question, options: responseScales[scale], required: true } : question;
+        const conditional = definition.conditional ? ' data-conditional="true" hidden' : '';
+        const options = definition.options.map((label, value) => {
+          const id = `q${number}-${value}`;
+          return `<div class="option"><input type="radio" name="q${number}" id="${id}" value="${value}"${definition.required ? ' required' : ''}><label for="${id}">${escapeHtml(label)}</label></div>`;
+        }).join('');
+        const positiveIndicator = number === 7 || number === 8
+          ? '<span class="positive-indicator">Positive coping indicator · reverse-coded only in the descriptive index</span>'
+          : '';
+        return `<fieldset class="question"${conditional} id="question-${number}"><legend><span class="question-number">${number}.</span>${escapeHtml(definition.text)}</legend>${positiveIndicator}<div class="options">${options}</div></fieldset>`;
+      }
+
+      function renderQuestions() {
+        let number = 1;
+        const sectionMarkup = sections.map((section, sectionIndex) => {
+          const questionsMarkup = section.questions.map((question) => renderQuestion(number++, question, section.scale)).join('');
+          const physicalNote = section.id === 'physical'
+            ? '<div class="callout"><strong>A note about physical symptoms:</strong> sleep, energy, tension and appetite changes can have psychological, medical or lifestyle-related causes. This reflection cannot identify the cause.</div>'
+            : '';
+          return `<section class="question-section" id="section-${section.id}" data-step="${sectionIndex}" aria-labelledby="heading-${section.id}"${sectionIndex ? ' hidden' : ''}><div class="section-heading"><h3 id="heading-${section.id}">${escapeHtml(section.title)}</h3><p>${escapeHtml(section.period)}</p></div><div class="question-list">${questionsMarkup}</div>${physicalNote}</section>`;
+        }).join('');
+        sectionsRoot.innerHTML = `${sectionMarkup}<div class="question-navigation"><button class="button button-secondary" id="previousStep" type="button" disabled>Previous group</button><button class="button button-primary" id="nextStep" type="button">Next group</button></div>`;
+      }
+
+      let currentStep = 0;
+
+      function showStep(step) {
+        currentStep = step;
+        document.querySelectorAll('.question-section').forEach((section, index) => {
+          section.hidden = index !== step;
+        });
+        document.getElementById('stepProgress').textContent = `Group ${step + 1} of ${sections.length}`;
+        document.getElementById('previousStep').disabled = step === 0;
+        const next = document.getElementById('nextStep');
+        next.hidden = step === sections.length - 1;
+        document.getElementById('assessmentForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function validateCurrentStep() {
+        const section = document.querySelector(`.question-section[data-step="${currentStep}"]`);
+        const unanswered = Array.from(section.querySelectorAll('fieldset.question')).find((question) => {
+          return !question.hidden && question.querySelector('input[required]') && !question.querySelector('input:checked');
+        });
+        if (!unanswered) return true;
+        const input = unanswered.querySelector('input');
+        formMessage.textContent = `Please answer Question ${input.name.slice(1)} before continuing.`;
+        input.focus({ preventScroll: true });
+        unanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+
+      function answer(number) {
+        const selected = form.querySelector(`input[name="q${number}"]:checked`);
+        return selected ? Number(selected.value) : null;
+      }
+
+      function selectedLabel(number, labels) {
+        const value = answer(number);
+        return value === null ? 'Not answered' : labels[value];
+      }
+
+      function countValues(values, labels) {
+        const counts = labels.map(() => 0);
+        values.forEach((value) => { if (value !== null) counts[value] += 1; });
+        return counts.map((count, index) => `${labels[index]}: ${count}`).join(' · ');
+      }
+
+      function allAnswers() {
+        return Array.from({ length: 30 }, (_, index) => answer(index + 1));
+      }
+
+      function buildProfileCard(title, description) {
+        const card = document.createElement('div');
+        card.className = 'profile-item';
+        const heading = document.createElement('strong');
+        heading.textContent = title;
+        const text = document.createElement('p');
+        text.textContent = description;
+        card.append(heading, text);
+        return card;
+      }
+
+      function addCrisisInformation(container, includeEmergency) {
+        const box = document.createElement('div');
+        box.className = 'crisis-box';
+        const title = document.createElement('h4');
+        title.textContent = includeEmergency ? 'If you are in India and need immediate support' : 'Mental-health support in India';
+        const description = document.createElement('p');
+        description.textContent = includeEmergency
+          ? 'Move to a safer place if possible, stay with someone you trust, and contact emergency services now. If you are elsewhere, contact your local emergency number or crisis service.'
+          : 'Tele-MANAS offers mental-health support at 14416. If immediate danger develops, call 112 or your local emergency number.';
+        const links = document.createElement('div');
+        links.className = 'crisis-links';
+        if (includeEmergency) {
+          const emergency = document.createElement('a');
+          emergency.href = 'tel:112';
+          emergency.textContent = 'Call 112 · Emergency';
+          links.appendChild(emergency);
+        }
+        const telemanas = document.createElement('a');
+        telemanas.href = 'tel:14416';
+        telemanas.className = includeEmergency ? 'secondary' : '';
+        telemanas.textContent = 'Call 14416 · Tele-MANAS';
+        links.appendChild(telemanas);
+        const officialInfo = document.createElement('a');
+        officialInfo.href = 'https://telemanas.mohfw.gov.in/';
+        officialInfo.target = '_blank';
+        officialInfo.rel = 'noopener noreferrer';
+        officialInfo.className = 'secondary';
+        officialInfo.textContent = 'Official Tele-MANAS information';
+        links.appendChild(officialInfo);
+        box.append(title, description, links);
+        container.appendChild(box);
+      }
+
+      function personalizedSteps(profiles) {
+        const steps = [];
+        const add = (text) => { if (!steps.includes(text) && steps.length < 5) steps.push(text); };
+        if (profiles.urgent) {
+          add('Pause the questionnaire and contact emergency help now; use 112 in India or your local emergency number.');
+          add('Tell a trusted person what is happening and ask them to stay with you.');
+          add('Move away from anything you might use to harm yourself, if you can do so safely.');
+          add('Call Tele-MANAS at 14416 in India for mental-health support.');
+          return steps;
+        }
+        if (profiles.ideation !== null && q29PositiveValues.has(String(profiles.ideation))) {
+          add('Contact a qualified mental-health professional promptly and share your answer about thoughts of death or self-harm.');
+          add('If your immediate safety changes or you are unsure you can stay safe, call 112 in India or your local emergency number.');
+          add('Consider telling someone you trust and arranging not to be alone while you seek support.');
+        }
+        if (profiles.worsening) add('Because you reported worsening, arrange timely support and let a clinician know what has changed.');
+        if (profiles.markedFunction) add('Describe the daily activity you marked “A lot” or “Extremely” affected when contacting a professional.');
+        if (profiles.persistent) add(`Note that these difficulties have lasted ${selectedLabel(26, sections[4].questions[0].options).toLowerCase()} and discuss this with a professional.`);
+        if (profiles.reducedCoping) add('Choose one trusted person to tell how confident (or not confident) you feel managing right now.');
+        if (profiles.symptomRecurrence) add('Notice when recurring emotional, sleep or physical symptoms occur; consider keeping brief notes to discuss with a clinician.');
+        if (profiles.noticeableFunction) add('Pick one affected responsibility or routine and consider what practical support could make it more manageable.');
+        if (steps.length < 3) {
+          add('Keep a regular sleep and meal routine where possible, and make room for brief restorative breaks.');
+          add('Check in with someone you trust and ask for specific, practical support if useful.');
+          add('Monitor how things change; seek professional care if symptoms persist, worsen or concern you.');
+        }
+        return steps.slice(0, 5);
+      }
+
+      function renderStandardResults(answers, profiles) {
+        const recommendation = getRecommendation(profiles);
+        const card = document.getElementById('recommendationCard');
+        card.className = `recommendation-card${recommendation.kind === 'prompt' ? ' prompt' : ''}`;
+        document.getElementById('recommendationTitle').textContent = recommendation.title;
+        document.getElementById('recommendationReason').textContent = recommendation.reason;
+        document.getElementById('resultsLead').textContent = 'These findings describe only the answers you selected. They do not diagnose a condition or predict suicide risk.';
+
+        const profileGrid = document.getElementById('profileGrid');
+        profileGrid.replaceChildren();
+        profileGrid.append(
+          buildProfileCard('Perceived stress · Q1–Q8', `Response frequencies before positive-item reversal: ${countValues(answers.slice(0, 8), responseScales.stress)}. Descriptive index: ${profiles.stressIndex}/100 (reverse-coded response points ${profiles.stressRaw}/32); Q7–Q8 are positive coping indicators. Not a clinical severity rating.`),
+          buildProfileCard('Emotional · Q9–Q12, Q14', `Response frequencies: ${countValues(profiles.emotional, frequencyLabels)}.`),
+          buildProfileCard('Cognitive · Q13, Q15', `Response frequencies: ${countValues(profiles.cognitive, frequencyLabels)}.`),
+          buildProfileCard('Physical and sleep · Q16–Q20', `Response frequencies: ${countValues(profiles.physical, frequencyLabels)}. These symptoms can have psychological, medical or lifestyle-related causes.`),
+          buildProfileCard('Functional impact · Q21–Q25', `Response frequencies: ${countValues(profiles.functional, responseScales.impact)}. Unthresholded sum: ${profiles.functional.reduce((sum, value) => sum + value, 0)}/20; recommendations use individual responses, not a diagnostic cut-off.`)
+        );
+
+        const contextGrid = document.getElementById('contextGrid');
+        contextGrid.replaceChildren(
+          buildProfileCard('Duration · Q26', selectedLabel(26, sections[4].questions[0].options)),
+          buildProfileCard('Trajectory · Q27', selectedLabel(27, sections[4].questions[1].options)),
+          buildProfileCard('Coping confidence · Q28', selectedLabel(28, sections[4].questions[2].options)),
+          buildProfileCard('Safety response · Q29–Q30', profiles.ideation === null
+            ? 'Question 29 was not answered. This is unknown, not a “No”; the questionnaire does not infer safety.'
+            : profiles.ideation === 3
+              ? 'You preferred not to answer Question 29. This is unknown, not a “No”; the questionnaire does not infer safety.'
+              : `Question 29: ${selectedLabel(29, sections[4].questions[3].options)}${profiles.ideation > 0 ? ` · Immediate safety: ${selectedLabel(30, sections[4].questions[4].options)}` : ' · This answer alone does not establish safety or rule out a need for support.'}`)
+        );
+
+        const steps = personalizedSteps(profiles);
+        const list = document.getElementById('nextSteps');
+        list.replaceChildren(...steps.map((step) => {
+          const item = document.createElement('li');
+          item.textContent = step;
+          return item;
+        }));
+
+        const safetySupport = document.getElementById('safetySupport');
+        safetySupport.replaceChildren();
+        if (profiles.ideation === null || profiles.ideation === 3) {
+          const message = document.createElement('p');
+          message.className = 'callout warning';
+          message.textContent = profiles.ideation === null
+            ? 'Safety support: Question 29 was unanswered. The omission is not interpreted as a negative response. If you have concerns or feel unsafe, please contact someone you trust or a qualified professional.'
+            : 'Safety support: You preferred not to answer Question 29. This is not interpreted as a negative response. If you have concerns or feel unsafe, please contact someone you trust or a qualified professional.';
+          safetySupport.appendChild(message);
+          addCrisisInformation(safetySupport, false);
+        }
+        if (profiles.ideation !== null && q29PositiveValues.has(String(profiles.ideation))) {
+          addCrisisInformation(safetySupport, false);
+        }
+        standardResult.hidden = false;
+        urgentResult.hidden = true;
+        resultsCard.hidden = false;
+        updateAllMeters(answers);
+      }
+
+      function renderUrgentResult(profiles) {
+        standardResult.hidden = true;
+        urgentResult.hidden = false;
+        resultsCard.hidden = false;
+        document.getElementById('resultsTitle').textContent = 'Immediate support comes first';
+        document.getElementById('resultsLead').textContent = 'The routine reflection has been paused. This page cannot assess or manage immediate danger.';
+        document.getElementById('scoreValue').textContent = '—';
+        document.getElementById('scoreSuffix').textContent = 'of 100';
+        document.getElementById('scoreTitle').textContent = 'Stress visualization paused';
+        document.getElementById('scoreText').textContent = 'Immediate support takes priority over the routine self-reflection.';
+        document.getElementById('gaugeProgress').style.strokeDashoffset = '251.33';
+        document.getElementById('gaugeTitle').textContent = 'Perceived-stress visualization paused while urgent support takes priority';
+        document.getElementById('gaugeDescription').textContent = 'No routine score is displayed during the urgent safety flow.';
+        urgentResult.replaceChildren();
+        const panel = document.createElement('section');
+        panel.className = 'urgent-screen';
+        panel.setAttribute('aria-labelledby', 'urgentHeading');
+        const heading = document.createElement('h2');
+        heading.id = 'urgentHeading';
+        heading.tabIndex = -1;
+        heading.textContent = 'Please get urgent help now';
+        const response = document.createElement('p');
+        response.className = 'urgent-instruction';
+        response.textContent = `You selected “${selectedLabel(30, sections[4].questions[4].options)}” for immediate safety. Please pause the assessment and connect with urgent, in-person help now.`;
+        const support = document.createElement('p');
+        support.textContent = 'If possible, move to a safer place, stay with someone you trust and tell them plainly that you may not be safe. Do not rely on this questionnaire to decide what to do.';
+        const actions = document.createElement('div');
+        actions.className = 'result-actions';
+        const print = document.createElement('button');
+        print.className = 'button button-secondary';
+        print.type = 'button';
+        print.textContent = 'Print urgent-support information';
+        print.addEventListener('click', () => window.print());
+        const retake = document.createElement('button');
+        retake.className = 'button button-secondary';
+        retake.type = 'button';
+        retake.textContent = 'Retake assessment';
+        retake.addEventListener('click', () => {
+          form.reset();
+          document.getElementById('page-title').focus();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        actions.append(print, retake);
+        panel.append(heading, response, support, actions);
+        addCrisisInformation(panel, true);
+        urgentResult.appendChild(panel);
+        urgentActive = true;
+        resultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('urgentHeading').focus({ preventScroll: true });
+      }
+
+      function updateGauge(value) {
+        const progress = document.getElementById('gaugeProgress');
+        const circumference = 251.33;
+        progress.style.strokeDashoffset = String(circumference * (1 - value / 100));
+        document.getElementById('scoreValue').textContent = String(value);
+        document.getElementById('scoreTitle').textContent = 'Cumulative response index';
+        document.getElementById('scoreText').textContent = 'A cautious, non-validated summary of questions 1 through 28. Safety responses are handled separately and are never reduced to a score.';
+        document.getElementById('gaugeTitle').textContent = `Cumulative response index: ${value} out of 100`;
+        document.getElementById('gaugeDescription').textContent = 'Non-validated descriptive index based on response domains across questions 1 through 28. It does not determine whether professional help is needed.';
+      }
+
+      const meterDefinitions = [
+        { id: 'Stress', indices: [0, 1, 2, 3, 4, 5, 6, 7], transform: (value, index) => index >= 6 ? 4 - value : value, max: 4 },
+        { id: 'Emotional', indices: [8, 9, 10, 11, 12, 13, 14], transform: (value) => value, max: 3 },
+        { id: 'Physical', indices: [15, 16, 17, 18, 19], transform: (value) => value, max: 3 },
+        { id: 'Functional', indices: [20, 21, 22, 23, 24], transform: (value) => value, max: 4 },
+        { id: 'Context', indices: [25, 26, 27], transform: (value, index) => index === 1 ? (value === 2 ? 4 : value === 0 ? 0 : 2) : value, max: 4 }
+      ];
+
+      function calculateMeterValue(answers, definition) {
+        const values = definition.indices
+          .map((index) => answers[index] === null ? null : definition.transform(answers[index], definition.indices.indexOf(index)))
+          .filter((value) => value !== null);
+        if (!values.length) return null;
+        const neutralPriorResponses = Math.min(4, definition.indices.length);
+        const raw = values.reduce((sum, value) => sum + value, neutralPriorResponses * definition.max / 2);
+        return Math.round((raw / ((values.length + neutralPriorResponses) * definition.max)) * 100);
+      }
+
+      function updateMeter(id, value) {
+        const label = document.getElementById(`meter${id}Value`);
+        label.textContent = value === null ? '—' : `${value}%`;
+        const spectrum = label.closest('.meter-row').querySelector('.mini-gauge-spectrum');
+        spectrum.setAttribute('pathLength', '100');
+        spectrum.style.strokeDasharray = `${value === null ? 0 : value} 100`;
+        spectrum.style.visibility = value ? 'visible' : 'hidden';
+      }
+
+      function updateAllMeters(answers) {
+        const values = meterDefinitions.map((definition) => calculateMeterValue(answers, definition));
+        meterDefinitions.forEach((definition, index) => updateMeter(definition.id, values[index]));
+        const eligibleValues = answers
+          .slice(0, 28)
+          .map((value, index) => {
+            if (value === null) return null;
+            const definition = meterDefinitions.find((item) => item.indices.includes(index));
+            return definition.transform(value, definition.indices.indexOf(index)) / definition.max;
+          })
+          .filter((value) => value !== null);
+        if (!eligibleValues.length) return;
+        const neutralPriorResponses = 8;
+        const cumulative = Math.round(((eligibleValues.reduce((sum, value) => sum + value, neutralPriorResponses * .5)) / (eligibleValues.length + neutralPriorResponses)) * 100);
+        updateGauge(cumulative);
+        document.getElementById('scoreTitle').textContent = eligibleValues.length === 28
+          ? 'Cumulative response index'
+          : `Live cumulative meter · ${eligibleValues.length} of 28 answered`;
+        document.getElementById('scoreText').textContent = eligibleValues.length === 28
+          ? 'A cautious, non-validated summary across response domains in questions 1 through 28.'
+          : 'A cautious preview that blends answered domains with a neutral baseline until more responses are available.';
+      }
+
+      function updateLiveGauge() {
+        updateAllMeters(allAnswers());
+      }
+
+      function validateRequiredAnswers() {
+        const missing = [];
+        for (let number = 1; number <= 28; number += 1) {
+          if (answer(number) === null) missing.push(number);
+        }
+        const ideation = answer(29);
+        if (ideation !== null && q29PositiveValues.has(String(ideation)) && answer(30) === null) missing.push(30);
+        if (missing.length) {
+          const first = document.getElementById(`question-${missing[0]}`);
+          const firstSection = first.closest('.question-section');
+          showStep(Number(firstSection.dataset.step));
+          formMessage.textContent = `Please answer Question ${missing[0]}${missing.length > 1 ? ` and ${missing.length - 1} other required ${missing.length === 2 ? 'item' : 'items'}` : ''}. Question 29 can be left unanswered.`;
+          first.hidden = false;
+          first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const radio = first.querySelector('input');
+          if (radio) radio.focus({ preventScroll: true });
+          return false;
+        }
+        formMessage.textContent = '';
+        return true;
+      }
+
+      function updateConditionalSafety() {
+        const conditional = document.getElementById('question-30');
+        const positive = q29PositiveValues.has(String(answer(29)));
+        conditional.hidden = !positive;
+        conditional.querySelectorAll('input').forEach((input) => {
+          input.required = positive;
+          if (!positive) input.checked = false;
+        });
+        if (!positive) {
+          urgentActive = false;
+          if (!resultsCard.hidden) {
+            resultsCard.hidden = true;
+            standardResult.hidden = true;
+            urgentResult.hidden = true;
+          }
+        }
+      }
+
+      renderQuestions();
+      updateConditionalSafety();
+      document.getElementById('previousStep').addEventListener('click', () => {
+        if (currentStep > 0) showStep(currentStep - 1);
+      });
+      document.getElementById('nextStep').addEventListener('click', () => {
+        if (validateCurrentStep()) showStep(currentStep + 1);
+      });
+      document.querySelectorAll('.section-nav a').forEach((link, index) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          showStep(index);
+        });
+      });
+
+      function initialiseAssessmentQR() {
+        const qrContainer = document.getElementById('assessmentQR');
+        if (!qrContainer || typeof QRCode === 'undefined') return;
+        new QRCode(qrContainer, {
+          text: window.location.href,
+          width: 56,
+          height: 56,
+          colorDark: '#171717',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      initialiseAssessmentQR();
+
+      form.addEventListener('change', (event) => {
+        updateLiveGauge();
+        if (event.target.name === 'q29') updateConditionalSafety();
+        if (event.target.name === 'q30' && (answer(30) === 1 || answer(30) === 2)) {
+          const answers = allAnswers();
+          renderUrgentResult(calculateProfiles(answers));
+        } else if (event.target.name === 'q30' && urgentActive) {
+          urgentActive = false;
+          resultsCard.hidden = true;
+        }
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!validateRequiredAnswers()) return;
+        const answers = allAnswers();
+        const profiles = calculateProfiles(answers);
+        if (profiles.urgent) {
+          renderUrgentResult(profiles);
+          return;
+        }
+        urgentActive = false;
+        document.getElementById('resultsTitle').textContent = 'Your reflection';
+        renderStandardResults(answers, profiles);
+        resultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      form.addEventListener('reset', () => {
+        window.setTimeout(() => {
+          formMessage.textContent = '';
+          urgentActive = false;
+          resultsCard.hidden = true;
+          standardResult.hidden = true;
+          urgentResult.hidden = true;
+          document.getElementById('resultsTitle').textContent = 'Your reflection';
+          document.getElementById('scoreValue').textContent = '—';
+          document.getElementById('scoreSuffix').textContent = 'of 100';
+          document.getElementById('scoreTitle').textContent = 'Complete the reflection to view this index';
+          document.getElementById('scoreText').textContent = 'A cautious, non-validated summary of questions 1 through 28. Safety responses are handled separately and are never reduced to a score.';
+          document.getElementById('gaugeProgress').style.strokeDashoffset = '251.33';
+          document.getElementById('gaugeTitle').textContent = 'Cumulative response index, not yet calculated';
+          document.getElementById('gaugeDescription').textContent = 'A descriptive visualization of responses across questions 1 through 28. It is not a clinical score.';
+          meterDefinitions.forEach((definition) => updateMeter(definition.id, null));
+          showStep(0);
+          updateConditionalSafety();
+        }, 0);
+      });
+
+      document.getElementById('retakeButton').addEventListener('click', () => {
+        form.reset();
+        document.getElementById('page-title').focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      document.getElementById('printButton').addEventListener('click', () => window.print());
+    })();
+  </script>
+</body>
+</html>
