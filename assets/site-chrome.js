@@ -55,7 +55,7 @@
       <div class="tc-site-footer-grid">
         <div>
           <a class="tc-site-brand" href="${homeUrl.href}" aria-label="Thomson Clinic home">
-            <img src="${assetUrl("assets/thomson-clinic-logo-header.png")}" alt="">
+            <img loading="lazy" decoding="async" src="${assetUrl("assets/thomson-clinic-logo-header.png")}" alt="">
             <span class="tc-site-brand-copy">
               <span class="tc-site-brand-name">Thomson Clinic</span>
               <span class="tc-site-brand-caption">Mental Health &amp; Neuroscience e-Clinic</span>
