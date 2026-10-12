@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Teleprompter</title>
+<style>
+/* ───────────── Design tokens (Apple HIG-style) ───────────── */
+:root{
+  --ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Inter,"Segoe UI",Roboto,Arial,sans-serif;
+  --blue:#007aff; --green:#34c759; --red:#ff3b30; --orange:#ff9f0a;
+  --bg:#f2f2f7; --card:#ffffff; --label:#000;
+  --label2:rgba(60,60,67,.6); --label3:rgba(60,60,67,.38); --sep:rgba(60,60,67,.18);
+  --fill:rgba(120,120,128,.16); --segon:#fff; --sel:rgba(255,204,0,.34);
+  --glass:rgba(249,249,251,.78);
+  /* prompter (overridden by JS) */
+  --pbg:#000; --pbg0:rgba(0,0,0,0); --pfg:#fff; --cue:#ff9f0a;
+  --fs:64px; --lh:1.45; --tw:80%; --align:center; --pfont:var(--ui); --pw:600; --focus:38%;
+  --wx:0px; --wy:0px; --ww:560px; --wh:200px; --wr:0 0 28px 28px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --blue:#0a84ff; --green:#30d158; --red:#ff453a;
+    --bg:#000; --card:#1c1c1e; --label:#fff;
+    --label2:rgba(235,235,245,.6); --label3:rgba(235,235,245,.34); --sep:rgba(84,84,88,.6);
+    --fill:rgba(120,120,128,.36); --segon:#636366; --sel:rgba(255,204,0,.26);
+    --glass:rgba(28,28,30,.78);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:var(--ui);font-size:15px;line-height:1.4;background:var(--bg);color:var(--label);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0;text-align:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ───────────── Navigation bar ───────────── */
+.nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:calc(10px + env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 10px max(20px,env(safe-area-inset-left));
+  background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);
+  border-bottom:.5px solid var(--sep)}
+.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.app-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(160deg,#5ac8fa,#007aff 55%,#5856d6);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.app-icon svg{width:18px;height:18px}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:980px;padding:9px 18px;font-weight:600;transition:transform .12s,opacity .15s,background .15s}
+.btn:active{transform:scale(.96)}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{opacity:.9}
+.btn.primary svg{width:16px;height:16px}
+.btn.round{width:36px;height:36px;padding:0;justify-content:center;background:var(--fill);color:var(--blue)}
+
+/* ───────────── Layout: sidebar · editor · settings ───────────── */
+.layout{max-width:1580px;margin:0 auto;padding:20px max(20px,env(safe-area-inset-right)) 28px max(20px,env(safe-area-inset-left));
+  display:grid;grid-template-columns:292px minmax(0,1fr) 350px;gap:16px;align-items:start}
+.sidebar,.editor{background:var(--card);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;
+  height:calc(100vh - 112px);height:calc(100dvh - 112px);min-height:440px}
+
+/* sidebar (Apple Notes-style) */
+.sb-head{display:flex;align-items:center;justify-content:space-between;padding:14px 12px 6px 18px}
+.sb-head h2{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}
+.icon-btn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--blue);transition:background .15s,transform .1s}
+.icon-btn:hover{background:var(--fill)}
+.icon-btn:active{transform:scale(.92)}
+.icon-btn.danger{color:var(--red)}
+.icon-btn.on{color:var(--orange)}
+.icon-btn.on svg{fill:currentColor}
+.search{position:relative;margin:4px 12px 8px}
+.search svg{position:absolute;left:10px;top:50%;margin-top:-8px;width:16px;height:16px;color:var(--label2);pointer-events:none}
+.search input{width:100%;height:34px;border:0;outline:0;border-radius:10px;background:var(--fill);color:var(--label);
+  padding:0 10px 0 32px;font:15px var(--ui);-webkit-appearance:none;appearance:none}
+.search input::placeholder{color:var(--label2)}
+.search input:focus{box-shadow:0 0 0 2px var(--blue)}
+.note-list{flex:1;overflow:auto;padding:0 8px 8px;scrollbar-width:thin}
+.grp-h{padding:14px 10px 5px;font-size:13px;font-weight:700;letter-spacing:-.005em}
+.note{position:relative;display:block;width:100%;padding:9px 10px 10px;border-radius:10px;min-width:0}
+.note:hover{background:var(--fill)}
+.note.on{background:var(--sel)}
+.note::after{content:"";position:absolute;left:10px;right:0;bottom:0;border-bottom:.5px solid var(--sep)}
+.note.on::after,.note:hover::after{border-color:transparent}
+.nt{display:flex;align-items:center;gap:6px}
+.nt .title{flex:1;min-width:0;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt .pin{color:var(--orange);display:flex}
+.nt .pin svg{width:13px;height:13px;fill:currentColor}
+.nm{display:flex;gap:8px;font-size:13px;color:var(--label2);margin-top:2px;min-width:0}
+.nm .nd{flex:none;color:var(--label)}
+.nm .np{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ns{margin-top:3px;font-size:12px;color:var(--label3);font-variant-numeric:tabular-nums}
+.empty-list{padding:30px 10px;text-align:center;color:var(--label2)}
+.sb-foot{padding:10px;text-align:center;font-size:12px;color:var(--label2);border-top:.5px solid var(--sep)}
+
+/* editor */
+.ed-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:.5px solid var(--sep)}
+.ed-tools{display:flex;gap:2px;align-items:center}
+.ed-date{flex:1;text-align:center;color:var(--label2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tbtn{color:var(--blue);padding:6px 10px;border-radius:8px;font-size:15px;transition:background .15s}
+.tbtn:hover{background:var(--fill)}
+#script{flex:1;width:100%;border:0;outline:0;resize:none;background:transparent;color:var(--label);caret-color:var(--blue);
+  padding:18px 24px;font:17px/1.6 var(--ui)}
+#script::placeholder{color:var(--label2)}
+.ed-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 18px;border-top:.5px solid var(--sep);
+  font-size:13px;color:var(--label2)}
+.ed-foot code{font:12px ui-monospace,"SF Mono",Menlo,monospace;background:var(--fill);padding:1px 6px;border-radius:5px;color:var(--label)}
+
+/* ───────────── Settings (inset grouped lists) ───────────── */
+.settings{position:sticky;top:78px;max-height:calc(100vh - 98px);max-height:calc(100dvh - 98px);overflow:auto;padding-bottom:4px;scrollbar-width:thin}
+.sheet-head{display:none}
+.group{margin-bottom:22px}
+.group h3{margin:0 0 6px 16px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--label2)}
+.list{background:var(--card);border-radius:14px;overflow:hidden}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;min-height:46px;cursor:default}
+.row+.row{border-top:.5px solid var(--sep)}
+.row.stack{flex-direction:column;align-items:stretch;gap:8px}
+.row-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.row.action{width:100%;justify-content:flex-start;color:var(--blue);font-weight:500;cursor:pointer}
+.row.action:active{background:var(--fill)}
+.val{color:var(--label2);font-variant-numeric:tabular-nums}
+.foot{margin:6px 16px 0;font-size:12px;color:var(--label2)}
+.reset{width:100%;padding:13px;background:var(--card);border-radius:14px;color:var(--red);font-weight:500;text-align:center}
+.reset:active{opacity:.6}
+.only-notch{display:none !important}
+body.layout-notch .only-notch{display:flex !important}
+
+/* range */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;
+  background:linear-gradient(to right,var(--fillc,var(--blue)) var(--p,50%),var(--trackc,var(--fill)) var(--p,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-11px;border-radius:50%;background:#fff;
+  box-shadow:0 1px 5px rgba(0,0,0,.35),0 0 0 .5px rgba(0,0,0,.08)}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--trackc,var(--fill))}
+input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--fillc,var(--blue))}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.35)}
+
+/* segmented control */
+.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px}
+.seg button{flex:1;padding:6px 8px;border-radius:7px;font-size:13px;font-weight:500;text-align:center;transition:background .2s,box-shadow .2s}
+.seg button.on{background:var(--segon);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 .5px rgba(0,0,0,.04)}
+
+/* iOS switch */
+.switch{position:relative;width:51px;height:31px;flex:none}
+.switch input{-webkit-appearance:none;appearance:none;position:absolute;inset:0;margin:0;border-radius:16px;background:var(--fill);cursor:pointer;transition:background .25s}
+.switch input:checked{background:var(--green)}
+.switch i{position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;pointer-events:none;
+  box-shadow:0 2px 5px rgba(0,0,0,.3);transition:transform .28s cubic-bezier(.3,.9,.3,1.1)}
+.switch input:checked + i{transform:translateX(20px)}
+
+/* swatches */
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.sw{width:38px;height:38px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(128,128,128,.4);transition:transform .15s}
+.sw:active{transform:scale(.92)}
+.sw.on{box-shadow:inset 0 0 0 1px rgba(128,128,128,.4),0 0 0 2px var(--card),0 0 0 4px var(--blue)}
+
+/* ───────────── Prompter stage ───────────── */
+.stage,.dock,.hud,.scrim,.countdown{display:none}
+.stage{position:fixed;inset:0;z-index:10;background:var(--pbg);color:var(--pfg);overflow:hidden;touch-action:none;
+  -webkit-user-select:none;user-select:none;cursor:pointer}
+.flip{position:absolute;inset:0;transform-origin:center}
+.guide{position:absolute;left:0;right:0;top:var(--focus);height:calc(var(--fs) * var(--lh));
+  background:rgba(128,128,128,.12);background:color-mix(in srgb,var(--pfg) 9%,transparent);pointer-events:none}
+.guide::before,.guide::after{content:"";position:absolute;top:50%;margin-top:-11px;border:11px solid transparent}
+.guide::before{left:10px;border-left-color:var(--cue)}
+.guide::after{right:10px;border-right-color:var(--cue)}
+.stage.no-guide .guide{display:none}
+.content{position:absolute;left:50%;top:0;width:var(--tw);max-width:100%;transform:translate3d(-50%,0,0);will-change:transform;
+  font-family:var(--pfont);font-weight:var(--pw);font-size:var(--fs);line-height:var(--lh);text-align:var(--align);
+  letter-spacing:-.005em;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+.content p{margin:0 0 .85em}
+.content h2{margin:1.1em 0 .4em;font-size:.5em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.55;line-height:1.3}
+.content strong{font-weight:800}
+.cue{color:var(--cue);font-weight:700;font-size:.62em;letter-spacing:.02em;vertical-align:.12em;padding:0 .1em}
+.content .empty{opacity:.5}
+.fade{position:absolute;left:0;right:0;pointer-events:none;z-index:2}
+.fade.t{top:0;height:calc(var(--focus) * .75);background:linear-gradient(var(--pbg),var(--pbg0))}
+.fade.b{bottom:0;height:26%;background:linear-gradient(var(--pbg0),var(--pbg))}
+.stage.no-fade .fade{display:none}
+.progress{position:absolute;top:0;left:0;height:3px;width:0;z-index:7;background:var(--blue);border-radius:0 2px 2px 0;
+  box-shadow:0 0 10px var(--blue);transition:opacity .4s;pointer-events:none}
+
+/* notch-window resize grips */
+.grip{position:absolute;z-index:8;display:none;opacity:0;transition:opacity .2s;touch-action:none}
+.grip::after{content:"";position:absolute;background:rgba(128,128,128,.75);border-radius:3px}
+.grip.l,.grip.r{top:0;bottom:0;width:18px;cursor:ew-resize}
+.grip.l{left:0}.grip.r{right:0}
+.grip.l::after,.grip.r::after{top:50%;left:6px;width:4px;height:46px;margin-top:-23px}
+.grip.b{left:0;right:0;bottom:0;height:18px;cursor:ns-resize}
+.grip.b::after{left:50%;bottom:6px;height:4px;width:46px;margin-left:-23px}
+body.layout-notch .grip{display:block}
+body.layout-notch .stage:hover .grip{opacity:1}
+
+.hud{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:20;gap:10px;align-items:center;
+  padding:7px 14px;border-radius:980px;background:rgba(30,30,32,.7);color:#fff;font-size:13px;font-weight:600;
+  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  box-shadow:inset 0 0 0 .5px rgba(255,255,255,.16);font-variant-numeric:tabular-nums;transition:opacity .4s;pointer-events:none}
+.hud span+span{color:rgba(255,255,255,.62);font-weight:500}
+body.no-timer .hud{display:none !important}
+
+/* floating dock (always dark glass, like iOS media controls) */
+.dock{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;
+  align-items:center;flex-wrap:wrap;justify-content:center;gap:6px 10px;padding:10px 16px;max-width:calc(100vw - 20px);
+  border-radius:32px;background:rgba(30,30,32,.74);color:#fff;
+  -webkit-backdrop-filter:saturate(180%) blur(30px);backdrop-filter:saturate(180%) blur(30px);
+  box-shadow:0 12px 44px rgba(0,0,0,.5),inset 0 0 0 .5px rgba(255,255,255,.16);
+  transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.dock .ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;transition:background .15s,transform .1s,box-shadow .15s}
+.dock .ic:hover{background:rgba(255,255,255,.14)}
+.dock .ic:active{transform:scale(.9)}
+.dock .ic.on{background:var(--blue)}
+.dock .play{width:56px;height:56px;background:#fff;color:#000}
+.dock .play:hover{background:#e9e9ee}
+.dock .play svg{width:26px;height:26px}
+.dock .sep{width:1px;height:28px;background:rgba(255,255,255,.18)}
+.dock .grp{display:flex;align-items:center;gap:2px}
+/* hover-to-activate feedback */
+.dock .ic.arming{box-shadow:0 0 0 3px rgba(10,132,255,.75);background:rgba(255,255,255,.2)}
+.dock .play.arming{background:#d6d6dc}
+.dock .ic.fired{animation:fire .36s ease-out}
+@keyframes fire{0%{transform:scale(1)}35%{transform:scale(.84)}100%{transform:scale(1)}}
+.mini{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.65)}
+.mini input{width:116px;--fillc:#fff;--trackc:rgba(255,255,255,.26)}
+.mini output{min-width:56px;text-align:right;color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
+
+body.idle .dock{opacity:0;transform:translate(-50%,18px);pointer-events:none}
+body.idle .hud,body.idle .progress{opacity:0}
+body.idle .stage{cursor:none}
+
+.countdown{position:fixed;inset:0;z-index:18;place-items:center;background:rgba(0,0,0,.5);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}
+.countdown .n{font-size:min(34vmin,300px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+  animation:pop 1s cubic-bezier(.2,.8,.2,1) both}
+.countdown .t{position:absolute;bottom:22%;color:rgba(255,255,255,.7);font-size:15px}
+@keyframes pop{0%{transform:scale(.6);opacity:0}25%{transform:scale(1);opacity:1}100%{transform:scale(.94);opacity:.85}}
+
+.scrim{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.28)}
+.toast{position:fixed;top:calc(64px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-8px);z-index:70;opacity:0;pointer-events:none;
+  padding:9px 16px;border-radius:980px;background:rgba(30,30,32,.88);color:#fff;font-size:14px;font-weight:600;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 6px 24px rgba(0,0,0,.35);
+  transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.4);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.modal.open{display:grid}
+.sheet{width:min(460px,100%);max-height:86vh;overflow:auto;background:var(--card);border-radius:20px;padding:22px 22px 18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.sheet h2{margin:0 0 12px;font-size:20px;letter-spacing:-.01em}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:9px 18px;margin:0 0 16px;align-items:center}
+.keys dt{display:flex;gap:4px;flex-wrap:wrap}
+.keys dd{margin:0;color:var(--label2)}
+kbd{font:600 12px var(--ui);min-width:26px;text-align:center;padding:3px 7px;border-radius:6px;background:var(--fill);color:var(--label);
+  box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.sheet .btn{width:100%;justify-content:center}
+
+/* ───────────── Prompt mode ───────────── */
+body.mode-prompt{overflow:hidden;background:#000}
+body.mode-prompt .nav,body.mode-prompt .editor,body.mode-prompt .sidebar{display:none}
+body.mode-prompt .layout{display:block;padding:0;max-width:none}
+body.mode-prompt .stage{display:block}
+body.mode-prompt .dock{display:flex}
+body.mode-prompt .hud{display:flex}
+body.mode-prompt .countdown.show{display:grid}
+body.mode-prompt .settings{position:fixed;top:0;right:0;bottom:0;max-height:none;width:min(390px,100%);z-index:40;
+  padding:calc(12px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+  background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(30px);backdrop-filter:saturate(180%) blur(30px);
+  border-left:.5px solid var(--sep);transform:translateX(106%);transition:transform .38s cubic-bezier(.2,.8,.2,1);
+  box-shadow:-10px 0 40px rgba(0,0,0,.25)}
+body.mode-prompt.sheet-open .settings{transform:none}
+body.mode-prompt.sheet-open .scrim{display:block}
+body.mode-prompt .sheet-head{display:flex;align-items:center;justify-content:space-between;margin:0 4px 14px}
+body.mode-prompt #groups{display:block}
+.sheet-head h2{margin:0;font-size:20px;letter-spacing:-.01em}
+.sheet-head button{color:var(--blue);font-weight:600;font-size:16px;padding:6px 4px}
+
+/* ───────────── Notch layout: compact window right under the camera ───────────── */
+body.layout-notch .stage{inset:auto;top:var(--wy);left:calc(50% + var(--wx));width:min(var(--ww),100vw);height:min(var(--wh),100vh);
+  transform:translateX(-50%);border-radius:var(--wr);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 24px 60px rgba(0,0,0,.65)}
+body.layout-notch .progress{top:auto;bottom:0}
+body.layout-notch .dock{top:calc(var(--wy) + var(--wh) + 14px);bottom:auto;left:calc(50% + var(--wx))}
+body.layout-notch.idle .dock{transform:translate(-50%,-18px)}
+body.layout-notch .hud{top:auto;bottom:calc(18px + env(safe-area-inset-bottom));left:calc(50% + var(--wx))}
+body.layout-notch .countdown{inset:auto;top:var(--wy);left:calc(50% + var(--wx));width:min(var(--ww),100vw);height:min(var(--wh),100vh);
+  transform:translateX(-50%);border-radius:var(--wr)}
+body.layout-notch .countdown .n{font-size:calc(var(--wh) * .5)}
+body.layout-notch .countdown .t{display:none}
+
+@media (max-width:1260px){
+  .layout{grid-template-columns:292px minmax(0,1fr)}
+  .settings{grid-column:1 / -1;position:static;max-height:none}
+  #groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 18px;align-items:start}
+}
+@media (max-width:760px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{height:300px;min-height:0}
+  .editor{height:62vh;height:62dvh;min-height:360px}
+  .mini{flex:1 1 100%}
+  .mini input{flex:1;width:auto}
+  .mini span{min-width:38px}
+  .dock{padding:10px 12px;border-radius:28px}
+  .dock .sep.hide-s{display:none}
+  .btn .lbl{display:none}
+  .btn.primary{padding:9px 14px}
+  .ed-date{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;animation-duration:.01ms !important}}
+</style>
+</head>
+<body class="mode-edit">
+
+<!-- Icons (SF Symbols-style, stroke based) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path stroke="none" fill="currentColor" d="M8 5.6v12.8a1 1 0 0 0 1.52.85l10.4-6.4a1 1 0 0 0 0-1.7L9.52 4.75A1 1 0 0 0 8 5.6z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect stroke="none" fill="currentColor" x="6.2" y="5" width="4.1" height="14" rx="1.3"/><rect stroke="none" fill="currentColor" x="13.7" y="5" width="4.1" height="14" rx="1.3"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M6 5v14"/><path stroke="none" fill="currentColor" d="M19 6.2v11.6a.8.8 0 0 1-1.25.66L9.4 12.66a.8.8 0 0 1 0-1.32l8.35-5.8A.8.8 0 0 1 19 6.2z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M4.2 12a7.8 7.8 0 1 0 2.4-5.6"/><path d="M4.2 4.2v4.4h4.4"/><text x="12" y="15.4" text-anchor="middle" font-size="7.4" font-weight="700" fill="currentColor" stroke="none" font-family="-apple-system,Helvetica,Arial,sans-serif">10</text></symbol>
+  <symbol id="i-fwd" viewBox="0 0 24 24"><path d="M19.8 12a7.8 7.8 0 1 1-2.4-5.6"/><path d="M19.8 4.2v4.4h-4.4"/><text x="12" y="15.4" text-anchor="middle" font-size="7.4" font-weight="700" fill="currentColor" stroke="none" font-family="-apple-system,Helvetica,Arial,sans-serif">10</text></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M18 7h2M4 17h2M11 17h9"/><circle cx="15.5" cy="7" r="2.2"/><circle cx="8.5" cy="17" r="2.2"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15"/></symbol>
+  <symbol id="i-mirror" viewBox="0 0 24 24"><path d="M12 3v18" stroke-dasharray="2 2.6"/><path d="M9.2 7.5L3.8 18h5.4z"/><path d="M14.8 7.5L20.2 18h-5.4z"/></symbol>
+  <symbol id="i-notch" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="15" rx="2.6"/><path d="M8 3.5v4.2a1.3 1.3 0 0 0 1.3 1.3h5.4A1.3 1.3 0 0 0 16 7.7V3.5"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M5 7h14M7.5 12h9M10 17h4"/></symbol>
+  <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h.01M10 10h.01M14 10h.01M17.5 10h.01M8 14h8"/></symbol>
+  <symbol id="i-compose" viewBox="0 0 24 24"><path d="M11 4H6.5A2.5 2.5 0 0 0 4 6.5v11A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V13"/><path d="M18.4 3.6a1.8 1.8 0 0 1 2.5 2.5L12 15l-3.5 1 1-3.5z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M9 4h6l-1 6 3 3v1.5H7V13l3-3z"/><path d="M12 14.5V21"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v2M6.5 7l.8 11.2A2 2 0 0 0 9.3 20h5.4a2 2 0 0 0 2-1.8L17.5 7"/><path d="M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></symbol>
+</svg>
+
+<!-- ═════════ Navigation bar ═════════ -->
+<header class="nav">
+  <div class="brand">
+    <div class="app-icon"><svg class="i" style="stroke-width:2.2"><use href="#i-lines"/></svg></div>
+    <span>Teleprompter</span>
+  </div>
+  <div class="nav-actions">
+    <button class="btn round" id="btnHelp" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts"><svg class="i"><use href="#i-kbd"/></svg></button>
+    <button class="btn primary" id="btnStart" title="Start prompter (Ctrl/⌘ + Enter)"><svg class="i"><use href="#i-play"/></svg><span class="lbl">Start prompter</span></button>
+  </div>
+</header>
+
+<!-- ═════════ Scripts · editor · settings ═════════ -->
+<main class="layout">
+  <aside class="sidebar" aria-label="Scripts">
+    <div class="sb-head">
+      <h2>Scripts</h2>
+      <button class="icon-btn" id="btnNew" title="New script" aria-label="New script"><svg class="i"><use href="#i-compose"/></svg></button>
+    </div>
+    <div class="search"><svg class="i"><use href="#i-search"/></svg><input id="search" type="search" placeholder="Search" autocomplete="off" aria-label="Search scripts"></div>
+    <div class="note-list" id="noteList"></div>
+    <div class="sb-foot" id="sbFoot"></div>
+  </aside>
+
+  <section class="editor">
+    <div class="ed-bar">
+      <div class="ed-tools">
+        <button class="icon-btn" id="btnPin" title="Pin to top" aria-label="Pin"><svg class="i"><use href="#i-pin"/></svg></button>
+        <button class="icon-btn" id="btnDup" title="Duplicate" aria-label="Duplicate"><svg class="i"><use href="#i-copy"/></svg></button>
+        <button class="icon-btn danger" id="btnDel" title="Delete" aria-label="Delete"><svg class="i"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="ed-date" id="edDate"></div>
+      <div class="ed-tools">
+        <button class="tbtn" id="btnImport">Import</button>
+        <button class="tbtn" id="btnExport">Export</button>
+        <input type="file" id="file" accept=".txt,.md,text/plain" hidden>
+      </div>
+    </div>
+    <textarea id="script" spellcheck="true" placeholder="Paste or type your script here…&#10;&#10;The first line becomes the title. Start a line with # for a section heading, put [pauses] in brackets, and use // for private notes that won't show."></textarea>
+    <div class="ed-foot">
+      <span id="stats">0 words</span>
+      <span><code># Section</code> <code>[pause]</code> <code>**stress**</code> <code>// note</code></span>
+    </div>
+  </section>
+
+  <aside class="settings" id="settings" aria-label="Settings">
+    <div class="sheet-head"><h2>Settings</h2><button id="btnDone">Done</button></div>
+    <div id="groups"></div>
+    <button class="reset" id="btnReset">Reset to defaults</button>
+  </aside>
+</main>
+
+<!-- ═════════ Prompter ═════════ -->
+<div class="stage" id="stage" aria-label="Teleprompter">
+  <div class="flip" id="flip">
+    <div class="guide"></div>
+    <div class="content" id="content"></div>
+  </div>
+  <div class="fade t"></div><div class="fade b"></div>
+  <div class="progress" id="progress"></div>
+  <div class="grip l" id="gripL"></div><div class="grip r" id="gripR"></div><div class="grip b" id="gripB"></div>
+</div>
+<div class="hud" id="hud"><span id="hudTime">−0:00</span><span id="hudWpm">160 WPM</span></div>
+
+<div class="dock" id="dock">
+  <button class="ic" id="dExit" title="Exit (Esc)" aria-label="Exit"><svg class="i"><use href="#i-close"/></svg></button>
+  <div class="sep hide-s"></div>
+  <div class="grp">
+    <button class="ic" id="dRestart" title="Back to start (Home)" aria-label="Restart"><svg class="i"><use href="#i-restart"/></svg></button>
+    <button class="ic" id="dBack" title="Back 10 seconds (J) · hover" aria-label="Back 10 seconds"><svg class="i" style="width:26px;height:26px"><use href="#i-back"/></svg></button>
+    <button class="ic play" id="dPlay" title="Play / Pause (Space) · hover" aria-label="Play or pause"><svg class="i"><use id="playIcon" href="#i-play"/></svg></button>
+    <button class="ic" id="dFwd" title="Forward 10 seconds (L) · hover" aria-label="Forward 10 seconds"><svg class="i" style="width:26px;height:26px"><use href="#i-fwd"/></svg></button>
+  </div>
+  <div class="sep hide-s"></div>
+  <label class="mini"><span>Speed</span><span id="dSpeedSlot" style="display:contents"></span><output id="dSpeedO"></output></label>
+  <label class="mini"><span>Size</span><span id="dSizeSlot" style="display:contents"></span><output id="dSizeO"></output></label>
+  <div class="sep hide-s"></div>
+  <div class="grp">
+    <button class="ic" id="dMirror" title="Mirror text (M)" aria-label="Mirror text"><svg class="i"><use href="#i-mirror"/></svg></button>
+    <button class="ic" id="dLayout" title="Notch window (N)" aria-label="Toggle notch window"><svg class="i"><use href="#i-notch"/></svg></button>
+    <button class="ic" id="dSettings" title="Settings (S)" aria-label="Settings"><svg class="i"><use href="#i-sliders"/></svg></button>
+    <button class="ic" id="dFS" title="Full screen (F)" aria-label="Full screen"><svg class="i"><use href="#i-full"/></svg></button>
+  </div>
+</div>
+
+<div class="countdown" id="countdown"><div class="n" id="cdNum">3</div><div class="t">Tap to cancel</div></div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+  <div class="sheet">
+    <h2>Keyboard shortcuts</h2>
+    <dl class="keys">
+      <dt><kbd>Space</kbd></dt><dd>Play / pause</dd>
+      <dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Speed ± 5 WPM (Shift: ± 25)</dd>
+      <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Font size ∓ / ± (Shift: bigger steps)</dd>
+      <dt><kbd>J</kbd><kbd>L</kbd></dt><dd>Jump back / forward 10 seconds</dd>
+      <dt><kbd>PgUp</kbd><kbd>PgDn</kbd></dt><dd>Jump one screen</dd>
+      <dt><kbd>Home</kbd><kbd>R</kbd></dt><dd>Back to the start</dd>
+      <dt><kbd>N</kbd></dt><dd>Toggle notch window / full screen layout</dd>
+      <dt><kbd>M</kbd></dt><dd>Mirror text horizontally</dd>
+      <dt><kbd>G</kbd></dt><dd>Toggle reading guide</dd>
+      <dt><kbd>S</kbd></dt><dd>Open settings</dd>
+      <dt><kbd>F</kbd></dt><dd>Full screen</dd>
+      <dt><kbd>Esc</kbd></dt><dd>Close panel / exit prompter</dd>
+      <dt><kbd>Ctrl/⌘</kbd><kbd>Enter</kbd></dt><dd>Start prompter from the editor</dd>
+    </dl>
+    <p style="margin:0 0 14px;color:var(--label2);font-size:13px">While prompting, rest your pointer on Play, Back or Forward to trigger them without clicking. You can also scroll with the wheel, drag the text, or tap it to play / pause. In notch layout, drag the window's left, right or bottom edge to resize it.</p>
+    <button class="btn primary" id="btnModalClose">Done</button>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+/* ───────────── Helpers ───────────── */
+const $ = (s, r = document) => r.querySelector(s);
+const body = document.body;
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const h = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = sec => { sec = Math.max(0, Math.round(sec)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); };
+const rgba0 = hex => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},0)`; };
+const startOfDay = d => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x.getTime(); };
+
+/* ───────────── Config ───────────── */
+const HOVER_DELAY = 140;       // ms the pointer must rest on a control before it fires
+const HOVER_REPEAT = 1000;     // ms between repeats for back / forward while hovering
+const DEFAULTS = {
+  speed:160, size:64, lh:1.45, width:80, align:'center', font:'sans', bold:false, preset:'midnight',
+  mirrorX:false, mirrorY:false, guide:true, fade:true, timer:true, countdown:3, fullscreen:true, hover:true,
+  layout:'full', focus:38, focusN:6, winW:560, winH:200, winX:0, winY:0
+};
+const PRESETS = {
+  midnight:{ name:'Midnight', bg:'#000000', fg:'#ffffff', cue:'#ff9f0a' },
+  slate:   { name:'Slate',    bg:'#1c1c1e', fg:'#f5f5f7', cue:'#ff9f0a' },
+  amber:   { name:'Amber',    bg:'#000000', fg:'#ffd60a', cue:'#64d2ff' },
+  matrix:  { name:'Green',    bg:'#000000', fg:'#30d158', cue:'#ffd60a' },
+  paper:   { name:'Paper',    bg:'#ffffff', fg:'#111111', cue:'#d70015' },
+  sepia:   { name:'Sepia',    bg:'#f4ecd8', fg:'#3b2f1e', cue:'#b34700' }
+};
+const FONTS = {
+  sans:  '-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Inter,"Segoe UI",Roboto,Arial,sans-serif',
+  serif: '"New York","Iowan Old Style","Palatino Linotype",Georgia,serif',
+  mono:  'ui-monospace,"SF Mono",Menlo,Consolas,monospace'
+};
+const SAMPLE = `# Welcome
+Hello, and thanks for joining me today. [smile] This is a sample script so you can see how the teleprompter behaves.
+
+// This line is a private note. It never appears on screen.
+
+# How it works
+The text scrolls at a steady pace measured in **words per minute**, so the speed stays the same no matter how large you make the font. [pause]
+
+Use the slider to find your natural speaking pace. Most people are comfortable between 130 and 170 words per minute.
+
+# Tips
+Tap anywhere to pause. Drag the text or use the mouse wheel to jump around. Press the arrow keys to adjust speed and size without taking your eyes off the lens.
+
+Keep the reading line near the top of the screen, just under your camera, and let your eyes move only a little. [look at camera]
+
+Thanks for watching!`;
+const NOTCH_NOTE = `Notch setup
+Open Settings and choose Notch window under Layout. The text now lives in a compact box at the top-center of your screen, right under the camera.
+
+# Size it
+Drag the left, right or bottom edge of the box, or use the Window sliders. Use the Reading line slider to move the line you read closer to, or further from, the lens. [look at camera]
+
+# Control it hands-free
+Rest your pointer on Play, Back 10 or Forward 10 and they fire on their own. No clicking, so you never break eye contact. [smile]
+
+// Tip: press F for full screen so the box sits right under the notch.`;
+
+/* ───────────── State + storage ───────────── */
+const KEY = 'teleprompter.v2', KEY_OLD = 'teleprompter.v1';
+let saved = null;
+try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+if (!saved) {
+  try {
+    const old = JSON.parse(localStorage.getItem(KEY_OLD) || 'null');
+    if (old) saved = { settings: old.settings, notes: old.script && old.script.trim() ? [mkNote(old.script)] : [] };
+  } catch (e) {}
+}
+saved = saved || {};
+const S = Object.assign({}, DEFAULTS, saved.settings || {});
+
+function mkNote(bodyText, t) {
+  t = t || Date.now();
+  return { id: 'n' + t.toString(36) + Math.random().toString(36).slice(2, 6), body: bodyText || '', created: t, updated: t, pinned: false };
+}
+let notes = Array.isArray(saved.notes) && saved.notes.length ? saved.notes.filter(n => n && typeof n.body === 'string') : [];
+if (!notes.length) { notes = [mkNote(SAMPLE, Date.now()), mkNote(NOTCH_NOTE, Date.now() - 90000)]; }
+let activeId = notes.some(n => n.id === saved.activeId) ? saved.activeId : [...notes].sort((a, b) => b.updated - a.updated)[0].id;
+const active = () => notes.find(n => n.id === activeId);
+
+let persistT;
+function persistNow() { clearTimeout(persistT); try { localStorage.setItem(KEY, JSON.stringify({ settings: S, notes, activeId })); } catch (e) {} }
+function persist() { clearTimeout(persistT); persistT = setTimeout(persistNow, 250); }
+window.addEventListener('pagehide', persistNow);
+
+/* ───────────── Elements ───────────── */
+const editor = $('#script'), stage = $('#stage'), flip = $('#flip'), content = $('#content');
+const progressEl = $('#progress'), hudTime = $('#hudTime'), hudWpm = $('#hudWpm');
+const toastEl = $('#toast'), cdEl = $('#countdown'), cdNum = $('#cdNum'), playIcon = $('#playIcon');
+const noteList = $('#noteList'), search = $('#search');
+
+/* ───────────── Script parsing ───────────── */
+function parse(text) {
+  const blocks = []; let cur = [];
+  const flush = () => { if (cur.length) { blocks.push({ t:'p', lines:cur }); cur = []; } };
+  for (const raw of text.replace(/\r/g, '').split('\n')) {
+    const l = raw.trimEnd();
+    if (/^\s*\/\//.test(l)) continue;                 // private note
+    if (!l.trim()) { flush(); continue; }
+    const m = l.match(/^#{1,3}\s+(.*)$/);
+    if (m) { flush(); blocks.push({ t:'h', text:m[1] }); continue; }
+    cur.push(l);
+  }
+  flush();
+  return blocks;
+}
+function countWords(text) {
+  let n = 0;
+  for (const b of parse(text)) if (b.t === 'p') for (const l of b.lines) {
+    const m = l.replace(/\[[^\]]*\]/g, ' ').replace(/\*\*/g, '').trim().match(/\S+/g);
+    if (m) n += m.length;
+  }
+  return n;
+}
+const inline = l => esc(l).replace(/\[([^\]]+)\]/g, '<span class="cue">[$1]</span>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+/* ───────────── Scroll engine ───────────── */
+let mode = 'edit', script = '', words = 1, pos = 0, max = 0, textH = 0, pxPerSec = 0;
+let playing = false, last = 0, raf = 0, dragging = false;
+const getFocus = () => (S.layout === 'notch' ? S.focusN : S.focus);
+
+function renderScript() {
+  const blocks = parse(script);
+  let html = '';
+  for (const b of blocks) html += b.t === 'h' ? `<h2>${esc(b.text)}</h2>` : `<p>${b.lines.map(inline).join('<br>')}</p>`;
+  if (!html) html = '<p class="empty">Nothing to read yet. Add your script in the editor.</p>';
+  content.innerHTML = html;
+  words = Math.max(1, countWords(script));
+}
+function measure() {
+  const H = stage.clientHeight, F = getFocus() / 100;
+  const padTop = H * F, padBot = H * (1 - F);
+  content.style.paddingTop = padTop + 'px';
+  content.style.paddingBottom = padBot + 'px';
+  const total = content.offsetHeight;
+  max = Math.max(0, total - H);
+  textH = Math.max(1, total - padTop - padBot);
+  updateSpeed();
+}
+function updateSpeed() { pxPerSec = (S.speed / 60) * (textH / words); }
+function apply() {
+  content.style.transform = `translate3d(-50%,${-pos}px,0)`;
+  progressEl.style.width = (max ? pos / max * 100 : 0) + '%';
+  const rem = pxPerSec > 0 ? (max - pos) / pxPerSec : 0;
+  const t = '−' + fmt(rem);
+  if (hudTime.textContent !== t) hudTime.textContent = t;
+}
+function relayout() {
+  if (mode !== 'prompt') return;
+  const r = max > 0 ? pos / max : 0;
+  measure(); pos = r * max; apply();
+}
+function tick(t) {
+  if (!playing) return;
+  const dt = Math.min(0.1, (t - last) / 1000); last = t;
+  if (!dragging) pos += pxPerSec * dt;
+  if (pos >= max) { pos = max; apply(); setPlaying(false); toast('End of script'); return; }
+  apply();
+  raf = requestAnimationFrame(tick);
+}
+function setPlaying(v) {
+  if (v && max > 0 && pos >= max - 1) { pos = 0; apply(); }
+  playing = v;
+  body.classList.toggle('playing', v);
+  playIcon.setAttribute('href', v ? '#i-pause' : '#i-play');
+  cancelAnimationFrame(raf);
+  if (v) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  wake();
+}
+function seek(d) { pos = clamp(pos + d, 0, max); apply(); }
+
+/* countdown */
+let cd = null;
+function startCountdown(n) {
+  let c = n; cdNum.textContent = c; cdEl.classList.add('show'); pulse();
+  cd = setInterval(() => {
+    c--;
+    if (c <= 0) { cancelCountdown(); setPlaying(true); }
+    else { cdNum.textContent = c; pulse(); }
+  }, 1000);
+}
+function cancelCountdown() { if (cd) { clearInterval(cd); cd = null; } cdEl.classList.remove('show'); }
+function pulse() { cdNum.style.animation = 'none'; void cdNum.offsetWidth; cdNum.style.animation = ''; }
+
+function togglePlay() {
+  if (cd) { cancelCountdown(); return; }
+  if (playing) { setPlaying(false); return; }
+  if (pos <= 2 && S.countdown > 0) startCountdown(S.countdown);
+  else setPlaying(true);
+}
+
+/* ───────────── Controls auto-hide ───────────── */
+let idleT, hoverBlock = 0;
+function wake() {
+  if (body.classList.contains('idle')) hoverBlock = performance.now() + 600;   // don't fire hover controls the instant the dock reappears
+  body.classList.remove('idle');
+  clearTimeout(idleT);
+  if (mode === 'prompt' && playing && !body.classList.contains('sheet-open'))
+    idleT = setTimeout(() => body.classList.add('idle'), 2800);
+}
+
+/* ───────────── Toast ───────────── */
+let toastT;
+function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 1500); }
+
+/* ───────────── Settings model ───────────── */
+const sync = {};
+const onSync = (k, f) => { (sync[k] = sync[k] || []).push(f); f(); };
+const syncAll = () => Object.values(sync).forEach(a => a.forEach(f => f()));
+const get = k => (k === 'focusCur' ? getFocus() : S[k]);
+const RELAYOUT_KEYS = ['size','lh','width','font','bold','align','layout','winW','winH','winY','focus','focusN'];
+
+function set(k, v) {
+  if (k === 'focusCur') k = S.layout === 'notch' ? 'focusN' : 'focus';
+  S[k] = v; persist(); applyStyle();
+  if (RELAYOUT_KEYS.includes(k)) relayout();
+  if (k === 'speed') { updateSpeed(); apply(); updateStats(); }
+  (sync[k] || []).forEach(f => f());
+  if (['layout','focus','focusN'].includes(k)) (sync.focusCur || []).forEach(f => f());
+}
+
+function applyStyle() {
+  const p = PRESETS[S.preset] || PRESETS.midnight, r = document.documentElement.style;
+  r.setProperty('--pbg', p.bg); r.setProperty('--pbg0', rgba0(p.bg)); r.setProperty('--pfg', p.fg); r.setProperty('--cue', p.cue);
+  r.setProperty('--fs', S.size + 'px'); r.setProperty('--lh', S.lh); r.setProperty('--tw', S.width + '%');
+  r.setProperty('--align', S.align); r.setProperty('--pfont', FONTS[S.font] || FONTS.sans); r.setProperty('--pw', S.bold ? 800 : 600);
+  r.setProperty('--focus', getFocus() + '%');
+  r.setProperty('--wx', S.winX + 'px'); r.setProperty('--wy', S.winY + 'px');
+  r.setProperty('--ww', S.winW + 'px'); r.setProperty('--wh', S.winH + 'px');
+  r.setProperty('--wr', S.winY > 0 ? '28px' : '0 0 28px 28px');
+  flip.style.transform = `scale(${S.mirrorX ? -1 : 1},${S.mirrorY ? -1 : 1})`;
+  stage.classList.toggle('no-guide', !S.guide);
+  stage.classList.toggle('no-fade', !S.fade);
+  body.classList.toggle('no-timer', !S.timer);
+  body.classList.toggle('layout-notch', S.layout === 'notch');
+  hudWpm.textContent = S.speed + ' WPM';
+}
+
+function mkRange(key, min, max_, step) {
+  const el = document.createElement('input');
+  el.type = 'range'; el.min = min; el.max = max_; el.step = step; el.setAttribute('aria-label', key);
+  el.addEventListener('input', () => set(key, parseFloat(el.value)));
+  el.addEventListener('change', () => el.blur());
+  onSync(key, () => { const v = get(key); el.value = v; el.style.setProperty('--p', ((v - min) / (max_ - min) * 100) + '%'); });
+  return el;
+}
+
+function notchPreset() {
+  Object.assign(S, { layout:'notch', winW:560, winH:190, winX:0, winY:0, focusN:6, size:40, width:92 });
+  persist(); applyStyle(); syncAll(); relayout(); toast('Notch preset applied');
+}
+
+const SCHEMA = [
+  { title:'Layout', foot:'Notch window puts a compact reading box at the top-center of the screen, right under the camera. Drag its left, right or bottom edge to resize it.', items:[
+    { key:'layout', label:'Prompter', type:'seg', opts:[['full','Full screen'],['notch','Notch window']] },
+    { key:'winW', label:'Window width', type:'range', min:240, max:1600, step:10, fmt:v => v + ' px', only:'notch' },
+    { key:'winH', label:'Window height', type:'range', min:80, max:700, step:10, fmt:v => v + ' px', only:'notch' },
+    { key:'winX', label:'Horizontal offset', type:'range', min:-600, max:600, step:10, fmt:v => (v > 0 ? '+' : '') + v + ' px', only:'notch' },
+    { key:'winY', label:'Top offset', type:'range', min:0, max:300, step:5, fmt:v => v + ' px', only:'notch' },
+    { key:'focusCur', label:'Reading line position', type:'range', min:2, max:70, step:1, fmt:v => v + '%' },
+    { type:'button', label:'Fit under camera (preset)', fn:notchPreset }
+  ]},
+  { title:'Scrolling', items:[
+    { key:'speed', label:'Speed', type:'range', min:30, max:400, step:5, fmt:v => v + ' WPM' },
+    { key:'countdown', label:'Countdown', type:'seg', opts:[[0,'Off'],[3,'3 s'],[5,'5 s'],[10,'10 s']] }
+  ]},
+  { title:'Text', items:[
+    { key:'size', label:'Font size', type:'range', min:20, max:200, step:2, fmt:v => v + ' px' },
+    { key:'lh', label:'Line spacing', type:'range', min:1, max:2.2, step:.05, fmt:v => v.toFixed(2) },
+    { key:'width', label:'Text width', type:'range', min:30, max:100, step:2, fmt:v => v + '%' },
+    { key:'align', label:'Alignment', type:'seg', opts:[['left','Left'],['center','Center'],['right','Right']] },
+    { key:'font', label:'Typeface', type:'seg', opts:[['sans','Sans'],['serif','Serif'],['mono','Mono']] },
+    { key:'bold', label:'Bold text', type:'switch' }
+  ]},
+  { title:'Appearance', items:[
+    { key:'preset', label:'Colors', type:'swatch' },
+    { key:'guide', label:'Reading guide', type:'switch' },
+    { key:'fade', label:'Edge fade', type:'switch' },
+    { key:'timer', label:'Show time remaining', type:'switch' }
+  ]},
+  { title:'Mirror', foot:'Flip the text when reading through beam-splitter teleprompter glass.', items:[
+    { key:'mirrorX', label:'Flip horizontally', type:'switch' },
+    { key:'mirrorY', label:'Flip vertically', type:'switch' }
+  ]},
+  { title:'General', foot:'Hover controls: rest the pointer on Play, Back 10 or Forward 10 and they fire without a click. Back and Forward repeat while you keep hovering.', items:[
+    { key:'hover', label:'Hover to control', type:'switch' },
+    { key:'fullscreen', label:'Full screen on start', type:'switch' }
+  ]}
+];
+
+function buildRow(it) {
+  let row;
+  if (it.type === 'range') {
+    row = h('div', 'row stack'); const top = h('div', 'row-top'), out = h('span', 'val');
+    top.append(h('span', '', it.label), out);
+    row.append(top, mkRange(it.key, it.min, it.max, it.step));
+    onSync(it.key, () => out.textContent = it.fmt(get(it.key)));
+  } else if (it.type === 'seg') {
+    row = h('div', 'row stack'); const seg = h('div', 'seg'), btns = [];
+    row.append(h('span', '', it.label), seg);
+    it.opts.forEach(([val, name]) => {
+      const b = h('button', '', name); b.type = 'button';
+      b.addEventListener('click', () => set(it.key, val)); seg.append(b); btns.push([val, b]);
+    });
+    onSync(it.key, () => btns.forEach(([val, b]) => b.classList.toggle('on', String(val) === String(S[it.key]))));
+  } else if (it.type === 'switch') {
+    row = h('label', 'row'); const sw = h('span', 'switch'), inp = document.createElement('input');
+    inp.type = 'checkbox'; sw.append(inp, h('i'));
+    row.append(h('span', '', it.label), sw);
+    inp.addEventListener('change', () => { set(it.key, inp.checked); inp.blur(); });
+    onSync(it.key, () => inp.checked = !!S[it.key]);
+  } else if (it.type === 'swatch') {
+    row = h('div', 'row stack'); const top = h('div', 'row-top'), out = h('span', 'val'), wrap = h('div', 'swatches'), btns = [];
+    top.append(h('span', '', it.label), out); row.append(top, wrap);
+    Object.entries(PRESETS).forEach(([id, p]) => {
+      const b = h('button', 'sw'); b.type = 'button'; b.title = p.name; b.setAttribute('aria-label', p.name);
+      b.style.background = `linear-gradient(135deg,${p.bg} 50%,${p.fg} 50%)`;
+      b.addEventListener('click', () => set(it.key, id)); wrap.append(b); btns.push([id, b]);
+    });
+    onSync(it.key, () => { btns.forEach(([id, b]) => b.classList.toggle('on', id === S[it.key])); out.textContent = (PRESETS[S[it.key]] || {}).name || ''; });
+  } else if (it.type === 'button') {
+    row = h('button', 'row action', it.label); row.type = 'button'; row.addEventListener('click', it.fn);
+  }
+  if (it.only) row.classList.add('only-' + it.only);
+  return row;
+}
+function buildSettings() {
+  const root = $('#groups');
+  SCHEMA.forEach(g => {
+    const sec = h('section', 'group'), list = h('div', 'list');
+    sec.append(h('h3', '', g.title));
+    g.items.forEach(it => list.append(buildRow(it)));
+    sec.append(list);
+    if (g.foot) sec.append(h('p', 'foot', g.foot));
+    root.append(sec);
+  });
+  // dock sliders share the same state
+  $('#dSpeedSlot').append(mkRange('speed', 30, 400, 5));
+  $('#dSizeSlot').append(mkRange('size', 20, 200, 2));
+  onSync('speed', () => $('#dSpeedO').textContent = S.speed + ' WPM');
+  onSync('size',  () => $('#dSizeO').textContent = S.size + ' px');
+  onSync('mirrorX', () => $('#dMirror').classList.toggle('on', S.mirrorX));
+  onSync('layout',  () => $('#dLayout').classList.toggle('on', S.layout === 'notch'));
+}
+
+/* ───────────── Scripts library (Apple Notes-style) ───────────── */
+function summarize(text) {
+  let title = '', prev = [];
+  for (const raw of text.replace(/\r/g, '').split('\n')) {
+    const l = raw.trim();
+    if (!l || l.startsWith('//')) continue;
+    const c = l.replace(/^#{1,3}\s+/, '').replace(/\*\*/g, '');
+    if (!title) { title = c; continue; }
+    prev.push(c);
+    if (prev.join(' ').length > 140) break;
+  }
+  return { title: title.slice(0, 80) || 'New Script', preview: prev.join(' ').slice(0, 140) || 'No additional text' };
+}
+function fmtDate(ts) {
+  const d = new Date(ts), diff = (startOfDay(Date.now()) - startOfDay(d)) / 864e5;
+  if (diff <= 0) return d.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
+  if (diff === 1) return 'Yesterday';
+  if (diff < 7) return d.toLocaleDateString([], { weekday:'long' });
+  return d.toLocaleDateString([], { year:'2-digit', month:'numeric', day:'numeric' });
+}
+const fullDate = ts => new Date(ts).toLocaleString([], { day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'2-digit' });
+function groupOf(n, now) {
+  if (n.pinned) return 'Pinned';
+  const d = new Date(n.updated), diff = (startOfDay(now) - startOfDay(d)) / 864e5;
+  if (diff <= 0) return 'Today';
+  if (diff <= 1) return 'Yesterday';
+  if (diff <= 7) return 'Previous 7 Days';
+  if (diff <= 30) return 'Previous 30 Days';
+  return d.getFullYear() === now.getFullYear() ? d.toLocaleDateString([], { month:'long' }) : String(d.getFullYear());
+}
+function noteEl(n) {
+  const sum = summarize(n.body), w = countWords(n.body);
+  const b = h('button', 'note' + (n.id === activeId ? ' on' : '')); b.type = 'button'; b.dataset.id = n.id;
+  const t = h('div', 'nt'); t.append(h('span', 'title', sum.title));
+  if (n.pinned) { const p = h('span', 'pin'); p.innerHTML = '<svg class="i" viewBox="0 0 24 24"><use href="#i-pin"/></svg>'; t.append(p); }
+  const m = h('div', 'nm'); m.append(h('span', 'nd', fmtDate(n.updated)), h('span', 'np', sum.preview));
+  const s = h('div', 'ns', w ? `${fmt(w / S.speed * 60)} min · ${w.toLocaleString()} words` : 'Empty');
+  b.append(t, m, s);
+  return b;
+}
+function renderList() {
+  const q = search.value.trim().toLowerCase(), now = new Date();
+  const list = notes.filter(n => !q || n.body.toLowerCase().includes(q)).sort((a, b) => (b.pinned - a.pinned) || (b.updated - a.updated));
+  noteList.textContent = '';
+  let g = null;
+  for (const n of list) {
+    const gk = groupOf(n, now);
+    if (gk !== g) { g = gk; noteList.append(h('div', 'grp-h', g)); }
+    noteList.append(noteEl(n));
+  }
+  if (!list.length) noteList.append(h('div', 'empty-list', q ? 'No results' : 'No scripts'));
+  $('#sbFoot').textContent = notes.length + (notes.length === 1 ? ' script' : ' scripts');
+}
+let listT;
+const scheduleList = () => { clearTimeout(listT); listT = setTimeout(renderList, 160); };
+
+function updateMeta() {
+  const n = active();
+  $('#edDate').textContent = n ? 'Edited ' + fullDate(n.updated) : '';
+  $('#btnPin').classList.toggle('on', !!(n && n.pinned));
+  $('#btnPin').title = n && n.pinned ? 'Unpin' : 'Pin to top';
+}
+function updateStats() {
+  const w = countWords(editor.value), c = editor.value.length;
+  $('#stats').textContent = `${w.toLocaleString()} word${w === 1 ? '' : 's'} · ${c.toLocaleString()} characters · ≈ ${fmt(w / S.speed * 60)} at ${S.speed} WPM`;
+}
+function selectNote(id, focus) {
+  if (id === activeId) { if (focus) editor.focus(); return; }
+  const cur = active();
+  if (cur && !cur.body.trim() && notes.length > 1) notes = notes.filter(n => n.id !== cur.id);   // like Notes: empty notes vanish
+  activeId = id;
+  editor.value = active().body;
+  updateStats(); updateMeta(); renderList(); persist();
+  if (focus) editor.focus();
+}
+function createNote(text) {
+  const cur = active();
+  if (!text && cur && !cur.body.trim()) { editor.focus(); return; }
+  const n = mkNote(text || '');
+  notes.unshift(n); search.value = '';
+  selectNote(n.id, true);
+}
+$('#btnNew').onclick = () => createNote('');
+noteList.addEventListener('click', e => { const b = e.target.closest('.note'); if (b) selectNote(b.dataset.id); });
+noteList.addEventListener('keydown', e => {
+  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+  const items = [...noteList.querySelectorAll('.note')], i = items.findIndex(x => x === document.activeElement);
+  if (i < 0) return;
+  e.preventDefault();
+  const nx = items[clamp(i + (e.key === 'ArrowDown' ? 1 : -1), 0, items.length - 1)];
+  selectNote(nx.dataset.id);
+  const el = noteList.querySelector('.note.on'); if (el) el.focus();
+});
+search.addEventListener('input', renderList);
+
+$('#btnPin').onclick = () => { const n = active(); n.pinned = !n.pinned; persist(); updateMeta(); renderList(); };
+$('#btnDup').onclick = () => { const n = active(); if (n.body.trim()) { createNote(n.body); toast('Script duplicated'); } };
+$('#btnDel').onclick = () => {
+  const n = active(); if (!n) return;
+  if (n.body.trim() && !confirm(`Delete “${summarize(n.body).title}”?`)) return;
+  notes = notes.filter(x => x.id !== n.id);
+  if (!notes.length) notes.push(mkNote(''));
+  activeId = [...notes].sort((a, b) => (b.pinned - a.pinned) || (b.updated - a.updated))[0].id;
+  editor.value = active().body; updateStats(); updateMeta(); renderList(); persist();
+};
+editor.addEventListener('input', () => {
+  const n = active(); n.body = editor.value; n.updated = Date.now();
+  persist(); updateStats(); updateMeta(); scheduleList();
+});
+$('#btnImport').onclick = () => $('#file').click();
+$('#file').onchange = e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => { createNote(String(rd.result)); toast('Imported ' + f.name); };
+  rd.readAsText(f); e.target.value = '';
+};
+$('#btnExport').onclick = () => {
+  const n = active(), name = (summarize(n.body).title.replace(/[^\w\- ]+/g, '').trim() || 'script').slice(0, 60);
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([editor.value], { type:'text/plain' })); a.download = name + '.txt';
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+$('#btnReset').onclick = () => {
+  if (!confirm('Reset all settings to their defaults?')) return;
+  Object.assign(S, DEFAULTS); persist(); applyStyle(); syncAll(); relayout(); updateStats();
+};
+
+/* ───────────── Fullscreen + wake lock ───────────── */
+const isFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+function toggleFS() {
+  try {
+    if (isFS()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else { const el = document.documentElement, f = el.requestFullscreen || el.webkitRequestFullscreen; if (f) { const p = f.call(el); if (p && p.catch) p.catch(() => {}); } }
+  } catch (e) {}
+}
+let wl = null;
+async function lockScreen() { try { if ('wakeLock' in navigator) wl = await navigator.wakeLock.request('screen'); } catch (e) {} }
+function unlockScreen() { try { wl && wl.release(); } catch (e) {} wl = null; }
+document.addEventListener('visibilitychange', () => { if (mode === 'prompt' && document.visibilityState === 'visible') lockScreen(); });
+
+/* ───────────── Mode switching ───────────── */
+function enter() {
+  script = editor.value; persistNow();
+  if (!script.trim()) { toast('Add some text first'); editor.focus(); return; }
+  renderScript();
+  mode = 'prompt';
+  body.classList.replace('mode-edit', 'mode-prompt');
+  if (S.fullscreen && !isFS()) toggleFS();
+  lockScreen();
+  requestAnimationFrame(() => { measure(); pos = 0; apply(); wake(); });
+}
+function exit() {
+  cancelCountdown(); setPlaying(false); closeSheet();
+  mode = 'edit'; body.classList.replace('mode-prompt', 'mode-edit'); body.classList.remove('idle');
+  unlockScreen(); if (isFS()) toggleFS();
+}
+function openSheet() { body.classList.add('sheet-open'); wake(); }
+function closeSheet() { body.classList.remove('sheet-open'); wake(); }
+const toggleSheet = () => body.classList.contains('sheet-open') ? closeSheet() : openSheet();
+const modal = $('#modal');
+const openModal = () => modal.classList.add('open');
+const closeModal = () => modal.classList.remove('open');
+const toggleLayout = () => { set('layout', S.layout === 'notch' ? 'full' : 'notch'); toast(S.layout === 'notch' ? 'Notch window' : 'Full screen'); };
+
+$('#btnStart').onclick = enter;
+$('#btnHelp').onclick = openModal;
+$('#btnModalClose').onclick = closeModal;
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+$('#btnDone').onclick = closeSheet;
+$('#scrim').onclick = closeSheet;
+$('#dExit').onclick = exit;
+$('#dRestart').onclick = () => { pos = 0; apply(); $('#dRestart').blur(); };
+$('#dMirror').onclick = () => { set('mirrorX', !S.mirrorX); $('#dMirror').blur(); };
+$('#dLayout').onclick = () => { toggleLayout(); $('#dLayout').blur(); };
+$('#dSettings').onclick = () => { toggleSheet(); $('#dSettings').blur(); };
+$('#dFS').onclick = () => { toggleFS(); $('#dFS').blur(); };
+
+/* ───────────── Hover-to-activate controls (Play · Back 10 · Forward 10) ───────────── */
+function bindHover(btn, fn, repeat) {
+  let t = null, rep = null, ptr = 'mouse';
+  const flash = () => { btn.classList.remove('fired'); void btn.offsetWidth; btn.classList.add('fired'); };
+  const fire = () => { fn(); flash(); };
+  const clear = () => { clearTimeout(t); clearInterval(rep); btn.classList.remove('arming'); };
+  btn.addEventListener('pointerdown', e => { ptr = e.pointerType; });
+  btn.addEventListener('pointerenter', e => {
+    if (!S.hover || e.pointerType !== 'mouse' || performance.now() < hoverBlock) return;
+    clear(); btn.classList.add('arming');
+    t = setTimeout(() => {
+      btn.classList.remove('arming'); fire();
+      if (repeat) rep = setInterval(fire, repeat);
+    }, HOVER_DELAY);
+  });
+  btn.addEventListener('pointerleave', clear);
+  btn.addEventListener('click', e => {
+    if (S.hover && ptr === 'mouse' && e.detail > 0) return;      // mouse already handled by hover
+    fire(); btn.blur();                                           // touch, pen, keyboard, or hover mode off
+  });
+}
+bindHover($('#dPlay'), togglePlay);
+bindHover($('#dBack'), () => seek(-pxPerSec * 10), HOVER_REPEAT);
+bindHover($('#dFwd'),  () => seek(pxPerSec * 10),  HOVER_REPEAT);
+
+/* ───────────── Stage interaction (tap, drag, wheel) ───────────── */
+const dir = () => (S.mirrorY ? -1 : 1);
+let drag = null;
+stage.addEventListener('pointerdown', e => {
+  drag = { y:e.clientY, start:pos, moved:false };
+  try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+});
+stage.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dy = e.clientY - drag.y;
+  if (!drag.moved && Math.abs(dy) > 6) { drag.moved = true; dragging = true; }
+  if (drag.moved) { pos = clamp(drag.start - dy * dir(), 0, max); apply(); }
+});
+stage.addEventListener('pointerup', () => {
+  if (!drag) return;
+  const moved = drag.moved; drag = null; dragging = false;
+  if (!moved) togglePlay();
+});
+stage.addEventListener('pointercancel', () => { drag = null; dragging = false; });
+stage.addEventListener('wheel', e => { e.preventDefault(); pos = clamp(pos + e.deltaY * dir(), 0, max); apply(); }, { passive:false });
+document.addEventListener('pointermove', () => { if (mode === 'prompt') wake(); });
+document.addEventListener('pointerdown', () => { if (mode === 'prompt') wake(); });
+
+/* notch window resize grips (symmetric around the center) */
+function bindGrip(el, axis, sign) {
+  el.addEventListener('pointerdown', e => {
+    e.stopPropagation(); e.preventDefault();
+    try { el.setPointerCapture(e.pointerId); } catch (_) {}
+    const sx = e.clientX, sy = e.clientY, w0 = S.winW, h0 = S.winH;
+    const mv = ev => {
+      if (axis === 'x') set('winW', clamp(Math.round((w0 + sign * (ev.clientX - sx) * 2) / 2) * 2, 240, Math.max(240, innerWidth)));
+      else set('winH', clamp(Math.round(h0 + (ev.clientY - sy)), 80, Math.max(80, innerHeight)));
+    };
+    const up = () => { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); };
+    el.addEventListener('pointermove', mv); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+  });
+}
+bindGrip($('#gripL'), 'x', -1); bindGrip($('#gripR'), 'x', 1); bindGrip($('#gripB'), 'y', 1);
+
+/* ───────────── Keyboard ───────────── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (modal.classList.contains('open')) return closeModal();
+    if (mode === 'prompt') { if (body.classList.contains('sheet-open')) closeSheet(); else exit(); }
+    else if (e.target === search) { search.value = ''; renderList(); search.blur(); }
+    return;
+  }
+  if (e.target === editor) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); enter(); }
+    return;
+  }
+  if (e.target === search) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === '?') { openModal(); return; }
+  if (mode !== 'prompt') return;
+  if (e.target.matches && e.target.matches('button,input[type=range]')) e.target.blur();
+  wake();
+  const k = e.key, big = e.shiftKey;
+  const speed = d => { set('speed', clamp(S.speed + d, 30, 400)); toast(S.speed + ' WPM'); };
+  const size  = d => { set('size', clamp(S.size + d, 20, 200)); toast(S.size + ' px'); };
+  switch (k) {
+    case ' ': case 'k': case 'K': e.preventDefault(); togglePlay(); break;
+    case 'ArrowUp':   e.preventDefault(); speed(big ? 25 : 5); break;
+    case 'ArrowDown': e.preventDefault(); speed(big ? -25 : -5); break;
+    case 'ArrowRight': case '+': case '=': e.preventDefault(); size(big ? 8 : 2); break;
+    case 'ArrowLeft':  case '-': case '_': e.preventDefault(); size(big ? -8 : -2); break;
+    case 'j': case 'J': seek(-pxPerSec * 10); break;
+    case 'l': case 'L': seek(pxPerSec * 10); break;
+    case 'PageDown': e.preventDefault(); seek(stage.clientHeight * .8); break;
+    case 'PageUp':   e.preventDefault(); seek(-stage.clientHeight * .8); break;
+    case 'Home': case 'r': case 'R': e.preventDefault(); pos = 0; apply(); break;
+    case 'End': e.preventDefault(); pos = max; apply(); break;
+    case 'n': case 'N': toggleLayout(); break;
+    case 'm': case 'M': set('mirrorX', !S.mirrorX); toast(S.mirrorX ? 'Mirrored' : 'Normal'); break;
+    case 'g': case 'G': set('guide', !S.guide); break;
+    case 's': case 'S': toggleSheet(); break;
+    case 'f': case 'F': toggleFS(); break;
+  }
+});
+
+/* ───────────── Resize ───────────── */
+let rz;
+window.addEventListener('resize', () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(relayout); });
+document.addEventListener('fullscreenchange', () => setTimeout(relayout, 60));
+
+/* ───────────── Init ───────────── */
+buildSettings();
+applyStyle();
+editor.value = active().body;
+updateStats(); updateMeta(); renderList();
+})();
+</script>
+</body>
+</html>
