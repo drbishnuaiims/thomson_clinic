@@ -164,6 +164,25 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 .script-manager-note{font-size:11px;color:var(--muted);line-height:1.45;margin:10px 2px 0}
 @media(max-width:540px){.script-manager summary{padding:14px}.script-manager-body{padding:0 12px 13px}.script-manager-tools{grid-template-columns:minmax(0,1fr) auto;gap:7px}.script-manager-actions{display:grid;grid-template-columns:1fr 1fr}.script-manager-actions .wide{grid-column:1/-1}.script-manager-body textarea{min-height:145px}}
 
+
+/* Collapsible teleprompter appearance controls */
+.prompter-controls-card{margin-top:12px}
+.prompter-control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prompter-control{min-width:0}
+.prompter-control>label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;color:var(--muted);font-size:11px}
+.prompter-control output{color:var(--text);font-size:11px;font-weight:650;font-variant-numeric:tabular-nums}
+.prompter-control select{width:100%;min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);padding:10px 11px;font-size:12px}
+.prompter-control.range{padding:10px 11px 7px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--text) 2.5%,transparent)}
+.prompter-control input[type=range]{width:100%;accent-color:var(--blue);margin:2px 0 0;min-height:22px}
+.prompter-toggle-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:13px}
+.prompter-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.prompter-toggle span{min-width:0}.prompter-toggle strong{display:block;font-size:12px;font-weight:650}.prompter-toggle small{display:block;margin-top:3px;color:var(--muted);font-size:10px;line-height:1.3}
+.prompter-toggle input{appearance:none;flex:none;width:35px;height:21px;border-radius:999px;background:#8e8e93;position:relative;cursor:pointer}
+.prompter-toggle input:checked{background:var(--green)}
+.prompter-toggle input:before{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:transform .18s}
+.prompter-toggle input:checked:before{transform:translateX(14px)}
+@media(max-width:540px){.prompter-control-grid,.prompter-toggle-grid{grid-template-columns:1fr}.prompter-control-grid{gap:9px}.prompter-toggle{padding:10px 11px}}
+
 /* Compact recording library */
 .recordings-card{display:block;margin-top:18px;overflow:hidden}
 .recordings-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid var(--line)}
@@ -279,6 +298,32 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
             <button id="scriptManagerUse" class="btn primary wide" type="button">Use in teleprompter</button>
           </div>
           <p class="script-manager-note" id="scriptManagerStatus" role="status">Scripts are saved in this browser on this device. The first line is used as the script title in the teleprompter.</p>
+        </div>
+      </details>
+
+      <details id="prompterControlsCard" class="card script-manager prompter-controls-card">
+        <summary><span class="script-manager-title"><strong>Teleprompter appearance & controls</strong><span>Adjust font, theme, scrolling, reading layout, and playback behavior.</span></span><span class="script-manager-count" aria-hidden="true">Aa</span></summary>
+        <div class="script-manager-body">
+          <div class="prompter-control-grid">
+            <div class="prompter-control"><label for="pcTheme">Theme</label><select id="pcTheme"><option value="midnight">Midnight · white on black</option><option value="slate">Slate</option><option value="amber">Amber</option><option value="matrix">Green</option><option value="paper">Paper</option><option value="sepia">Sepia</option></select></div>
+            <div class="prompter-control"><label for="pcFont">Font family</label><select id="pcFont"><option value="sans">System sans-serif</option><option value="serif">Serif</option><option value="mono">Monospace</option></select></div>
+            <div class="prompter-control"><label for="pcAlign">Text alignment</label><select id="pcAlign"><option value="center">Center</option><option value="left">Left</option><option value="right">Right</option></select></div>
+            <div class="prompter-control"><label for="pcLayout">Prompter layout</label><select id="pcLayout"><option value="notch">Compact camera/notch window</option><option value="full">Full-screen reader</option></select></div>
+            <div class="prompter-control range"><label for="pcSize">Font size <output id="pcSizeOut">40 px</output></label><input id="pcSize" type="range" min="20" max="120" step="1" value="40"></div>
+            <div class="prompter-control range"><label for="pcSpeed">Scroll speed <output id="pcSpeedOut">160 WPM</output></label><input id="pcSpeed" type="range" min="30" max="400" step="5" value="160"></div>
+            <div class="prompter-control range"><label for="pcWidth">Text width <output id="pcWidthOut">92%</output></label><input id="pcWidth" type="range" min="40" max="100" step="1" value="92"></div>
+            <div class="prompter-control range"><label for="pcLineHeight">Line spacing <output id="pcLineHeightOut">1.45×</output></label><input id="pcLineHeight" type="range" min="1.1" max="2.2" step="0.05" value="1.45"></div>
+            <div class="prompter-control range"><label for="pcCountdown">Start countdown <output id="pcCountdownOut">3 sec</output></label><input id="pcCountdown" type="range" min="0" max="10" step="1" value="3"></div>
+          </div>
+          <div class="prompter-toggle-grid">
+            <label class="prompter-toggle"><span><strong>Bold text</strong><small>Increase text weight</small></span><input id="pcBold" type="checkbox"></label>
+            <label class="prompter-toggle"><span><strong>Reading guide</strong><small>Highlight reading line</small></span><input id="pcGuide" type="checkbox" checked></label>
+            <label class="prompter-toggle"><span><strong>Text fade</strong><small>Fade top and bottom edges</small></span><input id="pcFade" type="checkbox" checked></label>
+            <label class="prompter-toggle"><span><strong>Timer display</strong><small>Show remaining time</small></span><input id="pcTimer" type="checkbox" checked></label>
+            <label class="prompter-toggle"><span><strong>Mirror text</strong><small>For mirror / teleprompter glass</small></span><input id="pcMirror" type="checkbox"></label>
+          </div>
+          <div class="script-manager-actions"><button id="pcApply" class="btn primary wide" type="button">Apply settings to teleprompter</button><button id="pcReset" class="btn secondary" type="button">Reset settings</button></div>
+          <p class="script-manager-note" id="pcStatus" role="status">Settings are saved in this browser. Apply them to refresh the reader with the selected appearance.</p>
         </div>
       </details>
 
@@ -778,6 +823,47 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     managerStatus.textContent = 'Loading selected script into the teleprompter…';
     previewStage.scrollIntoView({ behavior:'smooth', block:'start' });
   }
+  // Controls use the same saved settings object as the embedded teleprompter.
+  const PC_DEFAULTS = { speed:160, size:40, lh:1.45, width:92, align:'center', font:'sans', bold:false, preset:'midnight', mirrorX:false, mirrorY:false, guide:true, fade:true, timer:true, countdown:3, fullscreen:false, hover:true, layout:'notch', focus:38, focusN:6, winW:560, winH:190, winX:0, winY:0 };
+  const pc = id => document.getElementById(id);
+  function readPrompterSettings() {
+    let data = {}; try { data = JSON.parse(localStorage.getItem(SCRIPT_STORAGE_KEY) || '{}') || {}; } catch (_) {}
+    const st = Object.assign({}, PC_DEFAULTS, data.settings || {});
+    pc('pcTheme').value = st.preset; pc('pcFont').value = st.font; pc('pcAlign').value = st.align; pc('pcLayout').value = st.layout;
+    pc('pcSize').value = Math.min(120, Math.max(20, st.size)); pc('pcSpeed').value = st.speed; pc('pcWidth').value = st.width; pc('pcLineHeight').value = st.lh; pc('pcCountdown').value = st.countdown;
+    pc('pcBold').checked = !!st.bold; pc('pcGuide').checked = !!st.guide; pc('pcFade').checked = !!st.fade; pc('pcTimer').checked = !!st.timer; pc('pcMirror').checked = !!st.mirrorX;
+    updatePrompterControlOutputs();
+  }
+  function updatePrompterControlOutputs() {
+    pc('pcSizeOut').textContent = pc('pcSize').value + ' px'; pc('pcSpeedOut').textContent = pc('pcSpeed').value + ' WPM';
+    pc('pcWidthOut').textContent = pc('pcWidth').value + '%'; pc('pcLineHeightOut').textContent = Number(pc('pcLineHeight').value).toFixed(2).replace(/0$/, '') + '×';
+    pc('pcCountdownOut').textContent = pc('pcCountdown').value + ' sec';
+  }
+  ['pcSize','pcSpeed','pcWidth','pcLineHeight','pcCountdown'].forEach(id => pc(id).addEventListener('input', updatePrompterControlOutputs));
+  $('prompterControlsCard').addEventListener('toggle', () => { if ($('prompterControlsCard').open) readPrompterSettings(); });
+  pc('pcApply').addEventListener('click', () => {
+    let data = {}; try { data = JSON.parse(localStorage.getItem(SCRIPT_STORAGE_KEY) || '{}') || {}; } catch (_) {}
+    data.settings = Object.assign({}, PC_DEFAULTS, data.settings || {}, {
+      preset:pc('pcTheme').value, font:pc('pcFont').value, align:pc('pcAlign').value, layout:pc('pcLayout').value,
+      size:Number(pc('pcSize').value), speed:Number(pc('pcSpeed').value), width:Number(pc('pcWidth').value), lh:Number(pc('pcLineHeight').value), countdown:Number(pc('pcCountdown').value),
+      bold:pc('pcBold').checked, guide:pc('pcGuide').checked, fade:pc('pcFade').checked, timer:pc('pcTimer').checked, mirrorX:pc('pcMirror').checked,
+      fullscreen:false, winW:560, winH:190, winX:0, winY:0, focusN:6
+    });
+    if (!Array.isArray(data.notes)) data.notes = [];
+    if (!data.activeId && managerActiveId) data.activeId = managerActiveId;
+    try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(data)); } catch (_) { pc('pcStatus').textContent = 'Could not save settings. Check Safari website data settings.'; return; }
+    if (managerData) { managerData.settings = data.settings; managerData.activeId = data.activeId || managerActiveId; }
+    pc('pcStatus').textContent = 'Settings saved. Applying your choices…';
+    loadManagerScriptIntoPrompter();
+    setTimeout(() => { pc('pcStatus').textContent = 'Settings applied. The teleprompter is ready.'; }, 400);
+  });
+  pc('pcReset').addEventListener('click', () => {
+    if (!confirm('Reset teleprompter appearance and playback settings?')) return;
+    let data = {}; try { data = JSON.parse(localStorage.getItem(SCRIPT_STORAGE_KEY) || '{}') || {}; } catch (_) {}
+    data.settings = Object.assign({}, PC_DEFAULTS); try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(data)); } catch (_) {}
+    readPrompterSettings(); pc('pcStatus').textContent = 'Defaults restored. Select Apply settings to update the reader.';
+  });
+  readPrompterSettings();
   $('scriptManagerUse').addEventListener('click', loadManagerScriptIntoPrompter);
   readManagerData();
 
