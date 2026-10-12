@@ -143,6 +143,27 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 @media(max-width:820px){.layout{grid-template-columns:1fr}.layout>.side{grid-template-columns:1fr}.side .panel:first-child{grid-column:1/-1}.stage{min-height:240px;resize:none}.preview-toolbar{gap:5px;padding:6px}.preview-toolbar .glass-action{padding:9px 10px;font-size:11px}}
 @media(max-width:540px){.app{padding:10px 10px 24px}.topbar{align-items:flex-start;flex-wrap:wrap;gap:10px}.pill{font-size:10px}.side{display:flex}.hero h2{font-size:31px}.preview-foot{align-items:flex-start;flex-direction:column}.hero{padding-top:18px}.layout{gap:12px}}
 
+/* Collapsible teleprompter script library */
+.script-manager{margin-top:18px;overflow:hidden}
+.script-manager summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 19px;cursor:pointer;user-select:none}
+.script-manager summary::-webkit-details-marker{display:none}
+.script-manager summary::after{content:"＋";font-size:20px;color:var(--muted);line-height:1;flex:none}
+.script-manager[open] summary::after{content:"−"}
+.script-manager-title{min-width:0}
+.script-manager-title strong{display:block;font-size:15px;letter-spacing:-.025em}
+.script-manager-title span{display:block;margin-top:4px;color:var(--muted);font-size:12px;line-height:1.45}
+.script-manager-count{flex:none;min-width:29px;height:29px;padding:0 8px;display:grid;place-items:center;border-radius:999px;background:color-mix(in srgb,var(--text) 7%,transparent);font-size:12px;font-weight:700}
+.script-manager-body{padding:0 16px 16px;border-top:1px solid var(--line)}
+.script-manager-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:14px;align-items:end}
+.script-manager-tools label{display:block;margin-bottom:6px;font-size:11px;color:var(--muted)}
+.script-manager-tools select,.script-manager-body input{width:100%;min-width:0;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);padding:10px 11px;outline:none}
+.script-manager-body textarea{display:block;width:100%;min-height:170px;resize:vertical;margin-top:12px;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);font:14px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;outline:none}
+.script-manager-body textarea:focus,.script-manager-tools select:focus,.script-manager-body input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 16%,transparent)}
+.script-manager-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.script-manager-actions .btn{min-height:38px;padding:9px 12px;font-size:12px}
+.script-manager-note{font-size:11px;color:var(--muted);line-height:1.45;margin:10px 2px 0}
+@media(max-width:540px){.script-manager summary{padding:14px}.script-manager-body{padding:0 12px 13px}.script-manager-tools{grid-template-columns:minmax(0,1fr) auto;gap:7px}.script-manager-actions{display:grid;grid-template-columns:1fr 1fr}.script-manager-actions .wide{grid-column:1/-1}.script-manager-body textarea{min-height:145px}}
+
 /* Compact recording library */
 .recordings-card{display:block;margin-top:18px;overflow:hidden}
 .recordings-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid var(--line)}
@@ -239,6 +260,27 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
         </div>
         <div class="preview-foot"><span id="previewHint">Allow camera and microphone access to begin.</span><span class="rec-time" id="timer">00:00:00</span></div>
       </div>
+
+      <details id="scriptManagerCard" class="card script-manager">
+        <summary>
+          <span class="script-manager-title"><strong>Teleprompter scripts</strong><span>Choose a script, review its contents, edit it, or create a new one.</span></span>
+          <span class="script-manager-count" id="scriptManagerCount">0</span>
+        </summary>
+        <div class="script-manager-body">
+          <div class="script-manager-tools">
+            <div><label for="scriptManagerSelect">Choose script</label><select id="scriptManagerSelect" aria-label="Choose a teleprompter script"></select></div>
+            <button id="scriptManagerNew" class="btn secondary" type="button">＋ New</button>
+          </div>
+          <label for="scriptManagerText" style="display:block;margin:13px 0 6px;font-size:11px;color:var(--muted)">Script content</label>
+          <textarea id="scriptManagerText" spellcheck="true" placeholder="Write or paste your teleprompter script here…"></textarea>
+          <div class="script-manager-actions">
+            <button id="scriptManagerSave" class="btn secondary" type="button">Save changes</button>
+            <button id="scriptManagerDelete" class="btn secondary" type="button">Delete script</button>
+            <button id="scriptManagerUse" class="btn primary wide" type="button">Use in teleprompter</button>
+          </div>
+          <p class="script-manager-note" id="scriptManagerStatus" role="status">Scripts are saved in this browser on this device. The first line is used as the script title in the teleprompter.</p>
+        </div>
+      </details>
 
       <div id="recordingsCard" class="card recordings-card">
         <div class="recordings-head"><div><h3>Recorded videos</h3><p id="recordingsSummary">No recordings yet. Finished clips appear here.</p></div><span class="recordings-count" id="recordingsCount">0</span></div>
@@ -629,6 +671,116 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       }, 160);
     } catch (_) {}
   }
+  // Script manager shares the teleprompter's existing localStorage schema so the same scripts
+  // appear in both this collapsible editor and the full-featured embedded teleprompter.
+  const SCRIPT_STORAGE_KEY = 'teleprompter.v2';
+  const managerSelect = $('scriptManagerSelect');
+  const managerText = $('scriptManagerText');
+  const managerStatus = $('scriptManagerStatus');
+  let managerData = null;
+  let managerActiveId = null;
+  function makeManagerNote(body = '') {
+    const now = Date.now();
+    return { id:'studio' + now.toString(36) + Math.random().toString(36).slice(2,6), body, created:now, updated:now, pinned:false };
+  }
+  function readManagerData() {
+    let stored = null;
+    try { stored = localStorage.getItem(SCRIPT_STORAGE_KEY); managerData = JSON.parse(stored || 'null'); } catch (_) { managerData = null; }
+    if (!managerData || !Array.isArray(managerData.notes)) managerData = { settings:{}, notes:[], activeId:null };
+    managerData.settings = managerData.settings || {};
+    managerData.notes = managerData.notes.filter(n => n && typeof n.body === 'string');
+    if (!managerData.notes.length) {
+      const note = makeManagerNote('# My video script\n\nWrite or paste your script here. Add headings with # and private notes with // at the start of a line.');
+      managerData.notes.push(note); managerData.activeId = note.id;
+      try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(managerData)); } catch (_) {}
+    }
+    if (!managerData.notes.some(n => n.id === managerActiveId)) managerActiveId = managerData.notes.some(n => n.id === managerData.activeId) ? managerData.activeId : managerData.notes[0].id;
+    renderManagerScripts();
+    return managerData;
+  }
+  function managerTitle(body, fallback='Untitled script') {
+    const first = String(body || '').split(/\r?\n/).map(x => x.trim()).find(x => x && !x.startsWith('//')) || fallback;
+    return first.replace(/^#{1,3}\s*/, '').slice(0, 90) || fallback;
+  }
+  function persistManagerData() {
+    if (!managerData) return;
+    managerData.activeId = managerActiveId;
+    try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(managerData)); managerStatus.textContent = 'Saved in this browser. Select “Use in teleprompter” to load this script into the reader.'; }
+    catch (_) { managerStatus.textContent = 'Could not save to browser storage. Check Safari website data settings.'; }
+    renderManagerScripts();
+  }
+  function renderManagerScripts() {
+    if (!managerData) return;
+    const notes = managerData.notes || [];
+    $('scriptManagerCount').textContent = String(notes.length);
+    managerSelect.replaceChildren();
+    notes.slice().sort((a,b) => (b.pinned - a.pinned) || (b.updated - a.updated)).forEach(n => {
+      const opt = new Option(managerTitle(n.body), n.id);
+      managerSelect.add(opt);
+    });
+    if (notes.some(n => n.id === managerActiveId)) managerSelect.value = managerActiveId;
+    else if (managerSelect.options.length) { managerActiveId = managerSelect.options[0].value; managerSelect.value = managerActiveId; }
+    const active = notes.find(n => n.id === managerActiveId);
+    managerText.value = active ? active.body : '';
+    $('scriptManagerDelete').disabled = notes.length < 2;
+  }
+  function saveManagerCurrent(silent=false) {
+    if (!managerData) readManagerData();
+    let n = managerData.notes.find(x => x.id === managerActiveId);
+    if (!n) { n = makeManagerNote(''); managerData.notes.unshift(n); managerActiveId = n.id; }
+    n.body = managerText.value; n.updated = Date.now();
+    managerData.activeId = managerActiveId;
+    try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(managerData)); }
+    catch (_) { managerStatus.textContent = 'Could not save to browser storage. Check Safari website data settings.'; return false; }
+    renderManagerScripts();
+    if (!silent) managerStatus.textContent = 'Changes saved.';
+    return true;
+  }
+  managerSelect.addEventListener('change', () => {
+    const nextId = managerSelect.value;
+    saveManagerCurrent(true);
+    managerActiveId = nextId;
+    managerData.activeId = managerActiveId;
+    renderManagerScripts();
+    managerStatus.textContent = 'Script loaded in the editor. Save changes when you are done.';
+  });
+  $('scriptManagerNew').addEventListener('click', () => {
+    saveManagerCurrent(true);
+    const n = makeManagerNote(''); managerData.notes.unshift(n); managerActiveId = n.id;
+    persistManagerData(); managerText.focus(); managerStatus.textContent = 'New script created. Add your content, then save.';
+  });
+  $('scriptManagerSave').addEventListener('click', () => saveManagerCurrent(false));
+  $('scriptManagerDelete').addEventListener('click', () => {
+    if (!managerData || managerData.notes.length < 2) return;
+    const n = managerData.notes.find(x => x.id === managerActiveId);
+    if (!confirm(`Delete “${managerTitle(n?.body)}”? This cannot be undone.`)) return;
+    managerData.notes = managerData.notes.filter(x => x.id !== managerActiveId);
+    managerActiveId = managerData.notes[0].id;
+    persistManagerData(); managerStatus.textContent = 'Script deleted.';
+  });
+  $('scriptManagerCard').addEventListener('toggle', () => {
+    if ($('scriptManagerCard').open) readManagerData();
+  });
+  function loadManagerScriptIntoPrompter() {
+    if (!saveManagerCurrent(true)) return;
+    managerData.activeId = managerActiveId;
+    try { localStorage.setItem(SCRIPT_STORAGE_KEY, JSON.stringify(managerData)); } catch (_) {}
+    // Reloading the embedded app makes its private in-memory script list pick up the saved selection.
+    previewStage.classList.add('prompter-open');
+    prompterWrap.classList.add('open');
+    prompterWrap.setAttribute('aria-hidden', 'false');
+    $('recordingQuickBar').classList.add('visible');
+    prompterLoaded = false;
+    prompterFrame.addEventListener('load', configureEmbeddedPrompter, { once:true });
+    prompterFrame.srcdoc = fullPrompterHTML.replace('fullscreen:true', 'fullscreen:false');
+    prompterLoaded = true;
+    updateQuickBar();
+    managerStatus.textContent = 'Loading selected script into the teleprompter…';
+    previewStage.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  $('scriptManagerUse').addEventListener('click', loadManagerScriptIntoPrompter);
+  readManagerData();
+
   function openFullPrompter() {
     previewStage.classList.add('prompter-open');
     prompterWrap.classList.add('open');
