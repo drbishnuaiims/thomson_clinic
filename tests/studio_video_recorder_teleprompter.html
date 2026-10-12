@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Studio — Video Recorder</title>
+<style>
+:root {
+  --bg:#f5f5f7; --panel:rgba(255,255,255,.82); --text:#1d1d1f;
+  --muted:#6e6e73; --line:rgba(0,0,0,.08); --blue:#0071e3;
+  --blue-hover:#0077ed; --red:#ff3b30; --green:#248a3d;
+  --shadow:0 12px 40px rgba(0,0,0,.055);
+}
+@media (prefers-color-scheme:dark) {
+ :root { --bg:#101012; --panel:rgba(35,35,38,.88); --text:#f5f5f7; --muted:#a1a1a6; --line:rgba(255,255,255,.1); --blue:#2997ff; --blue-hover:#42a1ff; --red:#ff453a; --green:#30d158; --shadow:0 12px 40px rgba(0,0,0,.2); }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;letter-spacing:-.015em}
+button,select,input{font:inherit}
+button{cursor:pointer;border:0}
+.app{max-width:1220px;margin:0 auto;padding:28px 22px 44px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:12px}
+.brandmark{width:42px;height:42px;border-radius:13px;background:var(--text);color:var(--bg);display:grid;place-items:center}
+.brandmark svg{width:22px;height:22px}
+.brand h1{font-size:21px;letter-spacing:-.04em;margin:0;font-weight:700}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:12px;letter-spacing:0}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--panel)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.hero{margin:0 0 22px}
+.hero h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.055em;line-height:1.06;margin:0 0 10px}
+.hero p{color:var(--muted);font-size:15px;line-height:1.55;margin:0;max-width:680px}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(285px,.8fr);gap:18px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(22px)}
+.preview-head{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid var(--line)}
+.section-label{font-size:13px;font-weight:650}
+.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.status .dot{background:#a1a1a6}
+.status.live .dot{background:var(--red);box-shadow:0 0 0 4px rgba(255,59,48,.12)}
+.stage{background:#080809;position:relative;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden}
+video{display:block;width:100%;height:100%;object-fit:contain;background:#080809}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#a1a1a6;text-align:center;padding:20px}
+.placeholder svg{width:48px;height:48px;opacity:.85}
+.placeholder strong{font-size:15px;color:#f5f5f7;font-weight:600}
+.placeholder span{font-size:12px;max-width:280px;line-height:1.5}
+.rec-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.62);color:white;border-radius:8px;padding:7px 10px;font-size:11px;letter-spacing:.08em;display:none;align-items:center;gap:7px;backdrop-filter:blur(10px)}
+.rec-badge.active{display:flex}
+.rec-badge i{width:7px;height:7px;border-radius:50%;background:#ff453a}
+.preview-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;color:var(--muted);font-size:12px}
+.rec-time{font-variant-numeric:tabular-nums;font-size:14px;color:var(--text);font-weight:650}
+.side{display:flex;flex-direction:column;gap:18px}
+.panel{padding:19px}
+.panel h3{font-size:15px;letter-spacing:-.025em;margin:0 0 16px}
+.field{margin-bottom:15px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}
+select,input[type=text]{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);padding:11px 12px;outline:none}
+select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 18%,transparent)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;font-size:13px}
+.toggle-row span{color:var(--muted)}
+.switch{appearance:none;width:38px;height:23px;background:#8e8e93;border-radius:999px;position:relative;transition:.2s;flex-shrink:0}
+.switch:checked{background:var(--green)}
+.switch:before{content:"";position:absolute;width:19px;height:19px;background:white;border-radius:50%;left:2px;top:2px;transition:.2s;box-shadow:0 1px 3px #0003}
+.switch:checked:before{left:17px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.btn{border-radius:13px;padding:12px 13px;font-size:13px;font-weight:650;transition:transform .12s,opacity .12s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:43px}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.primary{background:var(--blue);color:white}
+.primary:hover:not(:disabled){background:var(--blue-hover)}
+.secondary{background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text)}
+.danger{background:var(--red);color:white}
+.wide{grid-column:1/-1}
+.notice{font-size:12px;line-height:1.5;color:var(--muted);margin:13px 0 0}
+.notice strong{color:var(--text);font-weight:600}
+.result{display:none;margin-top:18px}
+.result.show{display:block}
+.result-inner{padding:18px}
+.result h3{margin:0 0 6px;font-size:15px}
+.result p{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.5}
+.file-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:13px}
+.file-meta span:last-child{color:var(--muted)}
+.download{width:100%;text-decoration:none}
+.error{display:none;background:color-mix(in srgb,var(--red) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--red) 25%,transparent);color:var(--text);padding:12px 14px;border-radius:13px;font-size:12px;line-height:1.5;margin-bottom:16px}
+.error.show{display:block}
+.footer{margin-top:22px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}
+
+/* Floating liquid-glass teleprompter */
+.stage{isolation:isolate}
+.tele-glass{position:absolute;z-index:4;top:12px;left:50%;transform:translateX(-50%);width:min(78%,620px);max-height:48%;overflow:hidden;
+  color:#fff;background:rgba(28,28,32,.34);border:1px solid rgba(255,255,255,.24);border-radius:22px;
+  -webkit-backdrop-filter:blur(26px) saturate(175%);backdrop-filter:blur(26px) saturate(175%);
+  box-shadow:0 10px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.16);
+  padding:14px 18px 12px;display:none;user-select:none}
+.tele-glass.visible{display:block}
+.tele-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:8px}
+.tele-top-actions{display:flex;align-items:center;gap:6px}
+.glass-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.12);color:white;border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer}
+.tele-text{font-size:clamp(14px,2vw,22px);line-height:1.45;font-weight:550;text-align:center;max-height:calc(48vh - 70px);overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 84%,transparent 100%)}
+.tele-text.mirror{transform:scaleX(-1)}
+.tele-controls{display:flex;align-items:center;gap:9px;margin-top:8px}
+.tele-controls button{width:29px;height:29px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+.tele-controls input{width:100%;accent-color:white}
+.tele-speed{font-size:10px;min-width:54px;text-align:right;color:rgba(255,255,255,.8)}
+.tele-modal{position:fixed;z-index:80;inset:0;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.38);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.tele-modal.open{display:grid}
+.tele-sheet{width:min(560px,100%);max-height:88vh;overflow:auto;padding:22px;border-radius:25px;color:var(--text);background:var(--panel);border:1px solid var(--line);box-shadow:0 25px 80px #0004;-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+.tele-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tele-sheet h3{margin:0;font-size:22px;letter-spacing:-.04em}
+.tele-sheet textarea{width:100%;min-height:220px;resize:vertical;border:1px solid var(--line);border-radius:15px;padding:14px;background:var(--bg);color:var(--text);font:14px/1.6 var(--ui);outline:none}
+.tele-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:15px 0}
+.tele-grid label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}
+.tele-grid input[type=range],.tele-grid select{width:100%}
+.tele-grid input[type=range]{accent-color:var(--blue)}
+.tele-grid select{padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+.tele-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:15px}
+.tele-actions .btn{min-width:110px}
+.tele-open-btn{position:absolute;z-index:5;top:12px;right:12px;border:1px solid rgba(255,255,255,.2);background:rgba(30,30,32,.55);color:white;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:600;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+@media(max-width:540px){.tele-glass{width:calc(100% - 22px);top:10px;padding:10px 12px;border-radius:17px}.tele-text{font-size:15px}.tele-sheet{padding:17px}.tele-grid{grid-template-columns:1fr 1fr}}
+
+@media(max-width:820px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.side .panel:first-child{grid-column:1/-1}}
+@media(max-width:540px){.app{padding:18px 12px 30px}.topbar{align-items:flex-start}.pill{font-size:10px}.side{display:flex}.hero h2{font-size:31px}.preview-foot{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brandmark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></div>
+      <div><h1>Studio</h1><p>Personal video recorder</p></div>
+    </div>
+    <div class="pill"><span class="dot"></span> Runs in your browser</div>
+  </header>
+
+  <section class="hero">
+    <h2>Make your next video.</h2>
+    <p>Record directly from Safari, check your framing, and save the video file for YouTube. No QuickTime Player and no account required.</p>
+  </section>
+
+  <div id="errorBox" class="error" role="alert"></div>
+
+  <main class="layout">
+    <section>
+      <div class="card">
+        <div class="preview-head">
+          <span class="section-label">Camera preview</span>
+          <span id="status" class="status"><span class="dot"></span><span id="statusText">Camera not connected</span></span>
+        </div>
+        <div class="stage">
+          <video id="preview" autoplay playsinline muted></video>
+          <button id="teleOpenBtn" class="tele-open-btn">Teleprompter · Set up</button>
+          <div id="teleGlass" class="tele-glass">
+            <div class="tele-top"><span>Teleprompter</span><div class="tele-top-actions"><button id="teleEditBtn" class="glass-btn">Edit script</button><button id="teleHideBtn" class="glass-btn">Hide</button></div></div>
+            <div id="teleText" class="tele-text">Your script will appear here. Open setup to paste your script and adjust the reading speed.</div>
+            <div class="tele-controls"><button id="telePlayBtn" title="Play or pause">▶</button><button id="teleResetBtn" title="Restart">↺</button><input id="teleSpeed" type="range" min="10" max="100" value="32" aria-label="Scroll speed"><span id="teleSpeedLabel" class="tele-speed">32 px/s</span></div>
+          </div>
+          <div id="placeholder" class="placeholder">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="27" height="26" rx="6"/><path d="m32 19 11-6v22l-11-6z"/><path d="M14 11V8h9v3"/></svg>
+            <strong>Your camera preview appears here</strong>
+            <span>Connect your camera and microphone to check lighting, framing and sound before recording.</span>
+          </div>
+          <div id="recBadge" class="rec-badge"><i></i> REC</div>
+        </div>
+        <div class="preview-foot"><span id="previewHint">Allow camera and microphone access to begin.</span><span class="rec-time" id="timer">00:00:00</span></div>
+      </div>
+
+      <div id="resultCard" class="card result">
+        <div class="result-inner">
+          <h3>Your recording is ready</h3>
+          <p>Preview it, then save it to your Mac. Check the saved file before uploading to YouTube.</p>
+          <div class="file-meta"><span id="fileName">recording.webm</span><span id="fileSize">—</span></div>
+          <video id="playback" controls playsinline style="width:100%;max-height:340px;border-radius:13px;background:#080809;margin-bottom:13px"></video>
+          <a id="downloadLink" class="btn primary download" download="studio-recording.webm">Download recording</a>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="card panel">
+        <h3>Recording setup</h3>
+        <div class="field"><label for="cameraSelect">Camera</label><select id="cameraSelect"><option value="">Connect camera first</option></select></div>
+        <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
+        <div class="field"><label for="qualitySelect">Video quality</label><select id="qualitySelect"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
+        <div class="toggle-row"><div><strong>Mirror preview</strong><br><span>For a selfie-style view</span></div><input id="mirrorToggle" class="switch" type="checkbox" checked aria-label="Mirror preview"></div>
+        <div class="toggle-row"><div><strong>Record microphone</strong><br><span>Include your voice</span></div><input id="audioToggle" class="switch" type="checkbox" checked aria-label="Record microphone"></div>
+        <div class="controls">
+          <button id="connectBtn" class="btn primary wide">Connect camera &amp; mic</button>
+          <button id="startBtn" class="btn primary" disabled>● Record</button>
+          <button id="pauseBtn" class="btn secondary" disabled>Pause</button>
+          <button id="stopBtn" class="btn danger wide" disabled>Stop recording</button>
+        </div>
+        <p class="notice"><strong>Tip:</strong> Use a quiet room, face a light source, and position the camera at eye level. For talking-head YouTube videos, landscape 16:9 is a good default.</p>
+      </section>
+
+      <section class="card panel">
+        <h3>Before you record</h3>
+        <div class="notice" style="margin:0 0 9px">1. Connect your camera and microphone.</div>
+        <div class="notice" style="margin:0 0 9px">2. Choose the right devices and video quality.</div>
+        <div class="notice" style="margin:0 0 9px">3. Press Record, then Stop when finished.</div>
+        <div class="notice" style="margin:0">4. Download the file and review it before uploading.</div>
+      </section>
+    </aside>
+  </main>
+  <footer class="footer">Your recording stays in this browser until you download it. This page does not upload or transmit your video.<br>Use a recent version of Safari and allow camera/microphone permissions when prompted.</footer>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const preview = $('preview'), playback = $('playback');
+  let stream = null, recorder = null, chunks = [], timerInterval = null;
+  let startedAt = 0, elapsedBeforePause = 0, currentBlobUrl = null;
+
+  function showError(message) {
+    const box = $('errorBox');
+    box.textContent = message;
+    box.classList.add('show');
+  }
+  function clearError() { $('errorBox').classList.remove('show'); }
+  function setStatus(text, live = false) {
+    $('statusText').textContent = text;
+    $('status').classList.toggle('live', live);
+  }
+  function formatTime(ms) {
+    const sec = Math.floor(ms / 1000);
+    const h = String(Math.floor(sec / 3600)).padStart(2,'0');
+    const m = String(Math.floor((sec % 3600) / 60)).padStart(2,'0');
+    const s = String(sec % 60).padStart(2,'0');
+    return `${h}:${m}:${s}`;
+  }
+  function elapsed() {
+    return elapsedBeforePause + (recorder && recorder.state === 'recording' ? Date.now() - startedAt : 0);
+  }
+  function updateTimer() { $('timer').textContent = formatTime(elapsed()); }
+  function stopTracks() {
+    if (stream) stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  function supportedMimeType() {
+    if (!window.MediaRecorder) return '';
+    const types = [
+      'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm'
+    ];
+    return types.find(type => MediaRecorder.isTypeSupported(type)) || '';
+  }
+  function extensionFor(type) { return type && type.toLowerCase().includes('mp4') ? 'mp4' : 'webm'; }
+
+  async function populateDevices() {
+    if (!navigator.mediaDevices?.enumerateDevices) return;
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const cameras = devices.filter(d => d.kind === 'videoinput');
+    const mics = devices.filter(d => d.kind === 'audioinput');
+    const fill = (select, list, label) => {
+      const old = select.value;
+      select.innerHTML = '';
+      if (!list.length) {
+        select.add(new Option(`${label} not found`, ''));
+        return;
+      }
+      list.forEach((d, i) => select.add(new Option(d.label || `${label} ${i + 1}`, d.deviceId)));
+      if (list.some(d => d.deviceId === old)) select.value = old;
+    };
+    fill($('cameraSelect'), cameras, 'Camera');
+    fill($('micSelect'), mics, 'Microphone');
+  }
+
+  async function connectDevices() {
+    clearError();
+    if (!navigator.mediaDevices?.getUserMedia) {
+      showError('Safari cannot access the camera from this page. Open it from https:// or localhost, then try again.');
+      return;
+    }
+    if (recorder && recorder.state !== 'inactive') {
+      showError('Stop the current recording before changing devices.');
+      return;
+    }
+    stopTracks();
+    try {
+      const quality = Number($('qualitySelect').value);
+      const video = {
+        width: { ideal: quality === 1080 ? 1920 : quality === 720 ? 1280 : 854 },
+        height: { ideal: quality === 1080 ? 1080 : quality === 720 ? 720 : 480 },
+        frameRate: { ideal: 30, max: 30 }
+      };
+      if ($('cameraSelect').value) video.deviceId = { exact: $('cameraSelect').value };
+      const audio = $('audioToggle').checked
+        ? ($('micSelect').value ? { deviceId: { exact: $('micSelect').value }, echoCancellation: true, noiseSuppression: true } : true)
+        : false;
+      stream = await navigator.mediaDevices.getUserMedia({ video, audio });
+      preview.srcObject = stream;
+      preview.style.transform = $('mirrorToggle').checked ? 'scaleX(-1)' : 'none';
+      $('placeholder').style.display = 'none';
+      $('previewHint').textContent = 'Preview ready. Check your framing and sound.';
+      setStatus('Camera connected');
+      await populateDevices();
+      $('startBtn').disabled = false;
+      $('connectBtn').textContent = 'Reconnect devices';
+    } catch (err) {
+      let message = 'Could not access your camera or microphone.';
+      if (err.name === 'NotAllowedError' || err.name === 'SecurityError') message = 'Permission was denied. In Safari, open Settings for this website and allow Camera and Microphone access, then reconnect.';
+      else if (err.name === 'NotFoundError' || err.name === 'OverconstrainedError') message = 'The selected camera or microphone was not found. Choose another device and reconnect.';
+      else if (err.name === 'NotReadableError') message = 'The camera may be in use by another app. Close other apps or browser tabs using it, then try again.';
+      showError(message);
+      setStatus('Camera not connected');
+    }
+  }
+
+  function startRecording() {
+    clearError();
+    if (!stream) { showError('Connect your camera first.'); return; }
+    if (!window.MediaRecorder) { showError('MediaRecorder is not available in this Safari version. Update Safari/macOS and try again.'); return; }
+    const mimeType = supportedMimeType();
+    if (!mimeType) { showError('This browser does not report a supported recording format. Update Safari and try again.'); return; }
+    try {
+      chunks = [];
+      recorder = new MediaRecorder(stream, { mimeType });
+      recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+      recorder.onerror = () => showError('A recording error occurred. Try a lower video quality or reconnect your devices.');
+      recorder.onstop = finishRecording;
+      recorder.start(1000);
+      startedAt = Date.now();
+      elapsedBeforePause = 0;
+      $('timer').textContent = '00:00:00';
+      timerInterval = setInterval(updateTimer, 250);
+      $('recBadge').classList.add('active');
+      setStatus('Recording', true);
+      $('previewHint').textContent = 'Recording in progress. Keep this tab open.';
+      $('startBtn').disabled = true;
+      $('pauseBtn').disabled = false;
+      $('pauseBtn').textContent = 'Pause';
+      $('stopBtn').disabled = false;
+      $('connectBtn').disabled = true;
+      $('cameraSelect').disabled = true;
+      $('micSelect').disabled = true;
+      $('qualitySelect').disabled = true;
+      $('audioToggle').disabled = true;
+    } catch (err) {
+      showError('Safari could not start recording. Try reconnecting your devices or choosing a lower video quality.');
+    }
+  }
+
+  function pauseRecording() {
+    if (!recorder) return;
+    if (recorder.state === 'recording') {
+      recorder.pause();
+      elapsedBeforePause += Date.now() - startedAt;
+      clearInterval(timerInterval);
+      updateTimer();
+      $('pauseBtn').textContent = 'Resume';
+      $('previewHint').textContent = 'Recording paused.';
+      setStatus('Paused');
+      $('recBadge').classList.remove('active');
+    } else if (recorder.state === 'paused') {
+      recorder.resume();
+      startedAt = Date.now();
+      timerInterval = setInterval(updateTimer, 250);
+      $('pauseBtn').textContent = 'Pause';
+      $('previewHint').textContent = 'Recording in progress. Keep this tab open.';
+      setStatus('Recording', true);
+      $('recBadge').classList.add('active');
+    }
+  }
+
+  function stopRecording() {
+    if (recorder && recorder.state !== 'inactive') {
+      if (recorder.state === 'recording') elapsedBeforePause += Date.now() - startedAt;
+      clearInterval(timerInterval);
+      recorder.stop();
+    }
+  }
+
+  function finishRecording() {
+    clearInterval(timerInterval);
+    updateTimer();
+    $('recBadge').classList.remove('active');
+    setStatus('Recording saved locally');
+    $('previewHint').textContent = 'Recording complete. Download your video below.';
+    $('startBtn').disabled = false;
+    $('pauseBtn').disabled = true;
+    $('stopBtn').disabled = true;
+    $('connectBtn').disabled = false;
+    $('cameraSelect').disabled = false;
+    $('micSelect').disabled = false;
+    $('qualitySelect').disabled = false;
+    $('audioToggle').disabled = false;
+
+    const type = recorder.mimeType || 'video/webm';
+    const blob = new Blob(chunks, { type });
+    const ext = extensionFor(type);
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+    currentBlobUrl = URL.createObjectURL(blob);
+    const date = new Date();
+    const stamp = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}_${String(date.getHours()).padStart(2,'0')}-${String(date.getMinutes()).padStart(2,'0')}`;
+    const filename = `studio-recording-${stamp}.${ext}`;
+    playback.src = currentBlobUrl;
+    $('downloadLink').href = currentBlobUrl;
+    $('downloadLink').download = filename;
+    $('fileName').textContent = filename;
+    $('fileSize').textContent = blob.size < 1024*1024 ? `${(blob.size/1024).toFixed(0)} KB` : `${(blob.size/(1024*1024)).toFixed(1)} MB`;
+    $('resultCard').classList.add('show');
+    $('resultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  $('connectBtn').addEventListener('click', connectDevices);
+  $('startBtn').addEventListener('click', startRecording);
+  $('pauseBtn').addEventListener('click', pauseRecording);
+  $('stopBtn').addEventListener('click', stopRecording);
+  $('mirrorToggle').addEventListener('change', () => {
+    preview.style.transform = $('mirrorToggle').checked ? 'scaleX(-1)' : 'none';
+  });
+  $('cameraSelect').addEventListener('change', connectDevices);
+  $('micSelect').addEventListener('change', connectDevices);
+  $('qualitySelect').addEventListener('change', () => {
+    if (stream) connectDevices();
+  });
+  $('audioToggle').addEventListener('change', () => {
+    if (stream) connectDevices();
+  });
+  window.addEventListener('beforeunload', () => {
+    stopTracks();
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+  });
+
+  populateDevices().catch(() => {});
+
+  // Compact teleprompter controls. Script remains local to this page.
+  const tele = {
+    modal: $('teleModal'), glass: $('teleGlass'), text: $('teleText'),
+    script: $('teleScript'), play: $('telePlayBtn'), speed: $('teleSpeed'),
+    speedModal: $('teleSpeedModal'), font: $('teleFontSize'), width: $('telePanelWidth'),
+    opacity: $('teleOpacity'), align: $('teleAlign'), position: $('telePosition')
+  };
+  let telePlaying = false, teleY = 0, teleFrame = 0, teleLast = 0;
+  function teleOpen() { tele.modal.classList.add('open'); }
+  function teleClose() { tele.modal.classList.remove('open'); }
+  function teleRender() {
+    tele.text.textContent = tele.script.value.trim() || 'Add your script in Teleprompter setup.';
+    teleY = 0;
+    tele.text.style.transform = 'translateY(0)';
+    tele.text.style.fontSize = tele.font.value + 'px';
+    tele.text.style.textAlign = tele.align.value;
+    tele.glass.style.width = `min(${tele.width.value}%, 620px)`;
+    tele.glass.style.background = `rgba(28,28,32,${Number(tele.opacity.value)/100})`;
+    tele.glass.style.top = tele.position.value === 'top' ? '12px' : '50%';
+    tele.glass.style.transform = tele.position.value === 'top' ? 'translateX(-50%)' : 'translate(-50%,-50%)';
+    tele.speed.value = tele.speedModal.value;
+    $('teleSpeedLabel').textContent = `${tele.speed.value} px/s`;
+    tele.glass.classList.add('visible');
+    $('teleOpenBtn').textContent = 'Teleprompter · Adjust';
+  }
+  function teleStop() {
+    telePlaying = false;
+    cancelAnimationFrame(teleFrame);
+    tele.play.textContent = '▶';
+  }
+  function teleTick(t) {
+    if (!telePlaying) return;
+    if (!teleLast) teleLast = t;
+    const dt = Math.min(.05, (t - teleLast) / 1000);
+    teleLast = t;
+    teleY += Number(tele.speed.value) * dt;
+    const limit = Math.max(0, tele.text.scrollHeight - tele.text.clientHeight);
+    if (teleY >= limit) { teleY = limit; teleStop(); }
+    tele.text.style.transform = `translateY(${-teleY}px)`;
+    teleFrame = requestAnimationFrame(teleTick);
+  }
+  function telePlayToggle() {
+    if (telePlaying) { teleStop(); return; }
+    if (teleY >= Math.max(0, tele.text.scrollHeight - tele.text.clientHeight)) teleY = 0;
+    telePlaying = true; teleLast = 0; tele.play.textContent = 'Ⅱ';
+    teleFrame = requestAnimationFrame(teleTick);
+  }
+  $('teleOpenBtn').addEventListener('click', teleOpen);
+  $('teleEditBtn').addEventListener('click', teleOpen);
+  $('teleHideBtn').addEventListener('click', () => { teleStop(); tele.glass.classList.remove('visible'); $('teleOpenBtn').textContent = 'Teleprompter · Show'; });
+  $('teleCloseBtn').addEventListener('click', teleClose);
+  $('teleApplyBtn').addEventListener('click', () => { teleRender(); teleClose(); });
+  tele.play.addEventListener('click', telePlayToggle);
+  $('teleResetBtn').addEventListener('click', () => { teleStop(); teleY = 0; tele.text.style.transform = 'translateY(0)'; });
+  tele.speed.addEventListener('input', () => { tele.speedModal.value = tele.speed.value; $('teleSpeedLabel').textContent = `${tele.speed.value} px/s`; });
+  tele.speedModal.addEventListener('input', () => { tele.speed.value = tele.speedModal.value; $('teleSpeedLabel').textContent = `${tele.speed.value} px/s`; });
+  tele.font.addEventListener('input', () => { tele.text.style.fontSize = tele.font.value + 'px'; });
+  tele.width.addEventListener('input', () => tele.glass.style.width = `min(${tele.width.value}%, 620px)`);
+  tele.opacity.addEventListener('input', () => tele.glass.style.background = `rgba(28,28,32,${Number(tele.opacity.value)/100})`);
+  tele.align.addEventListener('change', () => tele.text.style.textAlign = tele.align.value);
+  tele.position.addEventListener('change', () => {
+    tele.glass.style.top = tele.position.value === 'top' ? '12px' : '50%';
+    tele.glass.style.transform = tele.position.value === 'top' ? 'translateX(-50%)' : 'translate(-50%,-50%)';
+  });
+  tele.modal.addEventListener('click', e => { if (e.target === tele.modal) teleClose(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && tele.modal.classList.contains('open')) teleClose(); });
+  try {
+    const savedTele = JSON.parse(localStorage.getItem('studio.teleprompter') || 'null');
+    if (savedTele) {
+      tele.script.value = savedTele.script || '';
+      for (const [key, id] of [['font','teleFontSize'],['speed','teleSpeedModal'],['width','telePanelWidth'],['opacity','teleOpacity'],['align','teleAlign'],['position','telePosition']]) {
+        if (savedTele[key] != null) $(id).value = savedTele[key];
+      }
+      tele.speed.value = tele.speedModal.value;
+      teleRender();
+      tele.glass.classList.remove('visible'); $('teleOpenBtn').textContent = 'Teleprompter · Show';
+    }
+  } catch (_) {}
+  $('teleApplyBtn').addEventListener('click', () => {
+    try { localStorage.setItem('studio.teleprompter', JSON.stringify({
+      script: tele.script.value, font: tele.font.value, speed: tele.speedModal.value,
+      width: tele.width.value, opacity: tele.opacity.value, align: tele.align.value, position: tele.position.value
+    })); } catch (_) {}
+  });
+})();
+</script>
+
+<div id="teleModal" class="tele-modal" role="dialog" aria-modal="true" aria-labelledby="teleModalTitle">
+  <div class="tele-sheet">
+    <div class="tele-sheet-head"><h3 id="teleModalTitle">Teleprompter setup</h3><button id="teleCloseBtn" class="btn secondary">Close</button></div>
+    <p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 12px">Paste your YouTube script here. The translucent reading panel stays near the camera so you can read while looking toward the lens.</p>
+    <textarea id="teleScript" placeholder="Paste or type your script here..."></textarea>
+    <div class="tele-grid">
+      <div><label for="teleFontSize">Text size</label><input id="teleFontSize" type="range" min="14" max="36" value="22"></div>
+      <div><label for="teleSpeedModal">Scroll speed</label><input id="teleSpeedModal" type="range" min="10" max="100" value="32"></div>
+      <div><label for="telePanelWidth">Panel width</label><input id="telePanelWidth" type="range" min="40" max="96" value="78"></div>
+      <div><label for="teleOpacity">Glass opacity</label><input id="teleOpacity" type="range" min="15" max="80" value="34"></div>
+      <div><label for="teleAlign">Text alignment</label><select id="teleAlign"><option value="center">Centered</option><option value="left">Left aligned</option></select></div>
+      <div><label for="telePosition">Panel position</label><select id="telePosition"><option value="top">Top, near camera</option><option value="middle">Middle</option></select></div>
+    </div>
+    <div class="tele-actions"><button id="teleApplyBtn" class="btn primary">Show teleprompter</button></div>
+  </div>
+</div>
+
+</body>
+</html>

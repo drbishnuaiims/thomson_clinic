@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Studio — Video Recorder</title>
+<style>
+:root {
+  --bg:#f5f5f7; --panel:rgba(255,255,255,.82); --text:#1d1d1f;
+  --muted:#6e6e73; --line:rgba(0,0,0,.08); --blue:#0071e3;
+  --blue-hover:#0077ed; --red:#ff3b30; --green:#248a3d;
+  --shadow:0 12px 40px rgba(0,0,0,.055);
+}
+@media (prefers-color-scheme:dark) {
+ :root { --bg:#101012; --panel:rgba(35,35,38,.88); --text:#f5f5f7; --muted:#a1a1a6; --line:rgba(255,255,255,.1); --blue:#2997ff; --blue-hover:#42a1ff; --red:#ff453a; --green:#30d158; --shadow:0 12px 40px rgba(0,0,0,.2); }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;letter-spacing:-.015em}
+button,select,input{font:inherit}
+button{cursor:pointer;border:0}
+.app{max-width:1220px;margin:0 auto;padding:18px 22px 36px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:30px 0 18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brandmark{width:42px;height:42px;border-radius:13px;background:var(--text);color:var(--bg);display:grid;place-items:center}
+.brandmark svg{width:22px;height:22px}
+.brand h1{font-size:21px;letter-spacing:-.04em;margin:0;font-weight:700}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:12px;letter-spacing:0}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:12px;background:var(--panel)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.hero{margin:0 0 22px;padding:22px 0 0;border-top:1px solid var(--line)}
+.hero h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.055em;line-height:1.06;margin:0 0 10px}
+.hero p{color:var(--muted);font-size:15px;line-height:1.55;margin:0;max-width:680px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
+.layout>section{width:100%;max-width:1120px;margin:0 auto}
+.layout>.side{width:100%;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(22px)}
+.preview-head{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid var(--line)}
+.section-label{font-size:13px;font-weight:650}
+.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.status .dot{background:#a1a1a6}
+.status.live .dot{background:var(--red);box-shadow:0 0 0 4px rgba(255,59,48,.12)}
+.stage{background:#080809;position:relative;width:min(100%,1040px);margin:0 auto;aspect-ratio:16/9;min-height:300px;max-height:78vh;display:grid;place-items:center;overflow:hidden;resize:both;max-width:100%;border-radius:0 0 18px 18px;isolation:isolate}
+video{display:block;width:100%;height:100%;object-fit:contain;background:#080809}
+.placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#a1a1a6;text-align:center;padding:20px}
+.placeholder svg{width:48px;height:48px;opacity:.85}
+.placeholder strong{font-size:15px;color:#f5f5f7;font-weight:600}
+.placeholder span{font-size:12px;max-width:280px;line-height:1.5}
+.rec-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.62);color:white;border-radius:8px;padding:7px 10px;font-size:11px;letter-spacing:.08em;display:none;align-items:center;gap:7px;backdrop-filter:blur(10px)}
+.rec-badge.active{display:flex}
+.rec-badge i{width:7px;height:7px;border-radius:50%;background:#ff453a}
+.preview-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;color:var(--muted);font-size:12px}
+.rec-time{font-variant-numeric:tabular-nums;font-size:14px;color:var(--text);font-weight:650}
+.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.panel{padding:19px}
+.panel h3{font-size:15px;letter-spacing:-.025em;margin:0 0 16px}
+.field{margin-bottom:15px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}
+select,input[type=text]{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);padding:11px 12px;outline:none}
+select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 18%,transparent)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;font-size:13px}
+.toggle-row span{color:var(--muted)}
+.switch{appearance:none;width:38px;height:23px;background:#8e8e93;border-radius:999px;position:relative;transition:.2s;flex-shrink:0}
+.switch:checked{background:var(--green)}
+.switch:before{content:"";position:absolute;width:19px;height:19px;background:white;border-radius:50%;left:2px;top:2px;transition:.2s;box-shadow:0 1px 3px #0003}
+.switch:checked:before{left:17px}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.btn{border-radius:13px;padding:12px 13px;font-size:13px;font-weight:650;transition:transform .12s,opacity .12s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:43px}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.primary{background:var(--blue);color:white}
+.primary:hover:not(:disabled){background:var(--blue-hover)}
+.secondary{background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text)}
+.danger{background:var(--red);color:white}
+.wide{grid-column:1/-1}
+.notice{font-size:12px;line-height:1.5;color:var(--muted);margin:13px 0 0}
+.notice strong{color:var(--text);font-weight:600}
+.result{display:none;margin-top:18px}
+.result.show{display:block}
+.result-inner{padding:18px}
+.result h3{margin:0 0 6px;font-size:15px}
+.result p{margin:0 0 14px;color:var(--muted);font-size:12px;line-height:1.5}
+.file-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:13px}
+.file-meta span:last-child{color:var(--muted)}
+.download{width:100%;text-decoration:none}
+.error{display:none;background:color-mix(in srgb,var(--red) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--red) 25%,transparent);color:var(--text);padding:12px 14px;border-radius:13px;font-size:12px;line-height:1.5;margin-bottom:16px}
+.error.show{display:block}
+.footer{margin-top:22px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}
+
+/* Floating liquid-glass teleprompter */
+.stage{isolation:isolate}
+.tele-glass{position:fixed;z-index:50;top:12px;left:50%;transform:translateX(-50%);width:min(78vw,760px);height:190px;max-height:60vh;min-height:100px;resize:both;overflow:hidden;
+  color:#fff;background:rgba(28,28,32,.34);border:1px solid rgba(255,255,255,.24);border-radius:22px;
+  -webkit-backdrop-filter:blur(26px) saturate(175%);backdrop-filter:blur(26px) saturate(175%);
+  box-shadow:0 10px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.16);
+  padding:14px 18px 12px;display:none;user-select:none}
+.tele-glass.visible{display:block}
+.tele-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:8px}
+.tele-top-actions{display:flex;align-items:center;gap:6px}
+.glass-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.12);color:white;border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer}
+.tele-text{font-size:clamp(14px,2vw,22px);line-height:1.45;font-weight:550;text-align:center;height:calc(100% - 58px);max-height:none;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 84%,transparent 100%)}
+#teleTextInner{will-change:transform;white-space:pre-wrap;overflow-wrap:anywhere;padding:0 2px}
+.tele-text.mirror{transform:scaleX(-1)}
+.tele-controls{display:flex;align-items:center;gap:9px;margin-top:8px;height:30px}
+.tele-controls button{width:29px;height:29px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+.tele-controls input{width:100%;accent-color:white}
+.tele-speed{font-size:10px;min-width:54px;text-align:right;color:rgba(255,255,255,.8)}
+.tele-modal{position:fixed;z-index:80;inset:0;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.38);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.tele-modal.open{display:grid}
+.tele-sheet{width:min(560px,100%);max-height:88vh;overflow:auto;padding:22px;border-radius:25px;color:var(--text);background:var(--panel);border:1px solid var(--line);box-shadow:0 25px 80px #0004;-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+.tele-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.tele-sheet h3{margin:0;font-size:22px;letter-spacing:-.04em}
+.tele-sheet textarea{width:100%;min-height:220px;resize:vertical;border:1px solid var(--line);border-radius:15px;padding:14px;background:var(--bg);color:var(--text);font:14px/1.6 var(--ui);outline:none}
+.tele-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:15px 0}
+.tele-grid label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}
+.tele-grid input[type=range],.tele-grid select{width:100%}
+.tele-grid input[type=range]{accent-color:var(--blue)}
+.tele-grid select{padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+.tele-actions{display:flex;gap:9px;justify-content:flex-end;margin-top:15px}
+.tele-actions .btn{min-width:110px}
+.preview-toolbar{position:absolute;z-index:130;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(24,24,28,.52);color:#fff;box-shadow:0 10px 35px #0004,inset 0 1px 0 #ffffff25;-webkit-backdrop-filter:blur(28px) saturate(180%);backdrop-filter:blur(28px) saturate(180%);max-width:calc(100% - 20px)}
+.preview-toolbar .glass-action{border:1px solid #ffffff22;background:#ffffff14;color:#fff;border-radius:999px;padding:10px 14px;font-size:12px;font-weight:650;white-space:nowrap;cursor:pointer}
+.preview-toolbar .glass-action.record{background:#ff453a;color:#fff;border-color:#ff453a}
+.preview-toolbar .glass-action.stop{background:#ffffffeb;color:#1d1d1f}
+.preview-toolbar .glass-action:disabled{opacity:.4;cursor:not-allowed}
+.preview-toolbar .glass-timer{font-size:12px;font-variant-numeric:tabular-nums;min-width:64px;text-align:center;color:#fff}
+.preview-toolbar .glass-sep{height:22px;width:1px;background:#ffffff35}
+.tele-open-btn{position:absolute;z-index:7;top:12px;right:12px;border:1px solid rgba(255,255,255,.2);background:rgba(30,30,32,.55);color:white;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:600;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+@media(max-width:540px){.tele-glass{width:calc(100vw - 22px);top:10px;padding:10px 12px;border-radius:17px;resize:none;max-height:60vh}.tele-text{font-size:15px}.tele-sheet{padding:17px}.tele-grid{grid-template-columns:1fr 1fr}}
+
+@media(max-width:820px){.layout{grid-template-columns:1fr}.layout>.side{grid-template-columns:1fr}.side .panel:first-child{grid-column:1/-1}.stage{min-height:240px;resize:none}.preview-toolbar{gap:5px;padding:6px}.preview-toolbar .glass-action{padding:9px 10px;font-size:11px}}
+@media(max-width:540px){.app{padding:10px 10px 24px}.topbar{align-items:flex-start;flex-wrap:wrap;gap:10px}.pill{font-size:10px}.side{display:flex}.hero h2{font-size:31px}.preview-foot{align-items:flex-start;flex-direction:column}.hero{padding-top:18px}.layout{gap:12px}}
+
+/* Compact recording library */
+.recordings-card{display:block;margin-top:18px;overflow:hidden}
+.recordings-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid var(--line)}
+.recordings-head h3{font-size:15px;margin:0 0 4px;letter-spacing:-.025em}
+.recordings-head p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}
+.recordings-count{flex:none;min-width:29px;height:29px;padding:0 8px;display:grid;place-items:center;border-radius:999px;background:color-mix(in srgb,var(--text) 7%,transparent);font-size:12px;font-weight:700}
+.recordings-list{padding:6px 12px}
+.recordings-empty{padding:20px 8px;text-align:center;color:var(--muted);font-size:12px}
+.recording-row{display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px solid var(--line);min-width:0}
+.recording-row:last-child{border-bottom:0}
+.recording-row.selected{background:color-mix(in srgb,var(--blue) 7%,transparent);border-radius:12px}
+.recording-play{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--text) 8%,transparent);color:var(--blue);font-size:17px}
+.recording-info{flex:1;min-width:0}
+.recording-title{font-size:12px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recording-sub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.recording-sub span{padding:0 3px}
+.recording-actions{display:flex;align-items:center;gap:5px;flex:none}
+.recording-action{display:inline-flex;align-items:center;justify-content:center;padding:7px 9px;border-radius:9px;font-size:11px;font-weight:650;text-decoration:none;white-space:nowrap;background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text)}
+.recording-action.download-action{color:var(--blue)}
+.recording-action.delete-action{color:var(--red)}
+.playback-wrap{padding:12px;border-bottom:1px solid var(--line)}
+.playback-wrap[hidden]{display:none}
+.playback-wrap video{width:100%;max-height:260px;object-fit:contain;border-radius:12px;background:#080809}
+/* Integrated camera + teleprompter. The iframe lives inside the camera stage. */
+.prompter-frame-wrap{position:absolute;inset:0;z-index:80;display:none;background:transparent;pointer-events:none}
+.prompter-frame-wrap.open{display:block}
+#prompterFrame{display:block;width:100%;height:100%;border:0;background:transparent;pointer-events:auto}
+.prompter-close{position:absolute;z-index:150;top:8px;right:8px;padding:7px 10px;border:1px solid #ffffff30;border-radius:999px;background:rgba(28,28,32,.82);color:#fff;font-size:11px;font-weight:650;box-shadow:0 4px 20px #0003;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.recording-quickbar{display:none;position:absolute;z-index:140;left:50%;bottom:10px;transform:translateX(-50%);max-width:calc(100% - 16px);align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;padding:7px 9px;border-radius:18px;border:1px solid #ffffff2b;background:rgba(25,25,28,.82);color:#fff;box-shadow:0 8px 30px #0004;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);font-size:11px;font-variant-numeric:tabular-nums}
+.recording-quickbar.visible{display:flex}
+.quick-rec-dot{width:7px;height:7px;flex:none;border-radius:50%;background:#ff453a;box-shadow:0 0 0 3px #ff453a25}
+.recording-quickbar button{padding:8px 10px;border-radius:999px;background:#ffffff16;color:#fff;font-size:11px;font-weight:650;white-space:nowrap}
+.recording-quickbar #quickRecordBtn{background:#ff453a}
+.recording-quickbar #quickStopBtn{background:#ffffffeb;color:#1d1d1f}
+.stage.prompter-open .preview-toolbar{display:none}
+.stage.prompter-open .tele-open-btn{display:none}
+.stage.prompter-open .rec-badge{z-index:135}
+@media(max-width:600px){
+ .stage{aspect-ratio:4/3;min-height:280px;max-height:none;resize:none;border-radius:0 0 16px 16px}
+ .preview-toolbar{left:8px;right:8px;bottom:8px;transform:none;width:auto;max-width:none;flex-wrap:wrap;gap:5px;padding:7px}
+ .preview-toolbar .glass-action{padding:8px 9px;font-size:11px}
+ .preview-toolbar .glass-timer{min-width:54px;font-size:11px}
+ .recording-quickbar{left:8px;right:8px;bottom:8px;transform:none;max-width:none;border-radius:15px;gap:5px;padding:6px}
+ .recording-quickbar button{padding:8px 9px;font-size:11px}
+ .prompter-close{top:6px;right:6px}
+ .recording-row{gap:7px}.recording-actions{gap:4px}.recording-action{padding:7px 7px;font-size:10px}.recording-sub{max-width:120px}
+}
+@media(max-width:380px){.recording-quickbar{gap:4px}.recording-quickbar button{padding:7px 8px;font-size:10px}.quickbar-time-label{display:none}.preview-head{padding:13px}.preview-foot{padding:11px 13px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="errorBox" class="error" role="alert"></div>
+
+  <main class="layout">
+    <section>
+      <div class="card">
+        <div class="preview-head">
+          <span class="section-label">Camera preview</span>
+          <span id="status" class="status"><span class="dot"></span><span id="statusText">Camera not connected</span></span>
+        </div>
+        <div class="stage">
+          <video id="preview" autoplay playsinline muted></video>
+          <button id="teleOpenBtn" class="tele-open-btn">Open full teleprompter</button>
+          <div id="placeholder" class="placeholder">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="27" height="26" rx="6"/><path d="m32 19 11-6v22l-11-6z"/><path d="M14 11V8h9v3"/></svg>
+            <strong>Your camera preview appears here</strong>
+            <span>Connect your camera and microphone to check lighting, framing and sound before recording.</span>
+          </div>
+          <div id="recBadge" class="rec-badge"><i></i> REC</div>
+          <div class="preview-toolbar" aria-label="Recording controls">
+            <button id="connectBtn" class="glass-action">Connect camera</button>
+            <span class="glass-sep"></span>
+            <button id="startBtn" class="glass-action record" disabled>● Record</button>
+            <button id="pauseBtn" class="glass-action" disabled>Pause</button>
+            <button id="stopBtn" class="glass-action stop" disabled>Stop</button>
+            <span id="overlayTimer" class="glass-timer">00:00:00</span>
+          </div>
+          <div id="prompterFrameWrap" class="prompter-frame-wrap" aria-hidden="true">
+            <iframe id="prompterFrame" title="Full-featured teleprompter" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+            <button id="closePrompterFrame" class="prompter-close" aria-label="Close teleprompter overlay" title="Return to recorder">Close</button>
+          </div>
+          <div id="recordingQuickBar" class="recording-quickbar" aria-label="Video recording controls while teleprompter is open">
+            <span class="quick-rec-dot" aria-hidden="true"></span><span id="quickRecTime">00:00:00</span>
+            <button id="quickConnectBtn">Connect</button><button id="quickRecordBtn">Record</button>
+            <button id="quickPauseBtn" disabled>Pause</button><button id="quickStopBtn" disabled>Stop</button>
+          </div>
+        </div>
+        <div class="preview-foot"><span id="previewHint">Allow camera and microphone access to begin.</span><span class="rec-time" id="timer">00:00:00</span></div>
+      </div>
+
+      <div id="recordingsCard" class="card recordings-card">
+        <div class="recordings-head"><div><h3>Recorded videos</h3><p id="recordingsSummary">No recordings yet. Finished clips appear here.</p></div><span class="recordings-count" id="recordingsCount">0</span></div>
+        <div id="playbackWrap" class="playback-wrap" hidden><video id="playback" controls playsinline></video></div>
+        <div id="recordingsList" class="recordings-list"><div class="recordings-empty">Your clips will be listed here in a compact library.</div></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="card panel">
+        <h3>Recording setup</h3>
+        <div class="field"><label for="cameraSelect">Camera</label><select id="cameraSelect"><option value="">Connect camera first</option></select></div>
+        <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
+        <div class="field"><label for="qualitySelect">Video quality</label><select id="qualitySelect"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
+        <div class="toggle-row"><div><strong>Mirror preview</strong><br><span>For a selfie-style view</span></div><input id="mirrorToggle" class="switch" type="checkbox" checked aria-label="Mirror preview"></div>
+        <div class="toggle-row"><div><strong>Record microphone</strong><br><span>Include your voice</span></div><input id="audioToggle" class="switch" type="checkbox" checked aria-label="Record microphone"></div>
+        <p class="notice" style="margin-top:14px">Recording controls are overlaid at the bottom of the preview. Resize the preview from its lower-right corner on desktop.</p>
+        <p class="notice"><strong>Tip:</strong> Use a quiet room, face a light source, and position the camera at eye level. For talking-head YouTube videos, landscape 16:9 is a good default.</p>
+      </section>
+
+      <section class="card panel">
+        <h3>Before you record</h3>
+        <div class="notice" style="margin:0 0 9px">1. Connect your camera and microphone.</div>
+        <div class="notice" style="margin:0 0 9px">2. Choose the right devices and video quality.</div>
+        <div class="notice" style="margin:0 0 9px">3. Press Record, then Stop when finished.</div>
+        <div class="notice" style="margin:0">4. Download the file and review it before uploading.</div>
+      </section>
+    </aside>
+  </main>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brandmark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></div>
+      <div><h1>Studio</h1><p>Personal video recorder</p></div>
+    </div>
+    <div class="pill"><span class="dot"></span> Runs in your browser</div>
+  </header>
+
+  <section class="hero">
+    <h2>Make your next video.</h2>
+    <p>Record directly from Safari, check your framing, and save the video file for YouTube. No QuickTime Player and no account required.</p>
+  </section>
+
+  <footer class="footer">Recordings stay in this tab until you download or delete them. Nothing is uploaded to a server.<br>Use a recent version of Safari and allow camera/microphone permissions when prompted.</footer>
+</div>
+
+
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const preview = $('preview'), playback = $('playback');
+  let stream = null, recorder = null, chunks = [], timerInterval = null;
+  let startedAt = 0, elapsedBeforePause = 0;
+
+  function showError(message) {
+    const box = $('errorBox');
+    box.textContent = message;
+    box.classList.add('show');
+  }
+  function clearError() { $('errorBox').classList.remove('show'); }
+  function setStatus(text, live = false) {
+    $('statusText').textContent = text;
+    $('status').classList.toggle('live', live);
+  }
+  function formatTime(ms) {
+    const sec = Math.floor(ms / 1000);
+    const h = String(Math.floor(sec / 3600)).padStart(2,'0');
+    const m = String(Math.floor((sec % 3600) / 60)).padStart(2,'0');
+    const s = String(sec % 60).padStart(2,'0');
+    return `${h}:${m}:${s}`;
+  }
+  function elapsed() {
+    return elapsedBeforePause + (recorder && recorder.state === 'recording' ? Date.now() - startedAt : 0);
+  }
+  function updateTimer() { const t = formatTime(elapsed()); $('timer').textContent = t; if ($('overlayTimer')) $('overlayTimer').textContent = t; }
+  function stopTracks() {
+    if (stream) stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  function supportedMimeType() {
+    if (!window.MediaRecorder) return '';
+    const types = [
+      'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+      'video/mp4',
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm'
+    ];
+    return types.find(type => MediaRecorder.isTypeSupported(type)) || '';
+  }
+  function extensionFor(type) { return type && type.toLowerCase().includes('mp4') ? 'mp4' : 'webm'; }
+
+  async function populateDevices() {
+    if (!navigator.mediaDevices?.enumerateDevices) return;
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const cameras = devices.filter(d => d.kind === 'videoinput');
+    const mics = devices.filter(d => d.kind === 'audioinput');
+    const fill = (select, list, label) => {
+      const old = select.value;
+      select.innerHTML = '';
+      if (!list.length) {
+        select.add(new Option(`${label} not found`, ''));
+        return;
+      }
+      list.forEach((d, i) => select.add(new Option(d.label || `${label} ${i + 1}`, d.deviceId)));
+      if (list.some(d => d.deviceId === old)) select.value = old;
+    };
+    fill($('cameraSelect'), cameras, 'Camera');
+    fill($('micSelect'), mics, 'Microphone');
+  }
+
+  async function connectDevices() {
+    clearError();
+    if (!navigator.mediaDevices?.getUserMedia) {
+      showError('Safari cannot access the camera from this page. Open it from https:// or localhost, then try again.');
+      return;
+    }
+    if (recorder && recorder.state !== 'inactive') {
+      showError('Stop the current recording before changing devices.');
+      return;
+    }
+    stopTracks();
+    try {
+      const quality = Number($('qualitySelect').value);
+      const video = {
+        width: { ideal: quality === 1080 ? 1920 : quality === 720 ? 1280 : 854 },
+        height: { ideal: quality === 1080 ? 1080 : quality === 720 ? 720 : 480 },
+        frameRate: { ideal: 30, max: 30 }
+      };
+      if ($('cameraSelect').value) video.deviceId = { exact: $('cameraSelect').value };
+      const audio = $('audioToggle').checked
+        ? ($('micSelect').value ? { deviceId: { exact: $('micSelect').value }, echoCancellation: true, noiseSuppression: true } : true)
+        : false;
+      stream = await navigator.mediaDevices.getUserMedia({ video, audio });
+      preview.srcObject = stream;
+      preview.style.transform = $('mirrorToggle').checked ? 'scaleX(-1)' : 'none';
+      $('placeholder').style.display = 'none';
+      $('previewHint').textContent = 'Preview ready. Check your framing and sound.';
+      setStatus('Camera connected');
+      await populateDevices();
+      $('startBtn').disabled = false;
+      $('connectBtn').textContent = 'Reconnect';
+      updateQuickBar();
+    } catch (err) {
+      let message = 'Could not access your camera or microphone.';
+      if (err.name === 'NotAllowedError' || err.name === 'SecurityError') message = 'Permission was denied. In Safari, open Settings for this website and allow Camera and Microphone access, then reconnect.';
+      else if (err.name === 'NotFoundError' || err.name === 'OverconstrainedError') message = 'The selected camera or microphone was not found. Choose another device and reconnect.';
+      else if (err.name === 'NotReadableError') message = 'The camera may be in use by another app. Close other apps or browser tabs using it, then try again.';
+      showError(message);
+      setStatus('Camera not connected');
+    }
+  }
+
+  function startRecording() {
+    clearError();
+    if (!stream) { showError('Connect your camera first.'); return; }
+    if (!window.MediaRecorder) { showError('MediaRecorder is not available in this Safari version. Update Safari/macOS and try again.'); return; }
+    const mimeType = supportedMimeType();
+    if (!mimeType) { showError('This browser does not report a supported recording format. Update Safari and try again.'); return; }
+    try {
+      chunks = [];
+      recorder = new MediaRecorder(stream, { mimeType });
+      recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+      recorder.onerror = () => showError('A recording error occurred. Try a lower video quality or reconnect your devices.');
+      recorder.onstop = finishRecording;
+      recorder.start(1000);
+      startedAt = Date.now();
+      elapsedBeforePause = 0;
+      $('timer').textContent = '00:00:00'; if ($('overlayTimer')) $('overlayTimer').textContent = '00:00:00';
+      timerInterval = setInterval(updateTimer, 250);
+      $('recBadge').classList.add('active');
+      setStatus('Recording', true);
+      $('previewHint').textContent = 'Recording in progress. Keep this tab open.';
+      $('startBtn').disabled = true;
+      $('pauseBtn').disabled = false;
+      $('pauseBtn').textContent = 'Pause';
+      $('stopBtn').disabled = false;
+      $('connectBtn').disabled = true;
+      $('cameraSelect').disabled = true;
+      $('micSelect').disabled = true;
+      $('qualitySelect').disabled = true;
+      $('audioToggle').disabled = true;
+      updateQuickBar();
+    } catch (err) {
+      showError('Safari could not start recording. Try reconnecting your devices or choosing a lower video quality.');
+    }
+  }
+
+  function pauseRecording() {
+    if (!recorder) return;
+    if (recorder.state === 'recording') {
+      recorder.pause();
+      elapsedBeforePause += Date.now() - startedAt;
+      clearInterval(timerInterval);
+      updateTimer();
+      $('pauseBtn').textContent = 'Resume';
+      updateQuickBar();
+      $('previewHint').textContent = 'Recording paused.';
+      setStatus('Paused');
+      $('recBadge').classList.remove('active');
+    } else if (recorder.state === 'paused') {
+      recorder.resume();
+      startedAt = Date.now();
+      timerInterval = setInterval(updateTimer, 250);
+      $('pauseBtn').textContent = 'Pause';
+      updateQuickBar();
+      $('previewHint').textContent = 'Recording in progress. Keep this tab open.';
+      setStatus('Recording', true);
+      $('recBadge').classList.add('active');
+    }
+  }
+
+  function stopRecording() {
+    if (recorder && recorder.state !== 'inactive') {
+      if (recorder.state === 'recording') elapsedBeforePause += Date.now() - startedAt;
+      clearInterval(timerInterval);
+      recorder.stop();
+    }
+  }
+
+  function finishRecording() {
+    clearInterval(timerInterval);
+    updateTimer();
+    $('recBadge').classList.remove('active');
+    setStatus('Recording saved locally');
+    updateQuickBar();
+    $('previewHint').textContent = 'Recording complete. Choose Preview, Download, or Delete in the video library below.';
+    $('startBtn').disabled = false;
+    $('pauseBtn').disabled = true;
+    $('stopBtn').disabled = true;
+    $('connectBtn').disabled = false;
+    $('cameraSelect').disabled = false;
+    $('micSelect').disabled = false;
+    $('qualitySelect').disabled = false;
+    $('audioToggle').disabled = false;
+
+    const type = recorder.mimeType || 'video/webm';
+    const blob = new Blob(chunks, { type });
+    const ext = extensionFor(type);
+    const date = new Date();
+    const stamp = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}_${String(date.getHours()).padStart(2,'0')}-${String(date.getMinutes()).padStart(2,'0')}-${String(date.getSeconds()).padStart(2,'0')}`;
+    const filename = `studio-recording-${stamp}.${ext}`;
+    addRecording(blob, filename, elapsedBeforePause); 
+    chunks = [];
+    updateQuickBar();
+  }
+
+  $('connectBtn').addEventListener('click', connectDevices);
+  $('startBtn').addEventListener('click', startRecording);
+  $('pauseBtn').addEventListener('click', pauseRecording);
+  $('stopBtn').addEventListener('click', stopRecording);
+  $('mirrorToggle').addEventListener('change', () => {
+    preview.style.transform = $('mirrorToggle').checked ? 'scaleX(-1)' : 'none';
+  });
+  $('cameraSelect').addEventListener('change', connectDevices);
+  $('micSelect').addEventListener('change', connectDevices);
+  $('qualitySelect').addEventListener('change', () => {
+    if (stream) connectDevices();
+  });
+  $('audioToggle').addEventListener('change', () => {
+    if (stream) connectDevices();
+  });
+  window.addEventListener('beforeunload', () => {
+    stopTracks();
+    recordings.forEach(r => URL.revokeObjectURL(r.url));
+  });
+
+  populateDevices().catch(() => {});
+
+  // Full teleprompter2.html app embedded in an iframe to preserve its complete feature set without ID/CSS collisions.
+  const fullPrompterHTML = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<meta name=\"color-scheme\" content=\"light dark\">\n<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n<title>Teleprompter</title>\n<style>\n/* ───────────── Design tokens (Apple HIG-style) ───────────── */\n:root{\n  --ui:-apple-system,BlinkMacSystemFont,\"SF Pro Text\",\"SF Pro Display\",\"Helvetica Neue\",Inter,\"Segoe UI\",Roboto,Arial,sans-serif;\n  --blue:#007aff; --green:#34c759; --red:#ff3b30; --orange:#ff9f0a;\n  --bg:#f2f2f7; --card:#ffffff; --label:#000;\n  --label2:rgba(60,60,67,.6); --label3:rgba(60,60,67,.38); --sep:rgba(60,60,67,.18);\n  --fill:rgba(120,120,128,.16); --segon:#fff; --sel:rgba(255,204,0,.34);\n  --glass:rgba(249,249,251,.78);\n  /* prompter (overridden by JS) */\n  --pbg:#000; --pbg0:rgba(0,0,0,0); --pfg:#fff; --cue:#ff9f0a;\n  --fs:64px; --lh:1.45; --tw:80%; --align:center; --pfont:var(--ui); --pw:600; --focus:38%;\n  --wx:0px; --wy:0px; --ww:560px; --wh:200px; --wr:0 0 28px 28px;\n}\n@media (prefers-color-scheme:dark){\n  :root{\n    --blue:#0a84ff; --green:#30d158; --red:#ff453a;\n    --bg:#000; --card:#1c1c1e; --label:#fff;\n    --label2:rgba(235,235,245,.6); --label3:rgba(235,235,245,.34); --sep:rgba(84,84,88,.6);\n    --fill:rgba(120,120,128,.36); --segon:#636366; --sel:rgba(255,204,0,.26);\n    --glass:rgba(28,28,30,.78);\n  }\n}\n*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}\nhtml,body{height:100%;margin:0}\nbody{font-family:var(--ui);font-size:15px;line-height:1.4;background:var(--bg);color:var(--label);\n  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}\nbutton{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0;text-align:inherit}\n:focus-visible{outline:2px solid var(--blue);outline-offset:2px}\nsvg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}\n\n/* ───────────── Navigation bar ───────────── */\n.nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;\n  padding:calc(10px + env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 10px max(20px,env(safe-area-inset-left));\n  background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(24px);backdrop-filter:saturate(180%) blur(24px);\n  border-bottom:.5px solid var(--sep)}\n.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;letter-spacing:-.01em}\n.app-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;\n  background:linear-gradient(160deg,#5ac8fa,#007aff 55%,#5856d6);box-shadow:0 1px 3px rgba(0,0,0,.25)}\n.app-icon svg{width:18px;height:18px}\n.nav-actions{display:flex;align-items:center;gap:8px}\n.btn{display:inline-flex;align-items:center;gap:8px;border-radius:980px;padding:9px 18px;font-weight:600;transition:transform .12s,opacity .15s,background .15s}\n.btn:active{transform:scale(.96)}\n.btn.primary{background:var(--blue);color:#fff}\n.btn.primary:hover{opacity:.9}\n.btn.primary svg{width:16px;height:16px}\n.btn.round{width:36px;height:36px;padding:0;justify-content:center;background:var(--fill);color:var(--blue)}\n\n/* ───────────── Layout: sidebar · editor · settings ───────────── */\n.layout{max-width:1580px;margin:0 auto;padding:20px max(20px,env(safe-area-inset-right)) 28px max(20px,env(safe-area-inset-left));\n  display:grid;grid-template-columns:292px minmax(0,1fr) 350px;gap:16px;align-items:start}\n.sidebar,.editor{background:var(--card);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;\n  height:calc(100vh - 112px);height:calc(100dvh - 112px);min-height:440px}\n\n/* sidebar (Apple Notes-style) */\n.sb-head{display:flex;align-items:center;justify-content:space-between;padding:14px 12px 6px 18px}\n.sb-head h2{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em}\n.icon-btn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--blue);transition:background .15s,transform .1s}\n.icon-btn:hover{background:var(--fill)}\n.icon-btn:active{transform:scale(.92)}\n.icon-btn.danger{color:var(--red)}\n.icon-btn.on{color:var(--orange)}\n.icon-btn.on svg{fill:currentColor}\n.search{position:relative;margin:4px 12px 8px}\n.search svg{position:absolute;left:10px;top:50%;margin-top:-8px;width:16px;height:16px;color:var(--label2);pointer-events:none}\n.search input{width:100%;height:34px;border:0;outline:0;border-radius:10px;background:var(--fill);color:var(--label);\n  padding:0 10px 0 32px;font:15px var(--ui);-webkit-appearance:none;appearance:none}\n.search input::placeholder{color:var(--label2)}\n.search input:focus{box-shadow:0 0 0 2px var(--blue)}\n.note-list{flex:1;overflow:auto;padding:0 8px 8px;scrollbar-width:thin}\n.grp-h{padding:14px 10px 5px;font-size:13px;font-weight:700;letter-spacing:-.005em}\n.note{position:relative;display:block;width:100%;padding:9px 10px 10px;border-radius:10px;min-width:0}\n.note:hover{background:var(--fill)}\n.note.on{background:var(--sel)}\n.note::after{content:\"\";position:absolute;left:10px;right:0;bottom:0;border-bottom:.5px solid var(--sep)}\n.note.on::after,.note:hover::after{border-color:transparent}\n.nt{display:flex;align-items:center;gap:6px}\n.nt .title{flex:1;min-width:0;font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.nt .pin{color:var(--orange);display:flex}\n.nt .pin svg{width:13px;height:13px;fill:currentColor}\n.nm{display:flex;gap:8px;font-size:13px;color:var(--label2);margin-top:2px;min-width:0}\n.nm .nd{flex:none;color:var(--label)}\n.nm .np{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.ns{margin-top:3px;font-size:12px;color:var(--label3);font-variant-numeric:tabular-nums}\n.empty-list{padding:30px 10px;text-align:center;color:var(--label2)}\n.sb-foot{padding:10px;text-align:center;font-size:12px;color:var(--label2);border-top:.5px solid var(--sep)}\n\n/* editor */\n.ed-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:.5px solid var(--sep)}\n.ed-tools{display:flex;gap:2px;align-items:center}\n.ed-date{flex:1;text-align:center;color:var(--label2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n.tbtn{color:var(--blue);padding:6px 10px;border-radius:8px;font-size:15px;transition:background .15s}\n.tbtn:hover{background:var(--fill)}\n#script{flex:1;width:100%;border:0;outline:0;resize:none;background:transparent;color:var(--label);caret-color:var(--blue);\n  padding:18px 24px;font:17px/1.6 var(--ui)}\n#script::placeholder{color:var(--label2)}\n.ed-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 18px;border-top:.5px solid var(--sep);\n  font-size:13px;color:var(--label2)}\n.ed-foot code{font:12px ui-monospace,\"SF Mono\",Menlo,monospace;background:var(--fill);padding:1px 6px;border-radius:5px;color:var(--label)}\n\n/* ───────────── Settings (inset grouped lists) ───────────── */\n.settings{position:sticky;top:78px;max-height:calc(100vh - 98px);max-height:calc(100dvh - 98px);overflow:auto;padding-bottom:4px;scrollbar-width:thin}\n.sheet-head{display:none}\n.group{margin-bottom:22px}\n.group h3{margin:0 0 6px 16px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--label2)}\n.list{background:var(--card);border-radius:14px;overflow:hidden}\n.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;min-height:46px;cursor:default}\n.row+.row{border-top:.5px solid var(--sep)}\n.row.stack{flex-direction:column;align-items:stretch;gap:8px}\n.row-top{display:flex;justify-content:space-between;align-items:center;gap:8px}\n.row.action{width:100%;justify-content:flex-start;color:var(--blue);font-weight:500;cursor:pointer}\n.row.action:active{background:var(--fill)}\n.val{color:var(--label2);font-variant-numeric:tabular-nums}\n.foot{margin:6px 16px 0;font-size:12px;color:var(--label2)}\n.reset{width:100%;padding:13px;background:var(--card);border-radius:14px;color:var(--red);font-weight:500;text-align:center}\n.reset:active{opacity:.6}\n.only-notch{display:none !important}\nbody.layout-notch .only-notch{display:flex !important}\n\n/* range */\ninput[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0;cursor:pointer}\ninput[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;\n  background:linear-gradient(to right,var(--fillc,var(--blue)) var(--p,50%),var(--trackc,var(--fill)) var(--p,50%))}\ninput[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-11px;border-radius:50%;background:#fff;\n  box-shadow:0 1px 5px rgba(0,0,0,.35),0 0 0 .5px rgba(0,0,0,.08)}\ninput[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--trackc,var(--fill))}\ninput[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--fillc,var(--blue))}\ninput[type=range]::-moz-range-thumb{width:26px;height:26px;border:0;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.35)}\n\n/* segmented control */\n.seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px}\n.seg button{flex:1;padding:6px 8px;border-radius:7px;font-size:13px;font-weight:500;text-align:center;transition:background .2s,box-shadow .2s}\n.seg button.on{background:var(--segon);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 .5px rgba(0,0,0,.04)}\n\n/* iOS switch */\n.switch{position:relative;width:51px;height:31px;flex:none}\n.switch input{-webkit-appearance:none;appearance:none;position:absolute;inset:0;margin:0;border-radius:16px;background:var(--fill);cursor:pointer;transition:background .25s}\n.switch input:checked{background:var(--green)}\n.switch i{position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;pointer-events:none;\n  box-shadow:0 2px 5px rgba(0,0,0,.3);transition:transform .28s cubic-bezier(.3,.9,.3,1.1)}\n.switch input:checked + i{transform:translateX(20px)}\n\n/* swatches */\n.swatches{display:flex;gap:10px;flex-wrap:wrap}\n.sw{width:38px;height:38px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(128,128,128,.4);transition:transform .15s}\n.sw:active{transform:scale(.92)}\n.sw.on{box-shadow:inset 0 0 0 1px rgba(128,128,128,.4),0 0 0 2px var(--card),0 0 0 4px var(--blue)}\n\n/* ───────────── Prompter stage ───────────── */\n.stage,.dock,.hud,.scrim,.countdown{display:none}\n.stage{position:fixed;inset:0;z-index:10;background:var(--pbg);color:var(--pfg);overflow:hidden;touch-action:none;\n  -webkit-user-select:none;user-select:none;cursor:pointer}\n.flip{position:absolute;inset:0;transform-origin:center}\n.guide{position:absolute;left:0;right:0;top:var(--focus);height:calc(var(--fs) * var(--lh));\n  background:rgba(128,128,128,.12);background:color-mix(in srgb,var(--pfg) 9%,transparent);pointer-events:none}\n.guide::before,.guide::after{content:\"\";position:absolute;top:50%;margin-top:-11px;border:11px solid transparent}\n.guide::before{left:10px;border-left-color:var(--cue)}\n.guide::after{right:10px;border-right-color:var(--cue)}\n.stage.no-guide .guide{display:none}\n.content{position:absolute;left:50%;top:0;width:var(--tw);max-width:100%;transform:translate3d(-50%,0,0);will-change:transform;\n  font-family:var(--pfont);font-weight:var(--pw);font-size:var(--fs);line-height:var(--lh);text-align:var(--align);\n  letter-spacing:-.005em;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}\n.content p{margin:0 0 .85em}\n.content h2{margin:1.1em 0 .4em;font-size:.5em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.55;line-height:1.3}\n.content strong{font-weight:800}\n.cue{color:var(--cue);font-weight:700;font-size:.62em;letter-spacing:.02em;vertical-align:.12em;padding:0 .1em}\n.content .empty{opacity:.5}\n.fade{position:absolute;left:0;right:0;pointer-events:none;z-index:2}\n.fade.t{top:0;height:calc(var(--focus) * .75);background:linear-gradient(var(--pbg),var(--pbg0))}\n.fade.b{bottom:0;height:26%;background:linear-gradient(var(--pbg0),var(--pbg))}\n.stage.no-fade .fade{display:none}\n.progress{position:absolute;top:0;left:0;height:3px;width:0;z-index:7;background:var(--blue);border-radius:0 2px 2px 0;\n  box-shadow:0 0 10px var(--blue);transition:opacity .4s;pointer-events:none}\n\n/* notch-window resize grips */\n.grip{position:absolute;z-index:8;display:none;opacity:0;transition:opacity .2s;touch-action:none}\n.grip::after{content:\"\";position:absolute;background:rgba(128,128,128,.75);border-radius:3px}\n.grip.l,.grip.r{top:0;bottom:0;width:18px;cursor:ew-resize}\n.grip.l{left:0}.grip.r{right:0}\n.grip.l::after,.grip.r::after{top:50%;left:6px;width:4px;height:46px;margin-top:-23px}\n.grip.b{left:0;right:0;bottom:0;height:18px;cursor:ns-resize}\n.grip.b::after{left:50%;bottom:6px;height:4px;width:46px;margin-left:-23px}\nbody.layout-notch .grip{display:block}\nbody.layout-notch .stage:hover .grip{opacity:1}\n\n.hud{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:20;gap:10px;align-items:center;\n  padding:7px 14px;border-radius:980px;background:rgba(30,30,32,.7);color:#fff;font-size:13px;font-weight:600;\n  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);\n  box-shadow:inset 0 0 0 .5px rgba(255,255,255,.16);font-variant-numeric:tabular-nums;transition:opacity .4s;pointer-events:none}\n.hud span+span{color:rgba(255,255,255,.62);font-weight:500}\nbody.no-timer .hud{display:none !important}\n\n/* floating dock (always dark glass, like iOS media controls) */\n.dock{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;\n  align-items:center;flex-wrap:wrap;justify-content:center;gap:6px 10px;padding:10px 16px;max-width:calc(100vw - 20px);\n  border-radius:32px;background:rgba(30,30,32,.74);color:#fff;\n  -webkit-backdrop-filter:saturate(180%) blur(30px);backdrop-filter:saturate(180%) blur(30px);\n  box-shadow:0 12px 44px rgba(0,0,0,.5),inset 0 0 0 .5px rgba(255,255,255,.16);\n  transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}\n.dock .ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;transition:background .15s,transform .1s,box-shadow .15s}\n.dock .ic:hover{background:rgba(255,255,255,.14)}\n.dock .ic:active{transform:scale(.9)}\n.dock .ic.on{background:var(--blue)}\n.dock .play{width:56px;height:56px;background:#fff;color:#000}\n.dock .play:hover{background:#e9e9ee}\n.dock .play svg{width:26px;height:26px}\n.dock .sep{width:1px;height:28px;background:rgba(255,255,255,.18)}\n.dock .grp{display:flex;align-items:center;gap:2px}\n/* hover-to-activate feedback */\n.dock .ic.arming{box-shadow:0 0 0 3px rgba(10,132,255,.75);background:rgba(255,255,255,.2)}\n.dock .play.arming{background:#d6d6dc}\n.dock .ic.fired{animation:fire .36s ease-out}\n@keyframes fire{0%{transform:scale(1)}35%{transform:scale(.84)}100%{transform:scale(1)}}\n.mini{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.65)}\n.mini input{width:116px;--fillc:#fff;--trackc:rgba(255,255,255,.26)}\n.mini output{min-width:56px;text-align:right;color:#fff;font-weight:600;font-variant-numeric:tabular-nums}\n\nbody.idle .dock{opacity:0;transform:translate(-50%,18px);pointer-events:none}\nbody.idle .hud,body.idle .progress{opacity:0}\nbody.idle .stage{cursor:none}\n\n.countdown{position:fixed;inset:0;z-index:18;place-items:center;background:rgba(0,0,0,.5);\n  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}\n.countdown .n{font-size:min(34vmin,300px);font-weight:700;color:#fff;letter-spacing:-.04em;font-variant-numeric:tabular-nums;\n  animation:pop 1s cubic-bezier(.2,.8,.2,1) both}\n.countdown .t{position:absolute;bottom:22%;color:rgba(255,255,255,.7);font-size:15px}\n@keyframes pop{0%{transform:scale(.6);opacity:0}25%{transform:scale(1);opacity:1}100%{transform:scale(.94);opacity:.85}}\n\n.scrim{position:fixed;inset:0;z-index:35;background:rgba(0,0,0,.28)}\n.toast{position:fixed;top:calc(64px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-8px);z-index:70;opacity:0;pointer-events:none;\n  padding:9px 16px;border-radius:980px;background:rgba(30,30,32,.88);color:#fff;font-size:14px;font-weight:600;\n  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 6px 24px rgba(0,0,0,.35);\n  transition:opacity .25s,transform .25s}\n.toast.show{opacity:1;transform:translate(-50%,0)}\n\n/* modal */\n.modal{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.4);\n  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}\n.modal.open{display:grid}\n.sheet{width:min(460px,100%);max-height:86vh;overflow:auto;background:var(--card);border-radius:20px;padding:22px 22px 18px;\n  box-shadow:0 20px 60px rgba(0,0,0,.4)}\n.sheet h2{margin:0 0 12px;font-size:20px;letter-spacing:-.01em}\n.keys{display:grid;grid-template-columns:auto 1fr;gap:9px 18px;margin:0 0 16px;align-items:center}\n.keys dt{display:flex;gap:4px;flex-wrap:wrap}\n.keys dd{margin:0;color:var(--label2)}\nkbd{font:600 12px var(--ui);min-width:26px;text-align:center;padding:3px 7px;border-radius:6px;background:var(--fill);color:var(--label);\n  box-shadow:0 1px 0 rgba(0,0,0,.25)}\n.sheet .btn{width:100%;justify-content:center}\n\n/* ───────────── Prompt mode ───────────── */\nbody.mode-prompt{overflow:hidden;background:#000}\nbody.mode-prompt .nav,body.mode-prompt .editor,body.mode-prompt .sidebar{display:none}\nbody.mode-prompt .layout{display:block;padding:0;max-width:none}\nbody.mode-prompt .stage{display:block}\nbody.mode-prompt .dock{display:flex}\nbody.mode-prompt .hud{display:flex}\nbody.mode-prompt .countdown.show{display:grid}\nbody.mode-prompt .settings{position:fixed;top:0;right:0;bottom:0;max-height:none;width:min(390px,100%);z-index:40;\n  padding:calc(12px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));\n  background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(30px);backdrop-filter:saturate(180%) blur(30px);\n  border-left:.5px solid var(--sep);transform:translateX(106%);transition:transform .38s cubic-bezier(.2,.8,.2,1);\n  box-shadow:-10px 0 40px rgba(0,0,0,.25)}\nbody.mode-prompt.sheet-open .settings{transform:none}\nbody.mode-prompt.sheet-open .scrim{display:block}\nbody.mode-prompt .sheet-head{display:flex;align-items:center;justify-content:space-between;margin:0 4px 14px}\nbody.mode-prompt #groups{display:block}\n.sheet-head h2{margin:0;font-size:20px;letter-spacing:-.01em}\n.sheet-head button{color:var(--blue);font-weight:600;font-size:16px;padding:6px 4px}\n\n/* ───────────── Notch layout: compact window right under the camera ───────────── */\nbody.layout-notch .stage{inset:auto;top:var(--wy);left:calc(50% + var(--wx));width:min(var(--ww),100vw);height:min(var(--wh),100vh);\n  transform:translateX(-50%);border-radius:var(--wr);box-shadow:0 0 0 1px rgba(255,255,255,.1),0 24px 60px rgba(0,0,0,.65)}\nbody.layout-notch .progress{top:auto;bottom:0}\nbody.layout-notch .dock{top:calc(var(--wy) + var(--wh) + 14px);bottom:auto;left:calc(50% + var(--wx))}\nbody.layout-notch.idle .dock{transform:translate(-50%,-18px)}\nbody.layout-notch .hud{top:auto;bottom:calc(18px + env(safe-area-inset-bottom));left:calc(50% + var(--wx))}\nbody.layout-notch .countdown{inset:auto;top:var(--wy);left:calc(50% + var(--wx));width:min(var(--ww),100vw);height:min(var(--wh),100vh);\n  transform:translateX(-50%);border-radius:var(--wr)}\nbody.layout-notch .countdown .n{font-size:calc(var(--wh) * .5)}\nbody.layout-notch .countdown .t{display:none}\n\n@media (max-width:1260px){\n  .layout{grid-template-columns:292px minmax(0,1fr)}\n  .settings{grid-column:1 / -1;position:static;max-height:none}\n  #groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 18px;align-items:start}\n}\n@media (max-width:760px){\n  .layout{grid-template-columns:1fr}\n  .sidebar{height:300px;min-height:0}\n  .editor{height:62vh;height:62dvh;min-height:360px}\n  .mini{flex:1 1 100%}\n  .mini input{flex:1;width:auto}\n  .mini span{min-width:38px}\n  .dock{padding:10px 12px;border-radius:28px}\n  .dock .sep.hide-s{display:none}\n  .btn .lbl{display:none}\n  .btn.primary{padding:9px 14px}\n  .ed-date{display:none}\n}\n@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;animation-duration:.01ms !important}}\n\n/* Embedded recorder mode: keep the host camera visible around the notch reading window. */\nhtml, body { background: transparent !important; }\nbody.mode-prompt.layout-notch { background: transparent !important; }\nbody.mode-prompt.layout-notch .layout { background: transparent !important; }\nbody.mode-prompt.layout-notch .stage { background: var(--pbg); }\n</style>\n</head>\n<body class=\"mode-edit\">\n\n<!-- Icons (SF Symbols-style, stroke based) -->\n<svg width=\"0\" height=\"0\" style=\"position:absolute\" aria-hidden=\"true\">\n  <symbol id=\"i-play\" viewBox=\"0 0 24 24\"><path stroke=\"none\" fill=\"currentColor\" d=\"M8 5.6v12.8a1 1 0 0 0 1.52.85l10.4-6.4a1 1 0 0 0 0-1.7L9.52 4.75A1 1 0 0 0 8 5.6z\"/></symbol>\n  <symbol id=\"i-pause\" viewBox=\"0 0 24 24\"><rect stroke=\"none\" fill=\"currentColor\" x=\"6.2\" y=\"5\" width=\"4.1\" height=\"14\" rx=\"1.3\"/><rect stroke=\"none\" fill=\"currentColor\" x=\"13.7\" y=\"5\" width=\"4.1\" height=\"14\" rx=\"1.3\"/></symbol>\n  <symbol id=\"i-close\" viewBox=\"0 0 24 24\"><path d=\"M6 6l12 12M18 6L6 18\"/></symbol>\n  <symbol id=\"i-restart\" viewBox=\"0 0 24 24\"><path d=\"M6 5v14\"/><path stroke=\"none\" fill=\"currentColor\" d=\"M19 6.2v11.6a.8.8 0 0 1-1.25.66L9.4 12.66a.8.8 0 0 1 0-1.32l8.35-5.8A.8.8 0 0 1 19 6.2z\"/></symbol>\n  <symbol id=\"i-back\" viewBox=\"0 0 24 24\"><path d=\"M4.2 12a7.8 7.8 0 1 0 2.4-5.6\"/><path d=\"M4.2 4.2v4.4h4.4\"/><text x=\"12\" y=\"15.4\" text-anchor=\"middle\" font-size=\"7.4\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" font-family=\"-apple-system,Helvetica,Arial,sans-serif\">10</text></symbol>\n  <symbol id=\"i-fwd\" viewBox=\"0 0 24 24\"><path d=\"M19.8 12a7.8 7.8 0 1 1-2.4-5.6\"/><path d=\"M19.8 4.2v4.4h-4.4\"/><text x=\"12\" y=\"15.4\" text-anchor=\"middle\" font-size=\"7.4\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" font-family=\"-apple-system,Helvetica,Arial,sans-serif\">10</text></symbol>\n  <symbol id=\"i-sliders\" viewBox=\"0 0 24 24\"><path d=\"M4 7h9M18 7h2M4 17h2M11 17h9\"/><circle cx=\"15.5\" cy=\"7\" r=\"2.2\"/><circle cx=\"8.5\" cy=\"17\" r=\"2.2\"/></symbol>\n  <symbol id=\"i-full\" viewBox=\"0 0 24 24\"><path d=\"M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15\"/></symbol>\n  <symbol id=\"i-mirror\" viewBox=\"0 0 24 24\"><path d=\"M12 3v18\" stroke-dasharray=\"2 2.6\"/><path d=\"M9.2 7.5L3.8 18h5.4z\"/><path d=\"M14.8 7.5L20.2 18h-5.4z\"/></symbol>\n  <symbol id=\"i-notch\" viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"3.5\" width=\"18\" height=\"15\" rx=\"2.6\"/><path d=\"M8 3.5v4.2a1.3 1.3 0 0 0 1.3 1.3h5.4A1.3 1.3 0 0 0 16 7.7V3.5\"/></symbol>\n  <symbol id=\"i-lines\" viewBox=\"0 0 24 24\"><path d=\"M5 7h14M7.5 12h9M10 17h4\"/></symbol>\n  <symbol id=\"i-kbd\" viewBox=\"0 0 24 24\"><rect x=\"2.5\" y=\"6\" width=\"19\" height=\"12\" rx=\"2.5\"/><path d=\"M6.5 10h.01M10 10h.01M14 10h.01M17.5 10h.01M8 14h8\"/></symbol>\n  <symbol id=\"i-compose\" viewBox=\"0 0 24 24\"><path d=\"M11 4H6.5A2.5 2.5 0 0 0 4 6.5v11A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V13\"/><path d=\"M18.4 3.6a1.8 1.8 0 0 1 2.5 2.5L12 15l-3.5 1 1-3.5z\"/></symbol>\n  <symbol id=\"i-pin\" viewBox=\"0 0 24 24\"><path d=\"M9 4h6l-1 6 3 3v1.5H7V13l3-3z\"/><path d=\"M12 14.5V21\"/></symbol>\n  <symbol id=\"i-copy\" viewBox=\"0 0 24 24\"><rect x=\"8\" y=\"8\" width=\"12\" height=\"12\" rx=\"2.5\"/><path d=\"M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8\"/></symbol>\n  <symbol id=\"i-trash\" viewBox=\"0 0 24 24\"><path d=\"M4.5 7h15M9.5 7V5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v2M6.5 7l.8 11.2A2 2 0 0 0 9.3 20h5.4a2 2 0 0 0 2-1.8L17.5 7\"/><path d=\"M10 11v5M14 11v5\"/></symbol>\n  <symbol id=\"i-search\" viewBox=\"0 0 24 24\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M16 16l4 4\"/></symbol>\n</svg>\n\n<!-- ═════════ Navigation bar ═════════ -->\n<header class=\"nav\">\n  <div class=\"brand\">\n    <div class=\"app-icon\"><svg class=\"i\" style=\"stroke-width:2.2\"><use href=\"#i-lines\"/></svg></div>\n    <span>Teleprompter</span>\n  </div>\n  <div class=\"nav-actions\">\n    <button class=\"btn round\" id=\"btnHelp\" title=\"Keyboard shortcuts (?)\" aria-label=\"Keyboard shortcuts\"><svg class=\"i\"><use href=\"#i-kbd\"/></svg></button>\n    <button class=\"btn primary\" id=\"btnStart\" title=\"Start prompter (Ctrl/⌘ + Enter)\"><svg class=\"i\"><use href=\"#i-play\"/></svg><span class=\"lbl\">Start prompter</span></button>\n  </div>\n</header>\n\n<!-- ═════════ Scripts · editor · settings ═════════ -->\n<main class=\"layout\">\n  <aside class=\"sidebar\" aria-label=\"Scripts\">\n    <div class=\"sb-head\">\n      <h2>Scripts</h2>\n      <button class=\"icon-btn\" id=\"btnNew\" title=\"New script\" aria-label=\"New script\"><svg class=\"i\"><use href=\"#i-compose\"/></svg></button>\n    </div>\n    <div class=\"search\"><svg class=\"i\"><use href=\"#i-search\"/></svg><input id=\"search\" type=\"search\" placeholder=\"Search\" autocomplete=\"off\" aria-label=\"Search scripts\"></div>\n    <div class=\"note-list\" id=\"noteList\"></div>\n    <div class=\"sb-foot\" id=\"sbFoot\"></div>\n  </aside>\n\n  <section class=\"editor\">\n    <div class=\"ed-bar\">\n      <div class=\"ed-tools\">\n        <button class=\"icon-btn\" id=\"btnPin\" title=\"Pin to top\" aria-label=\"Pin\"><svg class=\"i\"><use href=\"#i-pin\"/></svg></button>\n        <button class=\"icon-btn\" id=\"btnDup\" title=\"Duplicate\" aria-label=\"Duplicate\"><svg class=\"i\"><use href=\"#i-copy\"/></svg></button>\n        <button class=\"icon-btn danger\" id=\"btnDel\" title=\"Delete\" aria-label=\"Delete\"><svg class=\"i\"><use href=\"#i-trash\"/></svg></button>\n      </div>\n      <div class=\"ed-date\" id=\"edDate\"></div>\n      <div class=\"ed-tools\">\n        <button class=\"tbtn\" id=\"btnImport\">Import</button>\n        <button class=\"tbtn\" id=\"btnExport\">Export</button>\n        <input type=\"file\" id=\"file\" accept=\".txt,.md,text/plain\" hidden>\n      </div>\n    </div>\n    <textarea id=\"script\" spellcheck=\"true\" placeholder=\"Paste or type your script here…&#10;&#10;The first line becomes the title. Start a line with # for a section heading, put [pauses] in brackets, and use // for private notes that won't show.\"></textarea>\n    <div class=\"ed-foot\">\n      <span id=\"stats\">0 words</span>\n      <span><code># Section</code> <code>[pause]</code> <code>**stress**</code> <code>// note</code></span>\n    </div>\n  </section>\n\n  <aside class=\"settings\" id=\"settings\" aria-label=\"Settings\">\n    <div class=\"sheet-head\"><h2>Settings</h2><button id=\"btnDone\">Done</button></div>\n    <div id=\"groups\"></div>\n    <button class=\"reset\" id=\"btnReset\">Reset to defaults</button>\n  </aside>\n</main>\n\n<!-- ═════════ Prompter ═════════ -->\n<div class=\"stage\" id=\"stage\" aria-label=\"Teleprompter\">\n  <div class=\"flip\" id=\"flip\">\n    <div class=\"guide\"></div>\n    <div class=\"content\" id=\"content\"></div>\n  </div>\n  <div class=\"fade t\"></div><div class=\"fade b\"></div>\n  <div class=\"progress\" id=\"progress\"></div>\n  <div class=\"grip l\" id=\"gripL\"></div><div class=\"grip r\" id=\"gripR\"></div><div class=\"grip b\" id=\"gripB\"></div>\n</div>\n<div class=\"hud\" id=\"hud\"><span id=\"hudTime\">−0:00</span><span id=\"hudWpm\">160 WPM</span></div>\n\n<div class=\"dock\" id=\"dock\">\n  <button class=\"ic\" id=\"dExit\" title=\"Exit (Esc)\" aria-label=\"Exit\"><svg class=\"i\"><use href=\"#i-close\"/></svg></button>\n  <div class=\"sep hide-s\"></div>\n  <div class=\"grp\">\n    <button class=\"ic\" id=\"dRestart\" title=\"Back to start (Home)\" aria-label=\"Restart\"><svg class=\"i\"><use href=\"#i-restart\"/></svg></button>\n    <button class=\"ic\" id=\"dBack\" title=\"Back 10 seconds (J) · hover\" aria-label=\"Back 10 seconds\"><svg class=\"i\" style=\"width:26px;height:26px\"><use href=\"#i-back\"/></svg></button>\n    <button class=\"ic play\" id=\"dPlay\" title=\"Play / Pause (Space) · hover\" aria-label=\"Play or pause\"><svg class=\"i\"><use id=\"playIcon\" href=\"#i-play\"/></svg></button>\n    <button class=\"ic\" id=\"dFwd\" title=\"Forward 10 seconds (L) · hover\" aria-label=\"Forward 10 seconds\"><svg class=\"i\" style=\"width:26px;height:26px\"><use href=\"#i-fwd\"/></svg></button>\n  </div>\n  <div class=\"sep hide-s\"></div>\n  <label class=\"mini\"><span>Speed</span><span id=\"dSpeedSlot\" style=\"display:contents\"></span><output id=\"dSpeedO\"></output></label>\n  <label class=\"mini\"><span>Size</span><span id=\"dSizeSlot\" style=\"display:contents\"></span><output id=\"dSizeO\"></output></label>\n  <div class=\"sep hide-s\"></div>\n  <div class=\"grp\">\n    <button class=\"ic\" id=\"dMirror\" title=\"Mirror text (M)\" aria-label=\"Mirror text\"><svg class=\"i\"><use href=\"#i-mirror\"/></svg></button>\n    <button class=\"ic\" id=\"dLayout\" title=\"Notch window (N)\" aria-label=\"Toggle notch window\"><svg class=\"i\"><use href=\"#i-notch\"/></svg></button>\n    <button class=\"ic\" id=\"dSettings\" title=\"Settings (S)\" aria-label=\"Settings\"><svg class=\"i\"><use href=\"#i-sliders\"/></svg></button>\n    <button class=\"ic\" id=\"dFS\" title=\"Full screen (F)\" aria-label=\"Full screen\"><svg class=\"i\"><use href=\"#i-full\"/></svg></button>\n  </div>\n</div>\n\n<div class=\"countdown\" id=\"countdown\"><div class=\"n\" id=\"cdNum\">3</div><div class=\"t\">Tap to cancel</div></div>\n<div class=\"scrim\" id=\"scrim\"></div>\n<div class=\"toast\" id=\"toast\" role=\"status\"></div>\n\n<div class=\"modal\" id=\"modal\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Keyboard shortcuts\">\n  <div class=\"sheet\">\n    <h2>Keyboard shortcuts</h2>\n    <dl class=\"keys\">\n      <dt><kbd>Space</kbd></dt><dd>Play / pause</dd>\n      <dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Speed ± 5 WPM (Shift: ± 25)</dd>\n      <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Font size ∓ / ± (Shift: bigger steps)</dd>\n      <dt><kbd>J</kbd><kbd>L</kbd></dt><dd>Jump back / forward 10 seconds</dd>\n      <dt><kbd>PgUp</kbd><kbd>PgDn</kbd></dt><dd>Jump one screen</dd>\n      <dt><kbd>Home</kbd><kbd>R</kbd></dt><dd>Back to the start</dd>\n      <dt><kbd>N</kbd></dt><dd>Toggle notch window / full screen layout</dd>\n      <dt><kbd>M</kbd></dt><dd>Mirror text horizontally</dd>\n      <dt><kbd>G</kbd></dt><dd>Toggle reading guide</dd>\n      <dt><kbd>S</kbd></dt><dd>Open settings</dd>\n      <dt><kbd>F</kbd></dt><dd>Full screen</dd>\n      <dt><kbd>Esc</kbd></dt><dd>Close panel / exit prompter</dd>\n      <dt><kbd>Ctrl/⌘</kbd><kbd>Enter</kbd></dt><dd>Start prompter from the editor</dd>\n    </dl>\n    <p style=\"margin:0 0 14px;color:var(--label2);font-size:13px\">While prompting, rest your pointer on Play, Back or Forward to trigger them without clicking. You can also scroll with the wheel, drag the text, or tap it to play / pause. In notch layout, drag the window's left, right or bottom edge to resize it.</p>\n    <button class=\"btn primary\" id=\"btnModalClose\">Done</button>\n  </div>\n</div>\n\n<script>\n(() => {\n'use strict';\n\n/* ───────────── Helpers ───────────── */\nconst $ = (s, r = document) => r.querySelector(s);\nconst body = document.body;\nconst clamp = (v, a, b) => Math.min(b, Math.max(a, v));\nconst h = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };\nconst esc = s => s.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));\nconst fmt = sec => { sec = Math.max(0, Math.round(sec)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); };\nconst rgba0 = hex => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},0)`; };\nconst startOfDay = d => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x.getTime(); };\n\n/* ───────────── Config ───────────── */\nconst HOVER_DELAY = 140;       // ms the pointer must rest on a control before it fires\nconst HOVER_REPEAT = 1000;     // ms between repeats for back / forward while hovering\nconst DEFAULTS = {\n  speed:160, size:40, lh:1.45, width:92, align:'center', font:'sans', bold:false, preset:'midnight',\n  mirrorX:false, mirrorY:false, guide:true, fade:true, timer:true, countdown:3, fullscreen:false, hover:true,\n  layout:'notch', focus:38, focusN:6, winW:560, winH:190, winX:0, winY:0\n};\nconst PRESETS = {\n  midnight:{ name:'Midnight', bg:'#000000', fg:'#ffffff', cue:'#ff9f0a' },\n  slate:   { name:'Slate',    bg:'#1c1c1e', fg:'#f5f5f7', cue:'#ff9f0a' },\n  amber:   { name:'Amber',    bg:'#000000', fg:'#ffd60a', cue:'#64d2ff' },\n  matrix:  { name:'Green',    bg:'#000000', fg:'#30d158', cue:'#ffd60a' },\n  paper:   { name:'Paper',    bg:'#ffffff', fg:'#111111', cue:'#d70015' },\n  sepia:   { name:'Sepia',    bg:'#f4ecd8', fg:'#3b2f1e', cue:'#b34700' }\n};\nconst FONTS = {\n  sans:  '-apple-system,BlinkMacSystemFont,\"SF Pro Display\",\"Helvetica Neue\",Inter,\"Segoe UI\",Roboto,Arial,sans-serif',\n  serif: '\"New York\",\"Iowan Old Style\",\"Palatino Linotype\",Georgia,serif',\n  mono:  'ui-monospace,\"SF Mono\",Menlo,Consolas,monospace'\n};\nconst SAMPLE = `# Welcome\nHello, and thanks for joining me today. [smile] This is a sample script so you can see how the teleprompter behaves.\n\n// This line is a private note. It never appears on screen.\n\n# How it works\nThe text scrolls at a steady pace measured in **words per minute**, so the speed stays the same no matter how large you make the font. [pause]\n\nUse the slider to find your natural speaking pace. Most people are comfortable between 130 and 170 words per minute.\n\n# Tips\nTap anywhere to pause. Drag the text or use the mouse wheel to jump around. Press the arrow keys to adjust speed and size without taking your eyes off the lens.\n\nKeep the reading line near the top of the screen, just under your camera, and let your eyes move only a little. [look at camera]\n\nThanks for watching!`;\nconst NOTCH_NOTE = `Notch setup\nOpen Settings and choose Notch window under Layout. The text now lives in a compact box at the top-center of your screen, right under the camera.\n\n# Size it\nDrag the left, right or bottom edge of the box, or use the Window sliders. Use the Reading line slider to move the line you read closer to, or further from, the lens. [look at camera]\n\n# Control it hands-free\nRest your pointer on Play, Back 10 or Forward 10 and they fire on their own. No clicking, so you never break eye contact. [smile]\n\n// Tip: press F for full screen so the box sits right under the notch.`;\n\n/* ───────────── State + storage ───────────── */\nconst KEY = 'teleprompter.v2', KEY_OLD = 'teleprompter.v1';\nlet saved = null;\ntry { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}\nif (!saved) {\n  try {\n    const old = JSON.parse(localStorage.getItem(KEY_OLD) || 'null');\n    if (old) saved = { settings: old.settings, notes: old.script && old.script.trim() ? [mkNote(old.script)] : [] };\n  } catch (e) {}\n}\nsaved = saved || {};\nconst S = Object.assign({}, DEFAULTS, saved.settings || {});\n// Embedded in a recorder: do not auto-fullscreen the iframe; the user can still toggle fullscreen with F.\nS.fullscreen = false;\n\nfunction mkNote(bodyText, t) {\n  t = t || Date.now();\n  return { id: 'n' + t.toString(36) + Math.random().toString(36).slice(2, 6), body: bodyText || '', created: t, updated: t, pinned: false };\n}\nlet notes = Array.isArray(saved.notes) && saved.notes.length ? saved.notes.filter(n => n && typeof n.body === 'string') : [];\nif (!notes.length) { notes = [mkNote(SAMPLE, Date.now()), mkNote(NOTCH_NOTE, Date.now() - 90000)]; }\nlet activeId = notes.some(n => n.id === saved.activeId) ? saved.activeId : [...notes].sort((a, b) => b.updated - a.updated)[0].id;\nconst active = () => notes.find(n => n.id === activeId);\n\nlet persistT;\nfunction persistNow() { clearTimeout(persistT); try { localStorage.setItem(KEY, JSON.stringify({ settings: S, notes, activeId })); } catch (e) {} }\nfunction persist() { clearTimeout(persistT); persistT = setTimeout(persistNow, 250); }\nwindow.addEventListener('pagehide', persistNow);\n\n/* ───────────── Elements ───────────── */\nconst editor = $('#script'), stage = $('#stage'), flip = $('#flip'), content = $('#content');\nconst progressEl = $('#progress'), hudTime = $('#hudTime'), hudWpm = $('#hudWpm');\nconst toastEl = $('#toast'), cdEl = $('#countdown'), cdNum = $('#cdNum'), playIcon = $('#playIcon');\nconst noteList = $('#noteList'), search = $('#search');\n\n/* ───────────── Script parsing ───────────── */\nfunction parse(text) {\n  const blocks = []; let cur = [];\n  const flush = () => { if (cur.length) { blocks.push({ t:'p', lines:cur }); cur = []; } };\n  for (const raw of text.replace(/\\r/g, '').split('\\n')) {\n    const l = raw.trimEnd();\n    if (/^\\s*\\/\\//.test(l)) continue;                 // private note\n    if (!l.trim()) { flush(); continue; }\n    const m = l.match(/^#{1,3}\\s+(.*)$/);\n    if (m) { flush(); blocks.push({ t:'h', text:m[1] }); continue; }\n    cur.push(l);\n  }\n  flush();\n  return blocks;\n}\nfunction countWords(text) {\n  let n = 0;\n  for (const b of parse(text)) if (b.t === 'p') for (const l of b.lines) {\n    const m = l.replace(/\\[[^\\]]*\\]/g, ' ').replace(/\\*\\*/g, '').trim().match(/\\S+/g);\n    if (m) n += m.length;\n  }\n  return n;\n}\nconst inline = l => esc(l).replace(/\\[([^\\]]+)\\]/g, '<span class=\"cue\">[$1]</span>').replace(/\\*\\*([^*]+)\\*\\*/g, '<strong>$1</strong>');\n\n/* ───────────── Scroll engine ───────────── */\nlet mode = 'edit', script = '', words = 1, pos = 0, max = 0, textH = 0, pxPerSec = 0;\nlet playing = false, last = 0, raf = 0, dragging = false;\nconst getFocus = () => (S.layout === 'notch' ? S.focusN : S.focus);\n\nfunction renderScript() {\n  const blocks = parse(script);\n  let html = '';\n  for (const b of blocks) html += b.t === 'h' ? `<h2>${esc(b.text)}</h2>` : `<p>${b.lines.map(inline).join('<br>')}</p>`;\n  if (!html) html = '<p class=\"empty\">Nothing to read yet. Add your script in the editor.</p>';\n  content.innerHTML = html;\n  words = Math.max(1, countWords(script));\n}\nfunction measure() {\n  const H = stage.clientHeight, F = getFocus() / 100;\n  const padTop = H * F, padBot = H * (1 - F);\n  content.style.paddingTop = padTop + 'px';\n  content.style.paddingBottom = padBot + 'px';\n  const total = content.offsetHeight;\n  max = Math.max(0, total - H);\n  textH = Math.max(1, total - padTop - padBot);\n  updateSpeed();\n}\nfunction updateSpeed() { pxPerSec = (S.speed / 60) * (textH / words); }\nfunction apply() {\n  content.style.transform = `translate3d(-50%,${-pos}px,0)`;\n  progressEl.style.width = (max ? pos / max * 100 : 0) + '%';\n  const rem = pxPerSec > 0 ? (max - pos) / pxPerSec : 0;\n  const t = '−' + fmt(rem);\n  if (hudTime.textContent !== t) hudTime.textContent = t;\n}\nfunction relayout() {\n  if (mode !== 'prompt') return;\n  const r = max > 0 ? pos / max : 0;\n  measure(); pos = r * max; apply();\n}\nfunction tick(t) {\n  if (!playing) return;\n  const dt = Math.min(0.1, (t - last) / 1000); last = t;\n  if (!dragging) pos += pxPerSec * dt;\n  if (pos >= max) { pos = max; apply(); setPlaying(false); toast('End of script'); return; }\n  apply();\n  raf = requestAnimationFrame(tick);\n}\nfunction setPlaying(v) {\n  if (v && max > 0 && pos >= max - 1) { pos = 0; apply(); }\n  playing = v;\n  body.classList.toggle('playing', v);\n  playIcon.setAttribute('href', v ? '#i-pause' : '#i-play');\n  cancelAnimationFrame(raf);\n  if (v) { last = performance.now(); raf = requestAnimationFrame(tick); }\n  wake();\n}\nfunction seek(d) { pos = clamp(pos + d, 0, max); apply(); }\n\n/* countdown */\nlet cd = null;\nfunction startCountdown(n) {\n  let c = n; cdNum.textContent = c; cdEl.classList.add('show'); pulse();\n  cd = setInterval(() => {\n    c--;\n    if (c <= 0) { cancelCountdown(); setPlaying(true); }\n    else { cdNum.textContent = c; pulse(); }\n  }, 1000);\n}\nfunction cancelCountdown() { if (cd) { clearInterval(cd); cd = null; } cdEl.classList.remove('show'); }\nfunction pulse() { cdNum.style.animation = 'none'; void cdNum.offsetWidth; cdNum.style.animation = ''; }\n\nfunction togglePlay() {\n  if (cd) { cancelCountdown(); return; }\n  if (playing) { setPlaying(false); return; }\n  if (pos <= 2 && S.countdown > 0) startCountdown(S.countdown);\n  else setPlaying(true);\n}\n\n/* ───────────── Controls auto-hide ───────────── */\nlet idleT, hoverBlock = 0;\nfunction wake() {\n  if (body.classList.contains('idle')) hoverBlock = performance.now() + 600;   // don't fire hover controls the instant the dock reappears\n  body.classList.remove('idle');\n  clearTimeout(idleT);\n  if (mode === 'prompt' && playing && !body.classList.contains('sheet-open'))\n    idleT = setTimeout(() => body.classList.add('idle'), 2800);\n}\n\n/* ───────────── Toast ───────────── */\nlet toastT;\nfunction toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 1500); }\n\n/* ───────────── Settings model ───────────── */\nconst sync = {};\nconst onSync = (k, f) => { (sync[k] = sync[k] || []).push(f); f(); };\nconst syncAll = () => Object.values(sync).forEach(a => a.forEach(f => f()));\nconst get = k => (k === 'focusCur' ? getFocus() : S[k]);\nconst RELAYOUT_KEYS = ['size','lh','width','font','bold','align','layout','winW','winH','winY','focus','focusN'];\n\nfunction set(k, v) {\n  if (k === 'focusCur') k = S.layout === 'notch' ? 'focusN' : 'focus';\n  S[k] = v; persist(); applyStyle();\n  if (RELAYOUT_KEYS.includes(k)) relayout();\n  if (k === 'speed') { updateSpeed(); apply(); updateStats(); }\n  (sync[k] || []).forEach(f => f());\n  if (['layout','focus','focusN'].includes(k)) (sync.focusCur || []).forEach(f => f());\n}\n\nfunction applyStyle() {\n  const p = PRESETS[S.preset] || PRESETS.midnight, r = document.documentElement.style;\n  r.setProperty('--pbg', p.bg); r.setProperty('--pbg0', rgba0(p.bg)); r.setProperty('--pfg', p.fg); r.setProperty('--cue', p.cue);\n  r.setProperty('--fs', S.size + 'px'); r.setProperty('--lh', S.lh); r.setProperty('--tw', S.width + '%');\n  r.setProperty('--align', S.align); r.setProperty('--pfont', FONTS[S.font] || FONTS.sans); r.setProperty('--pw', S.bold ? 800 : 600);\n  r.setProperty('--focus', getFocus() + '%');\n  r.setProperty('--wx', S.winX + 'px'); r.setProperty('--wy', S.winY + 'px');\n  r.setProperty('--ww', S.winW + 'px'); r.setProperty('--wh', S.winH + 'px');\n  r.setProperty('--wr', S.winY > 0 ? '28px' : '0 0 28px 28px');\n  flip.style.transform = `scale(${S.mirrorX ? -1 : 1},${S.mirrorY ? -1 : 1})`;\n  stage.classList.toggle('no-guide', !S.guide);\n  stage.classList.toggle('no-fade', !S.fade);\n  body.classList.toggle('no-timer', !S.timer);\n  body.classList.toggle('layout-notch', S.layout === 'notch');\n  hudWpm.textContent = S.speed + ' WPM';\n}\n\nfunction mkRange(key, min, max_, step) {\n  const el = document.createElement('input');\n  el.type = 'range'; el.min = min; el.max = max_; el.step = step; el.setAttribute('aria-label', key);\n  el.addEventListener('input', () => set(key, parseFloat(el.value)));\n  el.addEventListener('change', () => el.blur());\n  onSync(key, () => { const v = get(key); el.value = v; el.style.setProperty('--p', ((v - min) / (max_ - min) * 100) + '%'); });\n  return el;\n}\n\nfunction notchPreset() {\n  Object.assign(S, { layout:'notch', winW:560, winH:190, winX:0, winY:0, focusN:6, size:40, width:92 });\n  persist(); applyStyle(); syncAll(); relayout(); toast('Notch preset applied');\n}\n\nconst SCHEMA = [\n  { title:'Layout', foot:'Notch window puts a compact reading box at the top-center of the screen, right under the camera. Drag its left, right or bottom edge to resize it.', items:[\n    { key:'layout', label:'Prompter', type:'seg', opts:[['full','Full screen'],['notch','Notch window']] },\n    { key:'winW', label:'Window width', type:'range', min:240, max:1600, step:10, fmt:v => v + ' px', only:'notch' },\n    { key:'winH', label:'Window height', type:'range', min:80, max:700, step:10, fmt:v => v + ' px', only:'notch' },\n    { key:'winX', label:'Horizontal offset', type:'range', min:-600, max:600, step:10, fmt:v => (v > 0 ? '+' : '') + v + ' px', only:'notch' },\n    { key:'winY', label:'Top offset', type:'range', min:0, max:300, step:5, fmt:v => v + ' px', only:'notch' },\n    { key:'focusCur', label:'Reading line position', type:'range', min:2, max:70, step:1, fmt:v => v + '%' },\n    { type:'button', label:'Fit under camera (preset)', fn:notchPreset }\n  ]},\n  { title:'Scrolling', items:[\n    { key:'speed', label:'Speed', type:'range', min:30, max:400, step:5, fmt:v => v + ' WPM' },\n    { key:'countdown', label:'Countdown', type:'seg', opts:[[0,'Off'],[3,'3 s'],[5,'5 s'],[10,'10 s']] }\n  ]},\n  { title:'Text', items:[\n    { key:'size', label:'Font size', type:'range', min:20, max:200, step:2, fmt:v => v + ' px' },\n    { key:'lh', label:'Line spacing', type:'range', min:1, max:2.2, step:.05, fmt:v => v.toFixed(2) },\n    { key:'width', label:'Text width', type:'range', min:30, max:100, step:2, fmt:v => v + '%' },\n    { key:'align', label:'Alignment', type:'seg', opts:[['left','Left'],['center','Center'],['right','Right']] },\n    { key:'font', label:'Typeface', type:'seg', opts:[['sans','Sans'],['serif','Serif'],['mono','Mono']] },\n    { key:'bold', label:'Bold text', type:'switch' }\n  ]},\n  { title:'Appearance', items:[\n    { key:'preset', label:'Colors', type:'swatch' },\n    { key:'guide', label:'Reading guide', type:'switch' },\n    { key:'fade', label:'Edge fade', type:'switch' },\n    { key:'timer', label:'Show time remaining', type:'switch' }\n  ]},\n  { title:'Mirror', foot:'Flip the text when reading through beam-splitter teleprompter glass.', items:[\n    { key:'mirrorX', label:'Flip horizontally', type:'switch' },\n    { key:'mirrorY', label:'Flip vertically', type:'switch' }\n  ]},\n  { title:'General', foot:'Hover controls: rest the pointer on Play, Back 10 or Forward 10 and they fire without a click. Back and Forward repeat while you keep hovering.', items:[\n    { key:'hover', label:'Hover to control', type:'switch' },\n    { key:'fullscreen', label:'Full screen on start', type:'switch' }\n  ]}\n];\n\nfunction buildRow(it) {\n  let row;\n  if (it.type === 'range') {\n    row = h('div', 'row stack'); const top = h('div', 'row-top'), out = h('span', 'val');\n    top.append(h('span', '', it.label), out);\n    row.append(top, mkRange(it.key, it.min, it.max, it.step));\n    onSync(it.key, () => out.textContent = it.fmt(get(it.key)));\n  } else if (it.type === 'seg') {\n    row = h('div', 'row stack'); const seg = h('div', 'seg'), btns = [];\n    row.append(h('span', '', it.label), seg);\n    it.opts.forEach(([val, name]) => {\n      const b = h('button', '', name); b.type = 'button';\n      b.addEventListener('click', () => set(it.key, val)); seg.append(b); btns.push([val, b]);\n    });\n    onSync(it.key, () => btns.forEach(([val, b]) => b.classList.toggle('on', String(val) === String(S[it.key]))));\n  } else if (it.type === 'switch') {\n    row = h('label', 'row'); const sw = h('span', 'switch'), inp = document.createElement('input');\n    inp.type = 'checkbox'; sw.append(inp, h('i'));\n    row.append(h('span', '', it.label), sw);\n    inp.addEventListener('change', () => { set(it.key, inp.checked); inp.blur(); });\n    onSync(it.key, () => inp.checked = !!S[it.key]);\n  } else if (it.type === 'swatch') {\n    row = h('div', 'row stack'); const top = h('div', 'row-top'), out = h('span', 'val'), wrap = h('div', 'swatches'), btns = [];\n    top.append(h('span', '', it.label), out); row.append(top, wrap);\n    Object.entries(PRESETS).forEach(([id, p]) => {\n      const b = h('button', 'sw'); b.type = 'button'; b.title = p.name; b.setAttribute('aria-label', p.name);\n      b.style.background = `linear-gradient(135deg,${p.bg} 50%,${p.fg} 50%)`;\n      b.addEventListener('click', () => set(it.key, id)); wrap.append(b); btns.push([id, b]);\n    });\n    onSync(it.key, () => { btns.forEach(([id, b]) => b.classList.toggle('on', id === S[it.key])); out.textContent = (PRESETS[S[it.key]] || {}).name || ''; });\n  } else if (it.type === 'button') {\n    row = h('button', 'row action', it.label); row.type = 'button'; row.addEventListener('click', it.fn);\n  }\n  if (it.only) row.classList.add('only-' + it.only);\n  return row;\n}\nfunction buildSettings() {\n  const root = $('#groups');\n  SCHEMA.forEach(g => {\n    const sec = h('section', 'group'), list = h('div', 'list');\n    sec.append(h('h3', '', g.title));\n    g.items.forEach(it => list.append(buildRow(it)));\n    sec.append(list);\n    if (g.foot) sec.append(h('p', 'foot', g.foot));\n    root.append(sec);\n  });\n  // dock sliders share the same state\n  $('#dSpeedSlot').append(mkRange('speed', 30, 400, 5));\n  $('#dSizeSlot').append(mkRange('size', 20, 200, 2));\n  onSync('speed', () => $('#dSpeedO').textContent = S.speed + ' WPM');\n  onSync('size',  () => $('#dSizeO').textContent = S.size + ' px');\n  onSync('mirrorX', () => $('#dMirror').classList.toggle('on', S.mirrorX));\n  onSync('layout',  () => $('#dLayout').classList.toggle('on', S.layout === 'notch'));\n}\n\n/* ───────────── Scripts library (Apple Notes-style) ───────────── */\nfunction summarize(text) {\n  let title = '', prev = [];\n  for (const raw of text.replace(/\\r/g, '').split('\\n')) {\n    const l = raw.trim();\n    if (!l || l.startsWith('//')) continue;\n    const c = l.replace(/^#{1,3}\\s+/, '').replace(/\\*\\*/g, '');\n    if (!title) { title = c; continue; }\n    prev.push(c);\n    if (prev.join(' ').length > 140) break;\n  }\n  return { title: title.slice(0, 80) || 'New Script', preview: prev.join(' ').slice(0, 140) || 'No additional text' };\n}\nfunction fmtDate(ts) {\n  const d = new Date(ts), diff = (startOfDay(Date.now()) - startOfDay(d)) / 864e5;\n  if (diff <= 0) return d.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });\n  if (diff === 1) return 'Yesterday';\n  if (diff < 7) return d.toLocaleDateString([], { weekday:'long' });\n  return d.toLocaleDateString([], { year:'2-digit', month:'numeric', day:'numeric' });\n}\nconst fullDate = ts => new Date(ts).toLocaleString([], { day:'numeric', month:'long', year:'numeric', hour:'numeric', minute:'2-digit' });\nfunction groupOf(n, now) {\n  if (n.pinned) return 'Pinned';\n  const d = new Date(n.updated), diff = (startOfDay(now) - startOfDay(d)) / 864e5;\n  if (diff <= 0) return 'Today';\n  if (diff <= 1) return 'Yesterday';\n  if (diff <= 7) return 'Previous 7 Days';\n  if (diff <= 30) return 'Previous 30 Days';\n  return d.getFullYear() === now.getFullYear() ? d.toLocaleDateString([], { month:'long' }) : String(d.getFullYear());\n}\nfunction noteEl(n) {\n  const sum = summarize(n.body), w = countWords(n.body);\n  const b = h('button', 'note' + (n.id === activeId ? ' on' : '')); b.type = 'button'; b.dataset.id = n.id;\n  const t = h('div', 'nt'); t.append(h('span', 'title', sum.title));\n  if (n.pinned) { const p = h('span', 'pin'); p.innerHTML = '<svg class=\"i\" viewBox=\"0 0 24 24\"><use href=\"#i-pin\"/></svg>'; t.append(p); }\n  const m = h('div', 'nm'); m.append(h('span', 'nd', fmtDate(n.updated)), h('span', 'np', sum.preview));\n  const s = h('div', 'ns', w ? `${fmt(w / S.speed * 60)} min · ${w.toLocaleString()} words` : 'Empty');\n  b.append(t, m, s);\n  return b;\n}\nfunction renderList() {\n  const q = search.value.trim().toLowerCase(), now = new Date();\n  const list = notes.filter(n => !q || n.body.toLowerCase().includes(q)).sort((a, b) => (b.pinned - a.pinned) || (b.updated - a.updated));\n  noteList.textContent = '';\n  let g = null;\n  for (const n of list) {\n    const gk = groupOf(n, now);\n    if (gk !== g) { g = gk; noteList.append(h('div', 'grp-h', g)); }\n    noteList.append(noteEl(n));\n  }\n  if (!list.length) noteList.append(h('div', 'empty-list', q ? 'No results' : 'No scripts'));\n  $('#sbFoot').textContent = notes.length + (notes.length === 1 ? ' script' : ' scripts');\n}\nlet listT;\nconst scheduleList = () => { clearTimeout(listT); listT = setTimeout(renderList, 160); };\n\nfunction updateMeta() {\n  const n = active();\n  $('#edDate').textContent = n ? 'Edited ' + fullDate(n.updated) : '';\n  $('#btnPin').classList.toggle('on', !!(n && n.pinned));\n  $('#btnPin').title = n && n.pinned ? 'Unpin' : 'Pin to top';\n}\nfunction updateStats() {\n  const w = countWords(editor.value), c = editor.value.length;\n  $('#stats').textContent = `${w.toLocaleString()} word${w === 1 ? '' : 's'} · ${c.toLocaleString()} characters · ≈ ${fmt(w / S.speed * 60)} at ${S.speed} WPM`;\n}\nfunction selectNote(id, focus) {\n  if (id === activeId) { if (focus) editor.focus(); return; }\n  const cur = active();\n  if (cur && !cur.body.trim() && notes.length > 1) notes = notes.filter(n => n.id !== cur.id);   // like Notes: empty notes vanish\n  activeId = id;\n  editor.value = active().body;\n  updateStats(); updateMeta(); renderList(); persist();\n  if (focus) editor.focus();\n}\nfunction createNote(text) {\n  const cur = active();\n  if (!text && cur && !cur.body.trim()) { editor.focus(); return; }\n  const n = mkNote(text || '');\n  notes.unshift(n); search.value = '';\n  selectNote(n.id, true);\n}\n$('#btnNew').onclick = () => createNote('');\nnoteList.addEventListener('click', e => { const b = e.target.closest('.note'); if (b) selectNote(b.dataset.id); });\nnoteList.addEventListener('keydown', e => {\n  if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;\n  const items = [...noteList.querySelectorAll('.note')], i = items.findIndex(x => x === document.activeElement);\n  if (i < 0) return;\n  e.preventDefault();\n  const nx = items[clamp(i + (e.key === 'ArrowDown' ? 1 : -1), 0, items.length - 1)];\n  selectNote(nx.dataset.id);\n  const el = noteList.querySelector('.note.on'); if (el) el.focus();\n});\nsearch.addEventListener('input', renderList);\n\n$('#btnPin').onclick = () => { const n = active(); n.pinned = !n.pinned; persist(); updateMeta(); renderList(); };\n$('#btnDup').onclick = () => { const n = active(); if (n.body.trim()) { createNote(n.body); toast('Script duplicated'); } };\n$('#btnDel').onclick = () => {\n  const n = active(); if (!n) return;\n  if (n.body.trim() && !confirm(`Delete “${summarize(n.body).title}”?`)) return;\n  notes = notes.filter(x => x.id !== n.id);\n  if (!notes.length) notes.push(mkNote(''));\n  activeId = [...notes].sort((a, b) => (b.pinned - a.pinned) || (b.updated - a.updated))[0].id;\n  editor.value = active().body; updateStats(); updateMeta(); renderList(); persist();\n};\neditor.addEventListener('input', () => {\n  const n = active(); n.body = editor.value; n.updated = Date.now();\n  persist(); updateStats(); updateMeta(); scheduleList();\n});\n$('#btnImport').onclick = () => $('#file').click();\n$('#file').onchange = e => {\n  const f = e.target.files[0]; if (!f) return;\n  const rd = new FileReader();\n  rd.onload = () => { createNote(String(rd.result)); toast('Imported ' + f.name); };\n  rd.readAsText(f); e.target.value = '';\n};\n$('#btnExport').onclick = () => {\n  const n = active(), name = (summarize(n.body).title.replace(/[^\\w\\- ]+/g, '').trim() || 'script').slice(0, 60);\n  const a = document.createElement('a');\n  a.href = URL.createObjectURL(new Blob([editor.value], { type:'text/plain' })); a.download = name + '.txt';\n  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);\n};\n$('#btnReset').onclick = () => {\n  if (!confirm('Reset all settings to their defaults?')) return;\n  Object.assign(S, DEFAULTS); persist(); applyStyle(); syncAll(); relayout(); updateStats();\n};\n\n/* ───────────── Fullscreen + wake lock ───────────── */\nconst isFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);\nfunction toggleFS() {\n  try {\n    if (isFS()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);\n    else { const el = document.documentElement, f = el.requestFullscreen || el.webkitRequestFullscreen; if (f) { const p = f.call(el); if (p && p.catch) p.catch(() => {}); } }\n  } catch (e) {}\n}\nlet wl = null;\nasync function lockScreen() { try { if ('wakeLock' in navigator) wl = await navigator.wakeLock.request('screen'); } catch (e) {} }\nfunction unlockScreen() { try { wl && wl.release(); } catch (e) {} wl = null; }\ndocument.addEventListener('visibilitychange', () => { if (mode === 'prompt' && document.visibilityState === 'visible') lockScreen(); });\n\n/* ───────────── Mode switching ───────────── */\nfunction enter() {\n  script = editor.value; persistNow();\n  if (!script.trim()) { toast('Add some text first'); editor.focus(); return; }\n  renderScript();\n  mode = 'prompt';\n  body.classList.replace('mode-edit', 'mode-prompt');\n  if (S.fullscreen && !isFS()) toggleFS();\n  lockScreen();\n  requestAnimationFrame(() => { measure(); pos = 0; apply(); wake(); });\n}\nfunction exit() {\n  cancelCountdown(); setPlaying(false); closeSheet();\n  mode = 'edit'; body.classList.replace('mode-prompt', 'mode-edit'); body.classList.remove('idle');\n  unlockScreen(); if (isFS()) toggleFS();\n}\nfunction openSheet() { body.classList.add('sheet-open'); wake(); }\nfunction closeSheet() { body.classList.remove('sheet-open'); wake(); }\nconst toggleSheet = () => body.classList.contains('sheet-open') ? closeSheet() : openSheet();\nconst modal = $('#modal');\nconst openModal = () => modal.classList.add('open');\nconst closeModal = () => modal.classList.remove('open');\nconst toggleLayout = () => { set('layout', S.layout === 'notch' ? 'full' : 'notch'); toast(S.layout === 'notch' ? 'Notch window' : 'Full screen'); };\n\n$('#btnStart').onclick = enter;\n$('#btnHelp').onclick = openModal;\n$('#btnModalClose').onclick = closeModal;\nmodal.addEventListener('click', e => { if (e.target === modal) closeModal(); });\n$('#btnDone').onclick = closeSheet;\n$('#scrim').onclick = closeSheet;\n$('#dExit').onclick = exit;\n$('#dRestart').onclick = () => { pos = 0; apply(); $('#dRestart').blur(); };\n$('#dMirror').onclick = () => { set('mirrorX', !S.mirrorX); $('#dMirror').blur(); };\n$('#dLayout').onclick = () => { toggleLayout(); $('#dLayout').blur(); };\n$('#dSettings').onclick = () => { toggleSheet(); $('#dSettings').blur(); };\n$('#dFS').onclick = () => { toggleFS(); $('#dFS').blur(); };\n\n/* ───────────── Hover-to-activate controls (Play · Back 10 · Forward 10) ───────────── */\nfunction bindHover(btn, fn, repeat) {\n  let t = null, rep = null, ptr = 'mouse';\n  const flash = () => { btn.classList.remove('fired'); void btn.offsetWidth; btn.classList.add('fired'); };\n  const fire = () => { fn(); flash(); };\n  const clear = () => { clearTimeout(t); clearInterval(rep); btn.classList.remove('arming'); };\n  btn.addEventListener('pointerdown', e => { ptr = e.pointerType; });\n  btn.addEventListener('pointerenter', e => {\n    if (!S.hover || e.pointerType !== 'mouse' || performance.now() < hoverBlock) return;\n    clear(); btn.classList.add('arming');\n    t = setTimeout(() => {\n      btn.classList.remove('arming'); fire();\n      if (repeat) rep = setInterval(fire, repeat);\n    }, HOVER_DELAY);\n  });\n  btn.addEventListener('pointerleave', clear);\n  btn.addEventListener('click', e => {\n    if (S.hover && ptr === 'mouse' && e.detail > 0) return;      // mouse already handled by hover\n    fire(); btn.blur();                                           // touch, pen, keyboard, or hover mode off\n  });\n}\nbindHover($('#dPlay'), togglePlay);\nbindHover($('#dBack'), () => seek(-pxPerSec * 10), HOVER_REPEAT);\nbindHover($('#dFwd'),  () => seek(pxPerSec * 10),  HOVER_REPEAT);\n\n/* ───────────── Stage interaction (tap, drag, wheel) ───────────── */\nconst dir = () => (S.mirrorY ? -1 : 1);\nlet drag = null;\nstage.addEventListener('pointerdown', e => {\n  drag = { y:e.clientY, start:pos, moved:false };\n  try { stage.setPointerCapture(e.pointerId); } catch (_) {}\n});\nstage.addEventListener('pointermove', e => {\n  if (!drag) return;\n  const dy = e.clientY - drag.y;\n  if (!drag.moved && Math.abs(dy) > 6) { drag.moved = true; dragging = true; }\n  if (drag.moved) { pos = clamp(drag.start - dy * dir(), 0, max); apply(); }\n});\nstage.addEventListener('pointerup', () => {\n  if (!drag) return;\n  const moved = drag.moved; drag = null; dragging = false;\n  if (!moved) togglePlay();\n});\nstage.addEventListener('pointercancel', () => { drag = null; dragging = false; });\nstage.addEventListener('wheel', e => { e.preventDefault(); pos = clamp(pos + e.deltaY * dir(), 0, max); apply(); }, { passive:false });\ndocument.addEventListener('pointermove', () => { if (mode === 'prompt') wake(); });\ndocument.addEventListener('pointerdown', () => { if (mode === 'prompt') wake(); });\n\n/* notch window resize grips (symmetric around the center) */\nfunction bindGrip(el, axis, sign) {\n  el.addEventListener('pointerdown', e => {\n    e.stopPropagation(); e.preventDefault();\n    try { el.setPointerCapture(e.pointerId); } catch (_) {}\n    const sx = e.clientX, sy = e.clientY, w0 = S.winW, h0 = S.winH;\n    const mv = ev => {\n      if (axis === 'x') set('winW', clamp(Math.round((w0 + sign * (ev.clientX - sx) * 2) / 2) * 2, 240, Math.max(240, innerWidth)));\n      else set('winH', clamp(Math.round(h0 + (ev.clientY - sy)), 80, Math.max(80, innerHeight)));\n    };\n    const up = () => { el.removeEventListener('pointermove', mv); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); };\n    el.addEventListener('pointermove', mv); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);\n  });\n}\nbindGrip($('#gripL'), 'x', -1); bindGrip($('#gripR'), 'x', 1); bindGrip($('#gripB'), 'y', 1);\n\n/* ───────────── Keyboard ───────────── */\ndocument.addEventListener('keydown', e => {\n  if (e.key === 'Escape') {\n    if (modal.classList.contains('open')) return closeModal();\n    if (mode === 'prompt') { if (body.classList.contains('sheet-open')) closeSheet(); else exit(); }\n    else if (e.target === search) { search.value = ''; renderList(); search.blur(); }\n    return;\n  }\n  if (e.target === editor) {\n    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); enter(); }\n    return;\n  }\n  if (e.target === search) return;\n  if (e.ctrlKey || e.metaKey || e.altKey) return;\n  if (e.key === '?') { openModal(); return; }\n  if (mode !== 'prompt') return;\n  if (e.target.matches && e.target.matches('button,input[type=range]')) e.target.blur();\n  wake();\n  const k = e.key, big = e.shiftKey;\n  const speed = d => { set('speed', clamp(S.speed + d, 30, 400)); toast(S.speed + ' WPM'); };\n  const size  = d => { set('size', clamp(S.size + d, 20, 200)); toast(S.size + ' px'); };\n  switch (k) {\n    case ' ': case 'k': case 'K': e.preventDefault(); togglePlay(); break;\n    case 'ArrowUp':   e.preventDefault(); speed(big ? 25 : 5); break;\n    case 'ArrowDown': e.preventDefault(); speed(big ? -25 : -5); break;\n    case 'ArrowRight': case '+': case '=': e.preventDefault(); size(big ? 8 : 2); break;\n    case 'ArrowLeft':  case '-': case '_': e.preventDefault(); size(big ? -8 : -2); break;\n    case 'j': case 'J': seek(-pxPerSec * 10); break;\n    case 'l': case 'L': seek(pxPerSec * 10); break;\n    case 'PageDown': e.preventDefault(); seek(stage.clientHeight * .8); break;\n    case 'PageUp':   e.preventDefault(); seek(-stage.clientHeight * .8); break;\n    case 'Home': case 'r': case 'R': e.preventDefault(); pos = 0; apply(); break;\n    case 'End': e.preventDefault(); pos = max; apply(); break;\n    case 'n': case 'N': toggleLayout(); break;\n    case 'm': case 'M': set('mirrorX', !S.mirrorX); toast(S.mirrorX ? 'Mirrored' : 'Normal'); break;\n    case 'g': case 'G': set('guide', !S.guide); break;\n    case 's': case 'S': toggleSheet(); break;\n    case 'f': case 'F': toggleFS(); break;\n  }\n});\n\n/* ───────────── Resize ───────────── */\nlet rz;\nwindow.addEventListener('resize', () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(relayout); });\ndocument.addEventListener('fullscreenchange', () => setTimeout(relayout, 60));\n\n/* ───────────── Init ───────────── */\nbuildSettings();\napplyStyle();\neditor.value = active().body;\nupdateStats(); updateMeta(); renderList();\n})();\n<\/script>\n</body>\n</html>\n";
+  const prompterWrap = $('prompterFrameWrap');
+  const prompterFrame = $('prompterFrame');
+  const previewStage = document.querySelector('.stage');
+  let prompterLoaded = false;
+  function configureEmbeddedPrompter() {
+    const doc = prompterFrame.contentDocument;
+    if (!doc || !doc.head || !doc.body) return;
+    if (!doc.getElementById('studio-transparent-stage')) {
+      const style = doc.createElement('style');
+      style.id = 'studio-transparent-stage';
+      style.textContent = `
+        html,body{background:transparent!important;overflow:hidden!important}
+        body.mode-prompt{background:transparent!important}
+        body.mode-prompt .stage{background:rgba(10,10,12,.10)!important;backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px);box-shadow:none!important}
+        body.mode-prompt .fade{display:none!important}
+        body.mode-prompt .hud{display:none!important}
+        body.mode-prompt .dock{top:auto!important;bottom:60px!important;left:50%!important;transform:translateX(-50%)!important;max-width:calc(100% - 12px)!important;padding:6px 10px!important}
+        body.mode-prompt .dock .ic{width:34px!important;height:34px!important}
+        body.mode-prompt .dock .play{width:42px!important;height:42px!important}
+        body.mode-prompt .dock .mini{display:none!important}
+        body.layout-notch .stage{max-width:100vw!important}
+        body.mode-prompt .scrim{background:rgba(0,0,0,.15)!important}
+        @media(max-width:600px){body.mode-prompt .dock{bottom:60px!important;gap:4px!important;padding:5px 7px!important}body.mode-prompt .dock .ic{width:30px!important;height:30px!important}body.mode-prompt .dock .play{width:36px!important;height:36px!important}body.mode-prompt .dock .sep{display:none!important}}
+      `;
+      doc.head.appendChild(style);
+    }
+    // Open directly into the compact reading stage; prevent the iframe from trying to take over Safari fullscreen.
+    try {
+      const appScript = [...doc.scripts].find(el => el.textContent.includes('const DEFAULTS'));
+      if (appScript && !doc.body.classList.contains('mode-prompt')) {
+        const start = doc.getElementById('btnStart');
+        if (start) start.click();
+      }
+      setTimeout(() => {
+        if (!doc.body.classList.contains('mode-prompt')) {
+          const start = doc.getElementById('btnStart');
+          if (start) start.click();
+        }
+        if (!doc.body.classList.contains('layout-notch')) {
+          const layoutButton = doc.getElementById('dLayout');
+          if (layoutButton) layoutButton.click();
+        }
+        const settingsButton = doc.getElementById('dSettings');
+        if (doc.body.classList.contains('sheet-open') && settingsButton) settingsButton.click();
+      }, 160);
+    } catch (_) {}
+  }
+  function openFullPrompter() {
+    previewStage.classList.add('prompter-open');
+    prompterWrap.classList.add('open');
+    prompterWrap.setAttribute('aria-hidden', 'false');
+    $('recordingQuickBar').classList.add('visible');
+    if (!prompterLoaded) {
+      prompterFrame.addEventListener('load', configureEmbeddedPrompter, { once:true });
+      // Disable the embedded app's fullscreen request while preserving its full controls.
+      prompterFrame.srcdoc = fullPrompterHTML.replace('fullscreen:true', 'fullscreen:false');
+      prompterLoaded = true;
+    } else configureEmbeddedPrompter();
+    updateQuickBar();
+  }
+  function closeFullPrompter() {
+    prompterWrap.classList.remove('open');
+    prompterWrap.setAttribute('aria-hidden', 'true');
+    previewStage.classList.remove('prompter-open');
+    $('recordingQuickBar').classList.remove('visible');
+  }
+  $('teleOpenBtn').addEventListener('click', openFullPrompter);
+  $('closePrompterFrame').addEventListener('click', closeFullPrompter);
+
+  // A compact, in-memory video library: every clip can be previewed, downloaded, or deleted without saving it.
+  const recordings = [];
+  let selectedRecordingId = null;
+  let nextRecordingId = 1;
+  const recordingsList = $('recordingsList');
+  const playbackWrap = $('playbackWrap');
+  function formatBytes(bytes) {
+    if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+  function safeText(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function renderRecordings() {
+    $('recordingsCount').textContent = String(recordings.length);
+    $('recordingsSummary').textContent = recordings.length ? `${recordings.length} clip${recordings.length === 1 ? '' : 's'} in this session · stored in this tab until deleted or closed` : 'No recordings yet. Finished clips appear here.';
+    if (!recordings.length) {
+      recordingsList.innerHTML = '<div class="recordings-empty">Your clips will be listed here in a compact library.</div>';
+      playbackWrap.hidden = true;
+      playback.pause(); playback.removeAttribute('src'); playback.load();
+      selectedRecordingId = null;
+      return;
+    }
+    recordingsList.innerHTML = recordings.slice().reverse().map((r, i) => `
+      <div class="recording-row ${r.id === selectedRecordingId ? 'selected' : ''}" data-recording-id="${r.id}">
+        <button class="recording-play" data-action="preview" data-id="${r.id}" aria-label="Preview ${safeText(r.filename)}">${r.id === selectedRecordingId ? '▶' : '▷'}</button>
+        <div class="recording-info"><div class="recording-title" title="${safeText(r.filename)}">${safeText(r.filename)}</div><div class="recording-sub">${safeText(r.createdLabel)} <span>·</span> ${safeText(r.sizeLabel)} <span>·</span> ${safeText(r.durationLabel)}</div></div>
+        <div class="recording-actions"><a class="recording-action download-action" href="${r.url}" download="${safeText(r.filename)}" title="Download video">Download</a><button class="recording-action delete-action" data-action="delete" data-id="${r.id}" title="Delete without downloading">Delete</button></div>
+      </div>`).join('');
+  }
+  function previewRecording(id) {
+    const r = recordings.find(x => x.id === id); if (!r) return;
+    selectedRecordingId = id;
+    playback.src = r.url;
+    playbackWrap.hidden = false;
+    playback.load();
+    renderRecordings();
+    playbackWrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function deleteRecording(id) {
+    const index = recordings.findIndex(x => x.id === id); if (index < 0) return;
+    const r = recordings[index];
+    if (!confirm(`Delete “${r.filename}” without downloading it? This cannot be undone.`)) return;
+    if (selectedRecordingId === id) {
+      playback.pause(); playback.removeAttribute('src'); playback.load(); playbackWrap.hidden = true; selectedRecordingId = null;
+    }
+    URL.revokeObjectURL(r.url);
+    recordings.splice(index, 1);
+    renderRecordings();
+  }
+  recordingsList.addEventListener('click', e => {
+    const action = e.target.closest('[data-action]'); if (!action) return;
+    const id = Number(action.dataset.id);
+    if (action.dataset.action === 'preview') previewRecording(id);
+    if (action.dataset.action === 'delete') deleteRecording(id);
+  });
+  function addRecording(blob, filename, durationMs) {
+    const url = URL.createObjectURL(blob);
+    const created = new Date();
+    recordings.push({ id:nextRecordingId++, blob, url, filename, createdLabel:created.toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}), sizeLabel:formatBytes(blob.size), durationLabel:formatTime(durationMs) });
+    selectedRecordingId = recordings[recordings.length - 1].id;
+    playback.src = url;
+    playbackWrap.hidden = false;
+    renderRecordings();
+    $('recordingsCard').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function updateQuickBar() {
+    $('quickRecTime').textContent = $('timer').textContent;
+    const active = !!(recorder && recorder.state !== 'inactive');
+    const paused = !!(recorder && recorder.state === 'paused');
+    $('quickPauseBtn').textContent = paused ? 'Resume' : 'Pause';
+    $('quickConnectBtn').disabled = !!(recorder && recorder.state !== 'inactive');
+    $('quickRecordBtn').disabled = !stream || active;
+    $('quickPauseBtn').disabled = !active;
+    $('quickStopBtn').disabled = !active;
+    $('quickRecordBtn').textContent = active ? 'Recording…' : 'Record';
+    $('recordingQuickBar').classList.toggle('visible', prompterWrap.classList.contains('open'));
+  }
+  $('quickConnectBtn').addEventListener('click', connectDevices);
+  $('quickRecordBtn').addEventListener('click', startRecording);
+  $('quickPauseBtn').addEventListener('click', pauseRecording);
+  $('quickStopBtn').addEventListener('click', stopRecording);
+  // Keep the in-stage controls synchronized with the recorder state and elapsed time.
+  const originalUpdateTimer = updateTimer;
+  updateTimer = function() { originalUpdateTimer(); updateQuickBar(); };
+  const originalSetStatus = setStatus;
+  setStatus = function(text, live = false) { originalSetStatus(text, live); updateQuickBar(); };
+
+})();
+</script>
+
+</body>
+</html>
