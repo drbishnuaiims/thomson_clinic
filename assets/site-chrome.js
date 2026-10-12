@@ -7,6 +7,8 @@
   const siteRoot = new URL(currentScript.dataset.siteRoot, document.baseURI);
   const homeUrl = new URL("index.html", siteRoot);
   const sectionUrl = (section) => `${homeUrl.href}#${section}`;
+  const blogUrl = new URL("blog/", siteRoot).href;
+  const libraryUrl = new URL("blog/library/", siteRoot).href;
   const assetUrl = (path) => new URL(path, siteRoot).href;
   const isProfile = Boolean(document.querySelector(".platform-bar"));
   const doctors = [
@@ -36,13 +38,17 @@
         <div class="tc-site-search-results" id="tcDoctorSearchResults" role="listbox" hidden></div>
       </div>
       <nav class="tc-site-nav" aria-label="Main navigation">
-        <a href="${sectionUrl("mental-health")}">Mental Health</a>
-        <a href="${sectionUrl("care")}">Care</a>
-        <a href="${sectionUrl("specialties")}">Specialties</a>
+        <button class="tc-site-nav-cta" type="button">Book consultation</button>
         <a href="${sectionUrl("professionals")}">Professionals</a>
         <a href="${sectionUrl("faq")}">FAQ</a>
+        <div class="tc-site-nav-dropdown">
+          <a href="${blogUrl}">Blog</a>
+          <div class="tc-site-nav-submenu">
+            <a href="${libraryUrl}">Library</a>
+            <a href="${blogUrl}">Patient Stories</a>
+          </div>
+        </div>
         <button class="tc-site-join-trigger" type="button">Join our team</button>
-        <button class="tc-site-nav-cta" type="button">Book consultation</button>
       </nav>
       <button class="tc-site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
     </div>

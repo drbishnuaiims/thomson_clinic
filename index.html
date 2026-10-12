@@ -422,6 +422,55 @@ color:#000;
 
 }
 
+.nav-dropdown{
+
+position:relative;
+
+}
+
+.nav-submenu{
+
+display:none;
+
+position:absolute;
+
+top:100%;
+left:-12px;
+
+min-width:170px;
+
+padding:8px;
+
+border:1px solid var(--line);
+border-radius:12px;
+
+background:#fff;
+
+box-shadow:0 12px 28px rgba(0,0,0,.12);
+
+}
+
+.nav-dropdown:hover .nav-submenu,
+.nav-dropdown:focus-within .nav-submenu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+}
+
+.nav-submenu a{
+
+display:block;
+
+padding:8px 10px;
+
+white-space:nowrap;
+
+}
+
 .nav .join-team-trigger{
 
 padding:0;
@@ -3684,6 +3733,40 @@ font-size:15px;
 
 }
 
+.nav-dropdown{
+
+width:100%;
+
+}
+
+.nav-submenu{
+
+display:flex;
+
+position:static;
+
+flex-direction:column;
+
+gap:8px;
+
+min-width:0;
+
+padding:8px 0 0 14px;
+
+border:0;
+
+background:transparent;
+
+box-shadow:none;
+
+}
+
+.nav-submenu a{
+
+padding:0;
+
+}
+
 .nav .join-team-trigger{
 
 font-size:15px;
@@ -4467,16 +4550,11 @@ class="nav"
 id="nav"
 >
 
-<a href="#mental-health">
-Mental Health
-</a>
-
-<a href="#care">
-Care
-</a>
-
-<a href="#specialties">
-Specialties
+<a
+href="#"
+class="nav-cta book-trigger"
+>
+Book consultation
 </a>
 
 <a href="#professionals">
@@ -4487,19 +4565,32 @@ Professionals
 FAQ
 </a>
 
+<div class="nav-dropdown">
+
+<a href="/blog/">
+Blog
+</a>
+
+<div class="nav-submenu">
+
+<a href="/blog/library/">
+Library
+</a>
+
+<a href="/blog/">
+Patient Stories
+</a>
+
+</div>
+
+</div>
+
 <button
 type="button"
 class="join-team-trigger"
 >
 Join our team
 </button>
-
-<a
-href="#"
-class="nav-cta book-trigger"
->
-Book consultation
-</a>
 
 </nav>
 
