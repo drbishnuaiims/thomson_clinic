@@ -350,6 +350,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
         <div class="field"><label for="cameraSelect">Camera</label><select id="cameraSelect"><option value="">Connect camera first</option></select></div>
         <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
         <div class="field"><label for="qualitySelect">Video quality</label><select id="qualitySelect"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
+        <div class="field"><label for="customWatermarkText">Additional watermark (optional)</label><input id="customWatermarkText" type="text" maxlength="90" placeholder="Your name, clinic, or message"><p class="notice" style="margin-top:6px">Appears in white text below “Recorded with Thomson Clinic Studio”. Leave blank to use only the default watermark.</p></div>
         <div class="toggle-row"><div><strong>Mirror preview</strong><br><span>For a selfie-style view</span></div><input id="mirrorToggle" class="switch" type="checkbox" checked aria-label="Mirror preview"></div>
         <div class="toggle-row"><div><strong>Record microphone</strong><br><span>Include your voice</span></div><input id="audioToggle" class="switch" type="checkbox" checked aria-label="Record microphone"></div>
         <p class="notice" style="margin-top:14px">Recording controls are overlaid at the bottom of the preview. Resize the preview from its lower-right corner on desktop.</p>
@@ -388,6 +389,69 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   const preview = $('preview'), playback = $('playback');
   let stream = null, recorder = null, chunks = [], timerInterval = null;
   let startedAt = 0, elapsedBeforePause = 0;
+  let watermarkCanvasStream = null, watermarkFrame = null;
+
+  // Render the camera into a canvas so the default Thomson Clinic Studio bookmark
+  // is permanently included in the exported video, not just shown in the preview.
+  function createWatermarkedRecordingStream() {
+    const video = $('preview');
+    const canvas = document.createElement('canvas');
+    const width = video.videoWidth || 1280;
+    const height = video.videoHeight || 720;
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Canvas recording is unavailable.');
+
+    const draw = () => {
+      if (!video.videoWidth || !video.videoHeight) {
+        watermarkFrame = requestAnimationFrame(draw);
+        return;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Preserve the original recorded camera orientation.
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const scale = Math.max(1, width / 1280);
+      const title = 'Recorded with Thomson Clinic Studio';
+      const customLine = ($('customWatermarkText')?.value || '').trim();
+      const titleSize = Math.max(14, Math.round(20 * scale));
+      const customSize = Math.max(11, Math.round(15 * scale));
+      const margin = 24 * scale;
+      const lineGap = 5 * scale;
+
+      // Transparent watermark: white text only, with a subtle shadow for legibility.
+      ctx.save();
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'bottom';
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(0,0,0,.78)';
+      ctx.shadowBlur = 5 * scale;
+      ctx.shadowOffsetX = 1 * scale;
+      ctx.shadowOffsetY = 1 * scale;
+      ctx.font = `600 ${titleSize}px -apple-system, BlinkMacSystemFont, Arial, sans-serif`;
+      const x = width - margin;
+      const customHeight = customLine ? customSize + lineGap : 0;
+      ctx.fillText(title, x, height - margin - customHeight, width - margin * 2);
+      if (customLine) {
+        ctx.font = `500 ${customSize}px -apple-system, BlinkMacSystemFont, Arial, sans-serif`;
+        ctx.fillText(customLine, x, height - margin, width - margin * 2);
+      }
+      ctx.restore();
+      watermarkFrame = requestAnimationFrame(draw);
+    };
+    draw();
+    watermarkCanvasStream = canvas.captureStream(30);
+    const tracks = [...watermarkCanvasStream.getVideoTracks(), ...stream.getAudioTracks()];
+    return new MediaStream(tracks);
+  }
+
+  function stopWatermarkStream() {
+    if (watermarkFrame) cancelAnimationFrame(watermarkFrame);
+    watermarkFrame = null;
+    if (watermarkCanvasStream) watermarkCanvasStream.getTracks().forEach(track => track.stop());
+    watermarkCanvasStream = null;
+  }
 
   function showError(message) {
     const box = $('errorBox');
@@ -496,7 +560,8 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     if (!mimeType) { showError('This browser does not report a supported recording format. Update Safari and try again.'); return; }
     try {
       chunks = [];
-      recorder = new MediaRecorder(stream, { mimeType });
+      const recordingStream = createWatermarkedRecordingStream();
+      recorder = new MediaRecorder(recordingStream, { mimeType });
       recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
       recorder.onerror = () => showError('A recording error occurred. Try a lower video quality or reconnect your devices.');
       recorder.onstop = finishRecording;
@@ -557,6 +622,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 
   function finishRecording() {
     clearInterval(timerInterval);
+    stopWatermarkStream();
     updateTimer();
     $('recBadge').classList.remove('active');
     setStatus('Recording saved locally');
@@ -598,6 +664,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     if (stream) connectDevices();
   });
   window.addEventListener('beforeunload', () => {
+    stopWatermarkStream();
     stopTracks();
     recordings.forEach(r => URL.revokeObjectURL(r.url));
   });
