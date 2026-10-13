@@ -400,7 +400,7 @@ display:flex;
 
 align-items:center;
 
-gap:27px;
+gap:clamp(14px, 1.8vw, 24px);
 
 }
 
@@ -484,6 +484,26 @@ cursor:pointer;
 }
 
 .nav .join-team-trigger:hover{
+
+color:#000;
+
+}
+
+.nav .community-clinic-trigger{
+
+padding:0;
+border:0;
+background:transparent;
+color:#444446;
+font:inherit;
+font-size:11px;
+cursor:pointer;
+white-space:nowrap;
+transition:color .2s ease;
+
+}
+
+.nav .community-clinic-trigger:hover{
 
 color:#000;
 
@@ -3773,6 +3793,12 @@ font-size:15px;
 
 }
 
+.nav .community-clinic-trigger{
+
+font-size:15px;
+
+}
+
 
 .mobile-menu{
 
@@ -4472,6 +4498,7 @@ width:105px;
 </style>
 
 <link rel="stylesheet" href="assets/join-team.css">
+<link rel="stylesheet" href="assets/community-clinic.css">
 
 </head>
 
@@ -4590,6 +4617,13 @@ type="button"
 class="join-team-trigger"
 >
 Join our team
+</button>
+
+<button
+type="button"
+class="community-clinic-trigger"
+>
+Start your community/rural clinic
 </button>
 
 </nav>
@@ -6055,6 +6089,10 @@ Clinics
 Specialties
 </a>
 
+<a href="#" class="community-clinic-trigger">
+Start your community/rural clinic
+</a>
+
 </div>
 
 </div>
@@ -6975,6 +7013,7 @@ when you choose to continue to WhatsApp.
 </script>
 
 <script src="assets/join-team.js" data-whatsapp-number="919438450966"></script>
+<script src="assets/community-clinic.js" data-whatsapp-number="919438450966"></script>
 
 </body>
 

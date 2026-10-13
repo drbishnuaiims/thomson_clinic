@@ -49,6 +49,7 @@
           </div>
         </div>
         <button class="tc-site-join-trigger" type="button">Join our team</button>
+        <button class="tc-site-community-trigger community-clinic-trigger" type="button">Start your community/rural clinic</button>
       </nav>
       <button class="tc-site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
     </div>
@@ -86,6 +87,7 @@
             <a href="${sectionUrl("professionals")}">Therapists</a>
             <a href="${sectionUrl("care")}">Clinics</a>
             <a href="${sectionUrl("specialties")}">Specialties</a>
+            <a href="#" class="community-clinic-trigger">Start your community/rural clinic</a>
           </div>
         </div>
         <div>
@@ -124,7 +126,7 @@
   });
 
   nav.addEventListener("click", (event) => {
-    if (event.target.closest("a, .tc-site-nav-cta")) {
+    if (event.target.closest("a, .tc-site-nav-cta, .community-clinic-trigger, .tc-site-community-trigger")) {
       nav.classList.remove("is-open");
       menuButton.setAttribute("aria-expanded", "false");
       menuButton.setAttribute("aria-label", "Open navigation");
@@ -190,4 +192,20 @@
       searchInput.setAttribute("aria-expanded", "false");
     }
   });
+
+  const clinicCssUrl = assetUrl("assets/community-clinic.css");
+  if (!document.querySelector(`link[href="${clinicCssUrl}"]`)) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = clinicCssUrl;
+    document.head.appendChild(link);
+  }
+
+  const clinicJsUrl = assetUrl("assets/community-clinic.js");
+  if (!document.querySelector(`script[src="${clinicJsUrl}"]`)) {
+    const script = document.createElement("script");
+    script.src = clinicJsUrl;
+    script.dataset.whatsappNumber = "919438450966";
+    document.body.appendChild(script);
+  }
 })();

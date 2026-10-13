@@ -134,7 +134,7 @@
 .tc-site-nav {
   display: flex;
   align-items: center;
-  gap: 27px;
+  gap: clamp(14px, 1.8vw, 24px);
 }
 
 .tc-site-nav a {
@@ -201,6 +201,24 @@
 }
 
 .tc-site-nav .tc-site-join-trigger:hover {
+  color: #000;
+}
+
+.tc-site-nav .tc-site-community-trigger,
+.tc-site-nav .community-clinic-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #444446;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color .2s ease;
+  white-space: nowrap;
+}
+
+.tc-site-nav .tc-site-community-trigger:hover,
+.tc-site-nav .community-clinic-trigger:hover {
   color: #000;
 }
 
@@ -436,6 +454,11 @@ body.tc-not-found-page {
   }
 
   .tc-site-nav .tc-site-join-trigger {
+    font-size: 15px;
+  }
+
+  .tc-site-nav .tc-site-community-trigger,
+  .tc-site-nav .community-clinic-trigger {
     font-size: 15px;
   }
 
