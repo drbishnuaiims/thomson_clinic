@@ -94,6 +94,20 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#080809
 .quality-chip.active{background:color-mix(in srgb,var(--blue) 11%,var(--panel));border-color:color-mix(in srgb,var(--blue) 52%,var(--line));color:var(--blue)}
 .quality-chip:active{transform:scale(.97)}
 .quality-select-accessible{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+/* Camera mode presets: front, back, or picture-in-picture dual capture. */
+.camera-mode-block{margin:2px 0 12px;padding:10px;border:1px solid var(--line);border-radius:13px;background:color-mix(in srgb,var(--bg) 58%,transparent)}
+.camera-mode-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:11px;color:var(--muted)}
+.camera-mode-label strong{font-size:12px;color:var(--text);font-weight:650}
+.camera-mode-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:4px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--text) 4%,transparent)}
+.camera-mode-option{min-width:0;border:1px solid transparent;border-radius:9px;padding:9px 5px;text-align:center;font-size:12px;font-weight:650;color:var(--muted);background:transparent;cursor:pointer;touch-action:manipulation}
+.camera-mode-option[aria-pressed="true"]{background:var(--panel);color:var(--blue);border-color:color-mix(in srgb,var(--blue) 36%,var(--line));box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.camera-inset-options{display:none;margin-top:9px;gap:6px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.camera-mode-block[data-mode="dual"] .camera-inset-options{display:grid}
+.camera-inset-option{padding:8px 7px;border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--muted);font-size:11px;font-weight:650;text-align:center;touch-action:manipulation}
+.camera-inset-option[aria-pressed="true"]{color:var(--blue);background:color-mix(in srgb,var(--blue) 10%,var(--panel));border-color:color-mix(in srgb,var(--blue) 42%,var(--line))}
+.camera-mode-note{font-size:10px;line-height:1.45;color:var(--muted);margin:8px 1px 0}
+.camera-mode-option:disabled,.camera-inset-option:disabled{opacity:.42;cursor:not-allowed}
+@media(max-width:540px){.camera-mode-block{padding:8px}.camera-mode-option{padding:9px 3px;font-size:11px}.camera-inset-option{font-size:10px;padding:8px 4px}}
 .setup-toggles{display:grid;grid-template-columns:1fr;gap:7px}
 .setup-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:color-mix(in srgb,var(--bg) 72%,transparent);cursor:pointer}
 .setup-toggle span{display:flex;flex-direction:column;gap:2px;min-width:0}
@@ -386,6 +400,19 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
             <div class="field"><label for="secondaryCameraSelect">Second camera</label><select id="secondaryCameraSelect" disabled><option value="">Connect cameras first</option></select></div>
             <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
           </div>
+          <div id="cameraModeBlock" class="camera-mode-block" data-mode="front">
+            <div class="camera-mode-label"><strong>Camera mode</strong><span id="cameraModeStatus">Front camera</span></div>
+            <div class="camera-mode-options" role="group" aria-label="Camera mode">
+              <button type="button" class="camera-mode-option" data-camera-mode="front" aria-pressed="true">Front</button>
+              <button type="button" class="camera-mode-option" data-camera-mode="back" aria-pressed="false">Back</button>
+              <button type="button" class="camera-mode-option" data-camera-mode="dual" aria-pressed="false">Dual</button>
+            </div>
+            <div class="camera-inset-options" role="group" aria-label="Which camera appears in the inset">
+              <button type="button" class="camera-inset-option" data-inset-facing="front" aria-pressed="true">Front in inset</button>
+              <button type="button" class="camera-inset-option" data-inset-facing="back" aria-pressed="false">Back in inset</button>
+            </div>
+            <p class="camera-mode-note" id="cameraModeNote">Choose front or back for a single-camera view. Dual shows both cameras and records the inset into the saved video.</p>
+          </div>
           <div class="setup-quality-block"><div class="setup-label">Video quality</div><div class="quality-chips" role="group" aria-label="Video quality presets"><button type="button" class="quality-chip active" data-quality="1080" aria-pressed="true">1080p <small>Full HD</small></button><button type="button" class="quality-chip" data-quality="720" aria-pressed="false">720p <small>HD</small></button><button type="button" class="quality-chip" data-quality="480" aria-pressed="false">480p <small>SD</small></button></div><select id="qualitySelect" class="quality-select-accessible" aria-label="Video quality"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
           <div class="setup-toggles">
             <label class="setup-toggle"><span><strong>Dual camera</strong><small>Picture-in-picture recording</small></span><input id="dualCameraToggle" class="switch" type="checkbox" aria-label="Enable dual-camera picture-in-picture"></label>
@@ -429,6 +456,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   let stream = null, secondaryStream = null, recorder = null, chunks = [], timerInterval = null;
   let compositeCanvas = null, compositeVideoStream = null, compositeAnimationFrame = 0, recordingStream = null;
   let startedAt = 0, elapsedBeforePause = 0;
+  let cameraMode = 'front', insetFacing = 'front', applyingCameraMode = false;
 
   function showError(message) {
     const box = $('errorBox');
@@ -528,6 +556,81 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   }
   function extensionFor(type) { return type && type.toLowerCase().includes('mp4') ? 'mp4' : 'webm'; }
 
+  function cameraFacingFromLabel(label) {
+    const value = String(label || '').toLowerCase();
+    if (/\b(front|user|selfie|facetime|true.?depth|truedepth)\b/.test(value)) return 'front';
+    if (/\b(back|rear|environment|world|ultra.?wide|telephoto)\b/.test(value)) return 'back';
+    return '';
+  }
+  function cameraOptions() {
+    return [...$('cameraSelect').options].filter(o => o.value).map(o => ({ id:o.value, label:o.textContent || '' }));
+  }
+  function findCameraForFacing(facing, excludeId = '') {
+    return cameraOptions().find(c => c.id !== excludeId && cameraFacingFromLabel(c.label) === facing) || null;
+  }
+  function syncCameraModeUI() {
+    const block = $('cameraModeBlock');
+    block.dataset.mode = cameraMode;
+    document.querySelectorAll('[data-camera-mode]').forEach(btn => {
+      const active = btn.dataset.cameraMode === cameraMode;
+      btn.setAttribute('aria-pressed', String(active));
+      btn.disabled = !!recorder && recorder.state !== 'inactive';
+    });
+    document.querySelectorAll('[data-inset-facing]').forEach(btn => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.insetFacing === insetFacing));
+      btn.disabled = (!!recorder && recorder.state !== 'inactive') || cameraMode !== 'dual';
+    });
+    $('cameraModeStatus').textContent = cameraMode === 'dual' ? (insetFacing === 'front' ? 'Back main · Front inset' : 'Front main · Back inset') : (cameraMode === 'front' ? 'Front camera' : 'Back camera');
+    $('cameraModeNote').textContent = cameraMode === 'dual'
+      ? `The ${insetFacing} camera appears in the inset; the ${insetFacing === 'front' ? 'back' : 'front'} camera fills the main view. If device names do not identify front/back, select Main camera and Second camera manually below.`
+      : `Single-camera ${cameraMode} view. If device names do not identify front/back, select the camera manually below. Choose Dual to show both cameras.`;
+    $('dualCameraToggle').checked = cameraMode === 'dual';
+    syncDualCameraQuickToggle();
+  }
+  function applyCameraModeDeviceSelection() {
+    const options = cameraOptions();
+    if (!options.length) return { matchedMain:false, matchedInset:false };
+    if (cameraMode === 'front' || cameraMode === 'back') {
+      const match = findCameraForFacing(cameraMode);
+      if (match) $('cameraSelect').value = match.id;
+      return { matchedMain:!!match, matchedInset:false };
+    }
+    const mainFacing = insetFacing === 'front' ? 'back' : 'front';
+    const main = findCameraForFacing(mainFacing);
+    const inset = findCameraForFacing(insetFacing, main?.id || '');
+    if (main) $('cameraSelect').value = main.id;
+    if (inset) $('secondaryCameraSelect').value = inset.id;
+    // If labels do not expose facing direction, retain a valid manual device pair.
+    if (!main && !inset) {
+      const selectedMain = $('cameraSelect').value;
+      const alternate = options.find(c => c.id !== selectedMain);
+      if (alternate && (!$('secondaryCameraSelect').value || $('secondaryCameraSelect').value === selectedMain)) $('secondaryCameraSelect').value = alternate.id;
+    } else if (main && !inset) {
+      const alternate = options.find(c => c.id !== main.id);
+      if (alternate) $('secondaryCameraSelect').value = alternate.id;
+    }
+    return { matchedMain:!!main, matchedInset:!!inset };
+  }
+  function chooseCameraMode(mode, reconnect = true) {
+    if (recorder && recorder.state !== 'inactive') return;
+    cameraMode = mode;
+    $('dualCameraToggle').checked = mode === 'dual';
+    applyCameraModeDeviceSelection();
+    syncCameraModeUI();
+    $('secondaryCameraSelect').disabled = mode !== 'dual' || $('secondaryCameraSelect').options.length < 2;
+    if (stream && reconnect) connectDevices();
+    else if (!stream) $('previewHint').textContent = mode === 'dual'
+      ? 'Dual mode selected. Connect both cameras; choose which camera appears in the inset.'
+      : `${mode === 'front' ? 'Front' : 'Back'} camera selected. Connect the camera to apply this mode.`;
+  }
+  function chooseInsetFacing(facing) {
+    if (recorder && recorder.state !== 'inactive') return;
+    insetFacing = facing;
+    applyCameraModeDeviceSelection();
+    syncCameraModeUI();
+    if (cameraMode === 'dual' && stream) connectDevices();
+  }
+
   async function populateDevices() {
     if (!navigator.mediaDevices?.enumerateDevices) return;
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -556,7 +659,9 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       const alternate = cameras.find(d => d.deviceId && d.deviceId !== primaryId);
       if (alternate) second.value = alternate.deviceId;
     }
-    second.disabled = !$('dualCameraToggle').checked || cameras.length < 2;
+    applyCameraModeDeviceSelection();
+    second.disabled = cameraMode !== 'dual' || cameras.length < 2;
+    syncCameraModeUI();
   }
 
   async function connectSecondaryCamera(quality) {
@@ -612,7 +717,16 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       $('placeholder').style.display = 'none';
       $('previewHint').textContent = 'Preview ready. Check your framing and sound.';
       setStatus('Camera connected');
+      const activePrimaryId = stream?.getVideoTracks?.()[0]?.getSettings?.().deviceId || '';
       await populateDevices();
+      const modeSelection = applyCameraModeDeviceSelection();
+      const requestedPrimaryId = $('cameraSelect').value;
+      if (!applyingCameraMode && activePrimaryId && requestedPrimaryId && requestedPrimaryId !== activePrimaryId && modeSelection.matchedMain) {
+        applyingCameraMode = true;
+        stopTracks();
+        try { await connectDevices(); } finally { applyingCameraMode = false; }
+        return;
+      }
       if ($('dualCameraToggle').checked) {
         try {
           await connectSecondaryCamera(quality);
@@ -677,6 +791,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       $('dualCameraToggle').disabled = true;
       $('secondaryCameraSelect').disabled = true;
       syncDualCameraQuickToggle();
+      syncCameraModeUI();
       updateQuickBar();
     } catch (err) {
       cleanupCompositeCapture();
@@ -735,6 +850,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     $('dualCameraToggle').disabled = false;
     $('secondaryCameraSelect').disabled = !$('dualCameraToggle').checked || $('secondaryCameraSelect').options.length < 2;
     syncDualCameraQuickToggle();
+    syncCameraModeUI();
 
     const type = recorder.mimeType || 'video/webm';
     const blob = new Blob(chunks, { type });
@@ -789,12 +905,20 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   $('cameraSelect').addEventListener('change', connectDevices);
   $('secondaryCameraSelect').addEventListener('change', () => { if (stream && $('dualCameraToggle').checked) connectDevices(); });
   $('dualCameraToggle').addEventListener('change', () => {
-    syncDualCameraQuickToggle();
-    $('secondaryCameraSelect').disabled = !$('dualCameraToggle').checked || $('secondaryCameraSelect').options.length < 2;
+    if ($('dualCameraToggle').checked) cameraMode = 'dual';
+    else {
+      const facing = cameraFacingFromLabel($('cameraSelect').selectedOptions[0]?.textContent || '');
+      cameraMode = facing || 'front';
+    }
+    applyCameraModeDeviceSelection();
+    syncCameraModeUI();
+    $('secondaryCameraSelect').disabled = cameraMode !== 'dual' || $('secondaryCameraSelect').options.length < 2;
     if (stream) connectDevices();
-    else if ($('dualCameraToggle').checked) $('previewHint').textContent = 'Choose a second camera, then connect the cameras.';
+    else if (cameraMode === 'dual') $('previewHint').textContent = 'Dual mode selected. Choose which camera appears in the inset, then connect both cameras.';
     else { stopSecondaryCamera(); $('previewHint').textContent = 'Single-camera mode selected.'; }
   });
+  document.querySelectorAll('[data-camera-mode]').forEach(btn => btn.addEventListener('click', () => chooseCameraMode(btn.dataset.cameraMode)));
+  document.querySelectorAll('[data-inset-facing]').forEach(btn => btn.addEventListener('click', () => chooseInsetFacing(btn.dataset.insetFacing)));
   $('micSelect').addEventListener('change', connectDevices);
   $('qualitySelect').addEventListener('change', () => {
     if (stream) connectDevices();
@@ -809,6 +933,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   });
 
   syncDualCameraQuickToggle();
+  syncCameraModeUI();
   populateDevices().catch(() => {});
 
   // Full teleprompter2.html app embedded in an iframe to preserve its complete feature set without ID/CSS collisions.
