@@ -215,5 +215,25 @@
   </main>
 
   <footer>&copy; Thomson Clinic</footer>
+
+<script>
+(function () {
+  const redirects = {
+    "/doctors/dr-bishnu-prasad-sahoo-mbbs-md-psychiatry-aiims-bhubaneswar-odisha": "/doctors/dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar/index.html",
+    "/doctor/bishnu.html": "/doctors/bishnu-prasad-sahoo.html",
+    "/sleep.html": "/sleep-disorders.html"
+  };
+
+  const oldPath = window.location.pathname.replace(/\/+$/, "") ||
+    "/";
+
+  const newPath = redirects[oldPath];
+
+  if (newPath) {
+    window.location.replace(newPath);
+  }
+})();
+</script>
+
 </body>
 </html>
