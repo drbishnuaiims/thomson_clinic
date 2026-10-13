@@ -609,21 +609,43 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); 
             return;
         }
         const formattedDate = new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-        const reason = $('fReason').value.trim();
-        const lines = [
-            'THOMSON CLINIC — APPOINTMENT REQUEST',
-            '',
-            `Doctor: ${selected.name}`,
-            `Patient: ${name}`,
-            `Mobile: ${phone}`,
-            '',
-            `Location: ${$('fCity').value}`,
-            `Consultation: ${$('fMode').value}`,
-            `Preferred date: ${formattedDate}`
-        ];
-        if (reason) lines.push(`Reason for consultation: ${reason}`);
-        lines.push('', 'Please confirm the appointment.');
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+        const reason = $('fReason').value.trim() || 'No reason provided.';
+        const whatsappMessage = `🏥 *THOMSON CLINIC*
+*APPOINTMENT BOOKING REQUEST*
+
+━━━━━━━━━━━━━━━━━━
+
+*DOCTOR*
+
+${selected.name}
+${selected.role} · ${selected.specialty}
+
+━━━━━━━━━━━━━━━━━━
+
+*PATIENT DETAILS*
+
+Name: ${name}
+Mobile: ${phone}
+
+━━━━━━━━━━━━━━━━━━
+
+*APPOINTMENT DETAILS*
+
+Location: ${$('fCity').value}
+Consultation: ${$('fMode').value}
+Preferred Date: ${formattedDate}
+
+━━━━━━━━━━━━━━━━━━
+
+*REASON FOR CONSULTATION*
+
+${reason}
+
+━━━━━━━━━━━━━━━━━━
+
+Please confirm the appointment.`.trim();
+
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank', 'noopener');
         closeSheet();
     });
 

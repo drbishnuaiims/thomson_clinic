@@ -5169,7 +5169,7 @@ function submitAppointment(event) {
     */
 
     const whatsappNumber =
-        "919438450966";
+        "919937771543";
 
 
     const formattedDate =
@@ -5190,38 +5190,47 @@ function submitAppointment(event) {
             : "";
 
 
-    const whatsappMessage = [
-        "THOMSON CLINIC — APPOINTMENT REQUEST",
-        "",
-        "Doctor: " +
-            doctor.name,
-        "Patient: " +
-            patientName,
-        "Mobile: " +
-            patientPhone,
-        "",
-        "Location: " +
-            location.city,
-        "Clinic: " +
-            location.clinic,
-        "Consultation: " +
-            mode,
-        "Preferred date: " +
-            formattedDate,
-        "Preferred time: " +
-            slot,
-        message
-            ? "Reason for consultation: " +
-              message
-            : "",
-        "",
-        "Please confirm the appointment."
-    ]
-        .filter(
-            line =>
-                line !== ""
-        )
-        .join("\n");
+    const reason =
+        message ||
+        "No reason provided.";
+
+
+    const whatsappMessage = `🏥 *THOMSON CLINIC*
+*APPOINTMENT BOOKING REQUEST*
+
+━━━━━━━━━━━━━━━━━━
+
+*DOCTOR*
+
+${doctor.name}
+${doctor.specialty}
+
+━━━━━━━━━━━━━━━━━━
+
+*PATIENT DETAILS*
+
+Name: ${patientName}
+Mobile: ${patientPhone}
+
+━━━━━━━━━━━━━━━━━━
+
+*APPOINTMENT DETAILS*
+
+Location: ${location.city}
+Clinic: ${location.clinic}
+Consultation: ${mode}
+Preferred Date: ${formattedDate}
+Preferred Time: ${slot}
+
+━━━━━━━━━━━━━━━━━━
+
+*REASON FOR CONSULTATION*
+
+${reason}
+
+━━━━━━━━━━━━━━━━━━
+
+Please confirm the appointment.`.trim();
 
 
     const whatsappUrl =
@@ -5623,7 +5632,7 @@ document
 
 
 <script src="../../assets/site-chrome.js" data-site-root="../../"></script>
-<script src="../../assets/join-team.js" data-whatsapp-number="919438450966"></script>
+<script src="../../assets/join-team.js" data-whatsapp-number="919937771543"></script>
 
 </body>
 

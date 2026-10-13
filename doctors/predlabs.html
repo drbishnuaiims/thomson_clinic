@@ -1,0 +1,9503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BFG6XJ5J4V"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BFG6XJ5J4V');
+</script>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#f5f5f7"
+>
+
+<meta
+    name="description"
+    content="PredLabs Bhubaneswar — Laboratory Business Profile"
+>
+
+<title>PredLabs Bhubaneswar — Laboratory Business Profile</title>
+
+<!--
+=========================================================
+QR CODE LIBRARY
+=========================================================
+The QR code is generated locally in the browser from
+window.location.href.
+
+No profile URL needs to be hard-coded.
+=========================================================
+-->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+></script>
+
+
+<style>
+
+/* =========================================================
+   PREDLABS LABORATORY PROFILE
+   APPLE-INSPIRED DESIGN SYSTEM
+   Based on the existing PredLabs laboratory profile
+   ========================================================= */
+
+:root {
+
+    --background: #f5f5f7;
+    --white: #ffffff;
+
+    --surface: rgba(255,255,255,.82);
+    --surface-soft: #fafafa;
+
+    --text: #171717;
+    --text-secondary: #606064;
+    --text-tertiary: #8b8b91;
+
+    --border: rgba(0,0,0,.075);
+
+    --accent: #405867;
+    --accent-soft: #edf2f5;
+
+    --green: #26785d;
+    --green-soft: #edf7f2;
+
+    --blue: #1d9bf0;
+    --blue-soft: #f1f8fe;
+
+    --black: #181818;
+
+    --shadow-small:
+        0 2px 4px rgba(0,0,0,.025),
+        0 8px 25px rgba(0,0,0,.035);
+
+    --shadow-medium:
+        0 18px 55px rgba(0,0,0,.12);
+
+    --radius-xl: 28px;
+    --radius-large: 22px;
+    --radius-medium: 16px;
+    --radius-small: 12px;
+
+    --max-width: 1060px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+
+    line-height: 1.5;
+
+    padding-bottom: 0;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(29,155,240,.22);
+    outline-offset: 2px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+
+    width:
+        min(
+            var(--max-width),
+            calc(100% - 40px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        58px
+        0
+        90px;
+}
+
+
+/* =========================================================
+   PREDLABS ATTRIBUTION
+   ========================================================= */
+
+.platform-bar {
+
+    position: fixed;
+
+    top: 10px;
+    right: 12px;
+
+    z-index: 500;
+}
+
+.platform-trigger {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 31px;
+    min-height: 31px;
+
+    padding: 0;
+
+    border: 1px solid rgba(0,0,0,.07);
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.86);
+
+    color: #2b70a8;
+
+    appearance: none;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.07);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    overflow: hidden;
+
+    transition:
+        width .28s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.platform-bar.expanded .platform-trigger {
+
+    width: 215px;
+    min-width: 215px;
+
+    justify-content: flex-start;
+
+    padding: 5px 9px;
+
+    background: rgba(255,255,255,.96);
+
+    box-shadow:
+        0 7px 25px rgba(0,0,0,.10);
+}
+
+.security-icon {
+
+    width: 22px;
+    height: 22px;
+
+    flex: 0 0 22px;
+
+    display: grid;
+    place-items: center;
+
+    color: #1677c8;
+}
+
+.security-icon svg {
+    width: 21px;
+    height: 21px;
+    display: block;
+}
+
+.platform-bar.expanded .security-icon {
+    color: #1267ad;
+}
+
+.platform-attribution {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: 0;
+
+    opacity: 0;
+
+    overflow: hidden;
+
+    margin-left: 0;
+
+    transform: translateX(5px);
+
+    transition:
+        width .28s ease,
+        opacity .2s ease,
+        margin .28s ease,
+        transform .28s ease;
+}
+
+.platform-bar.expanded .platform-attribution {
+
+    width: 180px;
+
+    opacity: 1;
+
+    margin-left: 7px;
+
+    transform: translateX(0);
+}
+
+.platform-doctorjet-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+.platform-logo {
+
+    width: 25px;
+    height: 25px;
+
+    flex: 0 0 25px;
+
+    object-fit: contain;
+
+    border-radius: 7px;
+}
+
+.platform-copy {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    min-width: 0;
+
+    white-space: nowrap;
+
+    line-height: 1.15;
+}
+
+.platform-copy strong {
+
+    color: #35383b;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.platform-copy small {
+
+    color: #8b8f93;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.business-intro {
+
+    display: grid;
+
+    grid-template-columns:
+        150px
+        minmax(0,1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 34px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-xl);
+
+    box-shadow: var(--shadow-small);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+
+/* =========================================================
+   LAB LOGO
+   ========================================================= */
+
+.logo-container {
+    position: relative;
+}
+
+.lab-logo {
+
+    width: 138px;
+    height: 138px;
+
+    object-fit: contain;
+
+    display: block;
+
+    border-radius: 24px;
+
+    background: #e8e8ea;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.08),
+        0 10px 25px rgba(0,0,0,.06);
+}
+
+.verified-badge {
+
+    position: absolute;
+
+    right: -6px;
+    bottom: -5px;
+
+    width: 29px;
+    height: 29px;
+
+    display: block;
+
+    z-index: 5;
+
+    filter:
+        drop-shadow(
+            0 2px 4px rgba(0,0,0,.15)
+        );
+}
+
+.verified-badge svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+/* =========================================================
+   HERO TEXT
+   ========================================================= */
+
+.business-label {
+
+    margin-bottom: 7px;
+
+    color: var(--blue);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .9px;
+}
+
+.business-name {
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size:
+        clamp(
+            30px,
+            4vw,
+            42px
+        );
+
+    line-height: 1.08;
+
+    letter-spacing: -1.5px;
+
+    font-weight: 700;
+}
+
+.business-type {
+
+    margin-top: 9px;
+
+    color: var(--blue);
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+.business-location {
+
+    margin-top: 6px;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+}
+
+.business-description {
+
+    margin-top: 6px;
+
+    color: var(--text-tertiary);
+
+    font-size: 12px;
+
+    max-width: 620px;
+}
+
+
+/* =========================================================
+   TAGS
+   ========================================================= */
+
+.profile-tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 17px;
+}
+
+.profile-tag {
+
+    padding:
+        6px 10px;
+
+    border:
+        1px solid rgba(0,0,0,.045);
+
+    border-radius: 999px;
+
+    background: #f2f2f3;
+
+    color: #57575a;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 15px;
+}
+
+.hero-action-button {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 13px;
+    background: #fff;
+    color: var(--text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.hero-action-button.primary {
+    background: var(--black);
+    color: #fff;
+    border-color: var(--black);
+}
+
+.contact-modal-actions {
+    display: grid;
+    gap: 10px;
+    padding: 22px 23px;
+}
+
+.contact-modal-actions a {
+    display: block;
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: #f4f4f5;
+    color: var(--text);
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.contact-modal-actions a.whatsapp-action {
+    background: #1fa855;
+    color: #fff;
+}
+
+
+/* =========================================================
+   QR + SHARE
+   ========================================================= */
+
+.profile-qr-share-wrap {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: nowrap;
+}
+
+.profile-qr {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px;
+
+    background: rgba(255,255,255,.78);
+
+    border: 1px solid rgba(0,0,0,.065);
+
+    border-radius: 14px;
+
+    min-width: 92px;
+}
+
+.qr-code {
+
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+
+    border-radius: 7px;
+}
+
+.qr-code img,
+.qr-code canvas {
+
+    width: 70px !important;
+    height: 70px !important;
+
+    display: block;
+}
+
+.qr-label {
+
+    margin-top: 6px;
+
+    color: var(--text-tertiary);
+
+    font-size: 8px;
+
+    font-weight: 650;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+.profile-share-wrap {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    min-width: 150px;
+}
+
+.profile-share-button {
+
+    appearance: none;
+
+    border:
+        1px solid rgba(29,155,240,.22);
+
+    background: #fff;
+
+    color: #171717;
+
+    min-height: 40px;
+
+    padding: 0 14px;
+
+    border-radius: 12px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    font:
+        600 13px/1 inherit;
+
+    box-shadow:
+        0 5px 16px rgba(15,23,42,.07);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease,
+        background .18s ease;
+}
+
+.profile-share-button:hover {
+
+    transform: translateY(-1px);
+
+    border-color:
+        rgba(29,155,240,.42);
+
+    box-shadow:
+        0 8px 22px rgba(15,23,42,.10);
+}
+
+.profile-share-icon {
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #1d9bf0;
+
+    color: #fff;
+
+    flex: 0 0 20px;
+}
+
+.profile-share-icon svg {
+
+    width: 13px;
+    height: 13px;
+
+    display: block;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.9;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+.profile-share-options {
+
+    width: 210px;
+
+    margin-top: 8px;
+
+    padding: 6px;
+
+    border:
+        1px solid rgba(15,23,42,.08);
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.98);
+
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.12);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    z-index: 20;
+}
+
+.profile-share-options[hidden] {
+    display: none;
+}
+
+.profile-share-option {
+
+    width: 100%;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #171717;
+
+    min-height: 42px;
+
+    padding: 8px 9px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    text-align: left;
+
+    font:
+        600 12px/1.25 inherit;
+
+    transition: background .16s ease;
+}
+
+.profile-share-option:hover {
+    background: #f4f8fb;
+}
+
+.profile-share-option.whatsapp:hover {
+    background: #eefaf3;
+}
+
+.share-option-icon {
+
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
+    border-radius: 8px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f1f5f9;
+
+    color: #475569;
+}
+
+.share-option-icon svg {
+
+    width: 16px;
+    height: 16px;
+
+    display: block;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+}
+
+.whatsapp-icon {
+    background: #e9f8ef;
+    color: #168a45;
+}
+
+.copy-icon {
+    background: #eef4f8;
+    color: #3d5365;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.primary-button {
+
+    border: none;
+
+    background: var(--black);
+
+    color: white;
+
+    border-radius: 13px;
+
+    padding: 13px 19px;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.12);
+
+    transition:
+        transform .15s ease,
+        background .15s ease;
+}
+
+.primary-button:hover {
+
+    background: #2b2b2b;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   QUICK INFORMATION
+   ========================================================= */
+
+.quick-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    margin-top: 14px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.72);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+}
+
+.quick-item {
+
+    padding: 17px 20px;
+
+    border-right:
+        1px solid var(--border);
+}
+
+.quick-item:last-child {
+    border-right: none;
+}
+
+.quick-label {
+
+    color: var(--text-tertiary);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+}
+
+.quick-value {
+
+    margin-top: 3px;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PRIMARY TABS
+   ========================================================= */
+
+.profile-tabs-wrap {
+
+    margin-top: 18px;
+
+    position: sticky;
+
+    top: 10px;
+
+    z-index: 100;
+}
+
+.profile-tabs {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4px;
+
+    padding: 4px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 7px 25px rgba(0,0,0,.045);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.tab-button {
+
+    min-height: 45px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+.tab-button:hover {
+    background: rgba(0,0,0,.035);
+}
+
+.tab-button.active {
+
+    background: #fff;
+
+    color: var(--text);
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
+}
+
+
+/* =========================================================
+   CONTENT LAYOUT
+   ========================================================= */
+
+.content {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        315px;
+
+    gap: 18px;
+
+    margin-top: 18px;
+}
+
+.content > div {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+
+    padding: 27px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-large);
+
+    box-shadow:
+        var(--shadow-small);
+}
+
+.card + .card {
+    margin-top: 18px;
+}
+
+.card-title {
+
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 19px;
+
+    font-weight: 650;
+
+    letter-spacing: -.35px;
+}
+
+.card-description {
+
+    margin:
+        5px 0 22px;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TAB PANELS
+   ========================================================= */
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.panel-enter {
+    animation:
+        panelIn .22s ease both;
+}
+
+@keyframes panelIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-wrap {
+    position: relative;
+
+    margin-bottom: 13px;
+}
+
+.search-icon {
+
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 17px;
+    height: 17px;
+
+    color: #8b8b91;
+
+    pointer-events: none;
+}
+
+.search-input {
+
+    width: 100%;
+
+    min-height: 45px;
+
+    padding:
+        11px
+        14px
+        11px
+        40px;
+
+    border:
+        1px solid #dedee0;
+
+    border-radius: 13px;
+
+    background: #fafafa;
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 13px;
+
+    transition:
+        border .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+}
+
+.search-input:focus {
+
+    background: #fff;
+
+    border-color: #8c9da8;
+
+    box-shadow:
+        0 0 0 3px rgba(63,89,107,.08);
+}
+
+
+/* =========================================================
+   TEST CATEGORY CHIPS
+   ========================================================= */
+
+.category-scroll {
+
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+
+    scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-chip {
+
+    flex: 0 0 auto;
+
+    border:
+        1px solid rgba(0,0,0,.06);
+
+    border-radius: 999px;
+
+    background: #f4f4f5;
+
+    color: #55565a;
+
+    padding:
+        7px 11px;
+
+    font-size: 11px;
+
+    font-weight: 650;
+
+    transition:
+        background .16s ease,
+        color .16s ease,
+        border-color .16s ease;
+}
+
+.category-chip:hover {
+    background: #ededee;
+}
+
+.category-chip.active {
+
+    background: #1b1b1b;
+
+    border-color: #1b1b1b;
+
+    color: white;
+}
+
+
+/* =========================================================
+   TEST LIST
+   ========================================================= */
+
+.test-list {
+
+    display: grid;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.test-card {
+
+    padding: 17px;
+
+    background: #fafafa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    transition:
+        background .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
+}
+
+.test-card:hover {
+
+    background: #fff;
+
+    border-color:
+        rgba(0,0,0,.10);
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,.045);
+
+    transform: translateY(-1px);
+}
+
+.test-card.selected {
+
+    background:
+        #f7fbff;
+
+    border-color:
+        rgba(29,155,240,.20);
+
+}
+
+.test-card-top {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.test-name {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    font-weight: 680;
+
+    letter-spacing: -.15px;
+}
+
+.test-short-name {
+
+    display: inline-block;
+
+    margin-left: 5px;
+
+    color: var(--text-tertiary);
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.test-description {
+
+    margin:
+        5px 0 12px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+.test-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+.test-meta-item {
+
+    padding:
+        5px 8px;
+
+    border-radius: 8px;
+
+    background: #f0f0f1;
+
+    color: #66676b;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+.test-price {
+
+    margin-top: 11px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.test-price span {
+
+    color: var(--text-tertiary);
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+.test-add {
+
+    flex: 0 0 auto;
+
+    min-width: 74px;
+
+    min-height: 35px;
+
+    padding:
+        7px 11px;
+
+    border:
+        1px solid #dedee0;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #2c2c2e;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    transition:
+        background .16s ease,
+        color .16s ease,
+        border-color .16s ease,
+        transform .15s ease;
+}
+
+.test-add:hover {
+    transform: translateY(-1px);
+}
+
+.test-add.added {
+
+    background: #edf7f2;
+
+    border-color: rgba(38,120,93,.18);
+
+    color: var(--green);
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+
+    padding:
+        30px 18px;
+
+    text-align: center;
+
+    color: var(--text-tertiary);
+
+    font-size: 12px;
+
+    border:
+        1px dashed rgba(0,0,0,.10);
+
+    border-radius: 15px;
+
+    background: #fafafa;
+}
+
+
+/* =========================================================
+   SELECTED TEST SUMMARY
+   ========================================================= */
+
+.selected-summary {
+
+    margin-top: 18px;
+
+    padding: 19px;
+
+    background:
+        #191919;
+
+    color: white;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,.12);
+}
+
+.summary-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.summary-title {
+
+    font-size: 14px;
+
+    font-weight: 680;
+}
+
+.summary-count {
+
+    color: #a5a5a7;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.selected-list {
+
+    margin-top: 13px;
+
+    display: grid;
+
+    gap: 6px;
+}
+
+.selected-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding:
+        8px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    font-size: 11px;
+}
+
+.selected-row:last-child {
+    border-bottom: none;
+}
+
+.selected-row-name {
+    color: #dedede;
+}
+
+.selected-row-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.selected-row-price {
+
+    color: white;
+
+    font-weight: 650;
+}
+
+.remove-test {
+
+    border: none;
+
+    background: transparent;
+
+    color: #a4a4a7;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    padding: 2px 4px;
+}
+
+.summary-total {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding-top: 13px;
+
+    margin-top: 7px;
+
+    border-top:
+        1px solid rgba(255,255,255,.10);
+}
+
+.summary-total-label {
+
+    color: #a5a5a7;
+
+    font-size: 10px;
+}
+
+.summary-total-value {
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.summary-note {
+
+    margin-top: 8px;
+
+    color: #929296;
+
+    font-size: 9px;
+
+    line-height: 1.45;
+}
+
+.summary-book-button {
+
+    width: 100%;
+
+    margin-top: 14px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: white;
+
+    color: #171717;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition:
+        transform .15s ease;
+}
+
+.summary-book-button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DOCTOR CARDS
+   ========================================================= */
+
+.doctor-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap: 12px;
+}
+
+.doctor-card {
+
+    padding: 17px;
+
+    background: #fafafa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    transition:
+        background .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
+}
+
+.doctor-card:hover {
+
+    background: white;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.055);
+
+    transform: translateY(-1px);
+}
+
+.doctor-photo-wrap {
+
+    position: relative;
+
+    width: 64px;
+    height: 64px;
+
+    margin-bottom: 13px;
+}
+
+.doctor-photo {
+
+    width: 64px;
+    height: 64px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    background: #e7e7e9;
+}
+
+.doctor-card-verified {
+
+    position: absolute;
+
+    right: -4px;
+    bottom: -3px;
+
+    width: 21px;
+    height: 21px;
+}
+
+.doctor-card-verified svg {
+
+    width: 100%;
+    height: 100%;
+}
+
+.doctor-card-name {
+
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.2;
+
+    font-weight: 680;
+}
+
+.doctor-specialty {
+
+    margin-top: 4px;
+
+    color: var(--blue);
+
+    font-size: 11px;
+
+    font-weight: 650;
+}
+
+.doctor-qualification {
+
+    margin-top: 5px;
+
+    color: var(--text-secondary);
+
+    font-size: 10px;
+}
+
+.doctor-experience {
+
+    margin-top: 2px;
+
+    color: var(--text-tertiary);
+
+    font-size: 10px;
+}
+
+.doctor-description {
+
+    margin-top: 10px;
+
+    color: #66676b;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.doctor-tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-top: 10px;
+}
+
+.doctor-tag {
+
+    padding:
+        5px 7px;
+
+    background:
+        #f0f0f1;
+
+    border-radius: 7px;
+
+    color: #66676b;
+
+    font-size: 8px;
+
+    font-weight: 650;
+}
+
+.doctor-availability {
+
+    margin-top: 12px;
+
+    padding-top: 11px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.availability-label {
+
+    color: var(--text-tertiary);
+
+    font-size: 8px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+
+    font-weight: 700;
+}
+
+.availability-value {
+
+    margin-top: 3px;
+
+    color: var(--text);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    line-height: 1.45;
+}
+
+.doctor-card-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+.doctor-fee {
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.doctor-fee span {
+
+    display: block;
+
+    color: var(--text-tertiary);
+
+    font-size: 8px;
+
+    font-weight: 500;
+}
+
+.doctor-actions {
+
+    display: flex;
+
+    gap: 5px;
+}
+
+.secondary-small-button,
+.doctor-book-button {
+
+    border: none;
+
+    border-radius: 9px;
+
+    padding:
+        8px 9px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.secondary-small-button {
+
+    background: #f0f0f1;
+
+    color: #55565a;
+}
+
+.doctor-book-button {
+
+    background: #191919;
+
+    color: white;
+}
+
+
+/* =========================================================
+   INFORMATION CARDS
+   ========================================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+.info-mini-card {
+
+    padding: 18px;
+
+    background:
+        rgba(255,255,255,.82);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow-small);
+}
+
+.info-mini-title {
+
+    font-size: 13px;
+
+    font-weight: 680;
+}
+
+.info-mini-text {
+
+    margin-top: 6px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.info-list {
+
+    display: grid;
+
+    gap: 7px;
+
+    margin-top: 9px;
+}
+
+.info-list-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    font-size: 10px;
+}
+
+.info-list-label {
+
+    color: var(--text-tertiary);
+}
+
+.info-list-value {
+
+    color: var(--text);
+
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   ABOUT / CONTACT
+   ========================================================= */
+
+.about {
+
+    margin: 0;
+
+    color: #515151;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+.approach {
+
+    margin-top: 20px;
+
+    padding:
+        17px 18px;
+
+    background:
+        var(--accent-soft);
+
+    border:
+        1px solid rgba(63,89,107,.07);
+
+    border-radius: 15px;
+}
+
+.approach-title {
+
+    color: var(--accent);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+.approach-text {
+
+    color: #61707a;
+
+    font-size: 12px;
+}
+
+.contact-list {
+
+    display: grid;
+
+    gap: 9px;
+}
+
+.contact-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding:
+        12px;
+
+    background:
+        #fafafa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+}
+
+.contact-icon {
+
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: #f0f0f1;
+
+    color: #4e4e50;
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+.contact-label {
+
+    color: var(--text-tertiary);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+
+    font-weight: 700;
+}
+
+.contact-value {
+
+    margin-top: 2px;
+
+    color: var(--text);
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+
+    position: sticky;
+
+    top: 82px;
+
+    align-self: start;
+}
+
+.booking-card {
+
+    padding: 24px;
+
+    background: #191919;
+
+    color: white;
+
+    border-radius:
+        var(--radius-large);
+
+    box-shadow:
+        0 16px 40px rgba(0,0,0,.14);
+}
+
+.booking-eyebrow {
+
+    color: #9e9e9e;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .8px;
+}
+
+.booking-title {
+
+    margin:
+        7px 0;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 650;
+
+    letter-spacing: -.5px;
+}
+
+.booking-description {
+
+    margin: 0;
+
+    color: #a8a8aa;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.booking-divider {
+
+    height: 1px;
+
+    margin:
+        19px 0;
+
+    background:
+        rgba(255,255,255,.1);
+}
+
+.booking-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 7px 0;
+
+    font-size: 12px;
+}
+
+.booking-row-label {
+    color: #a5a5a7;
+}
+
+.booking-row-value {
+
+    text-align: right;
+
+    color: white;
+
+    font-weight: 600;
+}
+
+.booking-button {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #161616;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition:
+        transform .15s ease;
+}
+
+.booking-button:hover {
+    transform: translateY(-1px);
+}
+
+.sidebar-note {
+
+    margin-top: 12px;
+
+    padding: 17px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.sidebar-note strong {
+    color: var(--text);
+}
+
+
+/* =========================================================
+   MAP BUTTON
+   ========================================================= */
+
+.map-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 12px;
+
+    padding:
+        9px 12px;
+
+    border:
+        1px solid rgba(29,155,240,.16);
+
+    border-radius: 10px;
+
+    background: #f4f9fd;
+
+    color: #25678e;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 18px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+.modal-backdrop.open {
+    display: flex;
+}
+
+.modal {
+
+    width:
+        min(
+            620px,
+            100%
+        );
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.25);
+
+    animation:
+        modalIn .2s ease both;
+}
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding:
+        21px 23px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.modal-title {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 650;
+
+    letter-spacing: -.3px;
+}
+
+.modal-subtitle {
+
+    margin-top: 3px;
+
+    color: var(--text-tertiary);
+
+    font-size: 11px;
+}
+
+.close-button {
+
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 32px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #f2f2f3;
+
+    color: #555;
+
+    font-size: 18px;
+}
+
+.modal-body {
+
+    padding:
+        22px 23px 24px;
+}
+
+
+/* =========================================================
+   MODAL FORM
+   ========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 14px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #444;
+
+    font-size: 11px;
+
+    font-weight: 650;
+}
+
+.form-control {
+
+    width: 100%;
+
+    padding:
+        11px 12px;
+
+    border:
+        1px solid #dedee0;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #fafafa;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    transition:
+        border .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+}
+
+.form-control:focus {
+
+    background: white;
+
+    border-color: #8c9da8;
+
+    box-shadow:
+        0 0 0 3px rgba(63,89,107,.08);
+}
+
+textarea.form-control {
+
+    min-height: 80px;
+
+    resize: vertical;
+}
+
+.radio-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap: 7px;
+}
+
+.radio-option {
+
+    position: relative;
+
+    display: block;
+}
+
+.radio-option input {
+
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.radio-option label {
+
+    display: block;
+
+    padding:
+        11px;
+
+    border:
+        1px solid #dedee0;
+
+    border-radius: 11px;
+
+    background: #fafafa;
+
+    color: #555;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        border .15s ease,
+        color .15s ease;
+}
+
+.radio-option input:checked + label {
+
+    background: #eef4f8;
+
+    border-color:
+        rgba(63,89,107,.35);
+
+    color: #263f4d;
+}
+
+
+/* =========================================================
+   SLOTS
+   ========================================================= */
+
+.slot-grid {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+.slot {
+
+    padding:
+        8px 10px;
+
+    border:
+        1px solid #dedee0;
+
+    border-radius: 8px;
+
+    background: #fafafa;
+
+    color: #444;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.slot.selected {
+
+    background: #1b1b1b;
+
+    border-color: #1b1b1b;
+
+    color: white;
+}
+
+.slot:disabled {
+
+    opacity: .42;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODAL SUMMARY
+   ========================================================= */
+
+.modal-summary {
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    background: #f7f7f8;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+}
+
+.modal-summary-title {
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .6px;
+}
+
+.modal-summary-list {
+
+    display: grid;
+
+    gap: 5px;
+
+    margin-top: 9px;
+}
+
+.modal-summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    color: #55565a;
+
+    font-size: 10px;
+}
+
+.modal-summary-total {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    padding-top: 9px;
+
+    border-top:
+        1px solid var(--border);
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRIVACY NOTE
+   ========================================================= */
+
+.whatsapp-privacy-note {
+
+    margin-top: 14px;
+
+    padding:
+        12px 13px;
+
+    border:
+        1px solid rgba(29,155,240,.14);
+
+    border-radius: 11px;
+
+    background:
+        #f5faff;
+
+    color:
+        #66717a;
+
+    font-size: 9px;
+
+    line-height: 1.55;
+}
+
+.whatsapp-privacy-note strong {
+    color: #2d668f;
+}
+
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+
+.submit-button {
+
+    width: 100%;
+
+    margin-top: 13px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #171717;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    transition:
+        transform .15s ease,
+        background .15s ease;
+}
+
+.submit-button:hover {
+    background: #292929;
+    transform: translateY(-1px);
+}
+
+.whatsapp-submit {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.whatsapp-icon-small {
+
+    width: 18px;
+    height: 18px;
+
+    flex: 0 0 18px;
+}
+
+
+/* =========================================================
+   DOCTOR DETAIL MODAL
+   ========================================================= */
+
+.selected-doctor {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        12px;
+
+    margin-bottom: 17px;
+
+    background: #f7f7f8;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+}
+
+.selected-doctor img {
+
+    width: 52px;
+    height: 52px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    background: #e7e7e9;
+}
+
+.selected-doctor-name {
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.selected-doctor-specialty {
+
+    margin-top: 2px;
+
+    color: var(--blue);
+
+    font-size: 10px;
+
+    font-weight: 650;
+}
+
+.selected-doctor-fee {
+
+    margin-top: 2px;
+
+    color: var(--text-tertiary);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MOBILE BOOKING BAR
+   ========================================================= */
+
+.mobile-action-bar {
+
+    display: none;
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    z-index: 1500;
+
+    transform:
+        translate(-50%, 15px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    padding:
+        11px 15px;
+
+    border-radius: 11px;
+
+    background: #191919;
+
+    color: white;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.20);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .business-intro {
+
+        grid-template-columns:
+            125px
+            minmax(0,1fr);
+
+        gap: 23px;
+    }
+
+    .lab-logo {
+
+        width: 120px;
+        height: 120px;
+    }
+
+    .business-intro
+    .profile-qr-share-wrap {
+
+        grid-column: 1 / -1;
+
+        justify-content: flex-start;
+    }
+
+    .business-intro
+    .primary-button {
+
+        grid-column: 1 / -1;
+
+        width: 100%;
+    }
+
+    .content {
+
+        grid-template-columns: minmax(0,1fr);
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .doctor-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+        padding-bottom: 74px;
+        overflow-x: hidden;
+    }
+
+    .page {
+
+        width:
+            calc(100% - 20px);
+
+        padding:
+            18px 0 35px;
+    }
+
+    .platform-bar {
+
+        top: 8px;
+        right: 9px;
+    }
+
+    .platform-trigger {
+
+        min-width: 29px;
+        min-height: 29px;
+
+        border-radius: 9px;
+    }
+
+    .platform-bar.expanded
+    .platform-trigger {
+
+        width: 202px;
+        min-width: 202px;
+    }
+
+
+    /* HERO */
+
+    .business-intro {
+
+        grid-template-areas:
+            "logo qr"
+            "details details";
+
+        grid-template-columns:
+            82px
+            minmax(0,1fr);
+
+        align-items: start;
+
+        gap: 16px 14px;
+
+        padding: 16px;
+
+        border-radius: 22px;
+    }
+
+    .business-intro > .logo-container {
+        grid-area: logo;
+    }
+
+    .business-intro > .business-details {
+        grid-area: details;
+        min-width: 0;
+    }
+
+    .lab-logo {
+
+        width: 82px;
+        height: 82px;
+
+        border-radius: 18px;
+    }
+
+    .verified-badge {
+
+        width: 25px;
+        height: 25px;
+
+        right: -5px;
+        bottom: -4px;
+    }
+
+    .business-name {
+
+        font-size: 26px;
+
+        letter-spacing: -.9px;
+    }
+
+    .business-type {
+
+        margin-top: 5px;
+
+        font-size: 13px;
+    }
+
+    .business-location {
+
+        font-size: 10px;
+    }
+
+    .business-description {
+
+        font-size: 10px;
+    }
+
+    .profile-tags {
+
+        margin-top: 10px;
+    }
+
+    .profile-tag {
+
+        padding:
+            5px 7px;
+
+        font-size: 9px;
+    }
+
+    .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 13px;
+    }
+
+    .hero-action-button {
+        width: 100%;
+        min-height: 42px;
+        padding: 8px;
+        font-size: 11px;
+        line-height: 1.2;
+    }
+
+    .business-intro
+    .profile-qr-share-wrap {
+        grid-area: qr;
+        justify-self: end;
+        width: 82px;
+        max-width: 82px;
+        min-width: 0;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+    }
+
+    .profile-qr-share-wrap {
+
+        gap: 8px;
+    }
+
+    .profile-qr {
+
+        width: 82px;
+        min-width: 0;
+        height: 82px;
+
+        padding:
+            4px;
+    }
+
+    .profile-qr .qr-code,
+    .profile-qr .qr-code img,
+    .profile-qr .qr-code canvas {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .qr-label {
+        margin-top: 3px;
+        font-size: 7px;
+        line-height: 1.1;
+        white-space: nowrap;
+    }
+
+    .profile-share-wrap {
+        display: flex;
+        align-items: stretch;
+        min-width: 0;
+        width: 82px;
+    }
+
+    .profile-share-button {
+
+        width: 82px;
+        min-height: 38px;
+
+        padding:
+            0 12px;
+    }
+
+    .profile-share-options {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: min(220px, calc(100vw - 32px));
+        margin-top: 8px;
+    }
+
+    .profile-share-option {
+        white-space: nowrap;
+    }
+
+
+    /* LAB TESTS */
+
+    .search-wrap {
+        margin-bottom: 11px;
+    }
+
+    .search-input {
+        min-height: 44px;
+        font-size: 16px;
+    }
+
+    .category-scroll {
+        margin-right: -2px;
+    }
+
+    .category-chip {
+        padding: 7px 10px;
+        font-size: 10px;
+    }
+
+    .test-list {
+        min-width: 0;
+        gap: 9px;
+        margin-top: 14px;
+    }
+
+    .test-card {
+        min-width: 0;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .test-card-top {
+        display: block;
+    }
+
+    .test-name {
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .test-short-name {
+        margin-left: 3px;
+    }
+
+    .test-description {
+        margin: 5px 0 10px;
+        font-size: 10px;
+    }
+
+    .test-add {
+        width: 100%;
+        min-height: 38px;
+        margin-top: 2px;
+        font-size: 11px;
+    }
+
+    .test-meta {
+        gap: 5px;
+    }
+
+    .test-meta-item {
+        font-size: 9px;
+        overflow-wrap: anywhere;
+    }
+
+    .test-price {
+        margin-top: 10px;
+    }
+
+    .selected-summary {
+        margin-top: 14px;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .summary-header,
+    .summary-total,
+    .selected-row {
+        align-items: flex-start;
+    }
+
+    .selected-row-name {
+        overflow-wrap: anywhere;
+    }
+
+    .selected-row-right {
+        flex: 0 0 auto;
+    }
+
+    .summary-book-button {
+        min-height: 43px;
+    }
+
+
+    /* QUICK INFORMATION */
+
+    .quick-info {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        border-radius: 15px;
+    }
+
+    .quick-item {
+
+        padding: 13px;
+
+        border-bottom:
+            1px solid var(--border);
+    }
+
+    .quick-item:nth-child(2) {
+        border-right: none;
+    }
+
+    .quick-item:nth-child(3),
+    .quick-item:nth-child(4) {
+        border-bottom: none;
+    }
+
+
+    /* TABS */
+
+    .profile-tabs-wrap {
+        top: 6px;
+    }
+
+    .profile-tabs {
+        border-radius: 14px;
+    }
+
+    .tab-button {
+        min-height: 43px;
+        font-size: 12px;
+    }
+
+
+    /* CARDS */
+
+    .card {
+
+        padding: 21px;
+
+        border-radius: 19px;
+    }
+
+
+    /* DOCTORS */
+
+    .doctor-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-card {
+        padding: 15px;
+    }
+
+    .doctor-card-bottom {
+        flex-wrap: wrap;
+    }
+
+    .doctor-actions {
+        flex: 1 0 auto;
+        justify-content: flex-end;
+    }
+
+    .secondary-small-button,
+    .doctor-book-button {
+        min-height: 36px;
+        padding: 8px 12px;
+    }
+
+
+    /* INFORMATION */
+
+    .info-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .info-mini-card {
+        padding: 16px;
+    }
+
+    .info-list-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .info-list-value {
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* CONTACT */
+
+    .contact-row {
+        align-items: flex-start;
+        padding: 11px;
+    }
+
+    .contact-value {
+        display: block;
+        overflow-wrap: anywhere;
+    }
+
+    .map-button {
+        width: 100%;
+        min-height: 42px;
+        padding: 10px 12px;
+    }
+
+
+    /* MODAL */
+
+    .modal-backdrop {
+
+        padding: 0;
+
+        align-items: flex-end;
+    }
+
+    .modal {
+
+        width: 100%;
+
+        max-height: 96vh;
+
+        border-radius:
+            24px 24px 0 0;
+    }
+
+    .modal-header {
+        padding: 18px;
+    }
+
+    .modal-body,
+    .contact-modal-actions {
+        padding: 18px;
+    }
+
+    .modal-title {
+        font-size: 17px;
+    }
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .radio-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-control {
+        min-height: 44px;
+        font-size: 16px;
+    }
+
+    textarea.form-control {
+        min-height: 96px;
+    }
+
+    .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .slot {
+        min-height: 39px;
+        padding: 8px 6px;
+        text-align: center;
+    }
+
+    .selected-doctor {
+        align-items: flex-start;
+    }
+
+
+    /* MOBILE ACTION */
+
+    .mobile-action-bar {
+
+        position: fixed;
+
+        display: block;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        z-index: 800;
+
+        padding:
+            9px 11px;
+
+        background:
+            rgba(255,255,255,.93);
+
+        border-top:
+            1px solid var(--border);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .mobile-action-inner {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+    }
+
+    .mobile-action-summary {
+
+        flex: 1;
+
+        min-width: 0;
+    }
+
+    .mobile-action-label {
+
+        color: var(--text-tertiary);
+
+        font-size: 9px;
+
+        font-weight: 650;
+    }
+
+    .mobile-action-value {
+
+        margin-top: 1px;
+
+        color: var(--text);
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+    .mobile-action-button {
+
+        flex: 0 0 auto;
+
+        border: none;
+
+        border-radius: 11px;
+
+        padding:
+            12px 17px;
+
+        background: #171717;
+
+        color: white;
+
+        font-size: 11px;
+
+        font-weight: 700;
+    }
+
+
+    /* TOAST */
+
+    .toast {
+        bottom: 84px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior: auto !important;
+
+        animation-duration: .001ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .001ms !important;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     DOCTORJET TOP-RIGHT ATTRIBUTION
+     ========================================================= -->
+
+<div
+    class="platform-bar"
+    id="platformBar"
+>
+
+    <button
+        class="platform-trigger"
+        id="platformTrigger"
+        type="button"
+        aria-label="Show DoctorJet attribution"
+        aria-expanded="false"
+    >
+
+        <span class="security-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M12 2.6 19.5 5.5v5.3c0 5-3.1 8.9-7.5 10.6-4.4-1.7-7.5-5.6-7.5-10.6V5.5L12 2.6Z"
+                    fill="currentColor"
+                />
+
+                <path
+                    d="m8.1 11.9 2.55 2.55 5.35-5.45"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </span>
+
+
+        <span
+            class="platform-attribution"
+            id="platformAttribution"
+        >
+
+            <a
+                href="https://doctorjet.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="platform-doctorjet-link"
+                aria-label="Open DoctorJet.in"
+            >
+
+                <!--
+                Replace with your actual DoctorJet logo path if required.
+                -->
+                <img
+                    src="./images/predlabs-logo.png"
+                    alt="PredLabs"
+                    class="platform-logo"
+                >
+
+                <span class="platform-copy">
+
+                    <strong>
+                        Powered by DoctorJet.in
+                    </strong>
+
+                    <small>
+                        Secure profile & appointments
+                    </small>
+
+                </span>
+
+            </a>
+
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN PAGE
+     ========================================================= -->
+
+<main class="page">
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="business-intro">
+
+
+    <!-- LABORATORY LOGO -->
+
+    <div class="logo-container">
+
+        <img
+            id="labLogo"
+            class="lab-logo"
+            src="./images/predlabs-logo.png"
+            alt="Predlabs Bhubaneswar logo"
+        >
+
+
+        <!-- VERIFIED BADGE -->
+
+        <span
+            class="verified-badge"
+            title="Verified laboratory profile"
+            aria-label="Verified laboratory profile"
+        >
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="
+                    M12 2.8
+                    14.05 4.2
+                    16.45 4.1
+                    17.55 6.25
+                    19.65 7.45
+                    19.45 9.85
+                    20.6 12
+                    19.45 14.15
+                    19.65 16.55
+                    17.55 17.75
+                    16.45 19.9
+                    14.05 19.8
+                    12 21.2
+                    9.95 19.8
+                    7.55 19.9
+                    6.45 17.75
+                    4.35 16.55
+                    4.55 14.15
+                    3.4 12
+                    4.55 9.85
+                    4.35 7.45
+                    6.45 6.25
+                    7.55 4.1
+                    9.95 4.2
+                    12 2.8Z"
+                    fill="#1D9BF0"
+                />
+
+                <path
+                    d="m7.9 12.1 2.65 2.55 5.55-5.7"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </span>
+
+    </div>
+
+
+    <!-- BUSINESS INFORMATION -->
+
+    <div class="business-details">
+
+        <div
+            class="business-label"
+            id="businessLabel"
+        >
+            Diagnostic Laboratory
+        </div>
+
+
+        <h1
+            class="business-name"
+            id="businessName"
+        >
+            PredLabs Bhubaneswar
+        </h1>
+
+
+        <div
+            class="business-type"
+            id="businessType"
+        >
+            Advanced Diagnostic Laboratory
+        </div>
+
+
+        <div
+            class="business-location"
+            id="businessLocation"
+        >
+            Bhubaneswar, Odisha
+        </div>
+
+
+        <div
+            class="business-description"
+            id="businessDescription"
+        >
+            Comprehensive laboratory testing with digital reports,
+            home sample collection and associated doctor consultations.
+        </div>
+
+
+        <div
+            class="profile-tags"
+            id="profileTags"
+        >
+        </div>
+
+        <div class="hero-actions">
+            <button class="hero-action-button" type="button" onclick="openLocationModal()">
+                Location & Directions
+            </button>
+            <button class="hero-action-button primary" type="button" onclick="openContactModal()">
+                Call or WhatsApp
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- QR + SHARE -->
+
+    <div class="profile-qr-share-wrap">
+
+        <div class="profile-qr">
+
+            <div
+                class="qr-code"
+                id="labQR"
+                aria-label="QR code for this laboratory profile"
+            >
+            </div>
+
+            <div class="qr-label">
+                Laboratory Profile<br>
+                QR Code
+            </div>
+
+        </div>
+
+
+        <div class="profile-share-wrap">
+
+            <button
+                type="button"
+                class="profile-share-button"
+                id="profileShareButton"
+                aria-expanded="false"
+                aria-controls="profileShareOptions"
+            >
+
+                <span
+                    class="profile-share-icon"
+                    aria-hidden="true"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        focusable="false"
+                    >
+
+                        <path d="M12 16V4"></path>
+
+                        <path d="M7 9l5-5 5 5"></path>
+
+                        <path
+                            d="
+                            M5 13v6
+                            a1 1 0 0 0 1 1
+                            h12
+                            a1 1 0 0 0 1-1v-6"
+                        ></path>
+
+                    </svg>
+
+                </span>
+
+                <span>
+                    Share
+                </span>
+
+            </button>
+
+
+            <div
+                class="profile-share-options"
+                id="profileShareOptions"
+                hidden
+            >
+
+                <button
+                    type="button"
+                    class="profile-share-option whatsapp"
+                    id="shareWhatsAppButton"
+                >
+
+                    <span
+                        class="share-option-icon whatsapp-icon"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            focusable="false"
+                        >
+
+                            <path
+                                d="
+                                M20 11.5
+                                a8 8 0 0 1-11.8 7
+                                L4 20
+                                l1.6-4
+                                A8 8 0 1 1 20 11.5Z"
+                            ></path>
+
+                            <path
+                                d="
+                                M9 8.5
+                                c.2-.4.5-.5.8-.4
+                                l1 .8
+                                c.3.2.3.5.2.8
+                                l-.4.7
+                                c.5.9 1.2 1.6 2.1 2.1
+                                l.7-.4
+                                c.3-.2.6-.1.8.2
+                                l.8 1
+                                c.2.3.1.6-.2.8
+                                -.6.5-1.4.6-2.1.3
+                                -2.7-1.1-4.5-2.9-5.6-5.6
+                                -.3-.7-.2-1.5.3-2.1Z"
+                            ></path>
+
+                        </svg>
+
+                    </span>
+
+                    <span>
+                        Share on WhatsApp
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="profile-share-option"
+                    id="copyProfileLinkButton"
+                >
+
+                    <span
+                        class="share-option-icon copy-icon"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            focusable="false"
+                        >
+
+                            <rect
+                                x="8"
+                                y="8"
+                                width="11"
+                                height="11"
+                                rx="2"
+                            ></rect>
+
+                            <path
+                                d="
+                                M16 8V6
+                                a2 2 0 0 0-2-2H6
+                                a2 2 0 0 0-2 2v8
+                                a2 2 0 0 0 2 2h2"
+                            ></path>
+
+                        </svg>
+
+                    </span>
+
+                    <span id="copyProfileLinkText">
+                        Copy profile link
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     QUICK INFORMATION
+     ========================================================= -->
+
+<section class="quick-info">
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Tests Available
+        </div>
+
+        <div
+            class="quick-value"
+            id="quickTests"
+        >
+            500+
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Home Collection
+        </div>
+
+        <div
+            class="quick-value"
+            id="quickHome"
+        >
+            Available
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Reports
+        </div>
+
+        <div
+            class="quick-value"
+            id="quickReports"
+        >
+            Digital
+        </div>
+
+    </div>
+
+
+    <div class="quick-item">
+
+        <div class="quick-label">
+            Opening Hours
+        </div>
+
+        <div
+            class="quick-value"
+            id="quickHours"
+        >
+            7:00 AM – 8:00 PM
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRIMARY TABS
+     ========================================================= -->
+
+<div class="profile-tabs-wrap">
+
+    <nav
+        class="profile-tabs"
+        aria-label="Laboratory profile sections"
+    >
+
+        <button
+            class="tab-button active"
+            type="button"
+            id="testsTab"
+            data-tab="tests"
+            aria-selected="true"
+        >
+            LAB TESTS
+        </button>
+
+        <button
+            class="tab-button"
+            type="button"
+            id="doctorsTab"
+            data-tab="doctors"
+            aria-selected="false"
+        >
+            DOCTORS
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- =========================================================
+     CONTENT
+     ========================================================= -->
+
+<div class="content">
+
+
+<div>
+
+
+<!-- =========================================================
+     LAB TESTS TAB
+     ========================================================= -->
+
+<section
+    class="tab-panel active panel-enter"
+    id="testsPanel"
+>
+
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Laboratory Tests
+        </h2>
+
+        <p class="card-description">
+            Browse available tests and select the investigations
+            you would like to request.
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-wrap">
+
+            <svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <circle
+                    cx="11"
+                    cy="11"
+                    r="6.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                ></circle>
+
+                <path
+                    d="m16 16 5 5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                ></path>
+
+            </svg>
+
+            <input
+                class="search-input"
+                id="testSearch"
+                type="search"
+                placeholder="Search tests..."
+                autocomplete="off"
+                aria-label="Search laboratory tests"
+            >
+
+        </div>
+
+
+        <!-- CATEGORIES -->
+
+        <div
+            class="category-scroll"
+            id="categoryList"
+            aria-label="Laboratory test categories"
+        >
+        </div>
+
+
+        <!-- TEST LIST -->
+
+        <div
+            class="test-list"
+            id="testList"
+        >
+        </div>
+
+
+        <!-- SELECTED SUMMARY -->
+
+        <div
+            class="selected-summary"
+            id="selectedSummary"
+            hidden
+        >
+
+            <div class="summary-header">
+
+                <div class="summary-title">
+                    Selected tests
+                </div>
+
+                <div
+                    class="summary-count"
+                    id="selectedCount"
+                >
+                    0 tests
+                </div>
+
+            </div>
+
+
+            <div
+                class="selected-list"
+                id="selectedList"
+            >
+            </div>
+
+
+            <div class="summary-total">
+
+                <span class="summary-total-label">
+                    Estimated total
+                </span>
+
+                <span
+                    class="summary-total-value"
+                    id="estimatedTotal"
+                >
+                    ₹0
+                </span>
+
+            </div>
+
+
+            <div class="summary-note">
+                This is an estimated total only. Final pricing,
+                availability and collection charges, if any,
+                should be confirmed by the laboratory.
+            </div>
+
+
+            <button
+                type="button"
+                class="summary-book-button"
+                id="bookSelectedTestsButton"
+            >
+                Book Selected Tests
+            </button>
+
+        </div>
+
+    </section>
+
+
+</section>
+
+
+<!-- =========================================================
+     DOCTORS TAB
+     ========================================================= -->
+
+<section
+    class="tab-panel"
+    id="doctorsPanel"
+>
+
+    <section class="card">
+
+        <h2 class="card-title">
+            Associated Doctors
+        </h2>
+
+        <p class="card-description">
+            Timings below are tentative; please call the laboratory to confirm availability
+            Portraits are illustrative only.
+        </p>
+
+
+        <div
+            class="doctor-grid"
+            id="doctorGrid"
+        >
+        </div>
+
+    </section>
+
+</section>
+
+
+<!-- =========================================================
+     LABORATORY INFORMATION
+     ========================================================= -->
+
+<section class="info-grid">
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            About the Laboratory
+        </div>
+
+        <div
+            class="info-mini-text"
+            id="aboutLab"
+        >
+            Predlabs Bhubaneswar offers routine and specialised
+            diagnostic testing with digital report delivery,
+            home sample collection and clinician-linked services.
+        </div>
+
+    </div>
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            Accreditation
+        </div>
+
+        <div
+            class="info-mini-text"
+            id="accreditationText"
+        >
+            NABL Accredited
+        </div>
+
+    </div>
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            Facilities
+        </div>
+
+        <div
+            class="info-list"
+            id="facilitiesList"
+        >
+        </div>
+
+    </div>
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            Sample Collection
+        </div>
+
+        <div
+            class="info-mini-text"
+            id="collectionText"
+        >
+            Home sample collection is available in selected
+            service areas. Please confirm availability before booking.
+        </div>
+
+    </div>
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            Report Delivery
+        </div>
+
+        <div
+            class="info-mini-text"
+            id="reportText"
+        >
+            Digital reports are available through the laboratory's
+            configured report-delivery process.
+        </div>
+
+    </div>
+
+
+    <div class="info-mini-card">
+
+        <div class="info-mini-title">
+            Opening Hours
+        </div>
+
+        <div
+            class="info-list"
+            id="openingHoursList"
+        >
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Contact
+    </h2>
+
+    <p class="card-description">
+        Laboratory contact and location information
+    </p>
+
+
+    <div class="contact-list">
+
+
+        <div class="contact-row">
+
+            <div class="contact-icon">
+                LOC
+            </div>
+
+            <div>
+
+                <div class="contact-label">
+                    Address
+                </div>
+
+                <div
+                    class="contact-value"
+                    id="contactAddress"
+                >
+                    Bhubaneswar, Odisha
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-row">
+
+            <div class="contact-icon">
+                TEL
+            </div>
+
+            <div>
+
+                <div class="contact-label">
+                    Phone
+                </div>
+
+                <a
+                    class="contact-value"
+                    id="contactPhone"
+                    href="#"
+                >
+                    +91 98765 43210
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-row">
+
+            <div class="contact-icon">
+                WA
+            </div>
+
+            <div>
+
+                <div class="contact-label">
+                    WhatsApp
+                </div>
+
+                <a
+                    class="contact-value"
+                    id="contactWhatsApp"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Chat with laboratory
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-row">
+
+            <div class="contact-icon">
+                @
+            </div>
+
+            <div>
+
+                <div class="contact-label">
+                    Email
+                </div>
+
+                <a
+                    class="contact-value"
+                    id="contactEmail"
+                    href="#"
+                >
+                    hello@predlabs.in
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <a
+        class="map-button"
+        id="mapButton"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        Open location in Google Maps
+    </a>
+
+</section>
+
+
+<!-- =========================================================
+     PRIVACY INFORMATION
+     ========================================================= -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        Booking & Privacy
+    </h2>
+
+    <p class="about">
+
+        Your booking details are not stored on this page or sent
+        to a server/database. They are placed directly into a
+        WhatsApp message for the laboratory.
+
+        Please avoid entering highly sensitive medical information.
+
+    </p>
+
+</section>
+
+
+</div>
+
+
+<!-- =========================================================
+     SIDEBAR
+     ========================================================= -->
+
+<aside class="sidebar">
+
+
+    <div class="booking-card">
+
+        <div class="booking-eyebrow">
+            Laboratory Services
+        </div>
+
+        <h2 class="booking-title">
+            Book tests or consult
+        </h2>
+
+        <p class="booking-description">
+            Select laboratory tests or choose an associated doctor
+            for an appointment.
+        </p>
+
+        <div class="booking-divider"></div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Laboratory
+            </span>
+
+            <span
+                class="booking-row-value"
+                id="sideLab"
+            >
+                PredLabs Bhubaneswar
+            </span>
+
+        </div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Test catalogue
+            </span>
+
+            <span
+                class="booking-row-value"
+                id="sideTestCount"
+            >
+                500+
+            </span>
+
+        </div>
+
+
+        <div class="booking-row">
+
+            <span class="booking-row-label">
+                Home collection
+            </span>
+
+            <span
+                class="booking-row-value"
+                id="sideHome"
+            >
+                Available
+            </span>
+
+        </div>
+
+
+        <button
+            class="booking-button"
+            type="button"
+            id="sideBookButton"
+        >
+            Browse Lab Tests
+        </button>
+
+    </div>
+
+
+    <div class="sidebar-note">
+
+        <strong>Direct WhatsApp booking.</strong><br>
+
+        Submitted information is not stored by this page.
+        It is placed directly into a WhatsApp message so the
+        laboratory can review the request.
+
+        <br><br>
+
+        Please avoid entering highly sensitive medical information.
+
+    </div>
+
+</aside>
+
+
+</div>
+
+
+</main>
+
+
+<!-- =========================================================
+     MOBILE FIXED ACTION BAR
+     ========================================================= -->
+
+<div
+    class="mobile-action-bar"
+    id="mobileActionBar"
+>
+
+    <div class="mobile-action-inner">
+
+        <div class="mobile-action-summary">
+
+            <div
+                class="mobile-action-label"
+                id="mobileActionLabel"
+            >
+                LAB TESTS
+            </div>
+
+            <div
+                class="mobile-action-value"
+                id="mobileActionValue"
+            >
+                Select tests to book
+            </div>
+
+        </div>
+
+        <button
+            class="mobile-action-button"
+            type="button"
+            id="mobileActionButton"
+        >
+            Browse
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LAB TEST BOOKING MODAL
+     ========================================================= -->
+
+<div
+    class="modal-backdrop"
+    id="labBookingModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="labModalTitle"
+    onclick="closeOnBackdrop(event, 'labBookingModal')"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2
+                    class="modal-title"
+                    id="labModalTitle"
+                >
+                    Book Lab Tests
+                </h2>
+
+                <div class="modal-subtitle">
+                    <span id="labModalSubtitle">
+                        PredLabs Bhubaneswar
+                    </span>
+                </div>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                type="button"
+                onclick="closeLabBooking()"
+                aria-label="Close laboratory booking"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <form
+                id="labBookingForm"
+                onsubmit="submitLabBooking(event)"
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientName"
+                        >
+                            Full name
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientName"
+                            type="text"
+                            placeholder="Full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MOBILE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientMobile"
+                        >
+                            Mobile number
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientMobile"
+                            type="tel"
+                            inputmode="numeric"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="10-digit mobile"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- AGE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientAge"
+                        >
+                            Age
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientAge"
+                            type="number"
+                            min="0"
+                            max="120"
+                            placeholder="Age"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientGender"
+                        >
+                            Gender
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="labPatientGender"
+                            required
+                        >
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option>
+                                Male
+                            </option>
+
+                            <option>
+                                Female
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                            <option>
+                                Prefer not to say
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="labPatientEmail"
+                        >
+                            Email <span style="color:#999;">(optional)</span>
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientEmail"
+                            type="email"
+                            placeholder="Email address"
+                            autocomplete="email"
+                        >
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="labPatientAddress"
+                        >
+                            Address
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientAddress"
+                            type="text"
+                            placeholder="House / street / landmark"
+                            autocomplete="street-address"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- AREA -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientArea"
+                        >
+                            Area / locality
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientArea"
+                            type="text"
+                            placeholder="Area / locality"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PIN -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labPatientPin"
+                        >
+                            PIN code
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labPatientPin"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="6"
+                            pattern="[0-9]{6}"
+                            placeholder="PIN code"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- COLLECTION TYPE -->
+
+                    <div class="form-group full">
+
+                        <label class="form-label">
+                            Collection type
+                        </label>
+
+
+                        <div class="radio-grid">
+
+
+                            <div class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="collectionType"
+                                    id="visitLab"
+                                    value="Visit laboratory"
+                                    required
+                                >
+
+                                <label for="visitLab">
+                                    Visit laboratory
+                                </label>
+
+                            </div>
+
+
+                            <div class="radio-option">
+
+                                <input
+                                    type="radio"
+                                    name="collectionType"
+                                    id="homeCollection"
+                                    value="Home sample collection"
+                                >
+
+                                <label for="homeCollection">
+                                    Home sample collection
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COLLECTION ADDRESS -->
+
+                    <div
+                        class="form-group full"
+                        id="homeAddressGroup"
+                        hidden
+                    >
+
+                        <label
+                            class="form-label"
+                            for="homeCollectionAddress"
+                        >
+                            Full home collection address
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="homeCollectionAddress"
+                            placeholder="Full address for sample collection"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labBookingDate"
+                        >
+                            Preferred date
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="labBookingDate"
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TIME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="labBookingTime"
+                        >
+                            Preferred time
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="labBookingTime"
+                            required
+                        >
+
+                            <option value="">
+                                Select time
+                            </option>
+
+                            <option>
+                                7:00 AM – 9:00 AM
+                            </option>
+
+                            <option>
+                                9:00 AM – 11:00 AM
+                            </option>
+
+                            <option>
+                                11:00 AM – 1:00 PM
+                            </option>
+
+                            <option>
+                                1:00 PM – 3:00 PM
+                            </option>
+
+                            <option>
+                                3:00 PM – 5:00 PM
+                            </option>
+
+                            <option>
+                                5:00 PM – 7:00 PM
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TEST SUMMARY -->
+
+                    <div class="form-group full">
+
+                        <div class="modal-summary">
+
+                            <div class="modal-summary-title">
+                                Selected tests
+                            </div>
+
+                            <div
+                                class="modal-summary-list"
+                                id="labModalTestList"
+                            >
+                            </div>
+
+                            <div class="modal-summary-total">
+
+                                <span>
+                                    Estimated total
+                                </span>
+
+                                <span id="labModalTotal">
+                                    ₹0
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOTE -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="labAdditionalNote"
+                        >
+                            Optional note
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="labAdditionalNote"
+                            placeholder="Anything else the laboratory should know? Please avoid sensitive medical information."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="whatsapp-privacy-note">
+
+                    <strong>Direct WhatsApp booking.</strong>
+
+                    Your details are not stored on this page or
+                    sent to a server/database. They are placed
+                    directly into a WhatsApp message for the
+                    laboratory. Please avoid entering highly
+                    sensitive medical information.
+
+                </div>
+
+
+                <button
+                    class="submit-button whatsapp-submit"
+                    type="submit"
+                >
+
+                    <svg
+                        class="whatsapp-icon-small"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <path
+                            d="
+                            M20 11.5
+                            a8 8 0 0 1-11.8 7
+                            L4 20
+                            l1.6-4
+                            A8 8 0 1 1 20 11.5Z"
+                            fill="currentColor"
+                        />
+
+                        <path
+                            d="
+                            M9 8.5
+                            c.2-.4.5-.5.8-.4
+                            l1 .8
+                            c.3.2.3.5.2.8
+                            l-.4.7
+                            c.5.9 1.2 1.6 2.1 2.1
+                            l.7-.4
+                            c.3-.2.6-.1.8.2
+                            l.8 1
+                            c.2.3.1.6-.2.8
+                            -.6.5-1.4.6-2.1.3
+                            -2.7-1.1-4.5-2.9-5.6-5.6
+                            -.3-.7-.2-1.5.3-2.1Z"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="1.5"
+                        />
+
+                    </svg>
+
+                    Send Booking Request via WhatsApp
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     DOCTOR APPOINTMENT MODAL
+     ========================================================= -->
+
+<div
+    class="modal-backdrop"
+    id="doctorBookingModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="doctorModalTitle"
+    onclick="closeOnBackdrop(event, 'doctorBookingModal')"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2
+                    class="modal-title"
+                    id="doctorModalTitle"
+                >
+                    Book Appointment
+                </h2>
+
+                <div class="modal-subtitle">
+                    <span id="doctorModalSubtitle">
+                        PredLabs Bhubaneswar
+                    </span>
+                </div>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                type="button"
+                onclick="closeDoctorBooking()"
+                aria-label="Close doctor appointment"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+            <!-- SELECTED DOCTOR -->
+
+            <div class="selected-doctor">
+
+                <img
+                    id="selectedDoctorPhoto"
+                    src=""
+                    alt=""
+                >
+
+                <div>
+
+                    <div
+                        class="selected-doctor-name"
+                        id="selectedDoctorName"
+                    >
+                    </div>
+
+                    <div
+                        class="selected-doctor-specialty"
+                        id="selectedDoctorSpecialty"
+                    >
+                    </div>
+
+                    <div
+                        class="selected-doctor-fee"
+                        id="selectedDoctorFee"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="doctorBookingForm"
+                onsubmit="submitDoctorBooking(event)"
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- PATIENT NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorPatientName"
+                        >
+                            Patient name
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="doctorPatientName"
+                            type="text"
+                            placeholder="Full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- MOBILE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorPatientMobile"
+                        >
+                            Mobile number
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="doctorPatientMobile"
+                            type="tel"
+                            inputmode="numeric"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="10-digit mobile"
+                            autocomplete="tel"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- AGE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorPatientAge"
+                        >
+                            Age
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="doctorPatientAge"
+                            type="number"
+                            min="0"
+                            max="120"
+                            placeholder="Age"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorPatientGender"
+                        >
+                            Gender
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="doctorPatientGender"
+                            required
+                        >
+
+                            <option value="">
+                                Select gender
+                            </option>
+
+                            <option>
+                                Male
+                            </option>
+
+                            <option>
+                                Female
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                            <option>
+                                Prefer not to say
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CONSULTATION MODE -->
+
+                    <div class="form-group full">
+
+                        <label class="form-label">
+                            Consultation type
+                        </label>
+
+                        <div
+                            class="radio-grid"
+                            id="doctorModeOptions"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorAppointmentDate"
+                        >
+                            Preferred date
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="doctorAppointmentDate"
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DAY -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="doctorDayDisplay"
+                        >
+                            Availability
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="doctorDayDisplay"
+                            type="text"
+                            readonly
+                            placeholder="Select date"
+                        >
+
+                    </div>
+
+
+                    <!-- TIME -->
+
+                    <div class="form-group full">
+
+                        <label class="form-label">
+                            Preferred time
+                        </label>
+
+                        <div
+                            class="slot-grid"
+                            id="doctorSlotGrid"
+                        >
+                        </div>
+
+                        <input
+                            id="selectedDoctorSlot"
+                            type="hidden"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- REASON -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="doctorReason"
+                        >
+                            Reason for consultation
+                            <span style="color:#999;">(optional)</span>
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            id="doctorReason"
+                            placeholder="Brief reason for consultation. Avoid highly sensitive medical information."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="whatsapp-privacy-note">
+
+                    <strong>Direct WhatsApp booking.</strong>
+
+                    Appointment information is not stored on
+                    this page or sent to a server/database.
+                    It is placed directly into a WhatsApp message
+                    for the laboratory.
+
+                </div>
+
+
+                <button
+                    class="submit-button whatsapp-submit"
+                    type="submit"
+                >
+
+                    <svg
+                        class="whatsapp-icon-small"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <path
+                            d="
+                            M20 11.5
+                            a8 8 0 0 1-11.8 7
+                            L4 20
+                            l1.6-4
+                            A8 8 0 1 1 20 11.5Z"
+                            fill="currentColor"
+                        />
+
+                        <path
+                            d="
+                            M9 8.5
+                            c.2-.4.5-.5.8-.4
+                            l1 .8
+                            c.3.2.3.5.2.8
+                            l-.4.7
+                            c.5.9 1.2 1.6 2.1 2.1
+                            l.7-.4
+                            c.3-.2.6-.1.8.2
+                            l.8 1
+                            c.2.3.1.6-.2.8
+                            -.6.5-1.4.6-2.1.3
+                            -2.7-1.1-4.5-2.9-5.6-5.6
+                            -.3-.7-.2-1.5.3-2.1Z"
+                            fill="none"
+                            stroke="#fff"
+                            stroke-width="1.5"
+                        />
+
+                    </svg>
+
+                    Send Appointment Request via WhatsApp
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal-backdrop" id="locationModal" role="dialog" aria-modal="true" aria-labelledby="locationModalTitle" onclick="closeOnBackdrop(event, 'locationModal')">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title" id="locationModalTitle">PredLabs Bhubaneswar</h2>
+                <div class="modal-subtitle">Location & directions</div>
+            </div>
+            <button class="close-button" type="button" onclick="closeSimpleModal('locationModal')" aria-label="Close location">×</button>
+        </div>
+        <div class="contact-modal-actions">
+            <div>SCR-68, Unit 6, Ganganagar, Bhubaneswar, Odisha 751001</div>
+            <a class="whatsapp-action" href="https://www.google.com/maps/dir/?api=1&destination=Predlabs%2C%20SCR-68%2C%20Ganganagar%2C%20Unit%206%2C%20Bhubaneswar%2C%20Odisha%20751001" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Predlabs%20SCR-68%20Ganganagar%20Unit%206%20Bhubaneswar" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle" onclick="closeOnBackdrop(event, 'contactModal')">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title" id="contactModalTitle">Contact PredLabs</h2>
+                <div class="modal-subtitle">Choose how you would like to connect</div>
+            </div>
+            <button class="close-button" type="button" onclick="closeSimpleModal('contactModal')" aria-label="Close contact options">×</button>
+        </div>
+        <div class="contact-modal-actions">
+            <a href="tel:+918260147233">Call +91 82601 47233</a>
+            <a href="tel:+917749089903">Call +91 77490 89903</a>
+            <a class="whatsapp-action" href="https://wa.me/918260147233?text=Hello%20PredLabs%20Bhubaneswar%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">Message on WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+>
+</div>
+
+
+<script>
+
+/* =========================================================
+   =========================================================
+   DOCTORJET LABORATORY CONFIGURATION
+   =========================================================
+   =========================================================
+
+   CHANGE THESE OBJECTS FOR EACH LABORATORY.
+
+   No backend is required.
+
+   No patient information is saved.
+
+   The WhatsApp number below receives all booking requests.
+
+   ========================================================= */
+
+
+/* =========================================================
+   LABORATORY CONFIGURATION
+   ========================================================= */
+
+const laboratory = {
+
+    name:
+        "PredLabs Bhubaneswar",
+
+    type:
+        "Diagnostic Laboratory & Health Check Centre",
+
+    label:
+        "Diagnostic Laboratory",
+
+    description:
+        "Fully automated diagnostic laboratory offering blood tests, X-ray, ultrasound, ECG and doctor consultations in Ganganagar, Bhubaneswar.",
+
+    location:
+        "Ganganagar, Unit 6, Bhubaneswar, Odisha",
+
+    address:
+        "SCR-68, Unit 6, Ganganagar, Bhubaneswar, Odisha 751001",
+
+    logo:
+        "./images/predlabs-logo.png",
+
+    whatsapp:
+        "918260147233",
+
+    phone:
+        "+91 82601 47233 / +91 77490 89903",
+
+    email:
+        "hello@predlabs.in",
+
+    website:
+        "",
+
+    maps:
+        "https://www.google.com/maps/search/?api=1&query=Predlabs%20SCR-68%20Ganganagar%20Unit%206%20Bhubaneswar",
+
+    verified:
+        true,
+
+    accreditation:
+        "NABL Accredited",
+
+    reportType:
+        "Digital reports",
+
+    homeCollection:
+        "Available",
+
+    testCountLabel:
+        "Blood tests & imaging",
+
+    openingHours: [
+
+        {
+            day: "Monday – Saturday",
+            hours: "7:00 AM – 8:00 PM"
+        },
+
+        {
+            day: "Sunday",
+            hours: "8:00 AM – 1:00 PM"
+        }
+
+    ],
+
+    facilities: [
+
+        {
+            label: "Diagnostic services",
+            value: "Blood tests, X-ray, Ultrasound & ECG"
+        },
+
+        {
+            label: "Laboratory",
+            value: "Fully automated"
+        },
+
+        {
+            label: "Doctor consultations",
+            value: "Scheduled availability"
+        },
+
+        {
+            label: "Location",
+            value: "SCR-68, Ganganagar, Unit 6"
+        }
+
+    ],
+
+    collectionNote:
+        "Home sample collection is available in selected service areas. Please confirm availability before booking.",
+
+    reportNote:
+        "Digital reports are available through the laboratory's configured report-delivery process."
+
+};
+
+
+/* =========================================================
+   LAB TEST CONFIGURATION
+   ========================================================= */
+
+const labTests = [
+
+    {
+        id: "cbc",
+
+        name:
+            "Complete Blood Count",
+
+        shortName:
+            "CBC",
+
+        category:
+            "Blood",
+
+        description:
+            "Measures haemoglobin, RBC, WBC and platelet parameters.",
+
+        price:
+            450,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "hba1c",
+
+        name:
+            "HbA1c",
+
+        shortName:
+            "HbA1c",
+
+        category:
+            "Diabetes",
+
+        description:
+            "Reflects average blood glucose over approximately 2–3 months.",
+
+        price:
+            400,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "fasting-glucose",
+
+        name:
+            "Fasting Blood Glucose",
+
+        shortName:
+            "FBS",
+
+        category:
+            "Diabetes",
+
+        description:
+            "Measures blood glucose after an overnight fasting period.",
+
+        price:
+            150,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "lipid",
+
+        name:
+            "Lipid Profile",
+
+        shortName:
+            "Lipid",
+
+        category:
+            "Lipid",
+
+        description:
+            "Measures cholesterol, triglycerides, HDL and LDL parameters.",
+
+        price:
+            550,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "tsh",
+
+        name:
+            "Thyroid Stimulating Hormone",
+
+        shortName:
+            "TSH",
+
+        category:
+            "Thyroid",
+
+        description:
+            "Measures TSH as part of thyroid function assessment.",
+
+        price:
+            350,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "ft4",
+
+        name:
+            "Free Thyroxine",
+
+        shortName:
+            "FT4",
+
+        category:
+            "Thyroid",
+
+        description:
+            "Measures circulating free thyroxine as part of thyroid assessment.",
+
+        price:
+            400,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "lft",
+
+        name:
+            "Liver Function Test",
+
+        shortName:
+            "LFT",
+
+        category:
+            "Liver",
+
+        description:
+            "Assesses commonly used biochemical markers of liver function.",
+
+        price:
+            650,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "kft",
+
+        name:
+            "Kidney Function Test",
+
+        shortName:
+            "KFT",
+
+        category:
+            "Kidney",
+
+        description:
+            "Assesses commonly used markers of renal function.",
+
+        price:
+            600,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "urine-routine",
+
+        name:
+            "Urine Routine Examination",
+
+        shortName:
+            "Urine R/E",
+
+        category:
+            "Urine",
+
+        description:
+            "Routine microscopic and biochemical examination of urine.",
+
+        price:
+            180,
+
+        reportTime:
+            "Same day",
+
+        sample:
+            "Urine",
+
+        homeCollection:
+            false
+
+    },
+
+
+    {
+        id: "vitamin-d",
+
+        name:
+            "Vitamin D",
+
+        shortName:
+            "25-OH Vitamin D",
+
+        category:
+            "Vitamin",
+
+        description:
+            "Measures serum 25-hydroxy vitamin D concentration.",
+
+        price:
+            1200,
+
+        reportTime:
+            "24 hours",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "vitamin-b12",
+
+        name:
+            "Vitamin B12",
+
+        shortName:
+            "B12",
+
+        category:
+            "Vitamin",
+
+        description:
+            "Measures circulating vitamin B12 concentration.",
+
+        price:
+            850,
+
+        reportTime:
+            "24 hours",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    },
+
+
+    {
+        id: "liver-package",
+
+        name:
+            "Basic Health Check Package",
+
+        shortName:
+            "Health Package",
+
+        category:
+            "Health Packages",
+
+        description:
+            "A selected combination of commonly requested screening investigations.",
+
+        price:
+            1499,
+
+        reportTime:
+            "24–48 hours",
+
+        sample:
+            "Blood",
+
+        homeCollection:
+            true
+
+    }
+
+];
+
+
+/* =========================================================
+   ASSOCIATED DOCTORS
+   ========================================================= */
+
+const doctors = [
+
+    {
+        id: "asit-mohanty",
+        name: "Dr. Asit Kumar Mohanty",
+        specialty: "Senior Cancer Specialist",
+        qualifications: "MD, DNB",
+        experience: "Consultation at Predlabs",
+        photo: "./images/dr-arjun-das.png",
+        fee: "Call for fee",
+        description: "Available at Predlabs.",
+        verified: false,
+        consultationModes: ["In-person"],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        slots: ["7:00 PM"]
+    },
+    {
+        id: "bishnu-sahoo",
+        name: "Dr. Bishnu Prasad Sahoo",
+        specialty: "Psychiatrist",
+        qualifications: "MD, Psychiatry · Senior Consultant, ESI Hospital, Bhubaneswar",
+        experience: "Consultation at Predlabs",
+        photo: "./images/dr-arjun-das.png",
+        fee: "Call for fee",
+        description: "Available at Predlabs.",
+        verified: false,
+        consultationModes: ["In-person"],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        slots: ["5:00 PM"]
+    },
+    {
+        id: "byomakesh-dikshit",
+        name: "Dr. Byomakesh Dikshit",
+        specialty: "Cardiologist",
+        qualifications: "MD, DM, Cardiology · Senior Consultant, Apollo Hospital",
+        experience: "Consultation at Predlabs",
+        photo: "./images/dr-arjun-das.png",
+        fee: "Call for fee",
+        description: "Available at Predlabs.",
+        verified: false,
+        consultationModes: ["In-person"],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        slots: ["1:00 PM"]
+    },
+    {
+        id: "antaryami-sahoo",
+        name: "Dr. Antaryami Sahoo",
+        specialty: "Senior Cancer Specialist",
+        qualifications: "Senior Consultant, Capital Hospital, Bhubaneswar",
+        experience: "Consultation at Predlabs",
+        photo: "./images/dr-arjun-das.png",
+        fee: "Call for fee",
+        description: "Available at Predlabs.",
+        verified: false,
+        consultationModes: ["In-person"],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        slots: ["2:00 PM"]
+    },
+    {
+        id: "bhismadev-chhatriya",
+        name: "Dr. Bhismadev Chhatriya",
+        specialty: "Obstetrics & Gynaecology",
+        qualifications: "MBBS, MS · PGIMER & Capital Hospital",
+        experience: "Consultation at Predlabs",
+        photo: "./images/dr-arjun-das.png",
+        fee: "Call for fee",
+        description: "Available at Predlabs.",
+        verified: false,
+        consultationModes: ["In-person"],
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        slots: ["5:00 PM"]
+    }
+
+];
+
+
+/* =========================================================
+   APPLICATION STATE
+   ========================================================= */
+
+let selectedTests = new Set();
+
+let activeCategory =
+    "All";
+
+let selectedDoctor = null;
+
+let selectedDoctorSlot =
+    "";
+
+let selectedCollectionType =
+    "";
+
+let lastFocusedElement = null;
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        initialiseLaboratory();
+
+        initialiseTabs();
+
+        initialiseCategories();
+
+        renderTests();
+
+        renderDoctors();
+
+        initialiseShare();
+
+        initialisePlatformAttribution();
+
+        initialiseCollectionType();
+
+        initialiseDates();
+
+        initialiseSidebar();
+
+        initialiseMobileAction();
+
+        generateQR();
+
+        setupKeyboardHandlers();
+
+    }
+);
+
+
+/* =========================================================
+   LABORATORY RENDERING
+   ========================================================= */
+
+function initialiseLaboratory() {
+
+    document.title =
+        laboratory.name +
+        " — DoctorJet Laboratory Profile";
+
+
+    setText(
+        "businessLabel",
+        laboratory.label
+    );
+
+    setText(
+        "businessName",
+        laboratory.name
+    );
+
+    setText(
+        "businessType",
+        laboratory.type
+    );
+
+    setText(
+        "businessLocation",
+        laboratory.location
+    );
+
+    setText(
+        "businessDescription",
+        laboratory.description
+    );
+
+
+    const logo =
+        document.getElementById("labLogo");
+
+    if (logo) {
+
+        logo.src =
+            laboratory.logo;
+
+        logo.alt =
+            laboratory.name +
+            " laboratory logo";
+
+    }
+
+
+    renderTags();
+
+
+    setText(
+        "quickTests",
+        laboratory.testCountLabel
+    );
+
+    setText(
+        "quickHome",
+        laboratory.homeCollection
+    );
+
+    setText(
+        "quickReports",
+        laboratory.reportType
+    );
+
+
+    const firstHours =
+        laboratory.openingHours[0];
+
+    if (firstHours) {
+
+        setText(
+            "quickHours",
+            firstHours.hours
+        );
+
+    }
+
+
+    setText(
+        "aboutLab",
+        laboratory.description
+    );
+
+    setText(
+        "accreditationText",
+        laboratory.accreditation
+    );
+
+    setText(
+        "collectionText",
+        laboratory.collectionNote
+    );
+
+    setText(
+        "reportText",
+        laboratory.reportNote
+    );
+
+
+    renderFacilities();
+
+    renderOpeningHours();
+
+    renderContact();
+
+}
+
+
+/* =========================================================
+   TAGS
+   ========================================================= */
+
+function renderTags() {
+
+    const container =
+        document.getElementById(
+            "profileTags"
+        );
+
+    if (!container) return;
+
+    const tags = [
+
+        laboratory.accreditation,
+
+        laboratory.homeCollection === "Available"
+            ? "Home Sample Collection"
+            : "Laboratory Collection",
+
+        laboratory.reportType,
+
+        "Same-Day Reports",
+
+        doctors.length
+            ? "Doctor Consultation Available"
+            : null
+
+    ].filter(Boolean);
+
+
+    container.innerHTML =
+        tags.map(
+            tag =>
+                `<span class="profile-tag">${escapeHTML(tag)}</span>`
+        ).join("");
+
+}
+
+
+/* =========================================================
+   FACILITIES
+   ========================================================= */
+
+function renderFacilities() {
+
+    const container =
+        document.getElementById(
+            "facilitiesList"
+        );
+
+    if (!container) return;
+
+    container.innerHTML =
+        laboratory.facilities.map(
+            item => `
+
+                <div class="info-list-row">
+
+                    <span class="info-list-label">
+                        ${escapeHTML(item.label)}
+                    </span>
+
+                    <span class="info-list-value">
+                        ${escapeHTML(item.value)}
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   OPENING HOURS
+   ========================================================= */
+
+function renderOpeningHours() {
+
+    const container =
+        document.getElementById(
+            "openingHoursList"
+        );
+
+    if (!container) return;
+
+    container.innerHTML =
+        laboratory.openingHours.map(
+            item => `
+
+                <div class="info-list-row">
+
+                    <span class="info-list-label">
+                        ${escapeHTML(item.day)}
+                    </span>
+
+                    <span class="info-list-value">
+                        ${escapeHTML(item.hours)}
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+function renderContact() {
+
+    setText(
+        "contactAddress",
+        laboratory.address
+    );
+
+
+    const phone =
+        document.getElementById(
+            "contactPhone"
+        );
+
+    if (phone) {
+
+        phone.textContent =
+            laboratory.phone;
+
+        phone.href =
+            "tel:" +
+            laboratory.phone
+                .replace(/\s+/g, "");
+
+    }
+
+
+    const whatsapp =
+        document.getElementById(
+            "contactWhatsApp"
+        );
+
+    if (whatsapp) {
+
+        whatsapp.href =
+            "https://wa.me/" +
+            cleanWhatsAppNumber(
+                laboratory.whatsapp
+            );
+
+    }
+
+
+    const email =
+        document.getElementById(
+            "contactEmail"
+        );
+
+    if (email) {
+
+        email.textContent =
+            laboratory.email;
+
+        email.href =
+            "mailto:" +
+            laboratory.email;
+
+    }
+
+
+    const mapButton =
+        document.getElementById(
+            "mapButton"
+        );
+
+    if (mapButton) {
+
+        mapButton.href =
+            laboratory.maps;
+
+    }
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+function initialiseSidebar() {
+
+    setText(
+        "sideLab",
+        laboratory.name
+    );
+
+    setText(
+        "sideTestCount",
+        laboratory.testCountLabel
+    );
+
+    setText(
+        "sideHome",
+        laboratory.homeCollection
+    );
+
+
+    const sideButton =
+        document.getElementById(
+            "sideBookButton"
+        );
+
+    if (sideButton) {
+
+        sideButton.addEventListener(
+            "click",
+            function () {
+
+                activateTab("tests");
+
+                document.getElementById(
+                    "testsPanel"
+                ).scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+function initialiseTabs() {
+
+    document.querySelectorAll(
+        ".tab-button"
+    ).forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    activateTab(
+                        this.dataset.tab
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+function activateTab(tab) {
+
+    const tabs = ["tests", "doctors"];
+
+    tabs.forEach(
+        key => {
+
+            const button = document.getElementById(key + "Tab");
+            const panel = document.getElementById(key + "Panel");
+            const active = key === tab;
+
+            if (button) {
+                button.classList.toggle("active", active);
+                button.setAttribute("aria-selected", String(active));
+            }
+
+            if (panel) {
+                panel.classList.toggle("active", active);
+            }
+
+        }
+    );
+
+    const panel =
+        document.getElementById(tab + "Panel");
+
+    if (!panel) return;
+
+
+    panel.classList.remove(
+        "panel-enter"
+    );
+
+    void panel.offsetWidth;
+
+    panel.classList.add(
+        "panel-enter"
+    );
+
+
+    updateMobileAction();
+
+}
+
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+function initialiseCategories() {
+
+    const categories =
+        [
+            "All",
+            ...new Set(
+                labTests.map(
+                    test => test.category
+                )
+            )
+        ];
+
+
+    const container =
+        document.getElementById(
+            "categoryList"
+        );
+
+
+    container.innerHTML =
+        categories.map(
+            category => `
+
+                <button
+                    type="button"
+                    class="category-chip ${
+                        category === "All"
+                            ? "active"
+                            : ""
+                    }"
+                    data-category="${escapeAttribute(category)}"
+                >
+                    ${escapeHTML(category)}
+                </button>
+
+            `
+        ).join("");
+
+
+    container
+        .querySelectorAll(
+            ".category-chip"
+        )
+        .forEach(
+            chip => {
+
+                chip.addEventListener(
+                    "click",
+                    function () {
+
+                        activeCategory =
+                            this.dataset.category;
+
+                        container
+                            .querySelectorAll(
+                                ".category-chip"
+                            )
+                            .forEach(
+                                button =>
+                                    button.classList.toggle(
+                                        "active",
+                                        button === this
+                                    )
+                            );
+
+                        renderTests();
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+document
+    .getElementById("testSearch")
+    .addEventListener(
+        "input",
+        function () {
+
+            renderTests();
+
+        }
+    );
+
+
+/* =========================================================
+   RENDER TESTS
+   ========================================================= */
+
+function renderTests() {
+
+    const list =
+        document.getElementById(
+            "testList"
+        );
+
+    const search =
+        document
+            .getElementById(
+                "testSearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        labTests.filter(
+            test => {
+
+                const categoryMatch =
+                    activeCategory === "All" ||
+                    test.category === activeCategory;
+
+
+                const searchMatch =
+                    !search ||
+                    test.name
+                        .toLowerCase()
+                        .includes(search) ||
+                    test.shortName
+                        .toLowerCase()
+                        .includes(search) ||
+                    test.category
+                        .toLowerCase()
+                        .includes(search) ||
+                    test.description
+                        .toLowerCase()
+                        .includes(search);
+
+
+                return (
+                    categoryMatch &&
+                    searchMatch
+                );
+
+            }
+        );
+
+
+    if (!filtered.length) {
+
+        list.innerHTML = `
+
+            <div class="empty-state">
+
+                No tests found matching your search.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        filtered.map(
+            test => {
+
+                const selected =
+                    selectedTests.has(
+                        test.id
+                    );
+
+
+                return `
+
+                    <article
+                        class="test-card ${
+                            selected
+                                ? "selected"
+                                : ""
+                        }"
+                    >
+
+                        <div class="test-card-top">
+
+                            <div>
+
+                                <h3 class="test-name">
+
+                                    ${escapeHTML(test.name)}
+
+                                    <span
+                                        class="test-short-name"
+                                    >
+                                        ${escapeHTML(test.shortName)}
+                                    </span>
+
+                                </h3>
+
+                                <p class="test-description">
+                                    ${escapeHTML(test.description)}
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="test-add ${
+                                    selected
+                                        ? "added"
+                                        : ""
+                                }"
+                                data-test-id="${escapeAttribute(test.id)}"
+                                aria-pressed="${selected}"
+                            >
+
+                                ${
+                                    selected
+                                        ? "✓ Added"
+                                        : "+ Add"
+                                }
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="test-meta">
+
+                            <span class="test-meta-item">
+                                Report: ${escapeHTML(test.reportTime)}
+                            </span>
+
+                            <span class="test-meta-item">
+                                Sample: ${escapeHTML(test.sample)}
+                            </span>
+
+                            ${
+                                test.homeCollection
+                                    ? `
+                                        <span class="test-meta-item">
+                                            Home collection
+                                        </span>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div class="test-price">
+
+                            ₹${formatNumber(test.price)}
+
+                            <span>
+                                estimated cost
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
+
+
+    list
+        .querySelectorAll(
+            ".test-add"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        toggleTest(
+                            this.dataset.testId
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   TOGGLE TEST
+   ========================================================= */
+
+function toggleTest(id) {
+
+    if (selectedTests.has(id)) {
+
+        selectedTests.delete(id);
+
+    } else {
+
+        selectedTests.add(id);
+
+    }
+
+    renderTests();
+
+    renderSelectedSummary();
+
+    updateMobileAction();
+
+}
+
+
+/* =========================================================
+   SELECTED SUMMARY
+   ========================================================= */
+
+function renderSelectedSummary() {
+
+    const summary =
+        document.getElementById(
+            "selectedSummary"
+        );
+
+    const list =
+        document.getElementById(
+            "selectedList"
+        );
+
+
+    if (!selectedTests.size) {
+
+        summary.hidden = true;
+
+        return;
+
+    }
+
+
+    summary.hidden = false;
+
+
+    const tests =
+        getSelectedTests();
+
+
+    const total =
+        getEstimatedTotal();
+
+
+    setText(
+        "selectedCount",
+        tests.length +
+        (
+            tests.length === 1
+                ? " test"
+                : " tests"
+        )
+    );
+
+
+    list.innerHTML =
+        tests.map(
+            test => `
+
+                <div class="selected-row">
+
+                    <span class="selected-row-name">
+                        ${escapeHTML(test.shortName)}
+                    </span>
+
+                    <span class="selected-row-right">
+
+                        <span class="selected-row-price">
+                            ₹${formatNumber(test.price)}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="remove-test"
+                            data-remove-test="${escapeAttribute(test.id)}"
+                            aria-label="Remove ${escapeAttribute(test.name)}"
+                        >
+                            ×
+                        </button>
+
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+
+    setText(
+        "estimatedTotal",
+        "₹" +
+        formatNumber(total)
+    );
+
+
+    list
+        .querySelectorAll(
+            "[data-remove-test]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        toggleTest(
+                            this.dataset.removeTest
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SELECTED TEST HELPERS
+   ========================================================= */
+
+function getSelectedTests() {
+
+    return labTests.filter(
+        test =>
+            selectedTests.has(
+                test.id
+            )
+    );
+
+}
+
+
+function getEstimatedTotal() {
+
+    return getSelectedTests()
+        .reduce(
+            (
+                total,
+                test
+            ) =>
+                total + test.price,
+            0
+        );
+
+}
+
+
+/* =========================================================
+   LAB TEST BOOKING MODAL
+   ========================================================= */
+
+document
+    .getElementById(
+        "bookSelectedTestsButton"
+    )
+    .addEventListener(
+        "click",
+        openLabBooking
+    );
+
+
+function openLabBooking() {
+
+    if (!selectedTests.size) {
+
+        showToast(
+            "Select at least one test first."
+        );
+
+        return;
+
+    }
+
+
+    lastFocusedElement =
+        document.activeElement;
+
+
+    setText(
+        "labModalSubtitle",
+        laboratory.name
+    );
+
+
+    renderLabModalSummary();
+
+
+    document
+        .getElementById(
+            "labBookingModal"
+        )
+        .classList.add("open");
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    setTimeout(
+        () => {
+
+            document
+                .getElementById(
+                    "labPatientName"
+                )
+                .focus();
+
+        },
+        50
+    );
+
+}
+
+
+function closeLabBooking() {
+
+    document
+        .getElementById(
+            "labBookingModal"
+        )
+        .classList.remove("open");
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    restoreFocus();
+
+}
+
+
+/* =========================================================
+   LAB MODAL SUMMARY
+   ========================================================= */
+
+function renderLabModalSummary() {
+
+    const list =
+        document.getElementById(
+            "labModalTestList"
+        );
+
+
+    const tests =
+        getSelectedTests();
+
+
+    list.innerHTML =
+        tests.map(
+            test => `
+
+                <div class="modal-summary-row">
+
+                    <span>
+                        ${escapeHTML(test.name)}
+                    </span>
+
+                    <span>
+                        ₹${formatNumber(test.price)}
+                    </span>
+
+                </div>
+
+            `
+        ).join("");
+
+
+    setText(
+        "labModalTotal",
+        "₹" +
+        formatNumber(
+            getEstimatedTotal()
+        )
+    );
+
+}
+
+
+/* =========================================================
+   COLLECTION TYPE
+   ========================================================= */
+
+function initialiseCollectionType() {
+
+    document
+        .querySelectorAll(
+            'input[name="collectionType"]'
+        )
+        .forEach(
+            radio => {
+
+                radio.addEventListener(
+                    "change",
+                    function () {
+
+                        selectedCollectionType =
+                            this.value;
+
+                        const home =
+                            this.value ===
+                            "Home sample collection";
+
+
+                        const group =
+                            document.getElementById(
+                                "homeAddressGroup"
+                            );
+
+                        group.hidden =
+                            !home;
+
+
+                        const address =
+                            document.getElementById(
+                                "homeCollectionAddress"
+                            );
+
+                        address.required =
+                            home;
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   LAB BOOKING SUBMISSION
+   ========================================================= */
+
+function submitLabBooking(event) {
+
+    event.preventDefault();
+
+
+    if (!selectedTests.size) {
+
+        showToast(
+            "Please select at least one test."
+        );
+
+        closeLabBooking();
+
+        return;
+
+    }
+
+
+    const form =
+        event.target;
+
+
+    if (!form.checkValidity()) {
+
+        form.reportValidity();
+
+        return;
+
+    }
+
+
+    const tests =
+        getSelectedTests();
+
+
+    const total =
+        getEstimatedTotal();
+
+
+    const name =
+        getValue(
+            "labPatientName"
+        );
+
+    const mobile =
+        getValue(
+            "labPatientMobile"
+        );
+
+    const age =
+        getValue(
+            "labPatientAge"
+        );
+
+    const gender =
+        getValue(
+            "labPatientGender"
+        );
+
+    const email =
+        getValue(
+            "labPatientEmail"
+        );
+
+    const address =
+        getValue(
+            "labPatientAddress"
+        );
+
+    const area =
+        getValue(
+            "labPatientArea"
+        );
+
+    const pin =
+        getValue(
+            "labPatientPin"
+        );
+
+    const collectionType =
+        getCheckedValue(
+            "collectionType"
+        );
+
+    const collectionAddress =
+        getValue(
+            "homeCollectionAddress"
+        );
+
+    const date =
+        getValue(
+            "labBookingDate"
+        );
+
+    const time =
+        getValue(
+            "labBookingTime"
+        );
+
+    const note =
+        getValue(
+            "labAdditionalNote"
+        );
+
+
+    const message =
+        buildLabWhatsAppMessage({
+
+            name,
+            mobile,
+            age,
+            gender,
+            email,
+            address,
+            area,
+            pin,
+            collectionType,
+            collectionAddress,
+            date,
+            time,
+            note,
+            tests,
+            total
+
+        });
+
+
+    openWhatsApp(
+        laboratory.whatsapp,
+        message
+    );
+
+
+    closeLabBooking();
+
+
+    /*
+    IMPORTANT:
+
+    Do not clear selectedTests here.
+
+    The browser has not stored the data anywhere.
+    The selection remains in memory only until the page
+    is refreshed or the user removes the tests.
+    */
+
+}
+
+
+/* =========================================================
+   LAB WHATSAPP MESSAGE
+   ========================================================= */
+
+function buildLabWhatsAppMessage(data) {
+
+    const testLines =
+        data.tests.map(
+            (
+                test,
+                index
+            ) =>
+
+                `${index + 1}. ${test.name} (${test.shortName})
+Estimated Cost: ₹${formatNumber(test.price)}`
+
+        ).join("\n\n");
+
+
+    const address =
+        [
+            data.address,
+            data.area,
+            data.pin
+        ]
+        .filter(Boolean)
+        .join(", ");
+
+
+    const emailLine =
+        data.email
+            ? `Email: ${data.email}\n`
+            : "";
+
+
+    const collectionAddressBlock =
+        data.collectionType ===
+        "Home sample collection"
+            ? `\nCollection Address:
+${data.collectionAddress || address}\n`
+            : "";
+
+
+    const noteBlock =
+        data.note
+            ? `\n*ADDITIONAL NOTE*
+
+${data.note}\n`
+            : `\n*ADDITIONAL NOTE*
+
+No additional note provided.\n`;
+
+
+    return `🏥 *${laboratory.name.toUpperCase()}*
+*LAB TEST BOOKING REQUEST*
+
+━━━━━━━━━━━━━━━━━━
+
+*PATIENT DETAILS*
+
+Name: ${data.name}
+Mobile: ${data.mobile}
+Age: ${data.age}
+Gender: ${data.gender}
+${emailLine}
+━━━━━━━━━━━━━━━━━━
+
+*SELECTED LAB TESTS*
+
+${testLines}
+
+━━━━━━━━━━━━━━━━━━
+
+*ESTIMATED TOTAL*
+
+₹${formatNumber(data.total)}
+
+━━━━━━━━━━━━━━━━━━
+
+*SAMPLE COLLECTION*
+
+Type: ${data.collectionType}
+${collectionAddressBlock}
+Preferred Date:
+${formatDisplayDate(data.date)}
+
+Preferred Time:
+${data.time}
+
+${noteBlock}
+━━━━━━━━━━━━━━━━━━
+
+Please contact the patient to confirm availability, final pricing and appointment/collection details.`.trim();
+
+}
+
+
+/* =========================================================
+   DOCTOR RENDERING
+   ========================================================= */
+
+function renderDoctors() {
+
+    const grid =
+        document.getElementById(
+            "doctorGrid"
+        );
+
+
+    if (!doctors.length) {
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                No associated doctors are currently listed.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        doctors.map(
+            doctor => `
+
+                <article class="doctor-card">
+
+
+                    <div class="doctor-photo-wrap">
+
+                        <img
+                            class="doctor-photo"
+                            src="${escapeAttribute(doctor.photo)}"
+                            alt="${escapeAttribute(doctor.name)}"
+                            onerror="this.style.visibility='hidden'"
+                        >
+
+                        ${
+                            doctor.verified
+                                ? `
+
+                                    <span
+                                        class="doctor-card-verified"
+                                        aria-label="Verified doctor"
+                                    >
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                        >
+
+                                            <path
+                                                d="
+                                                M12 2.8
+                                                14.05 4.2
+                                                16.45 4.1
+                                                17.55 6.25
+                                                19.65 7.45
+                                                19.45 9.85
+                                                20.6 12
+                                                19.45 14.15
+                                                19.65 16.55
+                                                17.55 17.75
+                                                16.45 19.9
+                                                14.05 19.8
+                                                12 21.2
+                                                9.95 19.8
+                                                7.55 19.9
+                                                6.45 17.75
+                                                4.35 16.55
+                                                4.55 14.15
+                                                3.4 12
+                                                4.55 9.85
+                                                4.35 7.45
+                                                6.45 6.25
+                                                7.55 4.1
+                                                9.95 4.2
+                                                12 2.8Z"
+                                                fill="#1D9BF0"
+                                            />
+
+                                            <path
+                                                d="
+                                                m7.9 12.1
+                                                2.65 2.55
+                                                5.55-5.7"
+                                                fill="none"
+                                                stroke="#fff"
+                                                stroke-width="2.25"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </span>
+
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+
+                    <h3 class="doctor-card-name">
+                        ${escapeHTML(doctor.name)}
+                    </h3>
+
+
+                    <div class="doctor-specialty">
+                        ${escapeHTML(doctor.specialty)}
+                    </div>
+
+
+                    <div class="doctor-qualification">
+                        ${escapeHTML(doctor.qualifications)}
+                    </div>
+
+
+                    <div class="doctor-experience">
+                        ${escapeHTML(doctor.experience)}
+                    </div>
+
+
+                    <div class="doctor-description">
+                        ${escapeHTML(doctor.description)}
+                    </div>
+
+
+                    <div class="doctor-tags">
+
+                        ${
+                            doctor.consultationModes
+                                .map(
+                                    mode =>
+                                        `<span class="doctor-tag">${escapeHTML(mode)}</span>`
+                                )
+                                .join("")
+                        }
+
+                    </div>
+
+
+                    <div class="doctor-availability">
+
+                        <div class="availability-label">
+                            Available
+                        </div>
+
+                        <div class="availability-value">
+                            ${escapeHTML(
+                                doctor.days.join(" · ")
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="doctor-card-bottom">
+
+                        <div class="doctor-fee">
+
+                            ${escapeHTML(doctor.fee)}
+
+                            <span>
+                                consultation
+                            </span>
+
+                        </div>
+
+
+                        <div class="doctor-actions">
+
+                            <button
+                                type="button"
+                                class="secondary-small-button"
+                                data-doctor-view="${escapeAttribute(doctor.id)}"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                type="button"
+                                class="doctor-book-button"
+                                data-doctor-book="${escapeAttribute(doctor.id)}"
+                            >
+                                Book
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `
+        ).join("");
+
+
+    grid
+        .querySelectorAll(
+            "[data-doctor-book]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        openDoctorBooking(
+                            this.dataset.doctorBook
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    grid
+        .querySelectorAll(
+            "[data-doctor-view]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const doctor =
+                            doctors.find(
+                                item =>
+                                    item.id ===
+                                    this.dataset.doctorView
+                            );
+
+
+                        if (!doctor) return;
+
+
+                        showToast(
+                            doctor.name +
+                            " · " +
+                            doctor.specialty
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   DOCTOR BOOKING MODAL
+   ========================================================= */
+
+function openDoctorBooking(doctorId) {
+
+    const doctor =
+        doctors.find(
+            item =>
+                item.id === doctorId
+        );
+
+
+    if (!doctor) return;
+
+
+    selectedDoctor =
+        doctor;
+
+
+    selectedDoctorSlot =
+        "";
+
+
+    lastFocusedElement =
+        document.activeElement;
+
+
+    setText(
+        "doctorModalSubtitle",
+        laboratory.name
+    );
+
+
+    const photo =
+        document.getElementById(
+            "selectedDoctorPhoto"
+        );
+
+    photo.src =
+        doctor.photo;
+
+    photo.alt =
+        doctor.name;
+
+
+    setText(
+        "selectedDoctorName",
+        doctor.name
+    );
+
+    setText(
+        "selectedDoctorSpecialty",
+        doctor.specialty
+    );
+
+    setText(
+        "selectedDoctorFee",
+        doctor.fee +
+        " consultation"
+    );
+
+
+    renderDoctorModes();
+
+    renderDoctorSlots();
+
+
+    document
+        .getElementById(
+            "doctorBookingModal"
+        )
+        .classList.add("open");
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+
+    setTimeout(
+        () => {
+
+            document
+                .getElementById(
+                    "doctorPatientName"
+                )
+                .focus();
+
+        },
+        50
+    );
+
+}
+
+
+function closeDoctorBooking() {
+
+    document
+        .getElementById(
+            "doctorBookingModal"
+        )
+        .classList.remove("open");
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    selectedDoctor =
+        null;
+
+    selectedDoctorSlot =
+        "";
+
+
+    restoreFocus();
+
+}
+
+
+/* =========================================================
+   DOCTOR MODES
+   ========================================================= */
+
+function renderDoctorModes() {
+
+    const container =
+        document.getElementById(
+            "doctorModeOptions"
+        );
+
+
+    if (!selectedDoctor) {
+
+        container.innerHTML = "";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        selectedDoctor
+            .consultationModes
+            .map(
+                (
+                    mode,
+                    index
+                ) => {
+
+                    const id =
+                        "doctorMode" +
+                        index;
+
+
+                    return `
+
+                        <div class="radio-option">
+
+                            <input
+                                type="radio"
+                                name="doctorConsultationMode"
+                                id="${id}"
+                                value="${escapeAttribute(mode)}"
+                                required
+                            >
+
+                            <label for="${id}">
+                                ${escapeHTML(mode)}
+                            </label>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   DOCTOR SLOTS
+   ========================================================= */
+
+function renderDoctorSlots() {
+
+    const grid =
+        document.getElementById(
+            "doctorSlotGrid"
+        );
+
+
+    if (!selectedDoctor) {
+
+        grid.innerHTML = "";
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        selectedDoctor.slots.map(
+            slot => `
+
+                <button
+                    type="button"
+                    class="slot"
+                    data-doctor-slot="${escapeAttribute(slot)}"
+                >
+                    ${escapeHTML(slot)}
+                </button>
+
+            `
+        ).join("");
+
+
+    grid
+        .querySelectorAll(
+            "[data-doctor-slot]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        selectedDoctorSlot =
+                            this.dataset.doctorSlot;
+
+
+                        grid
+                            .querySelectorAll(
+                                ".slot"
+                            )
+                            .forEach(
+                                item =>
+                                    item.classList.toggle(
+                                        "selected",
+                                        item === this
+                                    )
+                            );
+
+
+                        document
+                            .getElementById(
+                                "selectedDoctorSlot"
+                            )
+                            .value =
+                                selectedDoctorSlot;
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   DOCTOR DATE
+   ========================================================= */
+
+document
+    .getElementById(
+        "doctorAppointmentDate"
+    )
+    .addEventListener(
+        "change",
+        function () {
+
+            const date =
+                this.value;
+
+
+            if (!date) {
+
+                setText(
+                    "doctorDayDisplay",
+                    ""
+                );
+
+                return;
+
+            }
+
+
+            const dateObject =
+                new Date(
+                    date +
+                    "T12:00:00"
+                );
+
+
+            const day =
+                dateObject.toLocaleDateString(
+                    "en-IN",
+                    {
+                        weekday:
+                            "long"
+                    }
+                );
+
+
+            setText(
+                "doctorDayDisplay",
+                day
+            );
+
+
+            if (
+                selectedDoctor &&
+                !selectedDoctor.days.includes(
+                    day
+                )
+            ) {
+
+                showToast(
+                    "This doctor is not listed as available on " +
+                    day +
+                    "."
+                );
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   DOCTOR BOOKING SUBMISSION
+   ========================================================= */
+
+function submitDoctorBooking(event) {
+
+    event.preventDefault();
+
+
+    if (!selectedDoctor) {
+
+        return;
+
+    }
+
+
+    const form =
+        event.target;
+
+
+    if (!form.checkValidity()) {
+
+        form.reportValidity();
+
+        return;
+
+    }
+
+
+    if (!selectedDoctorSlot) {
+
+        showToast(
+            "Please select a time slot."
+        );
+
+        return;
+
+    }
+
+
+    const date =
+        getValue(
+            "doctorAppointmentDate"
+        );
+
+
+    const day =
+        date
+            ? new Date(
+                date +
+                "T12:00:00"
+            ).toLocaleDateString(
+                "en-IN",
+                {
+                    weekday:
+                        "long"
+                }
+            )
+            : "";
+
+
+    if (
+        !selectedDoctor.days.includes(
+            day
+        )
+    ) {
+
+        showToast(
+            "Please choose a date when the selected doctor is available."
+        );
+
+        return;
+
+    }
+
+
+    const mode =
+        getCheckedValue(
+            "doctorConsultationMode"
+        );
+
+
+    const message =
+        buildDoctorWhatsAppMessage({
+
+            doctor:
+                selectedDoctor,
+
+            name:
+                getValue(
+                    "doctorPatientName"
+                ),
+
+            mobile:
+                getValue(
+                    "doctorPatientMobile"
+                ),
+
+            age:
+                getValue(
+                    "doctorPatientAge"
+                ),
+
+            gender:
+                getValue(
+                    "doctorPatientGender"
+                ),
+
+            mode,
+
+            date,
+
+            time:
+                selectedDoctorSlot,
+
+            reason:
+                getValue(
+                    "doctorReason"
+                )
+
+        });
+
+
+    openWhatsApp(
+        laboratory.whatsapp,
+        message
+    );
+
+
+    closeDoctorBooking();
+
+}
+
+
+/* =========================================================
+   DOCTOR WHATSAPP MESSAGE
+   ========================================================= */
+
+function buildDoctorWhatsAppMessage(data) {
+
+    const reason =
+        data.reason ||
+        "No reason provided.";
+
+
+    return `🏥 *${laboratory.name.toUpperCase()}*
+*DOCTOR APPOINTMENT REQUEST*
+
+━━━━━━━━━━━━━━━━━━
+
+*DOCTOR*
+
+${data.doctor.name}
+${data.doctor.specialty}
+
+━━━━━━━━━━━━━━━━━━
+
+*PATIENT DETAILS*
+
+Name: ${data.name}
+Mobile: ${data.mobile}
+Age: ${data.age}
+Gender: ${data.gender}
+
+━━━━━━━━━━━━━━━━━━
+
+*APPOINTMENT*
+
+Consultation: ${data.mode}
+Date: ${formatDisplayDate(data.date)}
+Time: ${data.time}
+
+━━━━━━━━━━━━━━━━━━
+
+*REASON FOR CONSULTATION*
+
+${reason}
+
+━━━━━━━━━━━━━━━━━━
+
+Please contact the patient to confirm the appointment.`
+        .trim();
+
+}
+
+
+/* =========================================================
+   WHATSAPP OPENER
+   ========================================================= */
+
+function openWhatsApp(
+    number,
+    message
+) {
+
+    const cleanNumber =
+        cleanWhatsAppNumber(
+            number
+        );
+
+
+    if (!cleanNumber) {
+
+        showToast(
+            "Laboratory WhatsApp number is not configured."
+        );
+
+        return;
+
+    }
+
+
+    const url =
+        "https://wa.me/" +
+        cleanNumber +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================================================
+   SHARE SYSTEM
+   ========================================================= */
+
+function initialiseShare() {
+
+    const shareButton =
+        document.getElementById(
+            "profileShareButton"
+        );
+
+    const options =
+        document.getElementById(
+            "profileShareOptions"
+        );
+
+
+    shareButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const expanded =
+                this.getAttribute(
+                    "aria-expanded"
+                ) === "true";
+
+
+            this.setAttribute(
+                "aria-expanded",
+                String(!expanded)
+            );
+
+
+            options.hidden =
+                expanded;
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            options.hidden =
+                true;
+
+            shareButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+
+    options.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "shareWhatsAppButton"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                const message =
+                    `${laboratory.name}
+
+View the laboratory profile and available services on DoctorJet:
+
+${window.location.href}`;
+
+
+                openWhatsApp(
+                    "",
+                    message
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "copyProfileLinkButton"
+        )
+        .addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+                    setText(
+                        "copyProfileLinkText",
+                        "Link copied"
+                    );
+
+                    showToast(
+                        "Profile link copied."
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            setText(
+                                "copyProfileLinkText",
+                                "Copy profile link"
+                            );
+
+                        },
+                        1800
+                    );
+
+                } catch (error) {
+
+                    fallbackCopy(
+                        window.location.href
+                    );
+
+                    showToast(
+                        "Profile link copied."
+                    );
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SHARE WHATSAPP — PROFILE
+   ========================================================= */
+
+function shareProfileOnWhatsApp() {
+
+    const message =
+        `${laboratory.name}
+
+${laboratory.type}
+
+View this DoctorJet laboratory profile:
+
+${window.location.href}`;
+
+
+    const url =
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/*
+Override the generic handler above with profile sharing.
+*/
+document
+    .getElementById(
+        "shareWhatsAppButton"
+    )
+    .onclick =
+        function () {
+
+            shareProfileOnWhatsApp();
+
+        };
+
+
+/* =========================================================
+   QR CODE
+   ========================================================= */
+
+function generateQR() {
+
+    const container =
+        document.getElementById(
+            "labQR"
+        );
+
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+        container.textContent =
+            "QR";
+
+        return;
+
+    }
+
+
+    new QRCode(
+        container,
+        {
+            text:
+                window.location.href,
+
+            width:
+                70,
+
+            height:
+                70,
+
+            colorDark:
+                "#171717",
+
+            colorLight:
+                "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.M
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DOCTORJET ATTRIBUTION
+   ========================================================= */
+
+function initialisePlatformAttribution() {
+
+    const bar =
+        document.getElementById(
+            "platformBar"
+        );
+
+    const trigger =
+        document.getElementById(
+            "platformTrigger"
+        );
+
+
+    trigger.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const expanded =
+                bar.classList.contains(
+                    "expanded"
+                );
+
+
+            bar.classList.toggle(
+                "expanded",
+                !expanded
+            );
+
+
+            trigger.setAttribute(
+                "aria-expanded",
+                String(!expanded)
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            bar.classList.remove(
+                "expanded"
+            );
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+
+    bar.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   MOBILE ACTION
+   ========================================================= */
+
+function initialiseMobileAction() {
+
+    const button =
+        document.getElementById(
+            "mobileActionButton"
+        );
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            const testsActive =
+                document
+                    .getElementById(
+                        "testsTab"
+                    )
+                    .classList.contains(
+                        "active"
+                    );
+
+
+            if (testsActive) {
+
+                if (selectedTests.size) {
+
+                    openLabBooking();
+
+                } else {
+
+                    document
+                        .getElementById(
+                            "testSearch"
+                        )
+                        .focus();
+
+                }
+
+            } else {
+
+                const doctorSection =
+                    document.getElementById(
+                        "doctorsPanel"
+                    );
+
+
+                doctorSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+        }
+    );
+
+
+    updateMobileAction();
+
+}
+
+
+function updateMobileAction() {
+
+    const testsActive =
+        document
+            .getElementById(
+                "testsTab"
+            )
+            .classList.contains(
+                "active"
+            );
+
+
+    const label =
+        document.getElementById(
+            "mobileActionLabel"
+        );
+
+    const value =
+        document.getElementById(
+            "mobileActionValue"
+        );
+
+    const button =
+        document.getElementById(
+            "mobileActionButton"
+        );
+
+
+    if (testsActive) {
+
+        label.textContent =
+            selectedTests.size
+                ? "LAB TESTS"
+                : "LAB TESTS";
+
+
+        if (selectedTests.size) {
+
+            value.textContent =
+                `${selectedTests.size} ${
+                    selectedTests.size === 1
+                        ? "test"
+                        : "tests"
+                } selected · ₹${formatNumber(
+                    getEstimatedTotal()
+                )}`;
+
+            button.textContent =
+                "Book";
+
+        } else {
+
+            value.textContent =
+                "Select tests to book";
+
+            button.textContent =
+                "Browse";
+
+        }
+
+    } else {
+
+        label.textContent =
+            "DOCTORS";
+
+        value.textContent =
+            doctors.length +
+            (
+                doctors.length === 1
+                    ? " associated doctor"
+                    : " associated doctors"
+            );
+
+        button.textContent =
+            "View";
+
+    }
+
+}
+
+
+/* =========================================================
+   DATE INITIALIZATION
+   ========================================================= */
+
+function initialiseDates() {
+
+    const today =
+        new Date();
+
+
+    const yyyy =
+        today.getFullYear();
+
+
+    const mm =
+        String(
+            today.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const dd =
+        String(
+            today.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const minDate =
+        `${yyyy}-${mm}-${dd}`;
+
+
+    document
+        .getElementById(
+            "labBookingDate"
+        )
+        .min =
+            minDate;
+
+
+    document
+        .getElementById(
+            "doctorAppointmentDate"
+        )
+        .min =
+            minDate;
+
+}
+
+
+/* =========================================================
+   BACKDROP CLOSE
+   ========================================================= */
+
+function openSimpleModal(modalId) {
+
+    lastFocusedElement = document.activeElement;
+    document.getElementById(modalId).classList.add("open");
+    document.body.classList.add("modal-open");
+
+}
+
+function closeSimpleModal(modalId) {
+
+    document.getElementById(modalId).classList.remove("open");
+    document.body.classList.remove("modal-open");
+    restoreFocus();
+
+}
+
+function openLocationModal() {
+    openSimpleModal("locationModal");
+}
+
+function openContactModal() {
+    openSimpleModal("contactModal");
+}
+
+function closeOnBackdrop(
+    event,
+    modalId
+) {
+
+    if (
+        event.target.id !==
+        modalId
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        modalId ===
+        "labBookingModal"
+    ) {
+
+        closeLabBooking();
+
+    }
+
+
+    if (
+        modalId ===
+        "doctorBookingModal"
+    ) {
+
+        closeDoctorBooking();
+
+    }
+
+    if (modalId === "locationModal" || modalId === "contactModal") {
+        closeSimpleModal(modalId);
+    }
+
+}
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+   ========================================================= */
+
+function setupKeyboardHandlers() {
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                const labOpen =
+                    document
+                        .getElementById(
+                            "labBookingModal"
+                        )
+                        .classList.contains(
+                            "open"
+                        );
+
+
+                const doctorOpen =
+                    document
+                        .getElementById(
+                            "doctorBookingModal"
+                        )
+                        .classList.contains(
+                            "open"
+                        );
+
+                const locationOpen =
+                    document.getElementById("locationModal").classList.contains("open");
+
+                const contactOpen =
+                    document.getElementById("contactModal").classList.contains("open");
+
+
+                if (labOpen) {
+
+                    closeLabBooking();
+
+                } else if (doctorOpen) {
+
+                    closeDoctorBooking();
+
+                } else if (locationOpen) {
+
+                    closeSimpleModal("locationModal");
+
+                } else if (contactOpen) {
+
+                    closeSimpleModal("contactModal");
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FOCUS RESTORATION
+   ========================================================= */
+
+function restoreFocus() {
+
+    if (
+        lastFocusedElement &&
+        typeof lastFocusedElement.focus ===
+        "function"
+    ) {
+
+        try {
+
+            lastFocusedElement.focus();
+
+        } catch (error) {}
+
+    }
+
+
+    lastFocusedElement =
+        null;
+
+}
+
+
+/* =========================================================
+   UTILITY — TEXT
+   ========================================================= */
+
+function setText(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if (element) {
+
+        element.textContent =
+            value ?? "";
+
+    }
+
+}
+
+
+/* =========================================================
+   UTILITY — GET VALUE
+   ========================================================= */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    return element
+        ? element.value.trim()
+        : "";
+
+}
+
+
+/* =========================================================
+   UTILITY — CHECKED RADIO
+   ========================================================= */
+
+function getCheckedValue(
+    name
+) {
+
+    const element =
+        document.querySelector(
+            `input[name="${name}"]:checked`
+        );
+
+
+    return element
+        ? element.value
+        : "";
+
+}
+
+
+/* =========================================================
+   UTILITY — NUMBER
+   ========================================================= */
+
+function formatNumber(
+    value
+) {
+
+    return Number(
+        value
+    ).toLocaleString(
+        "en-IN"
+    );
+
+}
+
+
+/* =========================================================
+   UTILITY — DATE
+   ========================================================= */
+
+function formatDisplayDate(
+    dateString
+) {
+
+    if (!dateString) {
+        return "";
+    }
+
+
+    const date =
+        new Date(
+            dateString +
+            "T12:00:00"
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return dateString;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UTILITY — WHATSAPP NUMBER
+   ========================================================= */
+
+function cleanWhatsAppNumber(
+    number
+) {
+
+    return String(
+        number || ""
+    ).replace(
+        /\D/g,
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   UTILITY — HTML ESCAPING
+   ========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   UTILITY — ATTRIBUTE ESCAPING
+   ========================================================= */
+
+function escapeAttribute(
+    value
+) {
+
+    return escapeHTML(
+        value
+    );
+
+}
+
+
+/* =========================================================
+   FALLBACK COPY
+   ========================================================= */
+
+function fallbackCopy(
+    text
+) {
+
+    const textarea =
+        document.createElement(
+            "textarea"
+        );
+
+
+    textarea.value =
+        text;
+
+
+    textarea.style.position =
+        "fixed";
+
+    textarea.style.opacity =
+        "0";
+
+
+    document.body.appendChild(
+        textarea
+    );
+
+
+    textarea.select();
+
+
+    try {
+
+        document.execCommand(
+            "copy"
+        );
+
+    } catch (error) {}
+
+
+    textarea.remove();
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+
+function showToast(
+    message
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function () {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2200
+        );
+
+}
+
+</script>
+
+</body>
+</html>

@@ -5061,40 +5061,56 @@ function submitAppointment(event) {
             : "";
 
 
-    const whatsappMessage = [
-        "THOMSON CLINIC — CONSULTATION ENQUIRY",
-        "",
-        "Doctor: " +
-            doctor.name,
-        "Patient: " +
-            patientName,
-        "Mobile: " +
-            patientPhone,
-        "",
-        "Location: " +
-            location.city,
-        "Clinic: " +
-            location.clinic,
-        "Consultation: " +
-            mode,
+    const dateLine =
         formattedDate
-            ? "Preferred date: " + formattedDate
-            : "",
+            ? `Preferred Date: ${formattedDate}\n`
+            : "Preferred Date: Flexible / To be coordinated\n";
+
+    const timeLine =
         preferredTime
-            ? "Preferred time: " + preferredTime
-            : "",
-        message
-            ? "Reason for consultation: " +
-              message
-            : "",
-        "",
-        "Please share consultation availability and details."
-    ]
-        .filter(
-            line =>
-                line !== ""
-        )
-        .join("\n");
+            ? `Preferred Time: ${preferredTime}`
+            : "Preferred Time: Flexible / To be coordinated";
+
+    const reason =
+        message ||
+        "No reason provided.";
+
+
+    const whatsappMessage = `🏥 *THOMSON CLINIC*
+*CONSULTATION ENQUIRY*
+
+━━━━━━━━━━━━━━━━━━
+
+*DOCTOR*
+
+${doctor.name}
+${doctor.specialty}
+
+━━━━━━━━━━━━━━━━━━
+
+*PATIENT DETAILS*
+
+Name: ${patientName}
+Mobile: ${patientPhone}
+
+━━━━━━━━━━━━━━━━━━
+
+*APPOINTMENT DETAILS*
+
+Location: ${location.city}
+Clinic: ${location.clinic}
+Consultation: ${mode}
+${dateLine}${timeLine}
+
+━━━━━━━━━━━━━━━━━━
+
+*REASON FOR CONSULTATION*
+
+${reason}
+
+━━━━━━━━━━━━━━━━━━
+
+Please share consultation availability and details.`.trim();
 
 
     const whatsappUrl =

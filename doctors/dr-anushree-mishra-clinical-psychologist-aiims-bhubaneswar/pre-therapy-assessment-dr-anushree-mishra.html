@@ -1001,9 +1001,13 @@
                 ...readCheckboxValues('additionalDocuments')
             ].filter(value => value && value.trim() && value !== 'Not required / not applicable' && value !== 'Not provided');
 
+            lines.push('🧠 *THOMSON CLINIC*');
             lines.push('*PRE-THERAPY ASSESSMENT*');
             lines.push('');
+            lines.push('━━━━━━━━━━━━━━━━━━');
+            lines.push('');
             lines.push('*PERSONAL INFORMATION*');
+            lines.push('');
             lines.push('Full Name: ' + formatValue(readField('fullName')));
             lines.push('Preferred Name: ' + formatValue(readField('preferredName')));
             lines.push('Age: ' + formatValue(readField('age')));
@@ -1018,8 +1022,10 @@
             lines.push('Marital Status: ' + formatValue(readField('maritalStatus')));
             lines.push('Occupation: ' + formatValue(readField('occupation')));
             lines.push('');
-
+            lines.push('━━━━━━━━━━━━━━━━━━');
+            lines.push('');
             lines.push('*THERAPY DETAILS*');
+            lines.push('');
             lines.push('Main Concern: ' + formatValue(readField('mainConcern')));
             lines.push('Problems: ' + formatValue(readCheckboxValues('problems').join(', ')));
             lines.push('Problem Duration: ' + formatValue(readField('problemDuration')));
@@ -1041,13 +1047,17 @@
             lines.push('Preferred Appointment Time: ' + formatValue(readField('preferredAppointmentTime')));
             lines.push('Additional Information: ' + formatValue(readField('additionalInformation')));
             lines.push('');
-
+            lines.push('━━━━━━━━━━━━━━━━━━');
+            lines.push('');
             lines.push('*DOCUMENTS TO SHARE*');
+            lines.push('');
             if (chosenDocuments.length) {
                 lines.push('Selected documents: ' + chosenDocuments.join(', '));
             } else {
                 lines.push('Selected documents: Not specified');
             }
+            lines.push('');
+            lines.push('━━━━━━━━━━━━━━━━━━');
             lines.push('');
             lines.push('*IMPORTANT*');
             lines.push('Share selected ID cards / documents to complete the form submission.');
