@@ -37,6 +37,9 @@ button{cursor:pointer;border:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;backdrop-filter:blur(22px)}
 .preview-head{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid var(--line)}
 .preview-head-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}
+.dual-camera-quick-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:color-mix(in srgb,var(--text) 5%,transparent);color:var(--text);font-size:12px;font-weight:700;transition:background .15s,border-color .15s}
+.dual-camera-quick-btn[aria-pressed="true"]{background:color-mix(in srgb,var(--green) 15%,transparent);border-color:color-mix(in srgb,var(--green) 45%,transparent);color:var(--green)}
+.dual-camera-quick-btn:disabled{opacity:.4;cursor:not-allowed}
 .fullscreen-preview-btn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:color-mix(in srgb,var(--text) 5%,transparent);color:var(--text);font-size:12px;font-weight:650}
 .fullscreen-preview-btn:hover{background:color-mix(in srgb,var(--text) 10%,transparent)}
 .section-label{font-size:13px;font-weight:650}
@@ -53,6 +56,11 @@ body.camera-fullscreen-active #globalExitFullscreenBtn{display:flex}
 @media(max-width:600px){#globalExitFullscreenBtn{min-height:44px;padding:11px 15px;font-size:13px}}
 .stage.camera-fullscreen .stage-fullscreen-btn,.stage:fullscreen .stage-fullscreen-btn,.stage:-webkit-full-screen .stage-fullscreen-btn{display:block}
 video{display:block;width:100%;height:100%;object-fit:contain;background:#080809}
+/* Optional second camera, shown as a video-call picture-in-picture. */
+.pip-preview{position:absolute;z-index:8;right:20px;bottom:88px;width:clamp(120px,25%,280px);height:auto;aspect-ratio:16/9;object-fit:cover;border:2px solid rgba(255,255,255,.92);border-radius:15px;background:#171719;box-shadow:0 8px 28px rgba(0,0,0,.42);pointer-events:none}
+.pip-preview[hidden]{display:none!important}
+.stage.camera-fullscreen .pip-preview,.stage:fullscreen .pip-preview,.stage:-webkit-full-screen .pip-preview{right:24px;bottom:100px;width:clamp(160px,23%,360px)}
+@media(max-width:600px){.pip-preview{right:10px;bottom:84px;width:31%;border-radius:10px;border-width:1.5px}.stage.camera-fullscreen .pip-preview,.stage:fullscreen .pip-preview,.stage:-webkit-full-screen .pip-preview{right:12px;bottom:96px;width:34%}}
 .placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#a1a1a6;text-align:center;padding:20px}
 .placeholder svg{width:48px;height:48px;opacity:.85}
 .placeholder strong{font-size:15px;color:#f5f5f7;font-weight:600}
@@ -63,6 +71,38 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#080809
 .preview-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;color:var(--muted);font-size:12px}
 .rec-time{font-variant-numeric:tabular-nums;font-size:14px;color:var(--text);font-weight:650}
 .side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+/* Compact, responsive recording setup */
+.recording-setup-card{padding:0;overflow:hidden}
+.recording-setup-card>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px;min-height:66px}
+.recording-setup-card>summary::-webkit-details-marker{display:none}
+.setup-summary-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.setup-summary-copy strong{font-size:15px;letter-spacing:-.025em}
+.setup-summary-copy small{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0}
+.setup-summary-meta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+#setupQualityBadge{font-size:10px;font-weight:700;padding:5px 8px;border-radius:8px;background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue)}
+.setup-chevron{font-size:19px;color:var(--muted);transition:transform .2s}
+.recording-setup-card[open] .setup-chevron{transform:rotate(180deg)}
+.setup-body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.setup-device-grid{display:grid;grid-template-columns:1fr;gap:0;padding-top:12px}
+.setup-device-grid .field{margin-bottom:10px;min-width:0}
+.setup-device-grid .field label,.setup-label{font-size:11px;color:var(--muted);margin-bottom:5px;display:block}
+.setup-device-grid select{padding:9px 10px;border-radius:10px;font-size:12px;min-width:0}
+.setup-quality-block{margin:3px 0 12px}
+.quality-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.quality-chip{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:9px 5px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:12px;font-weight:700;transition:background .15s,border-color .15s,transform .12s}
+.quality-chip small{font-size:10px;color:var(--muted);font-weight:500}
+.quality-chip.active{background:color-mix(in srgb,var(--blue) 11%,var(--panel));border-color:color-mix(in srgb,var(--blue) 52%,var(--line));color:var(--blue)}
+.quality-chip:active{transform:scale(.97)}
+.quality-select-accessible{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.setup-toggles{display:grid;grid-template-columns:1fr;gap:7px}
+.setup-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:color-mix(in srgb,var(--bg) 72%,transparent);cursor:pointer}
+.setup-toggle span{display:flex;flex-direction:column;gap:2px;min-width:0}
+.setup-toggle strong{font-size:12px;font-weight:650}
+.setup-toggle small{font-size:10px;color:var(--muted);line-height:1.3}
+.setup-toggle .switch{flex-shrink:0}
+.setup-tip{font-size:10px;line-height:1.45;margin:11px 0 0!important;padding:9px 10px}
+@media(min-width:1100px){.setup-device-grid{grid-template-columns:1fr 1fr;column-gap:9px}.setup-device-grid .field:nth-child(3){grid-column:1/-1}.setup-toggles{grid-template-columns:1fr 1fr}.setup-toggle:first-child{grid-column:1/-1}}
+@media(max-width:540px){.recording-setup-card>summary{padding:13px 14px;min-height:60px}.setup-summary-copy small{max-width:230px;line-height:1.35}.setup-body{padding:0 11px 12px}.setup-device-grid{grid-template-columns:1fr 1fr;gap:0 8px}.setup-device-grid .field:first-child{grid-column:1/-1}.setup-device-grid select{font-size:11px;padding:9px 7px}.setup-toggle{padding:8px}.quality-chip{padding:8px 3px}}
 .panel{padding:19px}
 .panel h3{font-size:15px;letter-spacing:-.025em;margin:0 0 16px}
 .field{margin-bottom:15px}
@@ -230,7 +270,8 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
  .prompter-close{top:6px;right:6px}
  .recording-row{gap:7px}.recording-actions{gap:4px}.recording-action{padding:7px 7px;font-size:10px}.recording-sub{max-width:120px}
 }
-@media(max-width:600px){.preview-head{gap:8px;padding:13px}.preview-head-actions{gap:6px}.fullscreen-preview-btn{padding:7px 9px;font-size:11px}.status{font-size:10px;gap:5px}.status .dot{width:6px;height:6px}}
+@media(max-width:600px){.preview-head{gap:8px;padding:13px}.preview-head-actions{gap:6px}.fullscreen-preview-btn{padding:7px 9px;font-size:11px}.dual-camera-quick-btn{padding:7px 9px;font-size:11px;gap:4px}.status{font-size:10px;gap:5px}.status .dot{width:6px;height:6px}}
+@media(max-width:420px){.preview-head{align-items:flex-start}.preview-head-actions{flex-wrap:wrap}.dual-camera-quick-btn{padding:6px 8px}.dual-camera-quick-btn span{display:inline}}
 @media(max-width:380px){.recording-quickbar{gap:4px}.recording-quickbar button{padding:7px 8px;font-size:10px}.quickbar-time-label{display:none}.preview-head{padding:11px}.preview-head-actions{gap:5px}.fullscreen-preview-btn{padding:7px 8px}.fullscreen-preview-btn span{display:none}.preview-foot{padding:11px 13px}}
 
 </style>
@@ -246,11 +287,13 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
           <span class="section-label">Camera preview</span>
           <div class="preview-head-actions">
             <span id="status" class="status"><span class="dot"></span><span id="statusText">Camera not connected</span></span>
+            <button id="dualCameraQuickToggle" class="dual-camera-quick-btn" type="button" aria-pressed="false" title="Turn dual-camera picture-in-picture on or off">▣ <span id="dualCameraQuickLabel">Dual cam: Off</span></button>
             <button id="cameraFullscreenBtn" class="fullscreen-preview-btn" type="button" aria-pressed="false" title="Expand camera preview to full screen">⛶ <span>Full screen</span></button>
           </div>
         </div>
         <div class="stage">
           <video id="preview" autoplay playsinline muted></video>
+          <video id="secondaryPreview" class="pip-preview" autoplay playsinline muted hidden aria-label="Secondary camera picture-in-picture"></video>
           <button id="stageFullscreenBtn" class="stage-fullscreen-btn" type="button" aria-label="Exit full screen preview">Exit full screen</button>
           <button id="teleOpenBtn" class="tele-open-btn">Open full teleprompter</button>
           <div id="placeholder" class="placeholder">
@@ -335,16 +378,23 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     </section>
 
     <aside class="side">
-      <section class="card panel">
-        <h3>Recording setup</h3>
-        <div class="field"><label for="cameraSelect">Camera</label><select id="cameraSelect"><option value="">Connect camera first</option></select></div>
-        <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
-        <div class="field"><label for="qualitySelect">Video quality</label><select id="qualitySelect"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
-        <div class="toggle-row"><div><strong>Mirror preview</strong><br><span>For a selfie-style view</span></div><input id="mirrorToggle" class="switch" type="checkbox" checked aria-label="Mirror preview"></div>
-        <div class="toggle-row"><div><strong>Record microphone</strong><br><span>Include your voice</span></div><input id="audioToggle" class="switch" type="checkbox" checked aria-label="Record microphone"></div>
-        <p class="notice" style="margin-top:14px">Recording controls are overlaid at the bottom of the preview. Resize the preview from its lower-right corner on desktop.</p>
-        <p class="notice"><strong>Tip:</strong> Use a quiet room, face a light source, and position the camera at eye level. For talking-head YouTube videos, landscape 16:9 is a good default.</p>
-      </section>
+      <details id="recordingSetupCard" class="card panel recording-setup-card">
+        <summary class="setup-summary"><span class="setup-summary-copy"><strong>Recording setup</strong><small>Camera, microphone, quality and recording preferences</small></span><span class="setup-summary-meta"><span id="setupQualityBadge">1080p</span><span class="setup-chevron">⌄</span></span></summary>
+        <div class="setup-body">
+          <div class="setup-device-grid">
+            <div class="field"><label for="cameraSelect">Main camera</label><select id="cameraSelect"><option value="">Connect camera first</option></select></div>
+            <div class="field"><label for="secondaryCameraSelect">Second camera</label><select id="secondaryCameraSelect" disabled><option value="">Connect cameras first</option></select></div>
+            <div class="field"><label for="micSelect">Microphone</label><select id="micSelect"><option value="">Connect microphone first</option></select></div>
+          </div>
+          <div class="setup-quality-block"><div class="setup-label">Video quality</div><div class="quality-chips" role="group" aria-label="Video quality presets"><button type="button" class="quality-chip active" data-quality="1080" aria-pressed="true">1080p <small>Full HD</small></button><button type="button" class="quality-chip" data-quality="720" aria-pressed="false">720p <small>HD</small></button><button type="button" class="quality-chip" data-quality="480" aria-pressed="false">480p <small>SD</small></button></div><select id="qualitySelect" class="quality-select-accessible" aria-label="Video quality"><option value="1080">1080p · Full HD</option><option value="720">720p · HD</option><option value="480">480p · SD</option></select></div>
+          <div class="setup-toggles">
+            <label class="setup-toggle"><span><strong>Dual camera</strong><small>Picture-in-picture recording</small></span><input id="dualCameraToggle" class="switch" type="checkbox" aria-label="Enable dual-camera picture-in-picture"></label>
+            <label class="setup-toggle"><span><strong>Mirror preview</strong><small>Selfie-style preview</small></span><input id="mirrorToggle" class="switch" type="checkbox" checked aria-label="Mirror preview"></label>
+            <label class="setup-toggle"><span><strong>Record microphone</strong><small>Include your voice</small></span><input id="audioToggle" class="switch" type="checkbox" checked aria-label="Record microphone"></label>
+          </div>
+          <p class="notice setup-tip">Connect devices first, then choose your preferred quality. Dual camera requires two available cameras. For talking-head videos, landscape 16:9 is a good default.</p>
+        </div>
+      </details>
 
       <section class="card panel">
         <h3>Before you record</h3>
@@ -375,8 +425,9 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const preview = $('preview'), playback = $('playback');
-  let stream = null, recorder = null, chunks = [], timerInterval = null;
+  const preview = $('preview'), playback = $('playback'), secondaryPreview = $('secondaryPreview');
+  let stream = null, secondaryStream = null, recorder = null, chunks = [], timerInterval = null;
+  let compositeCanvas = null, compositeVideoStream = null, compositeAnimationFrame = 0, recordingStream = null;
   let startedAt = 0, elapsedBeforePause = 0;
 
   function showError(message) {
@@ -400,9 +451,69 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     return elapsedBeforePause + (recorder && recorder.state === 'recording' ? Date.now() - startedAt : 0);
   }
   function updateTimer() { const t = formatTime(elapsed()); $('timer').textContent = t; if ($('overlayTimer')) $('overlayTimer').textContent = t; }
+  function stopSecondaryCamera() {
+    if (secondaryStream) secondaryStream.getTracks().forEach(track => track.stop());
+    secondaryStream = null;
+    secondaryPreview.srcObject = null;
+    secondaryPreview.hidden = true;
+  }
   function stopTracks() {
     if (stream) stream.getTracks().forEach(track => track.stop());
     stream = null;
+    stopSecondaryCamera();
+  }
+  function cleanupCompositeCapture() {
+    if (compositeAnimationFrame) cancelAnimationFrame(compositeAnimationFrame);
+    compositeAnimationFrame = 0;
+    // Only stop the canvas video track here. Audio tracks belong to the live microphone stream.
+    if (compositeVideoStream) compositeVideoStream.getVideoTracks().forEach(track => track.stop());
+    compositeVideoStream = null;
+    compositeCanvas = null;
+    recordingStream = null;
+  }
+  function drawCover(ctx, video, x, y, width, height) {
+    const vw = video.videoWidth || width, vh = video.videoHeight || height;
+    const scale = Math.max(width / vw, height / vh);
+    const sw = width / scale, sh = height / scale;
+    const sx = (vw - sw) / 2, sy = (vh - sh) / 2;
+    ctx.drawImage(video, sx, sy, sw, sh, x, y, width, height);
+  }
+  function createCompositeRecordingStream() {
+    if (!stream || !secondaryStream || !secondaryPreview.videoWidth) throw new Error('The second camera is not ready yet. Reconnect both cameras and try again.');
+    const quality = Number($('qualitySelect').value);
+    const width = quality === 1080 ? 1920 : quality === 720 ? 1280 : 854;
+    const height = quality === 1080 ? 1080 : quality === 720 ? 720 : 480;
+    compositeCanvas = document.createElement('canvas');
+    compositeCanvas.width = width; compositeCanvas.height = height;
+    const ctx = compositeCanvas.getContext('2d');
+    if (!ctx || !compositeCanvas.captureStream) throw new Error('This Safari version cannot record a combined dual-camera view. Update Safari or turn off dual-camera mode.');
+    const draw = () => {
+      if (!compositeCanvas || !stream) return;
+      if (preview.readyState >= 2 && preview.videoWidth) drawCover(ctx, preview, 0, 0, width, height);
+      else { ctx.fillStyle = '#080809'; ctx.fillRect(0, 0, width, height); }
+      if (secondaryStream && secondaryPreview.readyState >= 2 && secondaryPreview.videoWidth) {
+        const pipW = Math.round(width * 0.255), pipH = Math.round(pipW * 9 / 16);
+        const margin = Math.round(width * 0.025), x = width - pipW - margin, y = height - pipH - margin;
+        const radius = Math.max(14, Math.round(width * 0.009));
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y); ctx.lineTo(x + pipW - radius, y); ctx.quadraticCurveTo(x + pipW, y, x + pipW, y + radius);
+        ctx.lineTo(x + pipW, y + pipH - radius); ctx.quadraticCurveTo(x + pipW, y + pipH, x + pipW - radius, y + pipH);
+        ctx.lineTo(x + radius, y + pipH); ctx.quadraticCurveTo(x, y + pipH, x, y + pipH - radius);
+        ctx.lineTo(x, y + radius); ctx.quadraticCurveTo(x, y, x + radius, y); ctx.closePath(); ctx.clip();
+        ctx.fillStyle = '#171719'; ctx.fillRect(x, y, pipW, pipH);
+        drawCover(ctx, secondaryPreview, x, y, pipW, pipH);
+        ctx.restore();
+        ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,.96)'; ctx.lineWidth = Math.max(4, Math.round(width * .002));
+        ctx.beginPath(); ctx.moveTo(x + radius, y); ctx.lineTo(x + pipW - radius, y); ctx.quadraticCurveTo(x + pipW, y, x + pipW, y + radius); ctx.lineTo(x + pipW, y + pipH - radius); ctx.quadraticCurveTo(x + pipW, y + pipH, x + pipW - radius, y + pipH); ctx.lineTo(x + radius, y + pipH); ctx.quadraticCurveTo(x, y + pipH, x, y + pipH - radius); ctx.lineTo(x, y + radius); ctx.quadraticCurveTo(x, y, x + radius, y); ctx.stroke(); ctx.restore();
+      }
+      compositeAnimationFrame = requestAnimationFrame(draw);
+    };
+    draw();
+    compositeVideoStream = compositeCanvas.captureStream(30);
+    const combined = new MediaStream(compositeVideoStream.getVideoTracks());
+    if ($('audioToggle').checked && stream.getAudioTracks().length) stream.getAudioTracks().forEach(track => combined.addTrack(track));
+    return combined;
   }
   function supportedMimeType() {
     if (!window.MediaRecorder) return '';
@@ -434,6 +545,42 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     };
     fill($('cameraSelect'), cameras, 'Camera');
     fill($('micSelect'), mics, 'Microphone');
+    const second = $('secondaryCameraSelect');
+    const oldSecond = second.value;
+    second.innerHTML = '';
+    if (!cameras.length) second.add(new Option('No cameras found', ''));
+    else cameras.forEach((d, i) => second.add(new Option(d.label || `Camera ${i + 1}`, d.deviceId)));
+    if (cameras.some(d => d.deviceId === oldSecond)) second.value = oldSecond;
+    const primaryId = stream?.getVideoTracks?.()[0]?.getSettings?.().deviceId || $('cameraSelect').value;
+    if (!second.value || second.value === primaryId) {
+      const alternate = cameras.find(d => d.deviceId && d.deviceId !== primaryId);
+      if (alternate) second.value = alternate.deviceId;
+    }
+    second.disabled = !$('dualCameraToggle').checked || cameras.length < 2;
+  }
+
+  async function connectSecondaryCamera(quality) {
+    stopSecondaryCamera();
+    if (!$('dualCameraToggle').checked) return;
+    const selectedId = $('secondaryCameraSelect').value;
+    const primaryId = stream?.getVideoTracks?.()[0]?.getSettings?.().deviceId || $('cameraSelect').value;
+    if (!selectedId || selectedId === primaryId) throw new Error('Choose a second camera that is different from the main camera.');
+    const secondaryVideo = {
+      width: { ideal: quality === 1080 ? 1920 : quality === 720 ? 1280 : 854 },
+      height: { ideal: quality === 1080 ? 1080 : quality === 720 ? 720 : 480 },
+      frameRate: { ideal: 30, max: 30 }, deviceId: { exact: selectedId }
+    };
+    secondaryStream = await navigator.mediaDevices.getUserMedia({ video: secondaryVideo, audio: false });
+    secondaryPreview.srcObject = secondaryStream;
+    secondaryPreview.hidden = false;
+    try { await secondaryPreview.play(); } catch (_) {}
+    if (!secondaryPreview.videoWidth) {
+      await new Promise(resolve => {
+        const fallback = setTimeout(resolve, 2500);
+        secondaryPreview.addEventListener('loadedmetadata', () => { clearTimeout(fallback); resolve(); }, { once: true });
+      });
+    }
+    if (!secondaryPreview.videoWidth) throw new Error('The second camera opened but did not provide a video frame. Try another camera.');
   }
 
   async function connectDevices() {
@@ -446,6 +593,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       showError('Stop the current recording before changing devices.');
       return;
     }
+    cleanupCompositeCapture();
     stopTracks();
     try {
       const quality = Number($('qualitySelect').value);
@@ -465,6 +613,22 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       $('previewHint').textContent = 'Preview ready. Check your framing and sound.';
       setStatus('Camera connected');
       await populateDevices();
+      if ($('dualCameraToggle').checked) {
+        try {
+          await connectSecondaryCamera(quality);
+          $('previewHint').textContent = 'Both cameras are ready. The second camera appears as a picture-in-picture and will be included in the recording.';
+          setStatus('Both cameras connected');
+        } catch (secondaryError) {
+          stopSecondaryCamera();
+          showError(secondaryError.message || 'Could not connect the second camera. Choose a different camera or turn off dual-camera mode.');
+          $('previewHint').textContent = 'Main camera ready. Dual-camera mode could not connect the second camera.';
+        }
+      } else {
+        stopSecondaryCamera();
+      }
+      $('secondaryCameraSelect').disabled = !$('dualCameraToggle').checked || $('secondaryCameraSelect').options.length < 2;
+      $('dualCameraToggle').disabled = false;
+      syncDualCameraQuickToggle();
       $('startBtn').disabled = false;
       $('connectBtn').textContent = 'Reconnect';
       updateQuickBar();
@@ -473,6 +637,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       if (err.name === 'NotAllowedError' || err.name === 'SecurityError') message = 'Permission was denied. In Safari, open Settings for this website and allow Camera and Microphone access, then reconnect.';
       else if (err.name === 'NotFoundError' || err.name === 'OverconstrainedError') message = 'The selected camera or microphone was not found. Choose another device and reconnect.';
       else if (err.name === 'NotReadableError') message = 'The camera may be in use by another app. Close other apps or browser tabs using it, then try again.';
+      stopSecondaryCamera();
       showError(message);
       setStatus('Camera not connected');
     }
@@ -481,12 +646,14 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   function startRecording() {
     clearError();
     if (!stream) { showError('Connect your camera first.'); return; }
+    if ($('dualCameraToggle').checked && !secondaryStream) { showError('Dual-camera mode is enabled, but the second camera is not connected. Choose a second camera and reconnect.'); return; }
     if (!window.MediaRecorder) { showError('MediaRecorder is not available in this Safari version. Update Safari/macOS and try again.'); return; }
     const mimeType = supportedMimeType();
     if (!mimeType) { showError('This browser does not report a supported recording format. Update Safari and try again.'); return; }
     try {
       chunks = [];
-      recorder = new MediaRecorder(stream, { mimeType });
+      recordingStream = $('dualCameraToggle').checked ? createCompositeRecordingStream() : stream;
+      recorder = new MediaRecorder(recordingStream, { mimeType });
       recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
       recorder.onerror = () => showError('A recording error occurred. Try a lower video quality or reconnect your devices.');
       recorder.onstop = finishRecording;
@@ -507,9 +674,13 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       $('micSelect').disabled = true;
       $('qualitySelect').disabled = true;
       $('audioToggle').disabled = true;
+      $('dualCameraToggle').disabled = true;
+      $('secondaryCameraSelect').disabled = true;
+      syncDualCameraQuickToggle();
       updateQuickBar();
     } catch (err) {
-      showError('Safari could not start recording. Try reconnecting your devices or choosing a lower video quality.');
+      cleanupCompositeCapture();
+      showError(err && err.message ? err.message : 'Safari could not start recording. Try reconnecting your devices or choosing a lower video quality.');
     }
   }
 
@@ -547,6 +718,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 
   function finishRecording() {
     clearInterval(timerInterval);
+    cleanupCompositeCapture();
     updateTimer();
     $('recBadge').classList.remove('active');
     setStatus('Recording saved locally');
@@ -560,6 +732,9 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     $('micSelect').disabled = false;
     $('qualitySelect').disabled = false;
     $('audioToggle').disabled = false;
+    $('dualCameraToggle').disabled = false;
+    $('secondaryCameraSelect').disabled = !$('dualCameraToggle').checked || $('secondaryCameraSelect').options.length < 2;
+    syncDualCameraQuickToggle();
 
     const type = recorder.mimeType || 'video/webm';
     const blob = new Blob(chunks, { type });
@@ -572,6 +747,20 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     updateQuickBar();
   }
 
+  function syncDualCameraQuickToggle() {
+    const enabled = $('dualCameraToggle').checked;
+    const quick = $('dualCameraQuickToggle');
+    quick.setAttribute('aria-pressed', String(enabled));
+    $('dualCameraQuickLabel').textContent = enabled ? 'Dual cam: On' : 'Dual cam: Off';
+    quick.title = enabled ? 'Turn dual-camera picture-in-picture off' : 'Turn dual-camera picture-in-picture on';
+    quick.disabled = $('dualCameraToggle').disabled;
+  }
+  $('dualCameraQuickToggle').addEventListener('click', () => {
+    if ($('dualCameraToggle').disabled) return;
+    $('dualCameraToggle').checked = !$('dualCameraToggle').checked;
+    $('dualCameraToggle').dispatchEvent(new Event('change', { bubbles: true }));
+    syncDualCameraQuickToggle();
+  });
   $('connectBtn').addEventListener('click', connectDevices);
   $('startBtn').addEventListener('click', startRecording);
   $('pauseBtn').addEventListener('click', pauseRecording);
@@ -579,7 +768,33 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   $('mirrorToggle').addEventListener('change', () => {
     preview.style.transform = $('mirrorToggle').checked ? 'scaleX(-1)' : 'none';
   });
+  const qualitySelect = $('qualitySelect');
+  const qualityChips = [...document.querySelectorAll('.quality-chip')];
+  function syncQualityChips() {
+    qualityChips.forEach(chip => {
+      const active = chip.dataset.quality === qualitySelect.value;
+      chip.classList.toggle('active', active);
+      chip.setAttribute('aria-pressed', String(active));
+    });
+    $('setupQualityBadge').textContent = qualitySelect.value + 'p';
+  }
+  qualityChips.forEach(chip => chip.addEventListener('click', () => {
+    if (qualitySelect.disabled) return;
+    qualitySelect.value = chip.dataset.quality;
+    syncQualityChips();
+  }));
+  qualitySelect.addEventListener('change', syncQualityChips);
+  syncQualityChips();
+
   $('cameraSelect').addEventListener('change', connectDevices);
+  $('secondaryCameraSelect').addEventListener('change', () => { if (stream && $('dualCameraToggle').checked) connectDevices(); });
+  $('dualCameraToggle').addEventListener('change', () => {
+    syncDualCameraQuickToggle();
+    $('secondaryCameraSelect').disabled = !$('dualCameraToggle').checked || $('secondaryCameraSelect').options.length < 2;
+    if (stream) connectDevices();
+    else if ($('dualCameraToggle').checked) $('previewHint').textContent = 'Choose a second camera, then connect the cameras.';
+    else { stopSecondaryCamera(); $('previewHint').textContent = 'Single-camera mode selected.'; }
+  });
   $('micSelect').addEventListener('change', connectDevices);
   $('qualitySelect').addEventListener('change', () => {
     if (stream) connectDevices();
@@ -588,10 +803,12 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     if (stream) connectDevices();
   });
   window.addEventListener('beforeunload', () => {
+    cleanupCompositeCapture();
     stopTracks();
     recordings.forEach(r => URL.revokeObjectURL(r.url));
   });
 
+  syncDualCameraQuickToggle();
   populateDevices().catch(() => {});
 
   // Full teleprompter2.html app embedded in an iframe to preserve its complete feature set without ID/CSS collisions.
@@ -959,7 +1176,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     const paused = !!(recorder && recorder.state === 'paused');
     $('quickPauseBtn').textContent = paused ? 'Resume' : 'Pause';
     $('quickConnectBtn').disabled = !!(recorder && recorder.state !== 'inactive');
-    $('quickRecordBtn').disabled = !stream || active;
+    $('quickRecordBtn').disabled = !stream || active || ($('dualCameraToggle').checked && !secondaryStream);
     $('quickPauseBtn').disabled = !active;
     $('quickStopBtn').disabled = !active;
     $('quickRecordBtn').textContent = active ? 'Recording…' : 'Record';
