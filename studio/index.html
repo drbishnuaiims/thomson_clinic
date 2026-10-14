@@ -379,7 +379,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     <p>Record directly from your web browser, check your framing, and save the video file for YouTube. No App installation and no account required.</p>
   </section>
 
-  <footer class="footer">Recordings stay in this tab until you download or delete them. Nothing is uploaded to a server.<br>Use a recent version of web browser and allow camera/microphone permissions when prompted.</footer>
+  <footer class="footer">Recording segments are temporarily stored on this device for recovery. Download completed videos for a permanent copy. Nothing is uploaded to a server.<br>Use a recent version of web browser and allow camera/microphone permissions when prompted.</footer>
 </div>
 <button id="globalExitFullscreenBtn" type="button" aria-label="Exit full screen camera preview">✕ &nbsp; Exit full screen</button>
 
@@ -391,13 +391,102 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   let startedAt = 0, elapsedBeforePause = 0;
   let watermarkCanvasStream = null, watermarkFrame = null;
 
+  // IndexedDB stores recording segments as they arrive, so a tab crash/reload does not
+  // automatically destroy the only copy. Browser pages cannot silently write to an
+  // arbitrary Android folder; use Download/Save to choose a destination.
+  const RECORDING_DB = 'thomson-studio-recordings-v1';
+  function openRecordingDB() {
+    return new Promise((resolve, reject) => {
+      if (!('indexedDB' in window)) return reject(new Error('IndexedDB unavailable'));
+      const req = indexedDB.open(RECORDING_DB, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta', { keyPath: 'id' });
+        if (!db.objectStoreNames.contains('chunks')) {
+          const store = db.createObjectStore('chunks', { keyPath: 'key' });
+          store.createIndex('sessionId', 'sessionId', { unique: false });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+  async function persistRecordingMeta(meta) {
+    const db = await openRecordingDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('meta', 'readwrite');
+      tx.objectStore('meta').put(meta);
+      tx.oncomplete = () => { db.close(); resolve(); };
+      tx.onerror = () => { db.close(); reject(tx.error); };
+    });
+  }
+  async function persistRecordingChunk(sessionId, blob) {
+    const db = await openRecordingDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('chunks', 'readwrite');
+      tx.objectStore('chunks').put({ key: sessionId + '-' + Date.now() + '-' + Math.random(), sessionId, blob });
+      tx.oncomplete = () => { db.close(); resolve(); };
+      tx.onerror = () => { db.close(); reject(tx.error); };
+    });
+  }
+  async function deletePersistedSession(sessionId) {
+    const db = await openRecordingDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(['meta','chunks'], 'readwrite');
+      tx.objectStore('meta').delete(sessionId);
+      const req = tx.objectStore('chunks').index('sessionId').openCursor(IDBKeyRange.only(sessionId));
+      req.onsuccess = () => { const c = req.result; if (c) { c.delete(); c.continue(); } };
+      tx.oncomplete = () => { db.close(); resolve(); };
+      tx.onerror = () => { db.close(); reject(tx.error); };
+    });
+  }
+  async function recoverInterruptedRecording() {
+    try {
+      const db = await openRecordingDB();
+      const meta = await new Promise((resolve, reject) => {
+        const tx = db.transaction('meta', 'readonly');
+        const req = tx.objectStore('meta').getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+      const chunksBySession = await new Promise((resolve, reject) => {
+        const tx = db.transaction('chunks', 'readonly');
+        const req = tx.objectStore('chunks').getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+      db.close();
+      const interrupted = meta.filter(m => !m.completed);
+      if (!interrupted.length) return;
+      const m = interrupted[interrupted.length - 1];
+      const pieces = chunksBySession.filter(c => c.sessionId === m.id).map(c => c.blob).filter(Boolean);
+      if (!pieces.length) return;
+      const type = m.mimeType || pieces[0].type || 'video/webm';
+      const blob = new Blob(pieces, { type });
+      const ext = extensionFor(type);
+      const filename = 'recovered-studio-recording-' + new Date(m.startedAt || Date.now()).toISOString().replace(/[:.]/g,'-') + '.' + ext;
+      addRecording(blob, filename, Math.max(0, Date.now() - (m.startedAt || Date.now())));
+      showError('An interrupted recording was recovered from this browser’s local storage. Download it now to save a permanent copy.');
+      // Keep the recovered clip in the page library; clean up the IndexedDB segments after creating it.
+      await deletePersistedSession(m.id);
+    } catch (_) {
+      // Storage may be disabled or full; normal recording/download remains available.
+    }
+  }
+
+
   // Render the camera into a canvas so the default Thomson Clinic Studio bookmark
   // is permanently included in the exported video, not just shown in the preview.
   function createWatermarkedRecordingStream() {
     const video = $('preview');
     const canvas = document.createElement('canvas');
-    const width = video.videoWidth || 1280;
-    const height = video.videoHeight || 720;
+    const mobile = matchMedia('(max-width: 820px)').matches;
+    const requestedWidth = video.videoWidth || 1280;
+    const requestedHeight = video.videoHeight || 720;
+    const maxWidth = mobile ? 1280 : 1920;
+    const factor = Math.min(1, maxWidth / requestedWidth);
+    const width = Math.round(requestedWidth * factor);
+    const height = Math.round(requestedHeight * factor);
     canvas.width = width;
     canvas.height = height;
     const ctx = canvas.getContext('2d');
@@ -405,7 +494,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
 
     const draw = () => {
       if (!video.videoWidth || !video.videoHeight) {
-        watermarkFrame = requestAnimationFrame(draw);
+        watermarkFrame = setTimeout(draw, 66);
         return;
       }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -438,16 +527,16 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
         ctx.fillText(customLine, x, height - margin, width - margin * 2);
       }
       ctx.restore();
-      watermarkFrame = requestAnimationFrame(draw);
+      watermarkFrame = setTimeout(draw, 66);
     };
     draw();
-    watermarkCanvasStream = canvas.captureStream(30);
+    watermarkCanvasStream = canvas.captureStream(15);
     const tracks = [...watermarkCanvasStream.getVideoTracks(), ...stream.getAudioTracks()];
     return new MediaStream(tracks);
   }
 
   function stopWatermarkStream() {
-    if (watermarkFrame) cancelAnimationFrame(watermarkFrame);
+    if (watermarkFrame) clearTimeout(watermarkFrame);
     watermarkFrame = null;
     if (watermarkCanvasStream) watermarkCanvasStream.getTracks().forEach(track => track.stop());
     watermarkCanvasStream = null;
@@ -526,7 +615,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
       const video = {
         width: { ideal: quality === 1080 ? 1920 : quality === 720 ? 1280 : 854 },
         height: { ideal: quality === 1080 ? 1080 : quality === 720 ? 720 : 480 },
-        frameRate: { ideal: 30, max: 30 }
+        frameRate: { ideal: 20, max: 24 }
       };
       if ($('cameraSelect').value) video.deviceId = { exact: $('cameraSelect').value };
       const audio = $('audioToggle').checked
@@ -561,11 +650,22 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     try {
       chunks = [];
       const recordingStream = createWatermarkedRecordingStream();
-      recorder = new MediaRecorder(recordingStream, { mimeType });
-      recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
-      recorder.onerror = () => showError('A recording error occurred. Try a lower video quality or reconnect your devices.');
+      recorder = new MediaRecorder(recordingStream, { mimeType, videoBitsPerSecond: matchMedia('(max-width: 820px)').matches ? 1800000 : 3500000 });
+      const sessionId = 'studio-' + Date.now();
+      window.__studioRecordingSession = { id: sessionId, mimeType, startedAt: Date.now(), filename: '' };
+      persistRecordingMeta(window.__studioRecordingSession).catch(() => {});
+      recorder.ondataavailable = async e => {
+        if (!e.data || !e.data.size) return;
+        chunks.push(e.data);
+        try { await persistRecordingChunk(sessionId, e.data); }
+        catch (_) { $('previewHint').textContent = 'Recording active. Browser storage is unavailable; stop and download promptly.'; }
+      };
+      recorder.onerror = () => {
+        showError('A recording error occurred. Stop the recording if possible; saved chunks may be recoverable from this device.');
+        try { if (recorder && recorder.state !== 'inactive') recorder.stop(); } catch (_) {}
+      };
       recorder.onstop = finishRecording;
-      recorder.start(1000);
+      recorder.start(2000);
       startedAt = Date.now();
       elapsedBeforePause = 0;
       $('timer').textContent = '00:00:00'; if ($('overlayTimer')) $('overlayTimer').textContent = '00:00:00';
@@ -643,7 +743,14 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
     const date = new Date();
     const stamp = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}_${String(date.getHours()).padStart(2,'0')}-${String(date.getMinutes()).padStart(2,'0')}-${String(date.getSeconds()).padStart(2,'0')}`;
     const filename = `studio-recording-${stamp}.${ext}`;
-    addRecording(blob, filename, elapsedBeforePause); 
+    addRecording(blob, filename, elapsedBeforePause);
+    const savedSession = window.__studioRecordingSession;
+    if (savedSession) {
+      savedSession.filename = filename;
+      savedSession.mimeType = type;
+      savedSession.completed = true;
+      persistRecordingMeta(savedSession).then(() => deletePersistedSession(savedSession.id)).catch(() => {});
+    }
     chunks = [];
     updateQuickBar();
   }
@@ -1051,6 +1158,7 @@ select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 3px color-mix
   updateTimer = function() { originalUpdateTimer(); updateQuickBar(); };
   const originalSetStatus = setStatus;
   setStatus = function(text, live = false) { originalSetStatus(text, live); updateQuickBar(); };
+  recoverInterruptedRecording();
 
 })();
 </script>
