@@ -483,7 +483,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); 
         { name: 'Dr. Asit Kumar Mohanty', role: 'Senior Consultant & HOD', org: 'KIMS Cancer Center', specialty: 'Radiation Oncology', cities: ['Bhubaneswar', 'Balasore', 'Bolangir', 'Cuttack', 'Sambalpur'], online: true, folder: 'dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar' },
         { name: 'Dr. Aswini Kumar Panigrahi', role: 'Senior Nephrologist', org: 'Apollo Hospitals', specialty: 'Nephrology', cities: ['Hyderabad'], online: false, folder: 'dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad' },
         { name: 'Dr. Bishnu Prasad Sahoo', role: 'Consultant Neuropsychiatrist', org: 'Thomson Clinic', specialty: 'Psychiatry', cities: ['Bhubaneswar', 'Puri'], online: true, folder: 'dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar' },
-        { name: 'Dr. Purbasha Mitra', role: 'Consultant Neuropsychiatrist', org: 'Berhampore, West Bengal', specialty: 'Psychiatry', cities: ['Berhampore', 'Murshidabad'], online: true, folder: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal', photo: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal/dr-purbasha-mitra.jpeg' },
+        { name: 'Dr. Purbasha Mitra', role: 'Consultant Neuropsychiatrist', org: 'Berhampore, West Bengal', specialty: 'Psychiatry', cities: ['Berhampore', 'Murshidabad'], online: true, folder: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal', photo: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal/dr-purbasha-mitra.jpeg', searchTerms: ['neuropsychiatry', 'mental health', 'psychiatrist', 'AIIMS Bhubaneswar', 'NIMHANS', 'West Bengal', 'online'] },
         { name: 'Dr. Byomakesh Dikshit', role: 'Consultant Cardiologist', org: 'Apollo Hospitals', specialty: 'Cardiology', cities: ['Bhubaneswar'], online: true, folder: 'dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar' },
         { name: 'Dr. Debasish Prusty', role: 'Consultant Pediatrician', org: 'Thomson Clinic', specialty: 'Pediatrics', cities: ['Bhubaneswar', 'Jajpur Road'], online: true, folder: 'dr-debasish-prusty-consultant-pediatrician-bhubaneswar' },
         { name: 'Dr. Thitta Mohanty', role: 'Professor & Head', org: 'PGIMER & Capital Hospital', specialty: 'Respiratory Medicine', cities: ['Bhubaneswar'], online: true, folder: 'dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar' }
@@ -506,7 +506,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); 
 
     function matches(d) {
         const q = state.query.trim().toLowerCase();
-        if (q && ![d.name, d.role, d.org, d.specialty, ...d.cities].join(' ').toLowerCase().includes(q)) return false;
+        if (q && ![d.name, d.role, d.org, d.specialty, ...d.cities, ...(d.searchTerms || [])].join(' ').toLowerCase().includes(q)) return false;
         if (state.city && !d.cities.includes(state.city)) return false;
         if (state.specialty && d.specialty !== state.specialty) return false;
         if (state.mode === 'online' && !d.online) return false;
