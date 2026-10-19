@@ -483,6 +483,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); 
         { name: 'Dr. Asit Kumar Mohanty', role: 'Senior Consultant & HOD', org: 'KIMS Cancer Center', specialty: 'Radiation Oncology', cities: ['Bhubaneswar', 'Balasore', 'Bolangir', 'Cuttack', 'Sambalpur'], online: true, folder: 'dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar' },
         { name: 'Dr. Aswini Kumar Panigrahi', role: 'Senior Nephrologist', org: 'Apollo Hospitals', specialty: 'Nephrology', cities: ['Hyderabad'], online: false, folder: 'dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad' },
         { name: 'Dr. Bishnu Prasad Sahoo', role: 'Consultant Neuropsychiatrist', org: 'Thomson Clinic', specialty: 'Psychiatry', cities: ['Bhubaneswar', 'Puri'], online: true, folder: 'dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar' },
+        { name: 'Dr. Purbasha Mitra', role: 'Consultant Neuropsychiatrist', org: 'Berhampore, West Bengal', specialty: 'Psychiatry', cities: ['Berhampore', 'Murshidabad'], online: true, folder: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal', photo: 'dr-purbasha-mitra-consultant-neuropsychiatrist-aiims-bhubaneswar-nimhans-berhampore-west-bengal/dr-purbasha-mitra.jpeg' },
         { name: 'Dr. Byomakesh Dikshit', role: 'Consultant Cardiologist', org: 'Apollo Hospitals', specialty: 'Cardiology', cities: ['Bhubaneswar'], online: true, folder: 'dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar' },
         { name: 'Dr. Debasish Prusty', role: 'Consultant Pediatrician', org: 'Thomson Clinic', specialty: 'Pediatrics', cities: ['Bhubaneswar', 'Jajpur Road'], online: true, folder: 'dr-debasish-prusty-consultant-pediatrician-bhubaneswar' },
         { name: 'Dr. Thitta Mohanty', role: 'Professor & Head', org: 'PGIMER & Capital Hospital', specialty: 'Respiratory Medicine', cities: ['Bhubaneswar'], online: true, folder: 'dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar' }
@@ -493,7 +494,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(64,88,103,.45); 
 
     const escapeHtml = (value) => value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const profileUrl = (d) => `${encodeURIComponent(d.folder)}/`;
-    const photoUrl = (d) => `${encodeURIComponent(d.folder)}/card.jpg`;
+    const photoUrl = (d) => d.photo || `${encodeURIComponent(d.folder)}/card.jpg`;
 
     const cities = [...new Set(doctors.flatMap((d) => d.cities))].sort();
     const specialties = [...new Set(doctors.map((d) => d.specialty))].sort();
