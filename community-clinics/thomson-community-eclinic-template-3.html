@@ -5116,9 +5116,6 @@ document.addEventListener('DOMContentLoaded', function () {
     openWhatsApp(clinic.communityWhatsApp,msg,status);
   });
 
-  // Keep legacy header search harmless and useful by directing users to the specialist tab.
-  const search=$('doctorSearchInput'),results=$('doctorSearchResults'),clear=$('doctorSearchClear');
-  if(search&&results){function renderSearch(){const q=search.value.trim().toLowerCase();results.replaceChildren();if(!q){results.hidden=true;search.setAttribute('aria-expanded','false');return;}const matches=doctors.filter(d=>(d.name+' '+(d.specialty||'')+' '+(d.qualification||'')).toLowerCase().includes(q)).slice(0,6);if(!matches.length){results.append(make('div','doctor-search-empty','No matching configured specialists.'));}else matches.forEach(d=>{const a=make('a','doctor-search-result');a.href='#specialist-services';const copy=make('span','doctor-search-result-copy');copy.append(make('span','doctor-search-result-name',d.name),make('span','doctor-search-result-specialty',d.specialty||'Specialist'));a.append(copy);a.addEventListener('click',()=>{results.hidden=true;search.setAttribute('aria-expanded','false');document.getElementById('specialist-services')?.scrollIntoView({behavior:'smooth',block:'start'});});results.append(a);});results.hidden=false;search.setAttribute('aria-expanded','true');}search.addEventListener('input',renderSearch);clear?.addEventListener('click',()=>{search.value='';renderSearch();search.focus();});document.addEventListener('click',e=>{if(!e.target.closest('#doctorSearch'))results.hidden=true;});}
 });
 </script>
 <script>
@@ -5188,5 +5185,6 @@ const ECLINIC_CONFIG = {
 };
 window.ECLINIC_CONFIG = ECLINIC_CONFIG;
 </script>
+<script src="../assets/global-doctor-search.js"></script>
 </body>
 </html>

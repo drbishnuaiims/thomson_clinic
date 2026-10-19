@@ -647,25 +647,6 @@ document.addEventListener('DOMContentLoaded', function () {
     b.addEventListener('click',e=>{ e.preventDefault(); openBooking(); });
   });
 
-  /* ---------- header search ---------- */
-  const search=$('doctorSearchInput'), results=$('doctorSearchResults'), clear=$('doctorSearchClear'), box=$('doctorSearch');
-  if(!show('headerSearch')){ box.hidden=true; }
-  else {
-    const hay=[...doctors.map(d=>({name:d.name,sub:d.specialty||'Specialist',text:[d.name,d.specialty,d.qualification].join(' ')})),
-               ...specialties.map(s=>({name:s.name,sub:'Specialist service',text:[s.name,s.description].join(' ')}))];
-    function renderSearch(){
-      const q=search.value.trim().toLowerCase(); box.classList.toggle('has-query',!!q); results.replaceChildren();
-      if(!q){ results.hidden=true; search.setAttribute('aria-expanded','false'); return; }
-      const m=hay.filter(x=>x.text.toLowerCase().includes(q)).slice(0,6);
-      if(!m.length) results.append(make('div','doctor-search-empty','No matching specialists or services.'));
-      else m.forEach(x=>{ const a=make('a','doctor-search-result'); a.href='#specialist-services'; a.append(make('span','doctor-search-result-name',x.name),make('span','doctor-search-result-specialty',x.sub)); a.addEventListener('click',()=>{ results.hidden=true; search.setAttribute('aria-expanded','false'); }); results.append(a); });
-      results.hidden=false; search.setAttribute('aria-expanded','true');
-    }
-    search.addEventListener('input',renderSearch);
-    clear.addEventListener('click',()=>{ search.value=''; renderSearch(); search.focus(); });
-    document.addEventListener('click',e=>{ if(!e.target.closest('#doctorSearch')) results.hidden=true; });
-  }
-
   /* ---------- footer ---------- */
   const ft=C.footer||{};
   hideIf('footerEl',!show('footer'));
@@ -937,5 +918,6 @@ const ECLINIC_CONFIG = {
 };
 window.ECLINIC_CONFIG = ECLINIC_CONFIG;
 </script>
+<script src="../../assets/global-doctor-search.js"></script>
 </body>
 </html>
