@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FFLV0WS055"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FFLV0WS055');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO / social tags: edit per town (the <title> is also set from the config at the bottom). -->
+<title>Community Superspeciality eClinic | Thomson Clinic</title>
+<meta name="description" content="Thomson Clinic is a specialized mental health and neuroscience e-Clinic offering psychiatry, psychology, therapy, neuroscience-based care and connected specialist clinics.">
+<meta name="keywords" content="Thomson Clinic, mental health clinic, neuroscience clinic, psychiatry, psychology, therapy, psychiatrist, psychologist, psychiatric social worker, neurology, dermatology, oncology, diabetes, medicine specialist, e-Clinic India">
+<meta name="author" content="Thomson Clinic">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://thomsonclinic.com/eclinic/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Community Superspeciality eClinic | Thomson Clinic">
+<meta property="og:description" content="Specialized mental health and neuroscience care connected with a wider network of specialist clinics.">
+<meta property="og:url" content="https://thomsonclinic.com/">
+<meta property="og:site_name" content="Thomson Clinic">
+<meta property="og:image" content="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=85">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Community Superspeciality eClinic | Thomson Clinic">
+<meta name="twitter:description" content="Specialized mental health and neuroscience care with connected specialist clinics.">
+<meta name="theme-color" content="#f5f5f7">
+<link rel="icon" href="assets/www.thomsonclinic.com-favicon.ico" type="image/x-icon">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   THOMSON CLINIC — shared shell (header, nav, search, footer)
+   (Homepage-only sections such as hero network, brand rail,
+   care/india/specialization blocks were removed: this page never used them.)
+========================================================= */
+:root{
+--black:#171719;--white:#fff;--paper:#f5f5f7;--paper2:#fafafa;
+--text:#1d1d1f;--muted:#6e6e73;--muted2:#86868b;--line:#e5e5e7;
+--blue:#0071e3;--blue-dark:#0066cc;--blue-soft:#eaf4ff;--green:#34c759;
+--max:1180px;--radius:26px;--radius-lg:34px;
+--shadow:0 25px 70px rgba(0,0,0,.09);
+--ec-accent:var(--blue);--ec-surface:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif;color:var(--text);background:white;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(calc(100% - 48px),var(--max));margin:auto}
+
+/* LOGO */
+.thomson-logo{display:flex;align-items:center;gap:10px}
+.logo-symbol{width:38px;height:38px;border-radius:10px;object-fit:contain;background:transparent;flex-shrink:0}
+.logo-text{display:flex;flex-direction:column;line-height:1.05}
+.logo-main{font-size:16px;font-weight:700;letter-spacing:-.045em}
+.logo-sub{margin-top:4px;color:#77777c;font-size:6.5px;font-weight:600;letter-spacing:.055em;text-transform:uppercase}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;height:68px;z-index:1000;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);border-bottom:1px solid rgba(0,0,0,.055)}
+.header-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.nav{display:flex;align-items:center;gap:clamp(14px,1.8vw,24px)}
+.nav a{font-size:11px;color:#444446;transition:.2s ease}
+.nav a:hover{color:#000}
+.nav-dropdown{position:relative}
+.nav-submenu{display:none;position:absolute;top:100%;left:-12px;min-width:170px;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.12)}
+.nav-dropdown:hover .nav-submenu,.nav-dropdown:focus-within .nav-submenu{display:flex;flex-direction:column;gap:4px}
+.nav-submenu a{display:block;padding:8px 10px;white-space:nowrap}
+.nav .join-team-trigger,.nav .community-clinic-trigger{padding:0;border:0;background:transparent;color:#444446;font:inherit;font-size:11px;cursor:pointer;white-space:nowrap;transition:color .2s ease}
+.nav .join-team-trigger:hover,.nav .community-clinic-trigger:hover{color:#000}
+.nav-cta{padding:9px 16px;border-radius:999px;background:var(--blue);color:white!important;font-weight:600}
+.mobile-menu{display:none;background:none;border:0;font-size:22px}
+
+/* HEADER SEARCH */
+.doctor-search{position:relative;flex:0 1 300px;min-width:190px;margin:0 22px}
+.doctor-search-form{position:relative}
+.doctor-search-icon{position:absolute;top:50%;left:13px;width:16px;height:16px;color:#77777c;transform:translateY(-50%);pointer-events:none}
+.doctor-search-input{width:100%;height:38px;padding:0 38px;border:1px solid #e3e5e8;border-radius:999px;outline:none;background:rgba(248,249,250,.92);color:var(--text);font:500 12px/1 Inter,-apple-system,BlinkMacSystemFont,sans-serif;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.doctor-search-input::placeholder{color:#858990}
+.doctor-search-input:focus{border-color:#92bdf0;background:#fff;box-shadow:0 0 0 3px rgba(0,113,227,.11)}
+.doctor-search-clear{position:absolute;top:50%;right:7px;display:none;width:26px;height:26px;align-items:center;justify-content:center;border:0;border-radius:50%;background:transparent;color:#71757b;font-size:18px;line-height:1;transform:translateY(-50%);cursor:pointer}
+.doctor-search.has-query .doctor-search-clear{display:flex}
+.doctor-search-results{position:absolute;top:calc(100% + 9px);left:0;z-index:1100;width:min(420px,calc(100vw - 30px));max-height:40vh;overflow:auto;overscroll-behavior:contain;padding:7px;border:1px solid rgba(22,32,44,.09);border-radius:16px;background:rgba(255,255,255,.98);box-shadow:0 18px 48px rgba(20,32,46,.18);backdrop-filter:blur(18px)}
+.doctor-search-results[hidden]{display:none}
+.doctor-search-result{display:block;padding:9px 10px;border-radius:11px;color:var(--text);transition:background .15s ease}
+.doctor-search-result:hover,.doctor-search-result:focus-visible{outline:none;background:#f0f6fd}
+.doctor-search-result:focus-visible{box-shadow:inset 0 0 0 2px rgba(0,113,227,.5)}
+.doctor-search-result-name{display:block;overflow:hidden;color:#20242a;font-size:12px;font-weight:700;line-height:1.3;text-overflow:ellipsis;white-space:nowrap}
+.doctor-search-result-specialty{display:block;margin-top:2px;overflow:hidden;color:#49535d;font-size:10.5px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+.doctor-search-empty{padding:13px 10px 15px;color:#6e747c;font-size:12px;line-height:1.5}
+
+/* FOOTER */
+.footer{padding:65px 0 30px;background:var(--paper);border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.6fr .7fr .7fr .8fr;gap:50px}
+.footer-description{max-width:350px;margin-top:15px;color:var(--muted);font-size:10px;line-height:1.7}
+.footer-heading{margin-bottom:15px;font-size:10px;font-weight:600}
+.footer-links{display:grid;gap:9px}
+.footer-links a{color:var(--muted);font-size:10px}
+.footer-links a:hover{color:var(--black)}
+.footer-bottom{margin-top:55px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#99999e;font-size:9px}
+
+/* SHARED RESPONSIVE (header / nav / footer) */
+@media(max-width:1050px){
+  .header{height:auto;min-height:112px}
+  .header-inner{height:auto;min-height:112px;flex-wrap:wrap;justify-content:space-between;gap:6px 12px;padding:7px 0 9px}
+  .doctor-search{order:3;flex:0 0 100%;min-width:0;margin:0}
+  .doctor-search-input{height:36px}
+  .doctor-search-results{width:100%}
+  .nav{display:none;position:fixed;top:112px;left:0;right:0;padding:25px;background:rgba(255,255,255,.98);flex-direction:column;align-items:flex-start;gap:20px;border-bottom:1px solid var(--line)}
+  .nav.open{display:flex}
+  .nav a{font-size:15px}
+  .nav-dropdown{width:100%}
+  .nav-submenu{display:flex;position:static;flex-direction:column;gap:8px;min-width:0;padding:8px 0 0 14px;border:0;background:transparent;box-shadow:none}
+  .nav-submenu a{padding:0}
+  .nav .join-team-trigger,.nav .community-clinic-trigger{font-size:15px}
+  .mobile-menu{display:block}
+  .ec-main{padding-top:112px}
+}
+@media(max-width:650px){
+  .container{width:calc(100% - 30px)}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+}
+</style>
+
+<style>
+/* Community eClinic layer */
+body{padding-top:0}
+.ec-main{padding-top:68px;background:var(--paper);min-height:60vh}
+.ec-container{width:min(1180px,calc(100% - 40px));margin:0 auto}
+.ec-hero{padding:64px 0 38px;background:linear-gradient(135deg,#fafafa 0%,#edf4fb 100%)}
+.ec-kicker{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.ec-hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:40px;align-items:center}
+.ec-hero-grid.no-image{grid-template-columns:1fr}
+.ec-title{font-size:clamp(38px,5.4vw,68px);line-height:1.02;letter-spacing:-.065em;margin:13px 0 18px;max-width:800px}
+.ec-subtitle{color:var(--muted);font-size:16px;line-height:1.75;max-width:680px}
+.ec-parent{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ec-hero-image{width:100%;height:300px;object-fit:cover;border-radius:28px;background:#e8edf3;box-shadow:var(--shadow)}
+.ec-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+.ec-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:999px;padding:12px 18px;font-weight:650;font-size:13px;cursor:pointer;transition:transform .2s,background .2s}
+.ec-btn:hover{transform:translateY(-1px)}
+.ec-btn-primary{background:var(--blue);color:white}
+.ec-btn-dark{background:#171719;color:white}
+.ec-btn-soft{background:white;border-color:var(--line);color:var(--text)}
+.ec-section{padding:42px 0}
+.ec-section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}
+.ec-section-head h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.045em;line-height:1.1}
+.ec-section-head p{margin-top:7px;color:var(--muted);font-size:13px;max-width:650px}
+.ec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ec-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ec-card{min-width:0;padding:22px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.88);box-shadow:0 8px 28px rgba(0,0,0,.035)}
+.ec-card h3{font-size:17px;letter-spacing:-.025em;margin:0 0 7px}
+.ec-card p{font-size:13px;line-height:1.65;color:var(--muted);overflow-wrap:anywhere}
+.ec-card-image{width:100%;height:140px;object-fit:cover;border-radius:14px;margin-bottom:14px;background:#e9edf3}
+.ec-actions-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ec-person{display:grid;grid-template-columns:76px minmax(0,1fr);gap:15px;align-items:start}
+.ec-avatar{width:76px;height:82px;border-radius:16px;object-fit:cover;background:#e9edf3}
+.ec-meta{font-size:12px;color:var(--muted);margin-top:5px}
+.ec-empty{padding:20px;border:1px dashed #c9cdd2;border-radius:16px;color:var(--muted);font-size:13px}
+.ec-hours{display:grid;gap:8px;margin-top:12px}
+.ec-alert{border:1px solid #f0d4a7;background:#fff8e9;border-radius:18px;padding:20px}
+.ec-alert h3{font-size:16px;margin-bottom:6px}
+.ec-alert p{font-size:13px;color:#6d5b3f;line-height:1.7}
+.ec-modal{position:fixed;inset:0;z-index:2000;background:rgba(15,20,28,.48);display:none;align-items:center;justify-content:center;padding:18px}
+.ec-modal.open{display:flex}
+.ec-dialog{width:min(600px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:24px;padding:26px;box-shadow:0 24px 80px rgba(0,0,0,.24)}
+.ec-dialog-head{display:flex;justify-content:space-between;align-items:start;gap:15px;margin-bottom:20px}
+.ec-dialog h2{font-size:25px;letter-spacing:-.04em}
+.ec-close{border:0;background:#f1f1f3;border-radius:50%;width:36px;height:36px;font-size:21px;cursor:pointer}
+.ec-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.ec-field{display:grid;gap:6px;min-width:0}
+.ec-field.full{grid-column:1/-1}
+.ec-field label{font-size:12px;font-weight:650}
+.ec-field input,.ec-field select,.ec-field textarea{width:100%;min-width:0;border:1px solid #d9dce0;border-radius:12px;padding:12px;background:#fff;color:var(--text);font-size:14px;font-family:inherit}
+.ec-field textarea{resize:vertical;min-height:80px}
+.ec-note{font-size:11px;line-height:1.6;color:var(--muted);margin-top:13px}
+.ec-status{font-size:12px;margin-top:10px;color:#b42318}
+.ec-floating{position:fixed;right:20px;bottom:20px;z-index:900;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+[hidden]{display:none!important}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(0,113,227,.35);outline-offset:3px}
+
+/* Tabs and provider directory */
+.ec-tabs{display:flex;gap:7px;overflow-x:auto;padding:5px;margin:0 0 22px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.78);scrollbar-width:thin}
+.ec-tab{flex:0 0 auto;border:0;border-radius:12px;padding:11px 15px;background:transparent;color:var(--muted);font-size:12px;font-weight:650;cursor:pointer;white-space:nowrap}
+.ec-tab.active{background:#171719;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.ec-tab-panel{padding:4px 0 10px}
+.ec-panel-intro{margin:0 0 20px}
+.ec-panel-intro h3,.ec-subheading h3{font-size:22px;letter-spacing:-.04em}
+.ec-panel-intro p,.ec-subheading p{margin-top:5px;color:var(--muted);font-size:13px;line-height:1.6;max-width:650px}
+.ec-subheading{margin:28px 0 15px}
+.ec-provider-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff;margin-bottom:14px}
+.ec-provider-filters select{width:100%;border:1px solid #d9dce0;border-radius:12px;padding:13px;background:#fff;color:var(--text);font-size:14px}
+.ec-provider-detail{min-height:140px}
+.ec-provider-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:17px}
+.ec-provider-fact{padding:12px;border:1px solid var(--line);border-radius:13px;background:#fafafa;min-width:0}
+.ec-provider-label,.ec-provider-value{display:block;overflow-wrap:anywhere}
+.ec-provider-label{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.ec-provider-value{font-size:13px;margin-top:4px}
+.ec-community-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.85fr);gap:22px;align-items:start}
+.ec-community-copy{padding:18px 0}
+.ec-community-copy h3{font-size:clamp(26px,3.3vw,38px);letter-spacing:-.05em;line-height:1.1;margin:10px 0}
+.ec-community-copy p,.ec-community-copy li{color:var(--muted);font-size:13px;line-height:1.75}
+.ec-community-copy ul{padding-left:20px;margin:13px 0}
+.ec-community-form{display:grid;gap:14px}
+.ec-community-form .ec-btn{width:100%}
+.ec-step{width:34px;height:34px;border-radius:11px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:11px;font-weight:800;margin-bottom:15px}
+.ec-faq-list{background:#fff;border:1px solid var(--line);border-radius:20px;padding:0 22px}
+.ec-faq{border-bottom:1px solid var(--line);padding:16px 0}
+.ec-faq:last-child{border-bottom:0}
+.ec-faq summary{font-size:14px;font-weight:650;cursor:pointer;list-style-position:inside}
+.ec-faq p{padding:10px 0 0 20px;color:var(--muted);font-size:13px;line-height:1.7}
+.ec-sample-note{margin-top:10px;padding:9px 11px;border-radius:10px;background:#fff7e6;color:#795600;font-size:11px;line-height:1.5}
+#specialist-services{scroll-margin-top:100px}
+#professionals,#faq{scroll-margin-top:100px}
+
+@media(max-width:850px){.ec-hero-grid{grid-template-columns:1fr}.ec-hero-image{height:240px}.ec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ec-hero{padding:42px 0 30px}}
+@media(max-width:700px){.ec-community-layout{grid-template-columns:1fr}.ec-provider-filters{grid-template-columns:1fr}.ec-provider-facts{grid-template-columns:1fr}.ec-tabs{margin-left:-2px;margin-right:-2px}.ec-tab{padding:10px 12px}}
+@media(max-width:560px){.ec-container{width:calc(100% - 28px)}.ec-grid,.ec-grid.two{grid-template-columns:1fr}.ec-hero-image{height:200px}.ec-section{padding:30px 0}.ec-card{padding:18px}.ec-section-head{display:block}.ec-form-grid{grid-template-columns:1fr}.ec-field.full{grid-column:auto}.ec-floating{right:12px;bottom:12px}.ec-title{font-size:40px}.ec-actions .ec-btn{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+<link rel="stylesheet" href="assets/join-team.css">
+<link rel="stylesheet" href="assets/community-clinic.css">
+</head>
+
+<body>
+
+<!-- ======================= HEADER (filled from config) ======================= -->
+<header class="header">
+<div class="container header-inner">
+
+  <a href="#top" class="thomson-logo" id="headerLogo" aria-label="Thomson Clinic">
+    <img class="logo-symbol" id="headerLogoImg" src="assets/thomson-clinic-logo-header.png" alt="Thomson Clinic logo">
+    <span class="logo-text"><span class="logo-main" id="headerLogoMain">Thomson Clinic</span><span class="logo-sub" id="headerLogoSub">Mental Health &amp; Neuroscience e-Clinic</span></span>
+  </a>
+
+  <div class="doctor-search" id="doctorSearch">
+    <form class="doctor-search-form" role="search" onsubmit="return false">
+      <svg class="doctor-search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"></circle><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+      <input class="doctor-search-input" id="doctorSearchInput" type="search" placeholder="Search doctors, specialties" aria-label="Search doctors and services" aria-autocomplete="list" aria-controls="doctorSearchResults" aria-expanded="false" autocomplete="off" enterkeyhint="search">
+      <button class="doctor-search-clear" id="doctorSearchClear" type="button" aria-label="Clear search">×</button>
+    </form>
+    <div class="doctor-search-results" id="doctorSearchResults" role="listbox" aria-label="Search results" aria-live="polite" hidden></div>
+  </div>
+
+  <nav class="nav" id="nav"></nav>
+
+  <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation" aria-expanded="false">☰</button>
+</div>
+</header>
+
+<!-- ======================= MAIN ======================= -->
+<main id="top" class="ec-main">
+
+<section class="ec-hero" id="heroSection">
+  <div class="ec-container">
+    <div class="ec-hero-grid no-image" id="heroGrid">
+      <div>
+        <div class="ec-parent" id="heroParent"></div>
+        <div class="ec-kicker" id="clinicKicker"></div>
+        <h1 class="ec-title" id="clinicName"></h1>
+        <p class="ec-subtitle" id="clinicDescription"></p>
+        <div class="ec-actions" id="heroButtons"></div>
+        <p class="ec-meta" id="clinicTagline" style="margin-top:16px"></p>
+        <p class="ec-meta" id="heroNote" style="margin-top:8px"></p>
+      </div>
+      <img class="ec-hero-image" id="heroImage" alt="" hidden>
+    </div>
+  </div>
+</section>
+
+<section class="ec-section" id="specialist-services">
+  <div class="ec-container">
+    <div class="ec-section-head"><div><h2 id="servicesTitle"></h2><p id="servicesIntro"></p></div></div>
+    <div class="ec-grid" id="specialtyCards"></div>
+    <div class="ec-subheading" id="doctorHeading" hidden><h3 id="doctorsTitle"></h3><p id="doctorsIntro"></p></div>
+    <div class="ec-grid" id="doctorCards"></div>
+  </div>
+</section>
+
+<section class="ec-section" id="emergencySection" hidden>
+  <div class="ec-container"><div class="ec-alert"><h3 id="emergencyTitle"></h3><p id="emergencyText"></p></div></div>
+</section>
+
+<section class="ec-section" id="professionals">
+  <div class="ec-container">
+    <div class="ec-section-head"><div><h2 id="supportTitle"></h2><p id="supportIntro"></p></div></div>
+    <div class="ec-tabs" id="tabBar" role="tablist" aria-label="Community eClinic services"></div>
+
+    <!-- Tab 1: local providers -->
+    <section class="ec-tab-panel" id="providersPanel" role="tabpanel" aria-labelledby="providersTab" hidden>
+      <div class="ec-panel-intro"><h3 id="providersHeading"></h3><p id="providersIntro"></p></div>
+      <div class="ec-provider-filters">
+        <div class="ec-field"><label for="providerCategory">Service category</label><select id="providerCategory"><option value="">Select a category</option></select></div>
+        <div class="ec-field"><label for="providerChoice">Provider / service</label><select id="providerChoice" disabled><option value="">Select a category first</option></select></div>
+      </div>
+      <div class="ec-provider-detail ec-card" id="providerDetail" aria-live="polite"></div>
+      <p class="ec-note" id="providersNote"></p>
+    </section>
+
+    <!-- Tab 2: WhatsApp community -->
+    <section class="ec-tab-panel" id="communityPanel" role="tabpanel" aria-labelledby="communityTab" hidden>
+      <div class="ec-community-layout">
+        <div class="ec-community-copy">
+          <div class="ec-kicker" id="communityKicker"></div>
+          <h3 id="communityHeading"></h3>
+          <p id="communityText"></p>
+          <ul id="communityBullets"></ul>
+          <p class="ec-note" id="communityNote"></p>
+          <div class="ec-actions" id="communityInviteWrap" hidden></div>
+        </div>
+        <form id="communityForm" class="ec-card ec-community-form" novalidate>
+          <div class="ec-field"><label for="communityName">Your name *</label><input id="communityName" name="name" autocomplete="name" maxlength="100" required></div>
+          <div class="ec-field"><label for="communityPhone">WhatsApp mobile number *</label><input id="communityPhone" name="phone" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="10-digit mobile number" required></div>
+          <div class="ec-field" id="communityAreaField"><label for="communityArea">Village / town (optional)</label><input id="communityArea" name="area" maxlength="120" placeholder="Your village or town"></div>
+          <div class="ec-field" id="communityInterestField"><label for="communityInterest">What updates are you interested in? (optional)</label><select id="communityInterest" name="interest"></select></div>
+          <p class="ec-status" id="communityStatus" role="alert" aria-live="polite"></p>
+          <button class="ec-btn ec-btn-primary" type="submit">Continue to WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tab 3: how it works -->
+    <section class="ec-tab-panel" id="howPanel" role="tabpanel" aria-labelledby="howTab" hidden>
+      <div class="ec-grid two" id="howSteps"></div>
+    </section>
+  </div>
+</section>
+
+<section class="ec-section" id="faq">
+  <div class="ec-container">
+    <div class="ec-section-head"><div><h2 id="faqTitle"></h2><p id="faqIntro"></p></div></div>
+    <div class="ec-faq-list" id="faqList"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FLOATING BUTTON + BOOKING MODAL ======================= -->
+<button class="ec-btn ec-btn-primary ec-floating" type="button" data-book id="floatingBook">Book consultation</button>
+
+<div class="ec-modal" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle" aria-hidden="true">
+  <div class="ec-dialog">
+    <div class="ec-dialog-head">
+      <div><div class="ec-kicker" id="bookingKicker"></div><h2 id="bookingTitle"></h2></div>
+      <button class="ec-close" type="button" id="closeBooking" aria-label="Close booking form">×</button>
+    </div>
+    <form id="bookingForm" novalidate>
+      <div class="ec-form-grid">
+        <div class="ec-field"><label for="patientName">Patient name *</label><input id="patientName" name="patientName" autocomplete="name" required maxlength="100"></div>
+        <div class="ec-field"><label for="patientPhone">Mobile number *</label><input id="patientPhone" name="patientPhone" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="10-digit mobile number"></div>
+        <div class="ec-field full"><label for="doctorChoice">Specialist service / doctor *</label><select id="doctorChoice" name="doctorChoice" required></select></div>
+        <div class="ec-field" id="dateField"><label for="preferredDate">Preferred date (optional)</label><input id="preferredDate" name="preferredDate" type="date"></div>
+        <div class="ec-field" id="timeField"><label for="preferredTime">Preferred time (optional)</label><input id="preferredTime" name="preferredTime" type="time"></div>
+        <div class="ec-field full" id="reasonField"><label for="reason">Brief reason (optional)</label><textarea id="reason" name="reason" maxlength="400"></textarea></div>
+      </div>
+      <p class="ec-note" id="bookingNote"></p>
+      <p class="ec-status" id="formStatus" role="alert" aria-live="polite"></p>
+      <div class="ec-actions" style="justify-content:flex-end"><button class="ec-btn ec-btn-soft" type="button" id="cancelBooking">Cancel</button><button class="ec-btn ec-btn-primary" type="submit">Continue to WhatsApp</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- ======================= FOOTER (filled from config) ======================= -->
+<footer class="footer" id="footerEl">
+<div class="container">
+  <div class="footer-grid" id="footerGrid">
+    <div>
+      <a href="#top" class="thomson-logo">
+        <img loading="lazy" decoding="async" class="logo-symbol" id="footerLogoImg" src="assets/thomson-clinic-logo-header.png" alt="Thomson Clinic logo">
+        <span class="logo-text"><span class="logo-main" id="footerLogoMain">Thomson Clinic</span><span class="logo-sub" id="footerLogoSub"></span></span>
+      </a>
+      <p class="footer-description" id="footerDescription"></p>
+    </div>
+  </div>
+  <div class="footer-bottom"><span id="footerLeft"></span><span id="footerRight"></span></div>
+</div>
+</footer>
+
+
+<!-- =====================================================================
+     RENDER ENGINE — you normally never need to edit this.
+     It reads window.ECLINIC_CONFIG (defined in the last <script> below).
+===================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const C = window.ECLINIC_CONFIG || {};
+  const $ = id => document.getElementById(id);
+  const show = key => (C.show || {})[key] !== false;           // section switch: default = visible
+  const live = arr => (arr || []).filter(x => x && x.enabled !== false);  // drop items with enabled:false
+  const T = C.text || {};
+  const clinic = C.clinic || {};
+
+  /* ---------- helpers ---------- */
+  function make(tag, cls, text){ const n=document.createElement(tag); if(cls)n.className=cls; if(text!==undefined&&text!==null)n.textContent=String(text); return n; }
+  function safeUrl(v){ try{ const u=new URL(v,location.href); return ['https:','http:','tel:','mailto:'].includes(u.protocol)?u.href:''; }catch{ return ''; } }
+  function action(label,url,cls='ec-btn ec-btn-soft'){ const href=safeUrl(url); if(!href)return null; const a=make('a',cls,label); a.href=href; if(/^https?:/.test(href)&&new URL(href).origin!==location.origin){a.target='_blank';a.rel='noopener noreferrer';} return a; }
+  function waUrl(num,msg){ const d=String(num||'').replace(/\D/g,''); if(d.length<10||d.length>15)return ''; return 'https://wa.me/'+d+'?text='+encodeURIComponent(msg); }
+  function openWhatsApp(num,msg,statusEl){ const u=waUrl(num,msg); if(!u){ if(statusEl)statusEl.textContent='WhatsApp contact has not been configured. Please contact the page administrator.'; return false;} window.open(u,'_blank','noopener,noreferrer'); return true; }
+  function setText(id,val){ const el=$(id); if(el) el.textContent = val||''; }
+  function hideIf(id,cond){ const el=$(id); if(el) el.hidden = !!cond; }
+  const factList = v => Array.isArray(v) ? v.join(', ') : v;
+
+  /* ---------- brand / document title ---------- */
+  const brand = C.brand || {};
+  document.title = (clinic.name || 'Community Superspeciality eClinic') + ' | ' + (brand.name || 'Thomson Clinic');
+  [['headerLogoImg','footerLogoImg']].flat().forEach(id=>{ if(brand.logo)$(id).src=brand.logo; });
+  setText('headerLogoMain',brand.name||'Thomson Clinic'); setText('footerLogoMain',brand.name||'Thomson Clinic');
+  setText('headerLogoSub',brand.tagline||''); setText('footerLogoSub',brand.tagline||'');
+  hideIf('headerLogoSub',!brand.tagline); hideIf('footerLogoSub',!brand.tagline);
+
+  /* ---------- hero ---------- */
+  const hero = C.hero || {};
+  hideIf('heroSection',!show('hero'));
+  setText('heroParent',hero.parentLine||''); hideIf('heroParent',!hero.parentLine);
+  setText('clinicKicker',clinic.label||''); setText('clinicName',clinic.name||'');
+  setText('clinicDescription',clinic.description||''); setText('clinicTagline',clinic.tagline||'');
+  hideIf('clinicTagline',!clinic.tagline);
+  setText('heroNote',hero.note||''); hideIf('heroNote',!hero.note);
+  if(hero.image && safeUrl(hero.image)){ const im=$('heroImage'); im.src=safeUrl(hero.image); im.alt=hero.imageAlt||''; im.hidden=false; $('heroGrid').classList.remove('no-image'); }
+
+  /* ---------- booking choices (specialties + doctors) ---------- */
+  const choices=$('doctorChoice'); choices.replaceChildren(); choices.append(new Option('Select a service or doctor',''));
+  const bookingNumbers={};   // label -> whatsapp number (per-item override, else clinic default)
+  const specialties = show('specialties') ? live(C.specialties).filter(x=>x.name) : [];
+  const doctors     = show('doctors')     ? live(C.doctors).filter(x=>x.name)     : [];
+  const specLabel = s => s.name;
+  const docLabel  = d => d.name + (d.specialty ? ' — ' + d.specialty : '');
+  specialties.forEach(s=>{ if(s.bookable!==false){ choices.append(new Option(specLabel(s),specLabel(s))); bookingNumbers[specLabel(s)]=s.bookingWhatsApp||clinic.bookingWhatsApp; } });
+  doctors.forEach(d=>{ if(d.bookable!==false){ choices.append(new Option(docLabel(d),docLabel(d))); bookingNumbers[docLabel(d)]=d.bookingWhatsApp||clinic.bookingWhatsApp; } });
+  const hasBookables = choices.options.length>1;
+
+  /* ---------- services & doctors ---------- */
+  const sv = C.sections || {};
+  setText('servicesTitle',(sv.services||{}).title||'Superspeciality services');
+  setText('servicesIntro',(sv.services||{}).intro||'');
+  setText('doctorsTitle',(sv.doctors||{}).title||'Specialists');
+  setText('doctorsIntro',(sv.doctors||{}).intro||'');
+
+  const serviceCards=$('specialtyCards'), doctorCards=$('doctorCards');
+  function bookButton(label,value,cls){ const b=make('button',cls||'ec-btn ec-btn-primary',label); b.type='button'; b.addEventListener('click',()=>{ choices.value=value; openBooking(); }); return b; }
+
+  specialties.forEach(s=>{
+    const c=make('article','ec-card');
+    if(s.image && safeUrl(s.image)){ const im=make('img','ec-card-image'); im.src=safeUrl(s.image); im.alt=s.name; im.loading='lazy'; c.append(im); }
+    c.append(make('h3','',s.name));
+    const meta=[s.fee,s.mode].filter(Boolean).join(' · '); if(meta)c.append(make('div','ec-meta',meta));
+    c.append(make('p','',s.description||'Contact us to request details about this service.'));
+    const row=make('div','ec-actions-row');
+    if(hasBookables && show('booking') && s.bookable!==false) row.append(bookButton(s.buttonLabel||'Book appointment',specLabel(s)));
+    if(s.link) row.append(action(s.linkLabel||'Learn more',s.link));
+    row.childElementCount && c.append(row);
+    serviceCards.append(c);
+  });
+  if(!specialties.length && show('specialties')) serviceCards.append(make('div','ec-empty','No specialist services have been configured yet.'));
+  hideIf('specialtyCards',!specialties.length && !show('specialties'));
+
+  doctors.forEach(d=>{
+    const c=make('article','ec-card'); const wrap=make('div',d.photo?'ec-person':''); const body=make('div');
+    if(d.photo && safeUrl(d.photo)){ const im=make('img','ec-avatar'); im.src=safeUrl(d.photo); im.alt=d.name; im.loading='lazy'; wrap.append(im); }
+    body.append(make('h3','',d.name));
+    if(d.sample) body.append(make('p','ec-sample-note','DEMO PROFILE — replace with a verified clinician before publishing.'));
+    if(d.specialty) body.append(make('p','',d.specialty));
+    const fee = d.fee!==undefined&&d.fee!=='' ? (/^\d+$/.test(String(d.fee)) ? 'Consultation fee: ₹'+d.fee : d.fee) : '';
+    const meta=[d.qualification,d.experience,fee,d.languages?'Languages: '+factList(d.languages):'',d.availability?'Availability: '+d.availability:''].filter(Boolean).join(' · ');
+    if(meta) body.append(make('div','ec-meta',meta));
+    if(d.description) body.append(make('p','',d.description));
+    const row=make('div','ec-actions-row');
+    if(hasBookables && show('booking') && d.bookable!==false) row.append(bookButton(d.buttonLabel||'Request appointment',docLabel(d)));
+    if(d.profileUrl) row.append(action('View profile',d.profileUrl));
+    if(row.childElementCount) body.append(row);
+    wrap.append(body); c.append(wrap); doctorCards.append(c);
+  });
+  hideIf('doctorHeading',!doctors.length); hideIf('doctorCards',!doctors.length);
+  hideIf('specialist-services',!show('specialties') && !show('doctors'));
+
+  /* ---------- emergency notice ---------- */
+  const em=C.emergency||{};
+  if(show('emergency') && em.text){ setText('emergencyTitle',em.title||'In an emergency'); setText('emergencyText',em.text); $('emergencySection').hidden=false; }
+
+  /* ---------- tabs ---------- */
+  const tabDefs=[
+    {id:'providersTab',panel:'providersPanel',key:'providersTab',label:T.providersTab||'Local providers'},
+    {id:'communityTab',panel:'communityPanel',key:'communityTab',label:T.communityTab||'Join WhatsApp group'},
+    {id:'howTab',panel:'howPanel',key:'howTab',label:T.howTab||'How it works'}
+  ].filter(t=>show(t.key));
+  const tabBar=$('tabBar');
+  tabDefs.forEach(t=>{ const b=make('button','ec-tab',t.label); b.type='button'; b.id=t.id; b.setAttribute('role','tab'); b.setAttribute('aria-controls',t.panel); b.dataset.tab=t.panel; tabBar.append(b); });
+  document.querySelectorAll('.ec-tab-panel').forEach(p=>{ if(!tabDefs.some(t=>t.panel===p.id)) p.remove(); });
+
+  function showTab(panelId,scroll=true){
+    const target=$(panelId); if(!target)return;
+    document.querySelectorAll('.ec-tab-panel').forEach(p=>p.hidden=p.id!==panelId);
+    document.querySelectorAll('.ec-tab').forEach(t=>{ const a=t.dataset.tab===panelId; t.classList.toggle('active',a); t.setAttribute('aria-selected',String(a)); t.tabIndex=a?0:-1; });
+    if(scroll) target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+  }
+  document.querySelectorAll('.ec-tab').forEach((t,i,arr)=>{
+    t.addEventListener('click',()=>showTab(t.dataset.tab));
+    t.addEventListener('keydown',e=>{ if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return; e.preventDefault(); let n=i; if(e.key==='ArrowRight')n=(i+1)%arr.length; if(e.key==='ArrowLeft')n=(i-1+arr.length)%arr.length; if(e.key==='Home')n=0; if(e.key==='End')n=arr.length-1; arr[n].focus(); showTab(arr[n].dataset.tab); });
+  });
+  setText('supportTitle',(sv.support||{}).title||'Community support');
+  setText('supportIntro',(sv.support||{}).intro||'');
+  hideIf('professionals',!tabDefs.length);
+  if(tabDefs.length) showTab(tabDefs[0].panel,false);
+
+  /* ---------- local providers ---------- */
+  const pv=C.providersSection||{};
+  setText('providersHeading',pv.title||'Local service providers'); setText('providersIntro',pv.intro||'Select a category, then a provider.');
+  setText('providersNote',pv.note||''); hideIf('providersNote',!pv.note);
+  const providerGroups=C.providers||{};
+  const catSelect=$('providerCategory'), provSelect=$('providerChoice'), detail=$('providerDetail');
+  const categories=live(C.providerCategories).filter(c=>live(providerGroups[c.key]).some(p=>p.name));
+  categories.forEach(c=>catSelect.append(new Option(c.label,c.key)));
+  const listFor = key => live(providerGroups[key]).filter(p=>p.name);
+
+  function showProvider(p){
+    detail.replaceChildren();
+    if(!p){ detail.append(make('p','ec-empty','Select a provider to view their details.')); return; }
+    const catLabel=(C.providerCategories||[]).find(c=>c.key===catSelect.value)?.label;
+    detail.append(make('div','ec-kicker',p.role||catLabel||'Community provider'));
+    detail.append(make('h3','',p.name));
+    if(p.sample) detail.append(make('p','ec-sample-note','SAMPLE PROFILE — replace with verified provider details before publishing.'));
+    if(p.qualification) detail.append(make('p','',p.qualification));
+    if(p.description) detail.append(make('p','',p.description));
+    const facts=make('div','ec-provider-facts');
+    [['Contact',p.phone],['Location / area',p.location],['Address',p.address],['Service hours',p.hours],['Services offered',factList(p.services)],['Fees / charges',p.fees],['Languages',factList(p.languages)]]
+      .filter(x=>x[1]).forEach(([l,v])=>{ const box=make('div','ec-provider-fact'); box.append(make('span','ec-provider-label',l),make('span','ec-provider-value',v)); facts.append(box); });
+    if(facts.childElementCount) detail.append(facts);
+    const acts=[];
+    if(p.phone) acts.push(action('Call provider','tel:'+String(p.phone).replace(/[^+\d]/g,'')));
+    if(p.whatsapp) acts.push(action('WhatsApp provider','https://wa.me/'+String(p.whatsapp).replace(/\D/g,'')));
+    if(p.mapUrl) acts.push(action('Open directions',p.mapUrl));
+    if(p.website) acts.push(action('Website',p.website));
+    const ok=acts.filter(Boolean); if(ok.length){ const row=make('div','ec-actions-row'); ok.forEach(a=>row.append(a)); detail.append(row); }
+  }
+  catSelect.addEventListener('change',()=>{
+    provSelect.replaceChildren(); const list=listFor(catSelect.value);
+    provSelect.disabled=!list.length;
+    provSelect.append(new Option(list.length?'Select a provider':'No providers configured',''));
+    list.forEach((p,i)=>provSelect.append(new Option(p.name,String(i))));
+    if(list.length===1){ provSelect.value='0'; showProvider(list[0]); }
+    else if(!list.length) detail.replaceChildren(make('p','ec-empty','No providers have been configured in this category yet.'));
+    else showProvider(null);
+  });
+  provSelect.addEventListener('change',()=>{ showProvider(provSelect.value!==''?listFor(catSelect.value)[Number(provSelect.value)]:null); });
+  if(!categories.length){ catSelect.disabled=true; detail.replaceChildren(make('p','ec-empty','Local service provider details will appear here once configured.')); }
+  else detail.replaceChildren(make('p','ec-empty','Select a category to view configured providers.'));
+
+  /* ---------- WhatsApp community ---------- */
+  const cm=C.community||{};
+  setText('communityKicker',cm.kicker||'Community updates');
+  setText('communityHeading',cm.title||'Join the community WhatsApp group');
+  setText('communityText',cm.text||'');
+  const bl=$('communityBullets'); (cm.bullets||[]).filter(Boolean).forEach(b=>bl.append(make('li','',b))); hideIf('communityBullets',!bl.childElementCount);
+  setText('communityNote',cm.note||''); hideIf('communityNote',!cm.note);
+  hideIf('communityAreaField',cm.askArea===false); hideIf('communityInterestField',cm.askInterest===false);
+  (cm.interests&&cm.interests.length?cm.interests:['General community updates']).forEach(i=>$('communityInterest').append(new Option(i,i)));
+  if(clinic.communityGroupInviteUrl){ const a=action(cm.inviteLabel||'Open group invitation',clinic.communityGroupInviteUrl,'ec-btn ec-btn-dark'); if(a){ $('communityInviteWrap').append(a); $('communityInviteWrap').hidden=false; } }
+  $('communityForm').addEventListener('submit',e=>{
+    e.preventDefault(); const status=$('communityStatus'); status.textContent='';
+    const name=$('communityName').value.trim(), phone=$('communityPhone').value.trim(), digits=phone.replace(/\D/g,'');
+    if(name.length<2){status.textContent='Please enter your name.';return;}
+    if(digits.length<10||digits.length>15){status.textContent='Please enter a valid WhatsApp mobile number.';return;}
+    if(!clinic.communityWhatsApp){status.textContent='The community coordinator WhatsApp number has not been configured.';return;}
+    const lines=['Request to join the '+(clinic.name||'Thomson Clinic')+' WhatsApp community','Name: '+name,'WhatsApp mobile: '+phone];
+    if(cm.askArea!==false) lines.push('Village / town: '+($('communityArea').value.trim()||'Not specified'));
+    if(cm.askInterest!==false) lines.push('Interested in: '+$('communityInterest').value);
+    lines.push('Please share the group invitation and any joining guidelines.');
+    openWhatsApp(clinic.communityWhatsApp,lines.join('\n'),status);
+  });
+
+  /* ---------- how it works ---------- */
+  live(C.howItWorks).forEach((s,i)=>{ const c=make('article','ec-card'); c.append(make('div','ec-step',String(i+1).padStart(2,'0')),make('h3','',s.title),make('p','',s.text)); $('howSteps').append(c); });
+
+  /* ---------- FAQ ---------- */
+  const faqs=live(C.faqs).filter(f=>f.question&&f.answer);
+  setText('faqTitle',(sv.faq||{}).title||'Frequently asked questions'); setText('faqIntro',(sv.faq||{}).intro||'');
+  faqs.forEach(f=>{ const d=make('details','ec-faq'); d.append(make('summary','',f.question),make('p','',f.answer)); $('faqList').append(d); });
+  hideIf('faq',!show('faq')||!faqs.length);
+
+  /* ---------- booking modal ---------- */
+  const bookingModal=$('bookingModal'); const bk=C.booking||{}; let lastFocus=null;
+  setText('bookingKicker',bk.kicker||'Thomson Clinic eClinic'); setText('bookingTitle',bk.title||'Request an online consultation');
+  setText('bookingNote',bk.note||'This page does not store your details. WhatsApp will open with your request; review it and press Send. Your appointment is not confirmed until the provider responds.');
+  $('reason').placeholder=bk.reasonPlaceholder||'Avoid sharing highly sensitive medical details here.';
+  hideIf('dateField',bk.askDate===false); hideIf('timeField',bk.askTime===false); hideIf('reasonField',bk.askReason===false);
+  function openBooking(){ lastFocus=document.activeElement; bookingModal.classList.add('open'); bookingModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=>$('patientName').focus(),20); }
+  function closeBooking(){ bookingModal.classList.remove('open'); bookingModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; if(lastFocus&&lastFocus.focus)lastFocus.focus(); }
+  $('closeBooking').addEventListener('click',closeBooking); $('cancelBooking').addEventListener('click',closeBooking);
+  bookingModal.addEventListener('click',e=>{ if(e.target===bookingModal)closeBooking(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&bookingModal.classList.contains('open'))closeBooking(); });
+  $('bookingForm').addEventListener('submit',e=>{
+    e.preventDefault(); const status=$('formStatus'); status.textContent='';
+    const name=$('patientName').value.trim(), phone=$('patientPhone').value.trim(), choice=choices.value, digits=phone.replace(/\D/g,'');
+    if(name.length<2){status.textContent='Please enter the patient name.';return;}
+    if(digits.length<10||digits.length>15){status.textContent='Please enter a valid mobile number.';return;}
+    if(!choice){status.textContent='Please select a service or doctor.';return;}
+    const number=bookingNumbers[choice]||clinic.bookingWhatsApp;
+    if(!number){status.textContent='The appointment WhatsApp number has not been configured.';return;}
+    const lines=['Online appointment request — '+(clinic.name||'Thomson Clinic eClinic'),'Patient: '+name,'Mobile: '+phone,'Service / doctor: '+choice];
+    if(bk.askDate!==false) lines.push('Preferred date: '+($('preferredDate').value||'Not specified'));
+    if(bk.askTime!==false) lines.push('Preferred time: '+($('preferredTime').value||'Not specified'));
+    if(bk.askReason!==false) lines.push('Brief reason: '+($('reason').value.trim()||'Not provided'));
+    lines.push('Please confirm availability, fees and next steps. This is a request, not a confirmed appointment.');
+    if(openWhatsApp(number,lines.join('\n'),status)) closeBooking();
+  });
+
+  /* ---------- navigation (header) ---------- */
+  const nav=$('nav');
+  function sectionAvailable(href){ if(!href||href.length<2||href[0]!=='#')return true; const t=document.querySelector(href); return !!t&&!t.hidden; }
+  function navLink(it){
+    if(it.type==='join'||it.type==='community'){ const b=make('button',it.type==='join'?'join-team-trigger':'community-clinic-trigger',it.label); b.type='button'; return b; }
+    const a=make('a',it.type==='book'?'nav-cta book-trigger':'',it.label); a.href=it.href||'#'; if(it.type==='book')a.setAttribute('data-book',''); return a;
+  }
+  live(C.nav).forEach(it=>{
+    if(it.type==='book' && !(hasBookables&&show('booking'))) return;
+    if(it.type==='dropdown'){ const w=make('div','nav-dropdown'); const a=make('a','',it.label); a.href=it.href||'#'; const sub=make('div','nav-submenu'); live(it.children).forEach(ch=>sub.append(navLink(ch))); w.append(a,sub); nav.append(w); return; }
+    if(!sectionAvailable(it.href)) return;
+    nav.append(navLink(it));
+  });
+  const menu=$('mobileMenu');
+  menu.addEventListener('click',()=>{ const open=nav.classList.toggle('open'); menu.setAttribute('aria-expanded',String(open)); menu.setAttribute('aria-label',open?'Close navigation':'Open navigation'); menu.textContent=open?'×':'☰'; });
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰'; }));
+
+  /* ---------- hero buttons ---------- */
+  live(hero.buttons).forEach(b=>{
+    const cls='ec-btn ec-btn-'+(b.style||'soft');
+    if(b.type==='book'){ if(!(hasBookables&&show('booking')))return; const x=make('button',cls,b.label); x.type='button'; x.setAttribute('data-book',''); $('heroButtons').append(x); }
+    else if(b.type==='tab'){ const t=tabDefs.find(t=>t.panel===b.target||t.id===b.target); if(!t)return; const x=make('button',cls,b.label); x.type='button'; x.addEventListener('click',()=>{ showTab(t.panel); $('professionals').scrollIntoView({behavior:'smooth',block:'start'}); }); $('heroButtons').append(x); }
+    else { const a=action(b.label,b.href,cls); if(a)$('heroButtons').append(a); }
+  });
+  hideIf('heroButtons',!$('heroButtons').childElementCount);
+
+  /* ---------- floating button + all [data-book] ---------- */
+  const floatLabel=(C.booking||{}).floatingLabel; if(floatLabel)$('floatingBook').textContent=floatLabel;
+  document.querySelectorAll('[data-book]').forEach(b=>{
+    if(!(hasBookables&&show('booking'))||(b.id==='floatingBook'&&!show('floatingBook'))){ b.hidden=true; return; }
+    b.addEventListener('click',e=>{ e.preventDefault(); openBooking(); });
+  });
+
+  /* ---------- header search ---------- */
+  const search=$('doctorSearchInput'), results=$('doctorSearchResults'), clear=$('doctorSearchClear'), box=$('doctorSearch');
+  if(!show('headerSearch')){ box.hidden=true; }
+  else {
+    const hay=[...doctors.map(d=>({name:d.name,sub:d.specialty||'Specialist',text:[d.name,d.specialty,d.qualification].join(' ')})),
+               ...specialties.map(s=>({name:s.name,sub:'Specialist service',text:[s.name,s.description].join(' ')}))];
+    function renderSearch(){
+      const q=search.value.trim().toLowerCase(); box.classList.toggle('has-query',!!q); results.replaceChildren();
+      if(!q){ results.hidden=true; search.setAttribute('aria-expanded','false'); return; }
+      const m=hay.filter(x=>x.text.toLowerCase().includes(q)).slice(0,6);
+      if(!m.length) results.append(make('div','doctor-search-empty','No matching specialists or services.'));
+      else m.forEach(x=>{ const a=make('a','doctor-search-result'); a.href='#specialist-services'; a.append(make('span','doctor-search-result-name',x.name),make('span','doctor-search-result-specialty',x.sub)); a.addEventListener('click',()=>{ results.hidden=true; search.setAttribute('aria-expanded','false'); }); results.append(a); });
+      results.hidden=false; search.setAttribute('aria-expanded','true');
+    }
+    search.addEventListener('input',renderSearch);
+    clear.addEventListener('click',()=>{ search.value=''; renderSearch(); search.focus(); });
+    document.addEventListener('click',e=>{ if(!e.target.closest('#doctorSearch')) results.hidden=true; });
+  }
+
+  /* ---------- footer ---------- */
+  const ft=C.footer||{};
+  hideIf('footerEl',!show('footer'));
+  setText('footerDescription',ft.description||'');
+  live(ft.columns).forEach(col=>{
+    const links=live(col.links); if(!links.length)return;
+    const wrap=make('div'); wrap.append(make('div','footer-heading',col.heading)); const list=make('div','footer-links');
+    links.forEach(l=>{
+      const a=make('a',l.type==='community'?'community-clinic-trigger':l.type==='book'?'book-trigger':'',l.label); a.href=l.href||'#';
+      if(l.type==='book'){ if(!(hasBookables&&show('booking')))return; a.setAttribute('data-book',''); a.addEventListener('click',e=>{e.preventDefault();openBooking();}); }
+      list.append(a);
+    });
+    wrap.append(list); $('footerGrid').append(wrap);
+  });
+  $('footerGrid').style.gridTemplateColumns = window.innerWidth>650 ? '1.6fr '+'.8fr '.repeat(Math.max(1,$('footerGrid').children.length-1)) : '';
+  const left=$('footerLeft'); left.append('© '+new Date().getFullYear()+' '+(ft.copyright||'Thomson Clinic'));
+  if(ft.poweredBy&&ft.poweredBy.label){ left.append(' powered by '); const a=action(ft.poweredBy.label,ft.poweredBy.url,''); if(a)left.append(a); else left.append(ft.poweredBy.label); }
+  setText('footerRight',ft.tagline||'');
+});
+</script>
+
+
+<!-- =====================================================================
+     ███  CONTENT CONFIGURATION — THE ONLY PART YOU NEED TO EDIT  ███
+     =====================================================================
+     HOW TO USE
+       • HIDE an item      → set  enabled: false   (keep it for later)
+       • REMOVE an item    → delete its whole { ... } line
+       • ADD an item       → copy any existing { ... } line and edit it
+       • HIDE a section    → set it to false inside  show: { ... }
+       • Leave a field as ""  (or delete it) to hide that detail.
+       • Phone numbers: digits with country code, e.g. "919876543210".
+     DO NOT put secrets or patient records here — this file is public.
+===================================================================== -->
+<script>
+const ECLINIC_CONFIG = {
+
+  /* ===================== 1. SECTION SWITCHES (true = show, false = hide) ===================== */
+  show: {
+    hero:          true,
+    headerSearch:  true,
+    specialties:   true,   // "Superspeciality services" cards
+    doctors:       true,   // "Specialists" cards
+    emergency:     true,   // emergency notice box
+    providersTab:  true,   // tab: Local providers
+    communityTab:  true,   // tab: Join WhatsApp group
+    howTab:        true,   // tab: How it works
+    faq:           true,
+    booking:       true,   // all "Book / Request appointment" buttons + modal
+    floatingBook:  true,   // floating button at bottom-right
+    footer:        true
+  },
+
+  /* ===================== 2. THIS TOWN'S CLINIC DETAILS ===================== */
+  clinic: {
+    name:        "Phulbani Superspeciality Clinic",
+    label:       "Community Superspeciality eClinic",       // small blue text above the name
+    tagline:     "Specialist care, connected locally.",
+    description: "Request online specialist consultations and find community healthcare support in and around Phulbani. This is a virtual service, not a physical clinic.",
+    bookingWhatsApp:   "",   // default number that receives appointment requests, e.g. "919876543210"
+    communityWhatsApp: "",   // coordinator number that receives "join group" requests
+    communityGroupInviteUrl: ""   // optional direct group link; shows an extra "Open group invitation" button
+  },
+
+  /* ===================== 3. LOGO / BRAND (header + footer) ===================== */
+  brand: {
+    name:    "Thomson Clinic",
+    tagline: "Mental Health & Neuroscience e-Clinic",     // "" hides the small line under the name
+    logo:    "assets/thomson-clinic-logo-header.png"
+  },
+
+  /* ===================== 4. HERO (top banner) ===================== */
+  hero: {
+    parentLine: "A digital community-care network by Thomson Clinic",   // "" to hide
+    note:       "Online coordination only · Provider availability and appointment requests must be confirmed directly.",
+    image:      "",       // optional: "assets/phulbani.jpg" shows a photo beside the text
+    imageAlt:   "",
+    buttons: [
+      // type: "book" (opens booking form) | "tab" (jumps to a tab) | "link" (goes to href)
+      // style: "primary" (blue) | "soft" (white) | "dark"
+      { label: "Book a specialist consultation", type: "book", style: "primary", enabled: true },
+      { label: "Find local service providers",   type: "tab",  target: "providersTab", style: "soft", enabled: true },
+      { label: "Join WhatsApp community",        type: "tab",  target: "communityTab", style: "soft", enabled: true }
+    ]
+  },
+
+  /* ===================== 5. SECTION HEADINGS (optional text edits) ===================== */
+  sections: {
+    services: { title: "Superspeciality services", intro: "Choose a service to request an online appointment." },
+    doctors:  { title: "Specialists",              intro: "" },
+    support:  { title: "Community support",        intro: "Find local providers, join the WhatsApp group, or see how the service works." },
+    faq:      { title: "Frequently asked questions", intro: "Important information about this online community service." }
+  },
+  text: {   // tab button labels
+    providersTab: "Local providers",
+    communityTab: "Join WhatsApp group",
+    howTab:       "How it works"
+  },
+
+  /* ===================== 6. SPECIALITY SERVICES (cards) =====================
+     Optional per item: image, link, linkLabel, buttonLabel, bookingWhatsApp (overrides default),
+                        bookable:false (card shown without a Book button)                        */
+  specialties: [
+    { name: "Psychiatry", description: "Assessment and treatment planning for mental health concerns, including mood, anxiety, sleep and addiction-related problems.", fee: "Confirm before booking", mode: "Online request", enabled: true },
+    { name: "Psychology & Therapy", description: "Psychological assessment, counselling and therapy pathways, subject to clinician availability.", fee: "Confirm before booking", mode: "Online request", enabled: true },
+    { name: "Neurology", description: "Request a specialist review for neurological concerns. The coordinator will confirm clinician availability.", fee: "Confirm before booking", mode: "Online request", enabled: true },
+    { name: "Internal Medicine", description: "Online review for general adult medical concerns where remote assessment is appropriate.", fee: "Confirm before booking", mode: "Online request", enabled: true },
+    { name: "Child & Adolescent Mental Health", description: "Assessment pathways for developmental, behavioural, emotional and mental health concerns in children and adolescents.", fee: "Confirm before booking", mode: "Online request", enabled: true },
+    { name: "Sleep & Addiction Care", description: "Specialist assessment pathways for sleep difficulties and substance-use concerns.", fee: "Confirm before booking", mode: "Online request", enabled: true }
+  ],
+
+  /* ===================== 7. DOCTORS =====================
+     Optional per item: photo, experience, languages, description, profileUrl, bookingWhatsApp, bookable:false
+     fee: a number (e.g. 500) shows "Consultation fee: ₹500"; text is shown as written.
+     sample:true shows the yellow DEMO note — delete it for real, verified doctors.          */
+  doctors: [
+    { name: "Dr A. Sample", specialty: "Psychiatry",       qualification: "Sample content only — replace with verified qualifications.", fee: "Confirm before booking", availability: "Not bookable until verified", photo: "", enabled: true, sample: true },
+    { name: "Dr B. Sample", specialty: "Neurology",        qualification: "Sample content only — replace with verified qualifications.", fee: "Confirm before booking", availability: "Not bookable until verified", photo: "", enabled: true, sample: true },
+    { name: "Dr C. Sample", specialty: "Internal Medicine", qualification: "Sample content only — replace with verified qualifications.", fee: "Confirm before booking", availability: "Not bookable until verified", photo: "", enabled: true, sample: true }
+  ],
+
+  /* ===================== 8. EMERGENCY NOTICE ===================== */
+  emergency: {
+    title: "In an emergency",
+    text:  "For a life-threatening emergency, call 112 or go to the nearest emergency department. This eClinic is not an emergency response service."
+  },
+
+  /* ===================== 9. BOOKING FORM ===================== */
+  booking: {
+    kicker: "Thomson Clinic eClinic",
+    title:  "Request an online consultation",
+    floatingLabel: "Book consultation",
+    reasonPlaceholder: "Avoid sharing highly sensitive medical details here.",
+    note: "This page does not store your details. WhatsApp will open with your request; review it and press Send. Your appointment is not confirmed until the provider responds.",
+    askDate: true, askTime: true, askReason: true      // false hides that field
+  },
+
+  /* ===================== 10. LOCAL PROVIDERS TAB ===================== */
+  providersSection: {
+    title: "Local service providers",
+    intro: "Select a category, then a provider.",
+    note:  "Please contact the provider to confirm current availability, fees, service coverage and any requirements before arranging care."
+  },
+
+  // Categories shown in the first dropdown (a category with no enabled providers is hidden automatically).
+  providerCategories: [
+    { key: "pharmacists",          label: "Pharmacists",            enabled: true },
+    { key: "phlebotomists",        label: "Phlebotomists",          enabled: true },
+    { key: "labTechnicians",       label: "Laboratory technicians", enabled: true },
+    { key: "nurses",               label: "Nurses",                 enabled: true },
+    { key: "medicalSocialWorkers", label: "Medical social workers", enabled: true },
+    { key: "pharmacies",           label: "Pharmacy partners",      enabled: true },
+    { key: "laboratories",         label: "Diagnostic laboratories", enabled: true }
+    // To add a category: add a line here AND a list with the same key in "providers" below.
+  ],
+
+  /* Providers per category. Fields (all optional except name):
+     role, qualification, description, phone, whatsapp, location, address, hours,
+     services (list), fees, languages (list), mapUrl, website, enabled, sample            */
+  providers: {
+
+    pharmacists: [
+      { name: "Sample — Community Pharmacist 01", role: "Pharmacist", qualification: "Add verified qualification and registration details.", phone: "", whatsapp: "", location: "Phulbani area — confirm coverage", address: "Add verified service address", hours: "Confirm directly", services: ["Prescription dispensing", "Medication-use information"], fees: "Confirm directly", languages: ["Odia", "Hindi"], description: "Illustrative entry only. Replace with a consenting, verified local pharmacist.", enabled: true, sample: true }
+    ],
+
+    phlebotomists: [
+      { name: "Sample — Home Sample Collection 01", role: "Phlebotomist", qualification: "Add verified training / qualification details.", phone: "", whatsapp: "", location: "Phulbani and nearby villages — confirm coverage", address: "By appointment; no clinic address", hours: "Confirm directly", services: ["Blood sample collection by appointment", "Pre-test instructions as directed by the laboratory"], fees: "Confirm directly", languages: ["Odia"], description: "Illustrative entry only. Verify identity, training, infection-control practices and coverage.", enabled: true, sample: true }
+    ],
+
+    labTechnicians: [
+      { name: "Sample — Laboratory Support 01", role: "Laboratory technician", qualification: "Add verified qualification details.", phone: "", whatsapp: "", location: "Phulbani area — confirm coverage", address: "Add verified laboratory or service address", hours: "Confirm directly", services: ["Sample handling / collection coordination", "Test preparation guidance"], fees: "Confirm directly", languages: ["Odia", "Hindi"], description: "Illustrative entry only. List only services supported by a verified laboratory.", enabled: true, sample: true }
+    ],
+
+    nurses: [
+      { name: "Sample — Community Nurse 01", role: "Nurse", qualification: "Add verified nursing qualification and registration details.", phone: "", whatsapp: "", location: "Phulbani area — confirm coverage", address: "Home visits only if specifically confirmed", hours: "By prior arrangement", services: ["Post-discharge support", "Basic nursing care assessment", "Caregiver guidance"], fees: "Confirm directly", languages: ["Odia", "Hindi"], description: "Illustrative entry only. Verify registration, scope of practice and availability.", enabled: true, sample: true }
+    ],
+
+    medicalSocialWorkers: [
+      { name: "Sample — Care Navigation 01", role: "Medical social worker", qualification: "Add verified qualification and experience.", phone: "", whatsapp: "", location: "Remote support for Phulbani-area residents", address: "Online / phone coordination only", hours: "By appointment", services: ["Care navigation", "Referral coordination", "Caregiver and social-support guidance"], fees: "Confirm directly", languages: ["Odia", "Hindi"], description: "Illustrative entry only. Replace with a verified professional.", enabled: true, sample: true }
+    ],
+
+    pharmacies: [
+      { name: "Sample — Local Pharmacy Partner 01", role: "Pharmacy partner", phone: "", whatsapp: "", location: "Phulbani area — add exact location", address: "Add verified pharmacy address", hours: "Confirm directly", services: ["Prescription fulfilment subject to prescription and stock", "Medicine availability enquiries"], fees: "Confirm prices and stock directly", description: "Illustrative entry only. Verify business identity, licence and contact details.", enabled: true, sample: true }
+    ],
+
+    laboratories: [
+      { name: "Sample — Diagnostic Lab Partner 01", role: "Diagnostic laboratory", phone: "", whatsapp: "", location: "Phulbani area — add exact location", address: "Add verified laboratory address", hours: "Confirm directly", services: ["Diagnostic testing as offered by the verified laboratory", "Home collection only if confirmed"], fees: "Confirm test price and collection charges directly", description: "Illustrative entry only. Verify laboratory identity, quality credentials and actual services.", enabled: true, sample: true }
+    ]
+  },
+
+  /* ===================== 11. WHATSAPP COMMUNITY TAB ===================== */
+  community: {
+    kicker: "Community updates",
+    title:  "Join the community WhatsApp group",
+    text:   "Submit your details and WhatsApp will open with a pre-filled message to the community coordinator. The coordinator can share the group invitation or confirm the next steps.",
+    bullets: [
+      "Receive community eClinic announcements",
+      "Learn about configured online specialist services",
+      "Find updates about local healthcare providers"
+    ],
+    note: "This form does not automatically add you to a WhatsApp group. It opens WhatsApp so you can send the request yourself.",
+    inviteLabel: "Open group invitation",
+    askArea: true,        // "Village / town" field
+    askInterest: true,    // interest dropdown
+    interests: ["General community updates", "Specialist consultations", "Nursing and home support", "Pharmacy and diagnostic services", "Health education"]
+  },
+
+  /* ===================== 12. HOW IT WORKS TAB (numbered automatically) ===================== */
+  howItWorks: [
+    { title: "Choose a service",       text: "Browse configured specialist consultations or select a local provider category.", enabled: true },
+    { title: "Send a request",         text: "Use the booking form or contact the provider using the listed details. WhatsApp opens with your message ready to send.", enabled: true },
+    { title: "Wait for confirmation",  text: "The provider or coordinator must confirm availability, fees, location and next steps. A WhatsApp message is not a confirmed appointment.", enabled: true },
+    { title: "Use emergency services when needed", text: "For a life-threatening emergency, call 112 or go to the nearest emergency department. Do not wait for an online response.", enabled: true }
+  ],
+
+  /* ===================== 13. FAQ ===================== */
+  faqs: [
+    { question: "Is there a physical clinic to visit?", answer: "No. This page represents a virtual community eClinic and provider directory. It does not represent a physical clinic address.", enabled: true },
+    { question: "Does submitting a WhatsApp message confirm my appointment?", answer: "No. It sends an appointment request. The clinician or coordinator must confirm availability and the appointment details.", enabled: true },
+    { question: "Are all listed services available every day?", answer: "Availability varies by provider and must be confirmed directly. Only configured services and providers are displayed.", enabled: true },
+    { question: "What should I do in an emergency?", answer: "For a life-threatening emergency, call 112 or attend the nearest emergency department. This eClinic is not an emergency response service.", enabled: true }
+  ],
+
+  /* ===================== 14. TOP NAVIGATION =====================
+     type: "book" (blue button) | "link" | "dropdown" (uses children) | "join" | "community"
+     "link" items pointing to a hidden section (e.g. #faq when FAQ is off) disappear automatically. */
+  nav: [
+    { label: "Book consultation", type: "book", enabled: true },
+    { label: "Professionals", type: "link", href: "#professionals", enabled: true },
+    { label: "FAQ", type: "link", href: "#faq", enabled: true },
+    { label: "Blog", type: "dropdown", href: "/blog/", enabled: true, children: [
+        { label: "Library",         href: "/blog/library/", enabled: true },
+        { label: "Patient Stories", href: "/blog/",         enabled: true }
+    ]},
+    { label: "Join our team", type: "join", enabled: true },
+    { label: "Start your community/rural clinic", type: "community", enabled: true }
+  ],
+
+  /* ===================== 15. FOOTER ===================== */
+  footer: {
+    description: "A specialized mental health and neuroscience e-Clinic, with a connected network of specialist medical clinics.",
+    copyright:   "Thomson Clinic",
+    poweredBy:   { label: "DoctorJet.in", url: "https://doctorjet.in" },     // label "" to hide
+    tagline:     "Mental Health · Neuroscience · Integrated Specialist Care",
+    columns: [
+      { heading: "Mental Health", enabled: true, links: [
+          { label: "Psychiatry",           href: "/#mental-health", enabled: true },
+          { label: "Psychology & Therapy", href: "/#mental-health", enabled: true },
+          { label: "Neuroscience",         href: "/#mental-health", enabled: true },
+          { label: "Sleep",                href: "/#mental-health", enabled: true },
+          { label: "Addiction",            href: "/#mental-health", enabled: true }
+      ]},
+      { heading: "Network", enabled: true, links: [
+          { label: "Doctors",    href: "/doctors/index.html", enabled: true },
+          { label: "Therapists", href: "/therapists/",        enabled: true },
+          { label: "Clinics",    href: "/clinics/",           enabled: true },
+          { label: "Specialties",href: "/#specialties",       enabled: true },
+          { label: "Start your community/rural clinic", type: "community", enabled: true }
+      ]},
+      { heading: "Thomson Clinic", enabled: true, links: [
+          { label: "How it works",      href: "#professionals", enabled: true },
+          { label: "FAQ",               href: "#faq",           enabled: true },
+          { label: "Patient stories",   href: "/blog/",         enabled: true },
+          { label: "Book consultation", type: "book",           enabled: true },
+          { label: "Contact",           href: "mailto:hello@thomsonclinic.com", enabled: true }
+      ]}
+    ]
+  }
+};
+window.ECLINIC_CONFIG = ECLINIC_CONFIG;
+</script>
+</body>
+</html>
