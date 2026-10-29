@@ -5712,10 +5712,11 @@ document
 <script src="../../assets/join-team.js" data-whatsapp-number="919438651947"></script>
 <script>
 /* =========================================================
-   TRIPLE-TAP VISITING CARD GENERATOR
+   TRIPLE-TAP VISITING CARD GENERATOR  (fully dynamic)
    Tap 3 times quickly anywhere on the doctor hero section
-   -> a visiting card PNG is generated and downloaded locally.
-   Paste just before </body>. Nothing else needs changing.
+   -> visiting card PNG is generated and downloaded locally.
+   Works on every profile with the same HTML structure.
+   Paste just before </body>.
    ========================================================= */
 (function () {
 
@@ -5739,7 +5740,14 @@ document
 
     function txt(sel, fallback) {
         var el = document.querySelector(sel);
-        return (el && el.textContent.trim()) || fallback;
+        return (el && el.textContent.replace(/\s+/g, " ").trim()) || fallback;
+    }
+
+    function firstLine(el) {
+        if (!el) return "";
+        var t = (el.innerText || el.textContent || "").split("\n")
+            .map(function (s) { return s.trim(); }).filter(Boolean);
+        return t[0] || "";
     }
 
     function rr(ctx, x, y, w, h, r) {
@@ -5750,23 +5758,6 @@ document
         ctx.arcTo(x, y + h, x, y, r);
         ctx.arcTo(x, y, x + w, y, r);
         ctx.closePath();
-    }
-
-    function icon(ctx, parts, cx, cy, size, color, fillIt) {
-        ctx.save();
-        var s = size / 24;
-        ctx.translate(cx - size / 2, cy - size / 2);
-        ctx.scale(s, s);
-        ctx.strokeStyle = color;
-        ctx.fillStyle = color;
-        ctx.lineWidth = 1.8;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        parts.forEach(function (d) {
-            var p = new Path2D(d);
-            if (fillIt) ctx.fill(p); else ctx.stroke(p);
-        });
-        ctx.restore();
     }
 
     function rect(x, y, w, h, r) {
@@ -5785,6 +5776,80 @@ document
         chat: ["M12 3a9 9 0 1 0 4.6 16.7L21 21l-1.3-4.4A9 9 0 0 0 12 3Z"],
         cal: [rect(3, 5, 18, 16, 3.5), "M3 10h18", "M8 3v4", "M16 3v4"]
     };
+
+    function icon(ctx, parts, cx, cy, size, color, fillIt) {
+        ctx.save();
+        var s = size / 24;
+        ctx.translate(cx - size / 2, cy - size / 2);
+        ctx.scale(s, s);
+        ctx.strokeStyle = color; ctx.fillStyle = color;
+        ctx.lineWidth = 1.8; ctx.lineCap = "round"; ctx.lineJoin = "round";
+        parts.forEach(function (d) {
+            var p = new Path2D(d);
+            if (fillIt) ctx.fill(p); else ctx.stroke(p);
+        });
+        ctx.restore();
+    }
+
+    /* shrink font until text fits maxW; returns size */
+    function fit(ctx, text, weight, size, maxW, family, minSize) {
+        var s = size;
+        while (s > (minSize || 14)) {
+            ctx.font = weight + " " + s + "px " + family;
+            if (ctx.measureText(text).width <= maxW) break;
+            s -= 1;
+        }
+        ctx.font = weight + " " + s + "px " + family;
+        return s;
+    }
+
+    /* ---------- read credentials from the profile ---------- */
+
+    function degreeRank(name) {
+        var n = name.toUpperCase();
+        if (/\b(DM|MCH|DRNB)\b/.test(n)) return 0;
+        if (/\b(MD|MS|DNB|MDS|MPHIL|PHD)\b/.test(n)) return 1;
+        if (/\b(DIPLOMA|DGO|DCH|DPM|DA|DORL)\b/.test(n)) return 2;
+        if (/\b(MBBS|BDS|BAMS|BHMS|BUMS|BPT)\b/.test(n)) return 3;
+        return 4;
+    }
+
+    function getCredentials() {
+        var list = [];
+        document.querySelectorAll(".qualification").forEach(function (q) {
+            var iconTxt = firstLine(q.querySelector(".qualification-icon"));
+            var name = firstLine(q.querySelector(".qualification-name"));
+            var sub = firstLine(q.querySelector(".qualification-detail"));
+            if (!name) return;
+            if (iconTxt === "+" || /training|fellowship|certificate|course|workshop/i.test(name)) return;
+            list.push({ name: name, sub: sub, rank: degreeRank(name) });
+        });
+
+        if (!list.length) {
+            /* fallback: parse "#doctorCredentials" -> "MD Psychiatry (AIIMS) · MBBS (X) · 4+ years" */
+            var raw = txt("#doctorCredentials", "");
+            raw.split("·").forEach(function (part) {
+                part = part.trim();
+                if (!part || /year/i.test(part)) return;
+                var m = part.match(/^(.*?)\s*\((.*)\)\s*$/);
+                list.push({
+                    name: m ? m[1].trim() : part,
+                    sub: m ? m[2].trim() : "",
+                    rank: degreeRank(part)
+                });
+            });
+        }
+
+        list.sort(function (a, b) { return a.rank - b.rank; });
+        return list.slice(0, 2);
+    }
+
+    function initials(name) {
+        var w = name.replace(/^(dr|prof)\.?\s+/i, "").split(/\s+/).filter(Boolean);
+        return ((w[0] || "D")[0] + ((w[1] || "")[0] || "")).toUpperCase();
+    }
+
+    /* ---------- async loaders ---------- */
 
     function loadPhoto() {
         return new Promise(function (resolve) {
@@ -5811,8 +5876,7 @@ document
                 });
             } catch (e) { holder.remove(); return resolve(null); }
             setTimeout(function () {
-                var c = holder.querySelector("canvas");
-                resolve({ canvas: c, cleanup: function () { holder.remove(); } });
+                resolve({ canvas: holder.querySelector("canvas"), cleanup: function () { holder.remove(); } });
             }, 80);
         });
     }
@@ -5828,7 +5892,11 @@ document
         ctx.scale(S, S);
         var FONT = '"Inter","SF Pro Display",-apple-system,"Helvetica Neue",Arial,sans-serif';
 
-        /* page background */
+        var name = txt("#doctorName", "Doctor");
+        var specialty = txt("#doctorSpecialty", "");
+        var creds = getCredentials();
+
+        /* background */
         var bg = ctx.createLinearGradient(0, 0, 0, H);
         bg.addColorStop(0, "#fdfdff"); bg.addColorStop(1, "#f7f9fc");
         ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
@@ -5839,7 +5907,6 @@ document
         rr(ctx, 28, 118, 1602, 720, 54); ctx.fillStyle = "#fff"; ctx.fill();
         ctx.restore();
 
-        /* soft decorative blob on right */
         ctx.save();
         rr(ctx, 28, 118, 1602, 720, 54); ctx.clip();
         ctx.fillStyle = "#f3f7fe";
@@ -5860,23 +5927,24 @@ document
             ctx.fillStyle = "#e6edf5"; ctx.fillRect(84, 174, 326, 340);
             ctx.fillStyle = "#405867"; ctx.font = "700 110px " + FONT;
             ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            ctx.fillText("BS", 247, 344);
+            ctx.fillText(initials(name), 247, 344);
         }
         ctx.restore();
 
-        /* name */
-        var name = txt("#doctorName", "Dr. Bishnu Prasad Sahoo");
+        /* name (auto-fit, leaves room for badge) */
         ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
-        ctx.fillStyle = "#0b1220"; ctx.font = "800 68px " + FONT;
+        ctx.fillStyle = "#0b1220";
         try { ctx.letterSpacing = "-2px"; } catch (e) {}
+        var nameSize = fit(ctx, name, 800, 68, 1290 - 457 - 70, FONT, 34);
         ctx.fillText(name, 457, 276);
         var nameW = ctx.measureText(name).width;
         try { ctx.letterSpacing = "0px"; } catch (e) {}
 
         /* verified badge */
+        var bs = nameSize / 68;
         ctx.save();
-        ctx.translate(457 + nameW + 18, 226);
-        ctx.scale(2.5, 2.5);
+        ctx.translate(457 + nameW + 18, 276 - 50 * bs);
+        ctx.scale(2.5 * bs, 2.5 * bs);
         ctx.translate(-2.4, -2.4);
         ctx.fillStyle = "#1D9BF0";
         ctx.fill(new Path2D("M12 2.8 14.05 4.2 16.45 4.1 17.55 6.25 19.65 7.45 19.45 9.85 20.6 12 19.45 14.15 19.65 16.55 17.55 17.75 16.45 19.9 14.05 19.8 12 21.2 9.95 19.8 7.55 19.9 6.45 17.75 4.35 16.55 4.55 14.15 3.4 12 4.55 9.85 4.35 7.45 6.45 6.25 7.55 4.1 9.95 4.2Z"));
@@ -5884,21 +5952,38 @@ document
         ctx.stroke(new Path2D("m7.9 12.1 2.65 2.55 5.55-5.7"));
         ctx.restore();
 
-        /* specialty */
-        ctx.fillStyle = "#1677ff"; ctx.font = "500 46px " + FONT;
-        ctx.fillText(txt("#doctorSpecialty", "Consultant Neuropsychiatrist"), 457, 340);
+        /* specialty (auto-fit) */
+        ctx.fillStyle = "#1677ff";
+        fit(ctx, specialty, 500, 46, 840, FONT, 26);
+        ctx.fillText(specialty, 457, 340);
 
-        /* credential pills */
-        function pill(x, w, ic, title, sub) {
-            rr(ctx, x, 381, w, 111, 38); ctx.fillStyle = "#eaf3ff"; ctx.fill();
-            icon(ctx, ICONS[ic], x + 54, 437, 56, "#1677ff", ic === "cap");
-            ctx.fillStyle = "#0b1220"; ctx.font = "700 29px " + FONT;
-            ctx.fillText(title, x + 111, 429);
-            ctx.fillStyle = "#2a3140"; ctx.font = "400 24px " + FONT;
-            ctx.fillText(sub, x + 111, 468);
+        /* credential pills - dynamic width & text */
+        var avail = 1262 - 457, gap = 18, k = 1, i, widths;
+        function measure(kk) {
+            return creds.map(function (c) {
+                ctx.font = "700 " + (29 * kk) + "px " + FONT;
+                var a = ctx.measureText(c.name).width;
+                ctx.font = "400 " + (24 * kk) + "px " + FONT;
+                var b = ctx.measureText(c.sub).width;
+                return Math.max(250, 111 + Math.max(a, b) + 36);
+            });
         }
-        pill(457, 365, "cap", "MD Psychiatry", "AIIMS, Bhubaneswar");
-        pill(840, 422, "steth", "MBBS", "SCB Medical College, Cuttack");
+        widths = measure(k);
+        while (k > 0.55 && widths.reduce(function (s, w) { return s + w; }, 0) + gap * (creds.length - 1) > avail) {
+            k -= 0.04; widths = measure(k);
+        }
+        var px = 457;
+        creds.forEach(function (c, idx) {
+            var w = widths[idx];
+            rr(ctx, px, 381, w, 111, 38); ctx.fillStyle = "#eaf3ff"; ctx.fill();
+            icon(ctx, ICONS[idx === 0 ? "cap" : "steth"], px + 54, 437, 56, "#1677ff", idx === 0);
+            ctx.textAlign = "left";
+            ctx.fillStyle = "#0b1220"; ctx.font = "700 " + (29 * k) + "px " + FONT;
+            ctx.fillText(c.name, px + 111, 429);
+            ctx.fillStyle = "#2a3140"; ctx.font = "400 " + (24 * k) + "px " + FONT;
+            ctx.fillText(c.sub, px + 111, 468);
+            px += w + gap;
+        });
 
         /* QR */
         ctx.save();
@@ -5908,7 +5993,7 @@ document
         ctx.strokeStyle = "#e6eaf0"; ctx.lineWidth = 2; rr(ctx, 1340, 191, 246, 252, 42); ctx.stroke();
         if (qr && qr.canvas) {
             ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(qr.canvas, 1366, 217, 194, 194 + 6);
+            ctx.drawImage(qr.canvas, 1366, 220, 194, 194);
             ctx.imageSmoothingEnabled = true;
         }
         ctx.textAlign = "center"; ctx.fillStyle = "#6b7280"; ctx.font = "400 25px " + FONT;
@@ -5916,18 +6001,16 @@ document
         ctx.fillText("Doctor's Profile", 1463, 505);
 
         /* stats */
-        var stats = [
-            { c: 212, ic: "brief", label: "EXPERIENCE", v: txt("#experience", "4+ Years") },
-            { c: 616, ic: "video", label: "CONSULTATION", v: "In-person & Online" },
-            { c: 1028, ic: "chat", label: "LANGUAGES", v: "English · Hindi" },
-            { c: 1422, ic: "cal", label: "APPOINTMENT", v: "By appointment" }
-        ];
         var qv = document.querySelectorAll(".quick-value");
-        if (qv.length >= 4) {
-            stats[1].v = qv[1].textContent.trim().replace(/\s+/g, " ");
-            stats[2].v = qv[2].textContent.trim().replace(/\s+/g, " ");
-            stats[3].v = qv[3].textContent.trim().replace(/\s+/g, " ");
+        function qval(i, fb) {
+            return qv[i] ? qv[i].textContent.replace(/\s+/g, " ").trim() : fb;
         }
+        var stats = [
+            { c: 212,  ic: "brief", label: "EXPERIENCE",   v: txt("#experience", qval(0, "")) },
+            { c: 616,  ic: "video", label: "CONSULTATION", v: qval(1, "") },
+            { c: 1028, ic: "chat",  label: "LANGUAGES",    v: qval(2, "") },
+            { c: 1422, ic: "cal",   label: "APPOINTMENT",  v: qval(3, "") }
+        ];
         stats.forEach(function (s) {
             ctx.beginPath(); ctx.arc(s.c, 628, 57, 0, Math.PI * 2);
             ctx.fillStyle = "#eaf3ff"; ctx.fill();
@@ -5937,7 +6020,8 @@ document
             try { ctx.letterSpacing = "2px"; } catch (e) {}
             ctx.fillText(s.label, s.c, 714);
             try { ctx.letterSpacing = "0px"; } catch (e) {}
-            ctx.fillStyle = "#0b1220"; ctx.font = "500 37px " + FONT;
+            ctx.fillStyle = "#0b1220";
+            fit(ctx, s.v, 500, 37, 370, FONT, 20);
             ctx.fillText(s.v, s.c, 766);
         });
 
@@ -5976,7 +6060,6 @@ document
         try {
             await save(draw(photo, qr, true));
         } catch (e) {
-            /* photo blocked (e.g. opened as local file) -> retry without it */
             try { await save(draw(photo, qr, false)); } catch (e2) { console.error("Visiting card failed:", e2); }
         }
         if (qr && qr.cleanup) qr.cleanup();
