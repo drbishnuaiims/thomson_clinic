@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f7">
+<title>Informed Consent | Thomson Clinic</title>
+<style>
+:root{--bg:#f5f5f7;--surface:rgba(255,255,255,.88);--ink:#171719;--muted:#68686f;--soft:#8b8b92;--line:rgba(0,0,0,.09);--accent:#405867;--accent-soft:#edf2f5;--green:#26785d;--shadow:0 12px 38px rgba(0,0,0,.055);--r:22px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.page{width:min(900px,calc(100% - 28px));margin:auto;padding:38px 0 70px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand{font-size:12px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.secure{font-size:11px;color:var(--green);background:#edf7f2;border:1px solid #dcefe5;border-radius:999px;padding:7px 11px}
+.hero{padding:30px;background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(244,247,249,.92));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);margin-bottom:16px}.eyebrow{color:var(--accent);font-size:11px;font-weight:750;letter-spacing:.11em;text-transform:uppercase}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.1;letter-spacing:-.045em;margin:8px 0 10px}.hero p{margin:0;color:var(--muted);max-width:680px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin:15px 0;box-shadow:var(--shadow);backdrop-filter:blur(18px)}.section-head{display:flex;gap:11px;align-items:flex-start;margin-bottom:14px}.num{width:32px;height:32px;flex:0 0 32px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:800}.section-head h2{margin:0;font-size:18px;letter-spacing:-.025em}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px}.field.full{grid-column:1/-1}label.field-label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#414147}.req{color:#a43d3d}.control{width:100%;min-height:40px;border:1px solid #dedee2;border-radius:12px;background:#fbfbfc;padding:10px 12px;color:var(--ink);outline:none;font-size:14px}.control:focus{border-color:#8093a0;box-shadow:0 0 0 3px rgba(64,88,103,.1);background:#fff}.hint{font-size:11px;color:var(--soft);margin-top:6px}.policy-note{padding:12px 14px;border:1px solid #e5d9c8;background:#fbf7f0;border-radius:13px;color:#6c5434;font-size:12px;margin-top:13px}.hidden-field{display:none!important}
+
+.choice-group{display:flex;flex-wrap:wrap;gap:6px}
+.choice{position:relative;min-height:36px;text-align:center;padding:7px 12px;border:1px solid #d9dce0;border-radius:999px;background:#f7f7f8;color:#4b4b51;font-size:12px;font-weight:600;line-height:1.25;transition:background .15s,border-color .15s,box-shadow .15s,color .15s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.choice small{display:inline;font-size:10px;font-weight:500;color:inherit;opacity:.78;margin:0}
+.choice.active{background:#304b5a;border-color:#304b5a;color:#fff;box-shadow:0 2px 7px rgba(48,75,90,.18)}
+.choice.active::before{content:"✓";font-size:11px;font-weight:800;line-height:1}
+.choice:focus-visible{outline:3px solid rgba(64,88,103,.2);outline-offset:2px}
+@media(max-width:620px){.choice-group{gap:5px}.choice{min-height:34px;padding:7px 10px;font-size:11px}.choice small{font-size:9px}}
+.consent-list{display:grid;gap:10px}.consent-item{display:flex;align-items:flex-start;gap:12px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(250,250,251,.85)}.consent-item input{width:18px;height:18px;flex:0 0 18px;margin:2px 0 0;accent-color:var(--accent)}.consent-item strong{display:block;font-size:13px;margin-bottom:3px}.consent-item span{display:block;color:var(--muted);font-size:12px;line-height:1.55}.notice{padding:14px 15px;background:#f4f7f9;border:1px solid #e2e9ed;border-radius:14px;color:#53636c;font-size:12px;margin-top:15px}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.upload{border:1px dashed #c8cbd0;border-radius:15px;padding:15px;background:#fafafb}.upload h3{font-size:13px;margin:0 0 4px}.upload p{font-size:11px;color:var(--muted);margin:0 0 12px}.upload input{width:100%;font-size:12px}.preview{display:none;max-width:150px;max-height:100px;object-fit:contain;margin-top:10px;border-radius:8px;background:white;border:1px solid var(--line)}.review{display:flex;align-items:flex-start;gap:10px;margin-top:16px;font-size:12px;color:var(--muted)}.review input{margin-top:3px;accent-color:var(--accent)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:13px;padding:13px 18px;font-weight:700;font-size:13px}.btn-primary{background:#171719;color:white;box-shadow:0 5px 14px rgba(0,0,0,.12);flex:1}.btn-secondary{background:#ececef;color:#333}.btn:disabled{opacity:.45;cursor:not-allowed}.footer{text-align:center;color:var(--soft);font-size:11px;margin-top:22px}.status{display:none;padding:13px 15px;border-radius:13px;background:#edf7f2;color:#24664e;font-size:13px;margin-top:15px}.error{display:none;padding:13px 15px;border-radius:13px;background:#fff1f0;color:#8d302a;font-size:13px;margin-top:15px}
+@media(max-width:620px){.page{width:calc(100% - 18px);padding-top:18px}.hero,.card{padding:19px;border-radius:20px}.grid,.upload-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.topline{align-items:flex-start}.actions{flex-direction:column}.btn-primary{flex:auto;width:100%}}
+@media print{body{background:#fff}.page{width:100%;padding:0}.topline,.actions,.footer{display:none}.hero,.card{box-shadow:none;break-inside:avoid}}
+
+/* Compact tap-to-select controls */
+.choice-group{display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-width:100%}
+.choice{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:32px;padding:6px 10px;border:1px solid #d8dde1;border-radius:999px;background:#f5f6f7;color:#42474b;font-size:11.5px;font-weight:650;line-height:1.2;white-space:normal;transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+.choice small{display:inline;font-size:9.5px;font-weight:500;color:inherit;opacity:.82;margin:0}
+.choice.active{background:#304b5a;border-color:#304b5a;color:#fff;box-shadow:0 1px 4px rgba(48,75,90,.18)}
+.choice.active::before{content:"✓";font-size:10px;font-weight:800;line-height:1}
+.choice:focus-visible{outline:3px solid rgba(64,88,103,.22);outline-offset:2px}
+@media(max-width:620px){.choice-group{gap:5px}.choice{min-height:30px;padding:6px 9px;font-size:10.8px}.choice small{font-size:9px}}
+
+
+.checklist-tools{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.btn-small{min-height:32px;padding:7px 11px;font-size:11px;border-radius:10px}
+.btn-quiet{background:transparent;border:1px solid var(--line);color:var(--muted)}
+#shareWhatsApp{display:none;margin-top:10px}
+
+
+/* Refined Apple-inspired interface: restrained surfaces, typography and spacing */
+:root{--bg:#fff;--surface:#fff;--ink:#1d1d1f;--muted:#6e6e73;--soft:#86868b;--line:#e5e5e7;--accent:#344b5a;--accent-soft:#f2f4f5;--shadow:none;--r:16px}
+body{background:#fff}
+.page{width:min(820px,calc(100% - 36px));padding:34px 0 64px}
+.topline{margin-bottom:28px}
+.brand{font-size:11px;letter-spacing:.14em;color:#333}
+.secure{background:#f5f5f7;border:0;color:#6e6e73}
+.hero{padding:10px 0 28px;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;margin-bottom:8px}
+.eyebrow{font-size:10px;color:#6e6e73;letter-spacing:.13em}
+.hero h1{font-size:clamp(30px,5vw,40px);font-weight:650;letter-spacing:-.05em}
+.hero p{font-size:13px;line-height:1.65}
+.card{padding:25px 0;margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:#fff;backdrop-filter:none}
+.section-head{margin-bottom:18px}
+.num{display:none}
+.section-head h2{font-size:17px;font-weight:650;letter-spacing:-.025em}
+.section-head p{font-size:12px}
+.control{background:#f5f5f7;border:1px solid transparent;border-radius:10px;min-height:42px}
+.control:focus{background:#fff;border-color:#9aabb5;box-shadow:0 0 0 3px rgba(52,75,90,.08)}
+.choice{background:#f5f5f7;border-color:transparent;color:#424245}
+.choice.active{background:#303f49;border-color:#303f49;box-shadow:none}
+.consent-item{background:#fff;border:1px solid #e8e8ea;border-radius:12px;padding:13px}
+.notice{background:#f5f5f7;border:0;border-radius:12px;color:#5f6368}
+.upload{background:#fff;border:1px solid #e5e5e7;border-radius:12px;padding:14px}
+.upload input{font-size:12px;max-width:100%}
+.preview{max-width:160px;max-height:110px}
+.full-upload{grid-column:1/-1}
+.privacy-upload-note{margin:9px 0 0!important;font-size:11px!important;color:#8a5b32!important;line-height:1.45}
+.btn-primary{background:#1d1d1f;box-shadow:none}
+.btn-secondary,.btn-quiet{background:#f5f5f7;border:0}
+.status,.error{border-radius:11px}
+.footer{font-size:10px}
+@media(max-width:620px){.page{width:calc(100% - 28px);padding-top:20px}.hero{padding-bottom:22px}.card{padding:21px 0}.full-upload{grid-column:auto}}
+\n
+#pdfPreviewScreen{padding:22px 0;border:0}
+#pdfPreviewScreen[hidden]{display:none}
+#pdfFrame{display:block;width:100%;height:min(76vh,900px);min-height:560px;border:1px solid #e5e5e7;border-radius:12px;background:#f5f5f7}
+.preview-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.preview-actions .btn-primary{flex:1}
+.preview-footnote{font-size:11px;color:#777;margin:10px 0 0}
+@media(max-width:620px){#pdfFrame{height:68vh;min-height:480px}.preview-actions{flex-direction:column}.preview-actions .btn{width:100%}}
+
+
+/* Final visual system: Apple-inspired system typography and restrained blue/black actions */
+:root{
+  --bg:#f5f5f7;
+  --surface:#ffffff;
+  --ink:#1d1d1f;
+  --muted:#6e6e73;
+  --soft:#86868b;
+  --line:#d2d2d7;
+  --accent:#0071e3;
+  --accent-soft:#eaf3ff;
+  --shadow:0 8px 28px rgba(0,0,0,.045);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:#1d1d1f;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  letter-spacing:-.012em;
+}
+.page{width:min(900px,calc(100% - 40px));padding:42px 0 72px}
+.brand{color:#1d1d1f;font-size:12px;font-weight:700;letter-spacing:.13em}
+.secure{color:#515154;background:#f0f0f2;border:1px solid #e5e5e7}
+.hero h1{color:#1d1d1f;letter-spacing:-.055em;font-weight:700}
+.hero p{color:#6e6e73;line-height:1.7}
+.section-head h2{color:#1d1d1f;font-weight:650;letter-spacing:-.035em}
+.section-head p,.hint,.footer{color:#6e6e73}
+label.field-label{color:#424245;font-weight:650}
+.control{background:#f5f5f7;border:1px solid transparent;color:#1d1d1f;border-radius:11px}
+.control:focus{border-color:#0071e3;box-shadow:0 0 0 3px rgba(0,113,227,.14)}
+.choice{background:#f5f5f7;border:1px solid transparent;color:#424245}
+.choice.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff;box-shadow:none}
+.consent-item{background:#fff;border:1px solid #e5e5e7}
+.consent-item input,.review input{accent-color:#0071e3}
+.notice{background:#f5f5f7;color:#515154;border:1px solid #e5e5e7}
+.upload{background:#fff;border:1px solid #e5e5e7}
+.btn{
+  min-height:44px;
+  border-radius:999px;
+  padding:12px 21px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:-.01em;
+  transition:background .15s ease,transform .15s ease,box-shadow .15s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:#0071e3;color:#fff;box-shadow:none}
+.btn-primary:hover{background:#0077ed}
+.btn-secondary{background:#1d1d1f;color:#fff;border:1px solid #1d1d1f}
+.btn-secondary:hover{background:#333336}
+.btn-quiet{background:#f5f5f7;color:#1d1d1f;border:1px solid #e5e5e7}
+#pdfPreviewScreen{
+  background:#fff;
+  border:1px solid #e5e5e7;
+  border-radius:20px;
+  padding:24px;
+  margin-top:22px;
+  box-shadow:0 12px 34px rgba(0,0,0,.055);
+}
+#pdfPreviewScreen .section-head{margin-bottom:16px}
+#pdfPreviewScreen .section-head h2{font-size:21px}
+#pdfPreviewScreen .section-head p{font-size:13px;line-height:1.55}
+#pdfFrame{
+  background:#f5f5f7;
+  border:1px solid #e5e5e7;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.035);
+}
+.preview-actions{display:flex;align-items:center;gap:10px;margin-top:16px}
+.preview-actions .btn{flex:0 0 auto}
+.preview-actions .btn-share{flex:1}
+#pdfPreviewScreen #shareWhatsApp{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:#0071e3;
+  border-color:#0071e3;
+  color:#fff;
+  margin-top:0;
+}
+#pdfPreviewScreen #shareWhatsApp:hover{background:#0077ed}
+.share-mark{font-size:17px;line-height:1;font-weight:500}
+.preview-footnote{color:#6e6e73;font-size:11px;line-height:1.55}
+.status{background:#eef6ff;color:#174f8a;border:1px solid #d9eaff}
+.error{background:#fff2f2;color:#a12622;border:1px solid #f4d7d7}
+@media(max-width:620px){
+  .page{width:calc(100% - 28px);padding:24px 0 52px}
+  #pdfPreviewScreen{padding:18px 14px;border-radius:16px}
+  .preview-actions{flex-direction:column;align-items:stretch}
+  .preview-actions .btn,.preview-actions .btn-share{width:100%;flex:1}
+}
+
+
+/* White-first professional finish and mobile layout refinement */
+:root{
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --ink:#1d1d1f;
+  --muted:#6e6e73;
+  --soft:#86868b;
+  --line:#e8e8ed;
+  --accent:#0071e3;
+  --accent-soft:#f2f7ff;
+  --shadow:0 3px 14px rgba(0,0,0,.035);
+}
+html,body{background:#fff!important}
+body{min-height:100vh;color:#1d1d1f}
+.page{width:min(900px,calc(100% - 48px));padding:36px 0 64px}
+.topline{padding-bottom:15px;border-bottom:1px solid #f0f0f2;margin-bottom:30px}
+.brand{font-size:12px;letter-spacing:.12em;color:#1d1d1f}
+.secure{background:#f7f9fc;color:#52606d;border:1px solid #e9edf2}
+.hero{
+  background:#fff;
+  border:0;
+  border-bottom:1px solid #ededf0;
+  border-radius:0;
+  box-shadow:none;
+  padding:5px 0 28px;
+  margin-bottom:8px;
+}
+.eyebrow{color:#0071e3}
+.hero h1{font-size:clamp(30px,5vw,43px);line-height:1.08}
+.hero p{max-width:760px;color:#65656b;font-size:14px}
+.card{
+  background:#fff;
+  border:1px solid #ededf0;
+  border-radius:17px;
+  padding:22px;
+  margin:16px 0;
+  box-shadow:0 3px 14px rgba(0,0,0,.035);
+}
+.section-head{margin-bottom:18px}
+.num{background:#f2f7ff;color:#0071e3}
+.grid{gap:14px 16px}
+.control{background:#fbfbfd;border:1px solid #e5e5ea;min-height:44px}
+.control:focus{background:#fff;border-color:#0071e3;box-shadow:0 0 0 3px rgba(0,113,227,.11)}
+.choice{background:#f7f8fa;border:1px solid #e9eaee;color:#424245}
+.choice.active{background:#1d1d1f;border-color:#1d1d1f;color:#fff}
+.consent-item{background:#fff;border:1px solid #e9e9ee}
+.notice{background:#f7faff;border:1px solid #e7effb;color:#52606d}
+.upload{background:#fff;border:1px solid #e5e7eb}
+.upload input{display:block;max-width:100%;padding:8px 0}
+.btn{min-height:46px}
+.btn-primary{background:#0071e3;color:#fff}
+.btn-secondary{background:#1d1d1f;color:#fff}
+.actions{gap:12px}
+.footer{padding-top:18px;border-top:1px solid #f0f0f2}
+#pdfPreviewScreen{background:#fff;border:1px solid #e9e9ee}
+#pdfFrame{background:#fff}
+.preview-footnote{color:#73737a}
+@media(max-width:700px){
+  .page{width:calc(100% - 32px);padding:24px 0 42px}
+  .topline{margin-bottom:22px;align-items:center}
+  .hero{padding:0 0 22px}
+  .hero h1{font-size:clamp(28px,8vw,36px)}
+  .hero p{font-size:13px;line-height:1.6}
+  .card{padding:18px 15px;margin:13px 0;border-radius:15px}
+  .section-head{gap:8px;margin-bottom:15px}
+  .section-head h2{font-size:16px}
+  .section-head p{font-size:11.5px}
+  .grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .field.full{grid-column:auto}
+  .upload-grid{grid-template-columns:minmax(0,1fr);gap:11px}
+  .full-upload{grid-column:auto}
+  .control{font-size:16px;min-height:46px}
+  .choice-group{gap:7px}
+  .choice{min-height:36px;padding:8px 11px;font-size:12px}
+  .consent-list{gap:8px}
+  .consent-item{padding:12px;gap:10px}
+  .consent-item strong{font-size:12.5px}
+  .consent-item span{font-size:11.5px}
+  .checklist-tools{gap:6px}
+  .actions{flex-direction:column;align-items:stretch}
+  .actions .btn{width:100%}
+  .btn{min-height:46px;font-size:13px}
+  #pdfPreviewScreen{padding:16px 12px}
+  #pdfFrame{width:100%;height:68vh;min-height:440px}
+  .preview-actions{flex-direction:column;align-items:stretch}
+  .preview-actions .btn,.preview-actions .btn-share{width:100%;flex:1}
+  .footer{font-size:10px;line-height:1.6}
+}
+@media(max-width:380px){
+  .page{width:calc(100% - 24px)}
+  .secure{font-size:10px;padding:6px 8px}
+  .brand{font-size:10px}
+  .card{padding:15px 12px}
+  .choice{font-size:11px;padding:7px 9px}
+}
+
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="topline"><div class="brand">Thomson Clinic</div><div class="secure">Informed consent · Patient form</div></div>
+  <header class="hero">
+    <div class="eyebrow">Psychiatry & Psychology Services</div>
+    
+    <h1>Informed consent for consultation</h1>
+    <p>This consent form is prepared with reference to the Government of India Telemedicine Practice Guidelines (2020) and the Telepsychiatry Operational Guidelines (2020). It is a clinic documentation aid, not a government-issued form or a substitute for the treating professional’s duties. Complete the relevant fields and acknowledgements to generate a consent PDF. Review it in your browser before sharing it with Thomson Clinic through WhatsApp. If anything needs correction, return to the form and generate a fresh PDF.</p>
+  </header>
+
+  <form id="consentForm" novalidate>
+    <section class="card">
+      <div class="section-head"><div class="num">01</div><div><h2>Patient details</h2><p>Fields marked * are required. Date and time are generated automatically.</p></div></div>
+      <div class="grid">
+        <div class="field"><label class="field-label" for="patientName">Patient's full name <span class="req">*</span></label><input class="control" id="patientName" name="patientName" autocomplete="name" required maxlength="120" placeholder="Patient’s full name"></div>
+        <div class="field"><label class="field-label" for="age">Age (years) <span class="req">*</span></label><input class="control" id="age" name="age" type="number" min="0" max="120" required></div>
+        <div class="field"><label class="field-label" for="representative">Parent / adult family member / guardian name <span class="req" id="representativeReq" style="display:none">*</span></label><input class="control" id="representative" name="representative" maxlength="120" placeholder="If applicable"></div>
+        <div class="field full">
+          <label class="field-label">Relationship to patient (if applicable)</label>
+          <div class="choice-group" role="group" aria-label="Relationship to patient">
+            <button class="choice active" type="button" data-choice-group="relationship" data-value="">Not applicable</button>
+            <button class="choice" type="button" data-choice-group="relationship" data-value="Self">Self</button>
+            <button class="choice" type="button" data-choice-group="relationship" data-value="Parent">Parent</button>
+            <button class="choice" type="button" data-choice-group="relationship" data-value="Legal guardian">Legal guardian</button>
+            <button class="choice" type="button" data-choice-group="relationship" data-value="Spouse">Spouse</button>
+            <button class="choice" type="button" data-choice-group="relationship" data-value="Other caregiver">Other caregiver</button>
+          </div>
+          <input type="hidden" id="relationship" name="relationship" value="">
+        </div>
+        <div class="field"><label class="field-label" for="location">Usual address / city and state <span class="req">*</span></label><input class="control" id="location" name="location" autocomplete="street-address" required maxlength="200" placeholder="City, district, state"></div>
+        <div class="field full">
+          <label class="field-label">Consultation mode <span class="req">*</span></label>
+          <div class="choice-group" role="group" aria-label="Consultation mode">
+            <button class="choice active" type="button" data-choice-group="mode" data-value="Online">Online <small>· Teleconsultation</small></button>
+            <button class="choice" type="button" data-choice-group="mode" data-value="In-person">In-person <small>· Clinic</small></button>
+          </div>
+          <input type="hidden" id="mode" name="mode" value="Online" required>
+        </div>
+        <div class="field full">
+          <label class="field-label">Professional <span class="req">*</span></label>
+          <div class="choice-group" role="group" aria-label="Professional">
+            <button class="choice active" type="button" data-choice-group="professional" data-value="Psychiatrist">Psychiatrist</button>
+            <button class="choice" type="button" data-choice-group="professional" data-value="Psychologist">Psychologist</button>
+          </div>
+          <input type="hidden" id="professional" name="professional" value="Psychiatrist" required>
+        </div>
+        <div class="field full">
+          <label class="field-label">Visit type <span class="req">*</span></label>
+          <div class="choice-group" role="group" aria-label="Visit type">
+            <button class="choice active" type="button" data-choice-group="visitType" data-value="First consultation">First consultation</button>
+            <button class="choice" type="button" data-choice-group="visitType" data-value="Follow-up consultation">Follow-up</button>
+          </div>
+          <input type="hidden" id="visitType" name="visitType" value="First consultation" required>
+        </div>
+        <div class="field full" id="onlineDetails">
+          <label class="field-label" for="patientCurrentLocation">Patient's current physical location during consultation <span class="req">*</span></label>
+          <input class="control" id="patientCurrentLocation" name="patientCurrentLocation" maxlength="200" placeholder="Full address / town, district, state">
+          <div class="hint">For online consultations, provide the location where you will physically be during the session. This helps the clinician respond appropriately if an urgent situation arises.</div>
+        </div>
+        <div class="field"><label class="field-label" for="contactNumber">Patient / representative mobile number <span class="req">*</span></label><input class="control" id="contactNumber" name="contactNumber" type="tel" autocomplete="tel" maxlength="20" required placeholder="Mobile number with country code"></div>
+        <div class="field"><label class="field-label" for="emergencyContact">Emergency contact name and phone <span class="req" id="emergencyReq">*</span></label><input class="control" id="emergencyContact" name="emergencyContact" maxlength="160" placeholder="Name and contact number"></div>
+        
+        <div class="field hidden-field" id="initiatorField"><label class="field-label" for="initiatedBy">Who initiated this teleconsultation? <span class="req">*</span></label><select class="control" id="initiatedBy" name="initiatedBy" required><option value="Patient">Patient</option><option value="Caregiver / family member">Caregiver / family member</option></select><div class="hint">Select the person who initiated the teleconsultation. If the patient initiated it, the patient’s name entered above will be reflected in the consent PDF.</div></div>
+        <div class="field"><label class="field-label" for="doctorName">Doctor you wish to consult <span class="req">*</span></label><input class="control" id="doctorName" name="doctorName" type="text" maxlength="120" required placeholder="Name of the doctor you wish to consult"></div>
+<div class="field"><label class="field-label" for="consentDate">Consent date & time (local device time)</label><input class="control" id="consentDate" readonly aria-readonly="true"></div>
+      </div>
+      <div class="notice">If the patient is a minor or cannot legally provide consent, the clinician must follow the applicable legal framework for consent, capacity and any authorised representative. An adult patient may ordinarily participate in a private teleconsultation without a family member or informant; no female informant is required solely because the patient is female. For a minor, an adult family member should be present as required by the Telemedicine Practice Guidelines. Where a patient may lack capacity to make the relevant healthcare decision, the clinician will assess capacity and follow the Mental Healthcare Act, 2017, including applicable nominated-representative/caregiver provisions. A spouse or caregiver is not automatically a legal substitute decision-maker.</div>
+    </section>
+
+    <section class="card">
+      <div class="section-head"><div class="num">02</div><div><h2>Consent checklist</h2>Select the applicable acknowledgements below. Required items are marked *. Use the selection controls to select mandatory items or all visible checklist items.</div></div>
+      
+      <div class="checklist-tools" role="group" aria-label="Consent checklist selection controls">
+        <button class="btn btn-secondary btn-small" type="button" id="selectMandatory">Select all mandatory</button>
+        <button class="btn btn-secondary btn-small" type="button" id="selectAllConsent">Select all checklist items</button>
+        <button class="btn btn-quiet btn-small" type="button" id="clearConsent">Clear selections</button>
+      </div>
+      <div class="consent-list">
+        <label class="consent-item" id="explicitConsentItem" style="display:none"><input type="checkbox" name="c_explicit" id="cExplicit"><span><strong>Explicit consent for a consultation initiated by someone other than the patient</strong>I, the patient, expressly agree to proceed with this telemedicine consultation, which was initiated by the RMP, healthcare worker or caregiver/family member. I understand the purpose and nature of the consultation and may ask questions or decline. If the patient cannot legally provide consent, the clinician must obtain and document consent through the legally appropriate nominated representative/caregiver process instead.</span></label>
+        
+        <label class="consent-item"><input type="checkbox" name="c_identity" required><span><strong>Identity and details <b class="req">*</b></strong>I confirm that the details I have provided are accurate. I understand the clinician may verify my identity and age and may ask whether anyone else is present. An adult patient may ordinarily participate independently; a female informant is not required solely because the patient is female. For minors, an adult family member should be present.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_assessment" required><span><strong>Consultation and assessment <b class="req">*</b></strong>I consent to a mental health consultation, which may include discussion of symptoms, personal and family history, relevant psychosocial factors, and appropriate assessment or screening.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_discussion" required><span><strong>Clinical explanation and care options <b class="req">*</b></strong>I understand that the professional may explain a provisional or confirmed assessment, recommended treatment options, expected benefits, material risks, alternatives, and follow-up needs relevant to my case.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_voluntary" required><span><strong>Voluntary participation and questions <b class="req">*</b></strong>I have had an opportunity to ask questions. I understand that I may decline or withdraw consent, subject to applicable law and any immediate safety obligations, and discuss the implications with the professional.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_confidentiality" required><span><strong>Confidentiality and its limits <b class="req">*</b></strong>I understand that my information will be handled confidentially, but disclosure may be required or permitted by law or professional duties, including certain serious safety risks, safeguarding concerns, or a valid legal order.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_records" required><span><strong>Clinical documentation and record handling <b class="req">*</b></strong>I consent to relevant information being documented and processed for care, continuity, administration, and lawful record-keeping. I understand that electronic communication may carry privacy risks.</span></label>
+        <label class="consent-item" id="teleConsentItem"><input type="checkbox" name="c_tele" id="cTele"><span><strong>Online consultation and technology risks (required for online visits)</strong>I consent to consultation by the selected electronic mode. I understand its potential benefits and limitations, including technical failure, reduced ability to examine me, and privacy risks from devices, networks or people nearby. I will try to use a private place and a secure connection.</span></label>
+        <label class="consent-item" id="emergencyConsentItem"><input type="checkbox" name="c_emergency" id="cEmergency"><span><strong>Emergency plan and in-person referral (required for online visits)</strong>I understand that an online consultation is not an emergency service. If there is immediate danger, severe deterioration or a need for urgent physical assessment, I should contact local emergency services or go to the nearest emergency department. The clinician may advise or arrange in-person assessment when clinically necessary.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_recording"><span><strong>Audio/video recording</strong>I understand that the consultation will not be audio- or video-recorded by either party unless separate, explicit consent is obtained and recording is lawful and appropriate.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_electronic"><span><strong>Electronic communication (optional)</strong>I agree to receive consultation-related communication or documents through the contact method I have chosen, understanding that shared devices and messaging platforms may affect privacy.</span></label>
+        <label class="consent-item"><input type="checkbox" name="c_photo"><span><strong>Patient photograph (optional)</strong>If I upload a photograph, I understand it will be included in this consent PDF for identification/record association and shared only through the workflow I initiate. It is not required for consent.</span></label>
+      </div>
+      <div class="notice"><strong>Clinical and regulatory note:</strong> This form is a clinic documentation aid informed by India’s Telemedicine Practice Guidelines (2020) and Telepsychiatry Operational Guidelines (2020). The RMP must independently verify identity, assess capacity and suitability, document implied or explicit consent as applicable, maintain records and arrange in-person or emergency referral when clinically indicated. The treating professional remains responsible for confirming suitability of teleconsultation, documenting the consultation, prescribing only as permitted, and arranging in-person/emergency referral when needed. The clinic should obtain legal and clinical review before deployment.</div>
+    </section>
+
+    <section class="card">
+      <div class="section-head"><div class="num">03</div><div><h2>Photograph and signature</h2><p>The PDF places the photo at the top, signature near the bottom and optional Aadhaar image below the signature.</p></div></div>
+      <div class="upload-grid">
+        <div class="upload"><h3>Patient photograph <span style="font-weight:400;color:var(--muted)">(optional)</span></h3><p>JPG or PNG; preferably under 5 MB.</p><input id="patientPhoto" type="file" accept="image/jpeg,image/png"><img class="preview" id="photoPreview" alt="Patient photo preview"></div>
+        <div class="upload"><h3>Photograph of signature <span class="req">*</span></h3><p>Upload a clear image of the patient's or authorised representative's signature; preferably under 5 MB.</p><input id="signaturePhoto" type="file" accept="image/jpeg,image/png" required><img class="preview" id="signaturePreview" alt="Signature preview"></div>
+        <div class="upload full-upload"><h3>Masked Aadhaar image <span style="font-weight:400;color:var(--muted)">(optional)</span></h3><p>Upload a JPG or PNG image of the masked Aadhaar only. The image will appear in the generated PDF immediately below the signature section.</p><input id="aadhaarPhoto" type="file" accept="image/jpeg,image/png"><img class="preview" id="aadhaarPreview" alt="Aadhaar image preview"><p class="privacy-upload-note">Optional. Upload a masked Aadhaar only. Do not upload an unmasked Aadhaar image. The image will be included in the PDF and visible to anyone who receives it.</p><label class="review"><input type="checkbox" id="maskedAadhaarConfirm"><span>I confirm that this upload is a <strong>masked Aadhaar</strong>. <span class="req">Required only when an Aadhaar image is uploaded.</span></span></label></div>
+      </div>
+      <label class="review"><input type="checkbox" id="declaration" required><span>I confirm that the information provided is accurate to the best of my knowledge, that I have read or had explained the consent statements above, and that the consent choices I selected reflect my decision for this consultation. <b class="req">*</b></span></label>
+      <div class="hint">Uploading a signature image is an electronic acknowledgement for this workflow; it does not by itself guarantee legal validity or identity verification.</div>
+    </section>
+
+    <section class="card">
+      <div class="section-head"><div class="num">04</div><div><h2>Generate and share consent</h2><p>Generate the PDF and review it in your browser. If anything needs correction, return to the form and generate a fresh consent PDF before sharing.</p></div></div>
+      <div class="grid">
+        <div class="field"><label class="field-label">Consent reference</label><input class="control" id="reference" readonly></div>
+        <div class="field"><label class="field-label">Timestamp</label><input class="control" id="timestampBottom" readonly></div>
+      </div>
+      <div class="notice"> <strong>Privacy and data handling:</strong> This standalone form does not save form entries in browser storage, does not submit information to Thomson Clinic or any database, and does not send the entered details to a server. Entries and uploaded images, including any Aadhaar image, are held temporarily in the active page session only to generate the PDF locally. No appointment, consultation request or patient information is automatically submitted. The PDF is saved only when you choose to download it. The Aadhaar image, if uploaded, must be a masked Aadhaar and becomes part of the PDF. Review the PDF in the browser. If any correction is needed, return to the form and generate a fresh PDF. WhatsApp sharing is user-initiated; you must manually attach the downloaded PDF. The PDF library is loaded from a third-party CDN, which may receive ordinary connection metadata; form fields are not sent to that CDN.</div>
+      <div id="errorBox" class="error" role="alert"></div><div id="statusBox" class="status" role="status"></div>
+      <div class="actions"><button class="btn btn-primary" id="submitBtn" type="submit">Generate PDF for preview</button></div>
+    </section>
+  </form>
+  <section id="pdfPreviewScreen" class="card preview-screen" hidden aria-label="Consent PDF preview">
+    <div class="section-head"><div><h2>Review your consent PDF</h2><p>Check the document carefully before sharing. If you need to change anything, return to the form and generate a fresh PDF.</p></div></div>
+    <iframe id="pdfFrame" title="Generated consent PDF preview"></iframe>
+    <div class="preview-actions">
+      <button class="btn btn-secondary" type="button" id="editConsent">Edit consent</button>
+      <button class="btn btn-secondary" type="button" id="downloadConsent">Download PDF</button>
+      <button class="btn btn-primary btn-share" type="button" id="shareWhatsApp"><span class="share-mark" aria-hidden="true">↗</span> Share PDF with Thomson Clinic</button>
+    </div>
+    <p class="preview-footnote">On supported mobile browsers, choose WhatsApp from the device share menu to share the PDF attachment. If file sharing is unavailable, the PDF will download and WhatsApp will open; attach the downloaded file manually.</p>
+  </section>
+  <div class="footer">Thomson Clinic · This page generates a PDF only; it does not submit a consultation request or transmit your form entries.</div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(() => {
+  "use strict";
+  // Thomson Clinic WhatsApp: +91 94384 50966 (international format, digits only).
+  const WHATSAPP_NUMBER = "919438450966";
+  const form = document.getElementById("consentForm");
+  const dateInput = document.getElementById("consentDate");
+  const timestampBottom = document.getElementById("timestampBottom");
+  const referenceInput = document.getElementById("reference");
+  const errorBox = document.getElementById("errorBox");
+  const statusBox = document.getElementById("statusBox");
+  let generatedPdfUrl = null;
+  let generatedPdfBlob = null;
+  let generatedPdfFilename = null;
+  const previewScreen = document.getElementById("pdfPreviewScreen");
+  const pdfFrame = document.getElementById("pdfFrame");
+  function showPdfPreview(blob, filename){
+    if(generatedPdfUrl) URL.revokeObjectURL(generatedPdfUrl);
+    generatedPdfBlob = blob;
+    generatedPdfUrl = URL.createObjectURL(blob);
+    generatedPdfFilename = filename;
+    pdfFrame.src = generatedPdfUrl;
+    form.hidden = true;
+    previewScreen.hidden = false;
+    previewScreen.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function returnToForm(){
+    previewScreen.hidden = true;
+    form.hidden = false;
+    currentReference = makeReference();
+    referenceInput.value = currentReference;
+    updateClock();
+    form.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function nowString(){ return new Date().toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"medium",hour12:true}); }
+  function makeReference(){
+    const d = new Date();
+    const stamp = [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("");
+    const rand = crypto && crypto.randomUUID ? crypto.randomUUID().split("-")[0].toUpperCase() : Math.random().toString(36).slice(2,10).toUpperCase();
+    return "TC-" + stamp + "-" + rand;
+  }
+  let currentReference = makeReference();
+  function updateClock(){ const n=nowString(); dateInput.value=n; timestampBottom.value=n; }
+  updateClock(); referenceInput.value=currentReference;
+
+  // Tap-ready segmented selections: mode, professional and visit type.
+  document.querySelectorAll("[data-choice-group]").forEach(button => {
+    button.addEventListener("click", () => {
+      const group = button.dataset.choiceGroup;
+      document.querySelectorAll(`[data-choice-group="${group}"]`).forEach(b => {
+        b.classList.toggle("active", b === button);
+        b.setAttribute("aria-pressed", b === button ? "true" : "false");
+      });
+      document.getElementById(group).value = button.dataset.value;
+      if (group === "mode") updateModeRequirements();
+    });
+  });
+  function updateModeRequirements(){
+    const online = document.getElementById("mode").value === "Online";
+    const currentLoc = document.getElementById("patientCurrentLocation");
+    currentLoc.required = online;
+    document.getElementById("emergencyContact").required = online;
+    document.getElementById("emergencyReq").style.display = online ? "inline" : "none";
+    document.getElementById("onlineDetails").style.display = online ? "" : "none";
+    currentLoc.disabled = !online;
+    document.getElementById("teleConsentItem").style.display = online ? "" : "none";
+    document.getElementById("emergencyConsentItem").style.display = online ? "" : "none";
+    document.getElementById("cTele").required = online;
+    document.getElementById("cEmergency").required = online;
+    document.getElementById("initiatorField").classList.toggle("hidden-field", !online);
+    document.getElementById("initiatedBy").required = online;
+    if(!online){
+      document.getElementById("cTele").checked=false;
+      document.getElementById("cEmergency").checked=false;
+      document.getElementById("initiatedBy").value="";
+    } else if(!document.getElementById("initiatedBy").value){
+      document.getElementById("initiatedBy").value="Patient";
+    }
+    if(typeof updateInitiatorConsent === "function") updateInitiatorConsent();
+  }
+  updateModeRequirements();
+
+  const patientNameInput = document.getElementById("patientName");
+  const initiatedBySelect = document.getElementById("initiatedBy");
+  function syncPatientInitiator(){
+    if(!initiatedBySelect.value) initiatedBySelect.value = "Patient";
+    updateInitiatorConsent();
+  }
+  patientNameInput.addEventListener("input", syncPatientInitiator);
+  syncPatientInitiator();
+
+  function updateMinorRepresentativeRequirement(){
+    const age = Number(document.getElementById("age").value);
+    const minor = Number.isFinite(age) && document.getElementById("age").value !== "" && age < 18;
+    const representative = document.getElementById("representative");
+    representative.required = minor;
+    representative.placeholder = minor ? "Parent / adult family member / guardian name" : "If applicable";
+    document.getElementById("representativeReq").style.display = minor ? "inline" : "none";
+  }
+  document.getElementById("age").addEventListener("input", updateMinorRepresentativeRequirement);
+  updateMinorRepresentativeRequirement();
+
+  function updateInitiatorConsent(){
+    const initiator = document.getElementById("initiatedBy").value;
+    const required = !!initiator && initiator !== "Patient";
+    const item = document.getElementById("explicitConsentItem");
+    const checkbox = document.getElementById("cExplicit");
+    item.style.display = required ? "" : "none";
+    checkbox.required = required;
+    if(!required) checkbox.checked = false;
+  }
+  document.getElementById("initiatedBy").addEventListener("change", updateInitiatorConsent);
+  updateInitiatorConsent();
+
+  updateInitiatorConsent();
+
+  // Checklist convenience controls. "Mandatory" means all currently required, visible consent ticks.
+  const consentCheckboxes = Array.from(form.querySelectorAll('.consent-item input[type="checkbox"]'));
+  document.getElementById("selectMandatory").addEventListener("click", () => {
+    consentCheckboxes.forEach(cb => {
+      const item = cb.closest(".consent-item");
+      cb.checked = cb.required && item && item.offsetParent !== null;
+    });
+  });
+  document.getElementById("selectAllConsent").addEventListener("click", () => {
+    consentCheckboxes.forEach(cb => {
+      const item = cb.closest(".consent-item");
+      cb.checked = !!(item && item.offsetParent !== null);
+    });
+  });
+  document.getElementById("clearConsent").addEventListener("click", () => {
+    consentCheckboxes.forEach(cb => cb.checked = false);
+  });
+
+  // Form values remain in memory only while this page is open; nothing is saved to browser storage.
+  // Form values remain in memory only while this page is open; nothing is saved to browser storage.
+function showError(msg){ errorBox.textContent=msg; errorBox.style.display="block"; statusBox.style.display="none"; }
+  function hideError(){ errorBox.style.display="none"; }
+  function showStatus(msg){ statusBox.textContent=msg; statusBox.style.display="block"; }
+  function fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});}
+  function imageDimensions(dataUrl){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve({img,w:img.naturalWidth,h:img.naturalHeight});img.onerror=reject;img.src=dataUrl;});}
+  function addImageFit(doc,dataUrl,x,y,maxW,maxH){
+    return imageDimensions(dataUrl).then(({img,w,h})=>{
+      const ratio=Math.min(maxW/w,maxH/h); const iw=w*ratio, ih=h*ratio;
+      const type=dataUrl.startsWith("data:image/png")?"PNG":"JPEG";
+      doc.addImage(dataUrl,type,x+(maxW-iw)/2,y+(maxH-ih)/2,iw,ih,undefined,"FAST");
+    });
+  }
+  function checkedItems(){
+    const labels=[];
+    form.querySelectorAll(".consent-item").forEach(item=>{
+      const cb=item.querySelector('input[type="checkbox"]');
+      if(cb && cb.checked) labels.push(item.querySelector("strong").innerText.replace(/\s*\*/g,"").trim());
+    });
+    return labels;
+  }
+  function addWrapped(doc,text,x,y,width,lineHeight=5){
+    const lines=doc.splitTextToSize(String(text || "Not provided"),width);
+    if(y+lines.length*lineHeight>278){doc.addPage();y=18;}
+    doc.text(lines,x,y); return y+lines.length*lineHeight;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault(); hideError(); updateClock();
+    if(!form.checkValidity()){ form.reportValidity(); showError("Please complete all required fields, consent ticks, declaration and signature upload."); return; }
+    const signatureFile=document.getElementById("signaturePhoto").files[0];
+    const photoFile=document.getElementById("patientPhoto").files[0];
+    const aadhaarFile=document.getElementById("aadhaarPhoto").files[0];
+    const maxBytes=5*1024*1024;
+    if(!signatureFile){showError("A signature image is required.");return;}
+    if(aadhaarFile && !document.getElementById("maskedAadhaarConfirm").checked){showError("Please confirm that the uploaded Aadhaar image is masked.");return;}
+    for(const f of [signatureFile,photoFile,aadhaarFile].filter(Boolean)){
+      if(!/^image\/(jpeg|png)$/.test(f.type)){showError("Please upload JPG or PNG image files only.");return;}
+      if(f.size>maxBytes){showError("Each image must be 5 MB or smaller.");return;}
+    }
+    const btn=document.getElementById("submitBtn"); btn.disabled=true; btn.textContent="Preparing consent PDF…";
+    try{
+      if(!window.jspdf || !window.jspdf.jsPDF) throw new Error("The PDF library did not load. Check your internet connection and try again.");
+      const patientPhoto=photoFile ? await fileToDataURL(photoFile) : null;
+      const signature=await fileToDataURL(signatureFile);
+      const aadhaarImage=aadhaarFile ? await fileToDataURL(aadhaarFile) : null;
+      const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:"mm",format:"a4"});
+      const pageW=210, pageH=297, m=12, right=198, usable=186;
+      const patientName=document.getElementById("patientName").value.trim();
+      const mode=document.getElementById("mode").value;
+      // One-page, print-ready consent sheet. Signature is anchored at the bottom.
+      doc.setFillColor(246,247,248); doc.rect(0,0,pageW,pageH,"F");
+      doc.setFillColor(255,255,255); doc.roundedRect(7,7,196,283,3,3,"F");
+      doc.setTextColor(48,75,90); doc.setFont("helvetica","bold"); doc.setFontSize(10);
+      doc.text("THOMSON CLINIC",m,16);
+      doc.setTextColor(25,25,28); doc.setFontSize(15); doc.text("INFORMED CONSENT",m,24);
+      doc.setFont("helvetica","normal"); doc.setFontSize(8); doc.setTextColor(90,90,96);
+      doc.text("Psychiatry & Psychology Consultation",m,29);
+      doc.setFont("helvetica","bold"); doc.setFontSize(8.5); doc.setTextColor(48,75,90);
+      doc.text(document.getElementById("doctorName").value.trim() || "Not specified",m,35);
+      doc.setFont("helvetica","normal"); doc.setTextColor(70,70,75); doc.text("Consulting clinician · Thomson Clinic",m,39);
+      doc.setFontSize(7.5); doc.text("Ref: "+currentReference, m,45);
+      doc.text("Date/time: "+nowString(), 105,45);
+
+      // Photo at top right; if absent, a clearly labelled placeholder is printed.
+      const photoX=164, photoY=12, photoW=31, photoH=34;
+      doc.setDrawColor(190,196,201); doc.setFillColor(250,251,252); doc.roundedRect(photoX,photoY,photoW,photoH,1.5,1.5,"FD");
+      if(patientPhoto){ await addImageFit(doc,patientPhoto,photoX+1,photoY+1,photoW-2,photoH-2); }
+      else {
+        doc.setTextColor(135,140,145); doc.setFont("helvetica","normal"); doc.setFontSize(7);
+        doc.text("PATIENT",photoX+photoW/2,photoY+14,{align:"center"});
+        doc.text("PHOTO",photoX+photoW/2,photoY+19,{align:"center"});
+        doc.setFontSize(5.8); doc.text("Not provided",photoX+photoW/2,photoY+25,{align:"center"});
+      }
+
+      let y=52;
+      function sectionTitle(title){
+        doc.setFillColor(238,242,245); doc.roundedRect(m,y,usable,5.5,1,1,"F");
+        doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.setTextColor(48,75,90); doc.text(title,m+2,y+3.8);
+        y+=8;
+      }
+      function pair(label,value,x,yy,valueX,maxW){
+        doc.setFont("helvetica","bold");doc.setFontSize(7.4);doc.setTextColor(65,65,70);doc.text(label,x,yy);
+        doc.setFont("helvetica","normal");doc.setTextColor(25,25,28);
+        const lines=doc.splitTextToSize(String(value||"Not provided"),maxW);
+        doc.text(lines,valueX,yy);
+        return Math.max(4.3,lines.length*3.3);
+      }
+      sectionTitle("PATIENT & CONSULTATION DETAILS");
+      const rowGap=5.2;
+      const leftX=m+1, midX=105, leftVal=leftX+31, rightVal=midX+27;
+      y+=0.3;
+      let h1=pair("Patient",patientName,leftX,y,leftVal,57);
+      let h2=pair("Age",document.getElementById("age").value+" years",midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      h1=pair("Initiated by",mode==="Online" ? (document.getElementById("initiatedBy").value==="Patient" ? `${patientName} (Patient)` : "Caregiver / family member") : "Not applicable",leftX,y,leftVal,57);
+      h2=pair("Doctor",document.getElementById("doctorName").value.trim(),midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      h1=pair("Professional",document.getElementById("professional").value,leftX,y,leftVal,57);
+      h2=pair("Visit type",document.getElementById("visitType").value,midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      h1=pair("Parent/guardian",document.getElementById("representative").value.trim()||"Not provided",leftX,y,leftVal,57);
+      h2=pair("Relationship",document.getElementById("relationship").value||"Not provided",midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      h1=pair("Mobile",document.getElementById("contactNumber").value.trim(),leftX,y,leftVal,57);
+      h2=pair("Contact",document.getElementById("contactNumber").value.trim(),midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      h1=pair("Address",document.getElementById("location").value.trim(),leftX,y,leftVal,57);
+      h2=pair("Consultation",mode,midX,y,rightVal,63); y+=Math.max(h1,h2,rowGap);
+      if(mode==="Online"){
+        h1=pair("Current location",document.getElementById("patientCurrentLocation").value.trim(),leftX,y,leftVal,57);
+        h2=pair("Emergency contact",document.getElementById("emergencyContact").value.trim(),midX,y,rightVal,63);
+        y+=Math.max(h1,h2,rowGap);
+      }
+
+      y+=1; sectionTitle("CONSENT ACKNOWLEDGEMENTS");
+      doc.setFont("helvetica","normal"); doc.setFontSize(7.1); doc.setTextColor(35,35,38);
+      // Include each ticked consent item as a compact paragraph in the PDF.
+      // Heading and description are extracted from the exact visible checklist wording.
+      const consentBoxes = Array.from(form.querySelectorAll('.consent-item input[type="checkbox"]'));
+      for(const cb of consentBoxes){
+        if(!cb.checked) continue;
+        const item = cb.closest(".consent-item");
+        const headingEl = item ? item.querySelector("strong") : null;
+        const spanEl = item ? item.querySelector("span") : null;
+        const heading = headingEl ? headingEl.innerText.replace(/\s*\*/g,"").replace(/\s+/g," ").trim() : cb.name;
+        let description = spanEl ? spanEl.innerText : "";
+        if(headingEl && description.startsWith(headingEl.innerText)){
+          description = description.slice(headingEl.innerText.length);
+        }
+        description = description.replace(/\s+/g," ").trim();
+        doc.setFont("helvetica","bold"); doc.setFontSize(6.4); doc.setTextColor(48,75,90);
+        const headLines = doc.splitTextToSize(heading, usable-3);
+        doc.text(headLines,m+1,y); y += headLines.length*2.7;
+        if(description){
+          doc.setFont("helvetica","normal"); doc.setFontSize(6.0); doc.setTextColor(35,35,38);
+          const descLines = doc.splitTextToSize(description, usable-5);
+          doc.text(descLines,m+2,y); y += descLines.length*2.55;
+        }
+        y += 0.55;
+      }
+      const electronicChoice = form.querySelector('input[name="c_electronic"]').checked ? "AGREED" : "NOT AGREED";
+      const photoChoice = form.querySelector('input[name="c_photo"]').checked ? "CONSENT GIVEN" : "CONSENT NOT GIVEN";
+      doc.setFont("helvetica","bold");doc.setFontSize(7.1);doc.setTextColor(48,75,90);
+      doc.text("Electronic communication: "+electronicChoice+"     Patient-photo consent: "+photoChoice,m+1,y);
+      y+=4.2;
+
+
+      doc.setFont("helvetica","normal");doc.setFontSize(7);doc.setTextColor(75,75,80);
+      const declaration="Declaration: I have read or had explained the above information, had an opportunity to ask questions, and confirm that my consent choices reflect my decision for this consultation.";
+      const declLines=doc.splitTextToSize(declaration,usable);
+      doc.text(declLines,m,y); y+=declLines.length*3.2+2;
+      doc.setDrawColor(220,224,228);doc.line(m,y,right,y); y+=4;
+      doc.setFont("helvetica","bold");doc.setFontSize(7.5);doc.setTextColor(48,75,90);
+      doc.text("SIGNATURE OF PATIENT / AUTHORISED REPRESENTATIVE",m,y); y+=2;
+      const sigY=235, sigW=60, sigH=19;
+      doc.setDrawColor(185,190,195);doc.roundedRect(m,sigY,sigW,sigH,1,1,"S");
+      await addImageFit(doc,signature,m+1,sigY+1,sigW-2,sigH-2);
+      doc.setFont("helvetica","normal");doc.setFontSize(6.5);doc.setTextColor(80,80,85);
+      doc.text("Name: "+(document.getElementById("representative").value.trim() && document.getElementById("relationship").value!=="Self" ? document.getElementById("representative").value.trim() : patientName),m,sigY+23);
+      doc.text("Signed electronically / uploaded image",m,sigY+27);
+
+      // Optional Aadhaar image is printed immediately below the signature block.
+      doc.setFont("helvetica","bold");doc.setFontSize(6.5);doc.setTextColor(48,75,90);
+      doc.text("MASKED AADHAAR"+(aadhaarImage ? "" : " · NOT UPLOADED"),m,270);
+      if(aadhaarImage){
+        doc.setDrawColor(205,209,213);doc.roundedRect(m,273,64,15,1,1,"S");
+        await addImageFit(doc,aadhaarImage,m+1,274,62,13);
+      }else{
+        doc.setFont("helvetica","normal");doc.setFontSize(6);doc.setTextColor(125,125,130);
+        doc.text("Optional · Not uploaded",m,276);
+      }
+      doc.setFont("helvetica","normal");doc.setFontSize(5.8);doc.setTextColor(115,115,120);
+      doc.text("This PDF records information entered in the browser; it is not, by itself, identity verification.",m,293);
+      doc.text("Thomson Clinic · "+currentReference,right,296,{align:"right"});
+      const filename="ThomsonClinic_Consent_"+currentReference+".pdf";
+      const blob=doc.output("blob");
+      showPdfPreview(blob,filename);
+      showStatus("Your consent PDF is ready for review. Nothing has been sent to Thomson Clinic. If a correction is needed, select Edit consent and generate a fresh PDF.");
+    }catch(err){showError(err && err.message ? err.message : "Could not generate the PDF. Please try again.");}
+    finally{btn.disabled=false;btn.textContent="Generate PDF for preview";}
+  });
+
+  document.getElementById("editConsent").addEventListener("click", returnToForm);
+  document.getElementById("downloadConsent").addEventListener("click", () => {
+    if(!generatedPdfUrl) return;
+    const a=document.createElement("a");a.href=generatedPdfUrl;a.download=generatedPdfFilename || "ThomsonClinic_Consent.pdf";
+    document.body.appendChild(a);a.click();a.remove();
+  });
+  document.getElementById("shareWhatsApp").addEventListener("click", async () => {
+    const message = "Hello Thomson Clinic, I am sharing my reviewed informed consent PDF.";
+    if (!generatedPdfBlob || !generatedPdfFilename) {
+      showError("Please generate the consent PDF before sharing.");
+      return;
+    }
+
+    // On supported mobile browsers, use the native file-sharing sheet.
+    // The user selects WhatsApp; the PDF is passed as an actual file attachment.
+    try {
+      const pdfFile = new File([generatedPdfBlob], generatedPdfFilename, { type: "application/pdf" });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        await navigator.share({ files: [pdfFile], title: "Thomson Clinic consent PDF", text: message });
+        showStatus("The PDF was handed to your device's share menu. Select WhatsApp and choose the Thomson Clinic chat to send it.");
+        return;
+      }
+    } catch (err) {
+      if (err && err.name === "AbortError") return; // User cancelled the native share sheet.
+      // If native file sharing fails, continue to the WhatsApp fallback below.
+    }
+
+    // Fallback for desktop/unsupported browsers: download the PDF and open the clinic chat.
+    const a = document.createElement("a");
+    a.href = generatedPdfUrl;
+    a.download = generatedPdfFilename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    const wa = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message + " I have downloaded the PDF and will attach it here.");
+    window.open(wa, "_blank", "noopener,noreferrer");
+    showStatus("The PDF has been downloaded and the Thomson Clinic WhatsApp chat opened. Please attach the downloaded PDF manually before sending.");
+  });
+
+  function bindPreview(inputId,previewId){
+    const input=document.getElementById(inputId), preview=document.getElementById(previewId);
+    input.addEventListener("change",()=>{
+      const file=input.files && input.files[0];
+      if(!file){preview.style.display="none";preview.removeAttribute("src");return;}
+      if(file.size>5*1024*1024){showError("Please select an image no larger than 5 MB.");input.value="";preview.style.display="none";return;}
+      preview.src=URL.createObjectURL(file);preview.style.display="block";
+    });
+  }
+  bindPreview("patientPhoto","photoPreview");bindPreview("signaturePhoto","signaturePreview");bindPreview("aadhaarPhoto","aadhaarPreview");
+})();
+</script>
+</body>
+</html>
