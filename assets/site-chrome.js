@@ -17,6 +17,7 @@
     ["Dr. Asit Kumar Mohanty · Radiation Oncology", "dr-asit-kumar-mohanty-senior-consultant-hod-radiation-oncology-kims-bhubaneswar"],
     ["Dr. Aswini Kumar Panigrahi · Nephrology", "dr-aswini-kumar-panigrahi-senior-consultant-nephrologist-apollo-hospital-hyderabad"],
     ["Dr. Bishnu Prasad Sahoo · Neuropsychiatry", "dr-bishnu-prasad-sahoo-neuropsychiatrist-aiims-bhubaneswar"],
+    ["Dr. Jyoti R. Senapati · Orthopaedics", "dr-jyoti-senapati-consultant-orthopedic-surgeon-sports-medicine-arthroscopy-bhubaneswar-chennai"],
     ["Dr. Byomakesh Dikshit · Cardiology", "dr-byomakesh-dikshit-senior-consultant-cardiologist-bhubaneswar"],
     ["Dr. Debasish Prusty · Pediatrics", "dr-debasish-prusty-consultant-pediatrician-bhubaneswar"],
     ["Dr. Thitta Mohanty · Respiratory Medicine", "dr-thitta-mohanty-professor-respiratory-medicine-pgimer-capital-hospital-bhubaneswar"],
