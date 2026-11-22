@@ -6305,26 +6305,6 @@ alt:image.alt||name
 };
 });
 
-const additionalDoctorSearchProfiles = [
-{name:"Dr. Amit Kumar",specialty:"Paediatrics",practice:"Little Steps Clinic",locations:["Bhubaneswar","Patia","Odisha"],keywords:["paediatrics","pediatrics","pediatrician","child health","immunisation","growth and development","respiratory infections","nutrition"],slug:"dr-amit-kumar",photo:"dr-amit-kumar.jpeg"},
-{name:"Dr. Ananya Rao",specialty:"Psychiatry",practice:"Thomson Clinic",locations:["Bhubaneswar","Unit 4","Odisha","online"],keywords:["psychiatry","psychiatrist","mental health","depression","anxiety","bipolar disorder","sleep concerns","stress"],slug:"dr-ananya-rao",photo:"dr-ananya-rao.jpeg"},
-{name:"Dr. Arjun Mohanty",specialty:"Neurology",practice:"NeuroCare Clinic",locations:["Bhubaneswar","Nayapalli","Odisha","online"],keywords:["neurology","neurologist","headache","epilepsy","stroke follow-up","neuropathy","movement disorders"],slug:"dr-arjun-mohanty",photo:"dr-arjun-mohanty.jpeg"},
-{name:"Dr. Fatima Khan",specialty:"Ophthalmology",practice:"Clear Vision Eye Clinic",locations:["Khurda","Odisha"],keywords:["ophthalmology","ophthalmologist","eye care","cataract","glaucoma","refractive errors","dry eye"],slug:"dr-fatima-khan",photo:"dr-fatima-khan.jpeg"},
-{name:"Dr. Isha Patel",specialty:"ENT",practice:"ENT Consultation Centre",locations:["Cuttack","Badambadi","Odisha","online"],keywords:["ENT","ear nose and throat","sinusitis","allergic rhinitis","hearing concerns","tonsillitis","vertigo"],slug:"dr-isha-patel",photo:"dr-isha-patel.jpeg"},
-{name:"Dr. Meera Nair",specialty:"Dermatology",practice:"SkinCare Clinic",locations:["Cuttack","College Square","Odisha","online"],keywords:["dermatology","dermatologist","skin","hair","nail","acne","eczema","psoriasis","hair loss","skin infections"],slug:"dr-meera-nair",photo:"dr-meera-nair.jpeg"},
-{name:"Dr. Priya Sharma",specialty:"Obstetrics and Gynaecology",practice:"Women's Health Clinic",locations:["Puri","Odisha","online"],keywords:["obstetrics","gynaecology","gynecology","women's health","antenatal care","menstrual disorders","PCOS","contraception","menopause"],slug:"dr-priya-sharma",photo:"dr-priya-sharma.jpeg"},
-{name:"Dr. Rohan Mehta",specialty:"Cardiology",practice:"City Heart Centre",locations:["Bhubaneswar","Saheed Nagar","Odisha"],keywords:["cardiology","cardiologist","heart","hypertension","coronary artery disease","heart failure","preventive cardiology"],slug:"dr-rohan-mehta",photo:"dr-rohan-mehta.jpeg"},
-{name:"Dr. Siddharth Das",specialty:"General Medicine",practice:"Metro Medical Centre",locations:["Bhubaneswar","Jaydev Vihar","Odisha","online"],keywords:["general medicine","physician","adult medicine","diabetes","hypertension","thyroid disorders","fever","preventive health"],slug:"dr-siddharth-das",photo:"dr-siddharth-das.jpeg"},
-{name:"Dr. Vikram Singh",specialty:"Orthopaedics",practice:"OrthoCare Centre",locations:["Bhubaneswar","Khandagiri","Odisha"],keywords:["orthopaedics","orthopedics","orthopaedic surgeon","knee pain","back pain","sports injuries","arthritis","fracture follow-up"],slug:"dr-vikram-singh",photo:"dr-vikram-singh.jpeg"}
-].map(profile=>({
-...profile,
-href:`${doctorAssetPrefix}doctors/${profile.slug}/index.html`,
-image:`${doctorAssetPrefix}doctors/${profile.slug}/${profile.photo}`,
-alt:profile.name
-}));
-
-doctorSearchProfiles.push(...additionalDoctorSearchProfiles);
-
 let activeDoctorSearchResult=-1;
 
 function closeDoctorSearch(){
